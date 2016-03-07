@@ -137,7 +137,7 @@
 		</div>
 			<script>
   			$(document).ready(function() {
-      		$("#trajeto").tooltip({ effect: 'slide'});
+      		$("#rota").tooltip({ effect: 'slide'});
     		});
     		</script>
 	</body>
