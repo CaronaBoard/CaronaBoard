@@ -137,22 +137,7 @@
 		</div>
 			<script>
   			$(document).ready(function() {
-      		$("#rota1").tooltip({ effect: 'slide'});
-    		});
-    		</script>
-    		<script>
-  			$(document).ready(function() {
-      		$("#rota2").tooltip({ effect: 'slide'});
-    		});
-    		</script>
-    		<script>
-  			$(document).ready(function() {
-      		$("#rota3").tooltip({ effect: 'slide'});
-    		});
-    		</script>
-    		<script>
-  			$(document).ready(function() {
-      		$("#rota4").tooltip({ effect: 'slide'});
+      		$("#rota").tooltip({ effect: 'slide'});
     		});
     		</script>
 	</body>
