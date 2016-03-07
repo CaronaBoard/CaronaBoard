@@ -1,0 +1,146 @@
+@media 	only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px)  {
+		/* Force table to not be like tables anymore */
+		table, thead, tbody, th, td, tr {
+			display: block;
+		}
+		th {font-weight: bold;}
+		/* Hide table headers (but not display: none;, for accessibility) */
+		thead tr {
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		}
+		tr { border: 1px solid #000000; }
+		td {
+			/* Behave  like a "row" */
+			border: none;
+			border-bottom: 1px solid #000000;
+			position: relative;
+			padding-left: 50% !important;
+		}
+		td:before {
+			/* Now like a table header */
+			position: absolute;
+			/* Top/left values mimic padding */
+			top: 6px;
+			left: 6px;
+			width: 45%;
+			padding-right: 10px;
+			white-space: nowrap;
+			font-weight: bold;
+		}
+		/*
+		Label the data
+		*/
+		td:nth-of-type(1):before { content: "Rota"; }
+		td:nth-of-type(2):before { content: "Quando"; }
+		td:nth-of-type(3):before { content: "Horário"; }
+		td:nth-of-type(4):before { content: "Motorista"; }
+		td:nth-of-type(5):before { content: ""; }
+	}
+
+	/* Smartphones (portrait and landscape) ----------- */
+	@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+		body {
+			padding: 0;
+			margin: 0;
+			width: 320px; }
+		}
+	/* iPads (portrait and landscape) ----------- */
+	@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+		body {
+			width: 495px;
+		}
+	}
+body { 
+	font: 14px/1.4 'Open Sans', Arial; 
+}
+#page-wrap {
+	margin: 50px;
+}
+p {
+	margin: 20px 0; 
+}
+h1 {
+	color: #A80874;
+	font-size: 3.2em;
+	margin: 1em 0 0 0;
+}
+h2 {
+	font-size: 1.6em;
+	margin: 0 0 1.2em 0;
+	font-style: italic;
+	font-weight: 200;
+}
+ul{
+	margin-bottom: 2em;
+}
+li {
+	font-size: 1.4em;
+}
+/* Generic Styling, for Desktops/Laptops */
+table { 
+	width: 90%; 
+	border-collapse: collapse; 
+}
+/* Zebra striping */
+tr:nth-of-type(odd) { 
+	background-color: #DEE5E5; 
+}
+th {
+    background-color: #A80874;
+    color: #FFF;
+    font-weight: bold;
+}
+td, th {
+    padding: 6px;
+    border: 1px solid #D0CCD0;
+    text-align: left;
+}
+#button_carona {
+	display: block;
+	border-radius: 0.4em;
+	background-color: #20BF55;
+	color: #FFF;
+	box-shadow: 0.1em 0.1em 0.2em #777;
+	padding:0.4em;
+	text-align: center;
+}
+#button_carona a{
+	color: #FFF;
+	text-decoration: none;
+	font-weight: bold;
+}
+#dar_carona {
+	display: block;
+	margin: 40px 30%;
+	width: 30%;
+	border-radius: 0.4em;
+	border: solid 1px #D0CCD0;
+	background-color: #DEE5E5;
+	padding: 12px;
+	text-align: center;
+}
+#rota {
+	display: inline;
+	overflow: hidden;
+	cursor: pointer;
+	text-indent:-999em;
+	background: transparent;
+	font-size: 1em;
+	color: #A80874;
+	font-weight: 100;
+	text-decoration: underline;
+	font-style: italic;
+	padding-left: 5px;
+}
+#label {
+	background-color: #DEE5E5;
+}
+#rota:hover {
+    background-position: 50% 0%;
+  }
+#rota:focus {
+    background-position: 50% 0%;
+  }
+ 

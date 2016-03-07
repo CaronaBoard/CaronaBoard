@@ -1,0 +1,40 @@
+.tooltip {
+    display: none;
+    background: #FFFFFF;
+    padding: 0;
+    min-width: 160px;
+    overflow: hidden;
+    min-height: 100px;
+    color: #000;
+  }
+ 
+  /* a .label element inside tooltip */
+.label {
+    color:#000000;
+    background: #DEE5E5;
+    font-weight: bold;
+    font-size: 1em;
+  } 
+td .label {
+  margin-left: 6px;
+}
+.tooltip tr {
+	border: 1px solid #DEE5E5;
+	background: #FFFFFF;
+}
+.tooltip td, th {
+  padding: 0px;
+}
+.tooltip ol li {
+  font-size: 1em;
+  font-weight: 200;
+  font-style: italic;
+}
+.tooltip ol li:first-child, ol li:last-child {
+  font-size: 1em;
+  font-weight: bold;
+  font-style: italic;
+}
+.tooltip table {
+  width: 100%;
+}
