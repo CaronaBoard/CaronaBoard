@@ -6,8 +6,7 @@
 		<meta name="keywords" content="Transport, ride, urban, car, share">
 		<meta name="author" content="Hege Refsnes">
 		<link rel="stylesheet" type="text/css" href="index.css">
-		<link rel="stylesheet" type="text/css" href="tooltip.css">
-		<script src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
+\		<script src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
 	</head>
 	<body>
 		<div id="page-wrap">
