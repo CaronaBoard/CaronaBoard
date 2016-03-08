@@ -72,13 +72,15 @@ h2 {
 	font-style: italic;
 	font-weight: 200;
 }
-ul{
+ul {
 	margin-bottom: 2em;
 }
-li {
+ul li {
 	font-size: 1.4em;
 }
-/* Generic Styling, for Desktops/Laptops */
+ol li {
+	padding: 0;
+}
 table { 
 	width: 90%; 
 	border-collapse: collapse; 
