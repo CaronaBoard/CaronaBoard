@@ -35,10 +35,10 @@
 								<ol>
 							    	<li>Origem: Tecnopuc</li>
 									<li>Destino: Castro Alves</li>
+									<p>(*) Rota Flexível</p>
 								</ol>
-						    	<p>(*) Rota Flexível</p>
 							</td>
-							<td>Seg a Sex/td>
+							<td>Seg a Sex</td>
 							<td>19:00 a 20:00</td>
 							<td>Fulano Silva</td>
 							<td><div id="button_carona"><a href="http://goo.gl/forms/Jt7rddWqFn" target="_blank">QUERO CARONA!</a></div></td>
@@ -49,8 +49,8 @@
 								<ol>
 							    	<li>Origem: Tecnopuc</li>
 							        <li>Destino: Lima e Silva</li>
+							        <p>(*) Rota Fixa: falar motorista</p>
 								</ol>
-						    	<p>(*) Rota Fixa: falar motorista</p>
 							</td>
 							<td>Seg a Sex</td>
 							<td>18:00 a 19:00</td>
