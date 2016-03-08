@@ -22,7 +22,7 @@
 					<thead>
 						<tr>
 							<th>Rota</th>
-							<th>Trajeto<th>
+							<th>Trajeto</th>
 							<th>Quando</th>
 							<th>Horário</th>
 							<th>Motorista</th>
@@ -32,13 +32,60 @@
 					<tbody>
 						<tr>
 							<td><strong>Bom fim</strong></td>
-							<td>Trajeto</td>
+							<td>
+								<ol>
+							    	<li>Origem: Tecnopuc</li>
+									<li>Destino: Castro Alves</li>
+								</ol>
+								<p>(*) Rota Flexível</p>
+							</td>
 							<td>Seg a Sex</td>
 							<td>19:00 a 20:00</td>
 							<td>Fulano Silva</td>
-							<td>Button</td>
+							<td><div id="button_carona"><a href="http://goo.gl/forms/Jt7rddWqFn" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
-						
+						<tr>
+							<td><strong>Cidade Baixa</strong></td>
+							<td>
+								<ol>
+							    	<li>Origem: Tecnopuc</li>
+							        <li>Destino: Lima e Silva</li>
+								</ol>
+								<p>(*) Rota Fixa: falar motorista</p>
+							</td>
+							<td>Seg a Sex</td>
+							<td>18:00 a 19:00</td>
+							<td>Siclana</td>
+							<td><div id="button_carona"><a href="http://goo.gl/forms/3zFqZS1SvR" target="_blank">QUERO CARONA!</a></div></td>
+						</tr>
+						<tr>
+							<td><strong>Protásio Alves</strong></td>
+							<td>
+				            	<ol>
+				            		<li>Origem: Tecnopuc</li>
+				            		<li>Destino: Protásio Alves esquina com Carlos Gomes</li>
+								</ol>
+								<p>(*) Rota Fixa: falar motorista</p>
+							</td>
+							<td>Seg, Qua</td>
+							<td>19:00</td>
+							<td>Fulana Silva</td>
+							<td><div id="button_carona"><a href="http://goo.gl/forms/iKCKMbnNX3" target="_blank">QUERO CARONA!</a></div></td>
+						</tr>
+						<tr>
+							<td><strong>Aeroporto</strong></td>
+				            <td>
+				            	<ol>
+				            		<li>Origem: Tecnopuc</li>
+				            		<li>Destino: Estação Trensurb Bairro Anchieta</li>
+				            	</ol>
+				            	<p>(*) Rota Fixa: falar motorista</p>
+							</td>
+							<td>Seg, Qua</td>
+							<td>19:00</td>
+							<td>Fulana Silva</td>
+							<td><div id="button_carona"><a href="http://goo.gl/forms/TQAKwXzAg3" target="_blank">QUERO CARONA!</a></div></td>
+						</tr>
 					</tbody> 
 				</table>
 			<p></p>
