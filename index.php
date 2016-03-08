@@ -35,8 +35,8 @@
 								<ol>
 							    	<li>Origem: Tecnopuc</li>
 									<li>Destino: Castro Alves</li>
-									<p>(*) Rota Flexível</p>
 								</ol>
+								<p>(*) Rota Flexível</p>
 							</td>
 							<td>Seg a Sex</td>
 							<td>19:00 a 20:00</td>
@@ -49,8 +49,8 @@
 								<ol>
 							    	<li>Origem: Tecnopuc</li>
 							        <li>Destino: Lima e Silva</li>
-							        <p>(*) Rota Fixa: falar motorista</p>
 								</ol>
+								<p>(*) Rota Fixa: falar motorista</p>
 							</td>
 							<td>Seg a Sex</td>
 							<td>18:00 a 19:00</td>
@@ -63,8 +63,8 @@
 				            	<ol>
 				            		<li>Origem: Tecnopuc</li>
 				            		<li>Destino: Protásio Alves esquina com Carlos Gomes</li>
-				            		<p>(*) Rota Fixa: falar motorista</p>
 								</ol>
+								<p>(*) Rota Fixa: falar motorista</p>
 							</td>
 							<td>Seg, Qua</td>
 							<td>19:00</td>
@@ -77,8 +77,8 @@
 				            	<ol>
 				            		<li>Origem: Tecnopuc</li>
 				            		<li>Destino: Estação Trensurb Bairro Anchieta</li>
-				            		<p>(*) Rota Fixa: falar motorista</p>
 				            	</ol>
+				            	<p>(*) Rota Fixa: falar motorista</p>
 							</td>
 							<td>Seg, Qua</td>
 							<td>19:00</td>
