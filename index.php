@@ -28,6 +28,7 @@
 							<th>Motorista</th>
 							<th></th>
 						</tr>
+					</thead>
 					<tbody>
 						<tr>
 							<td><strong>Bom fim</strong></td>
