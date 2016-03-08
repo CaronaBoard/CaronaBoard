@@ -24,7 +24,7 @@
 			/* Top/left values mimic padding */
 			top: 6px;
 			left: 6px;
-			width: 45%;
+			width: 25%;
 			padding-right: 10px;
 			white-space: nowrap;
 			font-weight: bold;
@@ -82,7 +82,7 @@ ul li {
 	font-size: 1.4em;
 }
 td p {
-	padding: 0 30px 0 0;
+	margin: 0 30px 0 0;
 	font-size: 1em;
 	font-style: italic;
 	color: red;
@@ -130,7 +130,7 @@ td, th {
 	padding: 12px;
 	text-align: center;
 }
-#dar_carona a {
-	padding-bottom: 6px;
+div #dar_carona a {
+	padding-bottom: 12px;
 }
  
