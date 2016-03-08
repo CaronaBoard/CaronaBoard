@@ -131,7 +131,8 @@ td, th {
 	padding: 12px;
 	text-align: center;
 }
-div #dar_carona a {
-	padding-bottom: 40px;
+a .cadastro{
+	padding-bottom: 12px;
+	color: #A80874;
 }
  

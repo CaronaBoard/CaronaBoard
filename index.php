@@ -6,7 +6,7 @@
 		<meta name="keywords" content="Transport, ride, urban, car, share">
 		<meta name="author" content="Hege Refsnes">
 		<link rel="stylesheet" type="text/css" href="index.css">
-\		<script src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
+		<script src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
 	</head>
 	<body>
 		<div id="page-wrap">
@@ -89,7 +89,7 @@
 				</table>
 			<p></p>
 			<div id="dar_carona">
-			<h3>Voce quer dar carona? </h3> <a href="http://goo.gl/forms/ohEbgkMa9i" target="_blank">Se cadastre aqui</a>
+			<h3>Voce quer dar carona? </h3> <a class="cadastro" href="http://goo.gl/forms/ohEbgkMa9i" target="_blank">Se cadastre aqui</a>
 			</div>
 		</div>
 	</body>
