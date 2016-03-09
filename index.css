@@ -135,4 +135,12 @@ a .cadastro{
 	padding-bottom: 12px;
 	color: #A80874;
 }
+.depende {
+	padding-left: 12px;
+	color: red;
+}
+.sim {
+	padding-left: 12px;
+	color: green;
+}
  
