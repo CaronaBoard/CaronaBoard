@@ -30,13 +30,27 @@
 					</thead>
 					<tbody>
 						<tr>
+							<td><strong>Aeroporto</strong></td>
+				            <td>
+				            	<ol>
+				            		<li>Origem: Tecnopuc</li>
+				            		<li>Destino: Estação Trensurb Bairro Anchieta</li>
+				            	</ol>
+				            	<p class="depende">(*)Rota flexível? falar c/ motorista</p>
+							</td>
+							<td>Seg a Sex</td>
+							<td>19:00</td>
+							<td>Fulana Silva</td>
+							<td><div id="button_carona"><a href="http://goo.gl/forms/TQAKwXzAg3" target="_blank">QUERO CARONA!</a></div></td>
+						</tr>
+						<tr>
 							<td><strong>Bom fim</strong></td>
 							<td>
 								<ol>
 							    	<li>Origem: Tecnopuc</li>
 									<li>Destino: Castro Alves</li>
 								</ol>
-								<p>(*) Rota Flexível</p>
+								<p class="sim">(*)Rota flexível? Sim</p>
 							</td>
 							<td>Seg a Sex</td>
 							<td>19:00 a 20:00</td>
@@ -50,12 +64,40 @@
 							    	<li>Origem: Tecnopuc</li>
 							        <li>Destino: Lima e Silva</li>
 								</ol>
-								<p>(*) Rota Fixa: falar motorista</p>
+								<p class="depende">(*)Rota flexível? falar c/ motorista</p>
 							</td>
 							<td>Seg a Sex</td>
 							<td>18:00 a 19:00</td>
-							<td>Siclana</td>
+							<td>Siclana Silva</td>
 							<td><div id="button_carona"><a href="http://goo.gl/forms/3zFqZS1SvR" target="_blank">QUERO CARONA!</a></div></td>
+						</tr>
+						<tr>
+							<td><strong>Nonoai</strong></td>
+							<td>
+				            	<ol>
+				            		<li>Origem: Tecnopuc</li>
+				            		<li>Destino: Nonoai via orfanatrófio</li>
+								</ol>
+								<p class="depende">(*)Rota flexível? falar c/ motorista</p>
+							</td>
+							<td>Seg a Sex</td>
+							<td>19:00</td>
+							<td>Beltrano Silva</td>
+							<td><div id="button_carona"><a href="http://goo.gl/forms/dbR9YM963H" target="_blank">QUERO CARONA!</a></div></td>
+						</tr>
+						<tr>
+							<td><strong>Oscar Pereira</strong></td>
+							<td>
+				            	<ol>
+				            		<li>Origem: Tecnopuc</li>
+				            		<li>Destino: oscar Pereira via Azenha ou Bento</li>
+								</ol>
+								<p class="depende">(*)Rota flexível? falar c/ motorista</p>
+							</td>
+							<td>Seg a Sex</td>
+							<td>19:00 a 20:00</td>
+							<td>Beltrano Silva</td>
+							<td><div id="button_carona"><a href="http://goo.gl/forms/hyGj1rx26x" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
 							<td><strong>Protásio Alves</strong></td>
@@ -64,26 +106,26 @@
 				            		<li>Origem: Tecnopuc</li>
 				            		<li>Destino: Protásio Alves esquina com Carlos Gomes</li>
 								</ol>
-								<p>(*) Rota Fixa: falar motorista</p>
+								<p class="depende">(*)Rota flexível? falar c/ motorista</p>
 							</td>
 							<td>Seg, Qua</td>
-							<td>19:00</td>
+							<td>18:00 a 19:00</td>
 							<td>Fulana Silva</td>
 							<td><div id="button_carona"><a href="http://goo.gl/forms/iKCKMbnNX3" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
-							<td><strong>Aeroporto</strong></td>
-				            <td>
+							<td><strong>Santo Antônio (perto colégio La Salle)</strong></td>
+							<td>
 				            	<ol>
 				            		<li>Origem: Tecnopuc</li>
-				            		<li>Destino: Estação Trensurb Bairro Anchieta</li>
-				            	</ol>
-				            	<p>(*) Rota Fixa: falar motorista</p>
+				            		<li>Destino: Santo Antônio via Bento</li>
+								</ol>
+								<p class="depende">(*)Rota flexível? falar c/ motorista</p>
 							</td>
-							<td>Seg, Qua</td>
-							<td>19:00</td>
-							<td>Fulana Silva</td>
-							<td><div id="button_carona"><a href="http://goo.gl/forms/TQAKwXzAg3" target="_blank">QUERO CARONA!</a></div></td>
+							<td>Seg a Sex</td>
+							<td>Sob consulta</td>
+							<td>Beltrano Silva</td>
+							<td><div id="button_carona"><a href="http://goo.gl/forms/yezpR5lzGY" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 					</tbody> 
 				</table>
