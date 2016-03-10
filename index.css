@@ -121,8 +121,28 @@ td, th {
 	text-decoration: none;
 	font-weight: bold;
 }
+#title {
+	display: inline-block;
+	margin: 40px 30%;
+	width: 30%;
+	border-radius: 0.4em;
+	border: solid 1px #D0CCD0;
+	background-color: #DEE5E5;
+	padding: 12px;
+	text-align: center;
+}
 #dar_carona {
-	display: block;
+	display: inline-block;
+	margin: 40px 30%;
+	width: 30%;
+	border-radius: 0.4em;
+	border: solid 1px #D0CCD0;
+	background-color: #DEE5E5;
+	padding: 12px;
+	text-align: center;
+}
+#feedback {
+	display: inline-block;
 	margin: 40px 30%;
 	width: 30%;
 	border-radius: 0.4em;

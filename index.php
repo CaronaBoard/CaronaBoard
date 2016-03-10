@@ -11,6 +11,7 @@
 	<body>
 		<div id="page-wrap">
 			<div id="header">
+			<div id="title">
 			<h1>Carona Board</h1>
 			<h2>Seu carro não precisa levar apenas você</h2>
 			<ul>
@@ -21,6 +22,7 @@
 			</div>
 			<div id="dar_carona">
 			<h3>Voce quer dar carona? </h3> <a class="cadastro" href="http://goo.gl/forms/ohEbgkMa9i" target="_blank">Se cadastre aqui</a>
+			</div>
 			</div>
 			<table>
 					<thead>
@@ -136,7 +138,7 @@
 				</table>
 			<p></p>
 			<div id="feedback">
-			<h3>Voce quer dar carona? </h3> <a class="cadastro" href="http://goo.gl/forms/ohEbgkMa9i" target="_blank">Se cadastre aqui</a>
+			<h3>Voce quer dar carona? </h3> <a class="cadastro" href="http://goo.gl/forms/GYVDfZuhWg" target="_blank">Se cadastre aqui</a>
 			</div>
 		</div>
 	</body>
