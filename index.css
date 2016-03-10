@@ -130,7 +130,8 @@ td, th {
 }
 #dar_carona {
 	display: block;
-	width: 30%;
+	width: 20%;
+	margin: 40px 10% 0 0;
 	border-radius: 0.4em;
 	border: solid 1px #D0CCD0;
 	background-color: #DEE5E5;
