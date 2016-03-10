@@ -15,9 +15,10 @@
 			<h1>Carona Board</h1>
 			<h2>Seu carro não precisa levar apenas você</h2>
 			<ul>
-				<li>Otimize o uso do seu carro</li>
-				<li>Ajude quem precisam de carona</li>
-				<li>Contribua para o trânsito de Porto Alegre</li>
+				<li>Encontre uma rota que passe perto do seu destino</li>
+				<li>Clique no botão "Quero Carona"</li>
+				<li>Preencha o pedido de carona e envie o pedido</li>
+				<li>Pronto! Seu colega oferecendo carona para a rota selecionada irá receber sua mensagem</li>
 			</ul>
 			</div>
 			<div id="dar_carona">
