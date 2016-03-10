@@ -56,7 +56,7 @@ body {
 	font: 14px/1.4 'Open Sans', Arial; 
 }
 #page-wrap {
-	margin: 50px;
+	margin: 20px 50px;
 }
 p {
 	margin: 20px 0; 
@@ -64,7 +64,7 @@ p {
 h1 {
 	color: #A80874;
 	font-size: 3.2em;
-	margin: 1em 0 0 0;
+	margin: 0;
 }
 h2 {
 	font-size: 1.6em;
@@ -136,7 +136,7 @@ td, th {
 #dar_carona {
 	display: block;
 	width: 20%;
-	margin: 10% 0 0 0;
+	margin: 7% 0 0 0;
 	border-radius: 0.4em;
 	border: solid 1px #D0CCD0;
 	background-color: #DEE5E5;
