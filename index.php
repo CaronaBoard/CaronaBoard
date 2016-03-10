@@ -15,7 +15,7 @@
 			<ul>
 				<li>Otimize o uso do seu carro</li>
 				<li>Ajude quem precisam de carona</li>
-				<li>Contribua para o transito de Porto Alegre</li>
+				<li>Contribua para o trânsito de Porto Alegre</li>
 			</ul>
 			<table>
 					<thead>
