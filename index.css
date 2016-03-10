@@ -122,7 +122,7 @@ td, th {
 	font-weight: bold;
 }
 #title {
-	display: inline-block;
+	display: inline;
 	margin: 40px 30%;
 	width: 30%;
 	border-radius: 0.4em;
@@ -132,7 +132,7 @@ td, th {
 	text-align: center;
 }
 #dar_carona {
-	display: inline-block;
+	display: inline;
 	margin: 40px 30%;
 	width: 30%;
 	border-radius: 0.4em;
