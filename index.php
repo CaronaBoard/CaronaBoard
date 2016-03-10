@@ -10,6 +10,7 @@
 	</head>
 	<body>
 		<div id="page-wrap">
+			<div id="header">
 			<h1>Carona Board</h1>
 			<h2>Seu carro não precisa levar apenas você</h2>
 			<ul>
@@ -17,6 +18,10 @@
 				<li>Ajude quem precisam de carona</li>
 				<li>Contribua para o trânsito de Porto Alegre</li>
 			</ul>
+			</div>
+			<div id="dar_carona">
+			<h3>Voce quer dar carona? </h3> <a class="cadastro" href="http://goo.gl/forms/ohEbgkMa9i" target="_blank">Se cadastre aqui</a>
+			</div>
 			<table>
 					<thead>
 						<tr>
@@ -130,9 +135,6 @@
 					</tbody> 
 				</table>
 			<p></p>
-			<div id="dar_carona">
-			<h3>Voce quer dar carona? </h3> <a class="cadastro" href="http://goo.gl/forms/ohEbgkMa9i" target="_blank">Se cadastre aqui</a>
-			</div>
 		</div>
 	</body>
 <html>
