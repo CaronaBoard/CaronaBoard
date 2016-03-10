@@ -135,6 +135,9 @@
 					</tbody> 
 				</table>
 			<p></p>
+			<div id="feedback">
+			<h3>Voce quer dar carona? </h3> <a class="cadastro" href="http://goo.gl/forms/ohEbgkMa9i" target="_blank">Se cadastre aqui</a>
+			</div>
 		</div>
 	</body>
 <html>
