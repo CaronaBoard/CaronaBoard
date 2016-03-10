@@ -110,7 +110,7 @@ td, th {
 #button_carona {
 	display: block;
 	border-radius: 0.4em;
-	margin: 10% 0 0 0;
+	margin: 0;
 	background-color: #20BF55;
 	color: #FFF;
 	box-shadow: 0.1em 0.1em 0.2em #777;
@@ -136,7 +136,7 @@ td, th {
 #dar_carona {
 	display: block;
 	width: 20%;
-	margin: 40px 10% 0 0;
+	margin: 10% 0 0 0;
 	border-radius: 0.4em;
 	border: solid 1px #D0CCD0;
 	background-color: #DEE5E5;
