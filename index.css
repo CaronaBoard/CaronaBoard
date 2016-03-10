@@ -110,6 +110,7 @@ td, th {
 #button_carona {
 	display: block;
 	border-radius: 0.4em;
+	margin: 10% 0 0 0;
 	background-color: #20BF55;
 	color: #FFF;
 	box-shadow: 0.1em 0.1em 0.2em #777;
@@ -121,9 +122,13 @@ td, th {
 	text-decoration: none;
 	font-weight: bold;
 }
+#header {
+	display: inline-block;
+	width: 90%;
+}
 #title {
 	display: block;
-	width: 60%;
+	width: 70%;
 	padding: 12px;
 	text-align: left;
 	float: left;
