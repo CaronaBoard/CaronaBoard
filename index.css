@@ -123,19 +123,19 @@ td, th {
 }
 #title {
 	display: block;
-	width: 50%;
+	width: 60%;
 	padding: 12px;
 	text-align: left;
 	float: left;
 }
 #dar_carona {
 	display: block;
-	width: 50%;
+	width: 30%;
 	border-radius: 0.4em;
 	border: solid 1px #D0CCD0;
 	background-color: #DEE5E5;
 	padding: 12px;
-	text-align: right;
+	text-align: center;
 	float: left;
 }
 #feedback {
