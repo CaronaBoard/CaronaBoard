@@ -18,7 +18,7 @@
 				<li>Encontre uma rota que passe perto do seu destino</li>
 				<li>Clique no botão "Quero Carona"</li>
 				<li>Preencha o pedido de carona e envie o pedido</li>
-				<li>Pronto! Seu colega oferecendo carona para a rota selecionada irá receber sua mensagem</li>
+				<li><strong>Pronto!</strong> Seu colega oferecendo carona para a rota selecionada irá receber sua mensagem</li>
 			</ul>
 			</div>
 			<div id="dar_carona">
