@@ -62,7 +62,7 @@
 							</td>
 							<td>Seg a Sex</td>
 							<td>19:00 a 20:00</td>
-							<td>Fulano Silva</td>
+							<td>Silva</td>
 							<td><div id="button_carona"><a href="http://goo.gl/forms/Jt7rddWqFn" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
@@ -76,7 +76,7 @@
 							</td>
 							<td>Seg a Sex</td>
 							<td>18:00 a 19:00</td>
-							<td>Siclana Silva</td>
+							<td>Siclana</td>
 							<td><div id="button_carona"><a href="http://goo.gl/forms/3zFqZS1SvR" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
@@ -90,7 +90,7 @@
 							</td>
 							<td>Seg a Sex</td>
 							<td>19:00</td>
-							<td>Beltrano Silva</td>
+							<td>Siclano</td>
 							<td><div id="button_carona"><a href="http://goo.gl/forms/dbR9YM963H" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
@@ -104,7 +104,7 @@
 							</td>
 							<td>Seg a Sex</td>
 							<td>19:00 a 20:00</td>
-							<td>Beltrano Silva</td>
+							<td>Beltrano</td>
 							<td><div id="button_carona"><a href="http://goo.gl/forms/hyGj1rx26x" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
@@ -118,7 +118,7 @@
 							</td>
 							<td>Seg, Qua</td>
 							<td>18:00 a 19:00</td>
-							<td>Fulana Silva</td>
+							<td>Fulana</td>
 							<td><div id="button_carona"><a href="http://goo.gl/forms/iKCKMbnNX3" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
@@ -132,7 +132,7 @@
 							</td>
 							<td>Seg a Sex</td>
 							<td>Sob consulta</td>
-							<td>Beltrano Silva</td>
+							<td>Fulano & Siclano</td>
 							<td><div id="button_carona"><a href="http://goo.gl/forms/yezpR5lzGY" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 					</tbody> 
