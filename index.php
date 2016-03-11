@@ -48,7 +48,7 @@
 							</td>
 							<td>Seg a Sex</td>
 							<td>19:00</td>
-							<td>Fulana Silva</td>
+							<td>Fulana</td>
 							<td><div id="button_carona"><a href="http://goo.gl/forms/TQAKwXzAg3" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
