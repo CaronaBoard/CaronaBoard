@@ -66,6 +66,20 @@
 							<td><div id="button_carona"><a href="http://goo.gl/forms/Jt7rddWqFn" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
+							<td><strong>Canoas</strong></td>
+							<td>
+								<ol id="passos">
+							    	<li>Origem: Tecnopuc</li>
+							        <li>Destino: Canoas</li>
+								</ol>
+								<p class="depende">(*)Rota flexível? falar c/ motorista</p>
+							</td>
+							<td>Ter a Qui</td>
+							<td>Sob Consulta</td>
+							<td>Siclano</td>
+							<td><div id="button_carona"><a href="http://goo.gl/forms/o9oLoISHlK" target="_blank">QUERO CARONA!</a></div></td>
+						</tr>
+						<tr>
 							<td><strong>Cidade Baixa</strong></td>
 							<td>
 								<ol id="passos">
