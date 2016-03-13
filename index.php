@@ -98,7 +98,7 @@
 							<td>
 				            	<ol>
 				            		<li>Origem: Tecnopuc</li>
-				            		<li>Destino: Lami via Oscar Pereria ou Lomba do Pinheiro</li>
+				            		<li>Destino: Lami, via Oscar Pereria ou Lomba do Pinheiro</li>
 								</ol>
 								<p class="depende">(*)Rota flexível? falar c/ motorista</p>
 							</td>
