@@ -94,6 +94,20 @@
 							<td><div id="button_carona"><a href="http://goo.gl/forms/3zFqZS1SvR" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
+							<td><strong>Lami</strong></td>
+							<td>
+				            	<ol>
+				            		<li>Origem: Tecnopuc</li>
+				            		<li>Destino: Lami via Oscar Pereria ou Lomba do Pinheiro</li>
+								</ol>
+								<p class="depende">(*)Rota flexível? falar c/ motorista</p>
+							</td>
+							<td>Seg a Sex</td>
+							<td>Ida para PUC(8h00) - Volta, depende do dia (consultar)</td>
+							<td>Siclana</td>
+							<td><div id="button_carona"><a href="http://goo.gl/forms/h8wRZf9hje" target="_blank">QUERO CARONA!</a></div></td>
+						</tr>
+						<tr>
 							<td><strong>Nonoai</strong></td>
 							<td>
 				            	<ol>
