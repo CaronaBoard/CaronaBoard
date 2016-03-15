@@ -22,6 +22,7 @@
 			</ol>
 			</div>
 			<div id="dar_carona">
+			<h4>AVISO: PRECISAMOS DE DOADORES DE CARONA PARA ZONA NORTE!</h4>
 			<h3>Voce quer dar carona? </h3> <a class="cadastro" href="http://goo.gl/forms/ohEbgkMa9i" target="_blank">Se cadastre aqui</a>
 			</div>
 			</div>

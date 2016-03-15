@@ -76,6 +76,9 @@ h2 {
 h3 {
 	margin: 16px 0 12px 0;
 }
+h4 {
+	color: #A80874;
+}
 ul {
 	margin-bottom: 2em;
 }
@@ -137,7 +140,7 @@ td, th {
 #dar_carona {
 	display: block;
 	width: 20%;
-	margin: 8% 0 0 0;
+	margin: 4% 0 0 0;
 	border-radius: 0.4em;
 	border: solid 1px #20BF55;
 	background-color: #DEE5E5;
