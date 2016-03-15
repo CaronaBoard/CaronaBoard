@@ -53,6 +53,20 @@
 							<td><div id="button_carona"><a href="http://goo.gl/forms/TQAKwXzAg3" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
+							<td><strong>Auxiliadora</strong></td>
+				            <td>
+				            	<ol>
+				            		<li>Origem: Tecnopuc</li>
+				            		<li>Destino: Carlos Gomas, 24 de Outubro</li>
+				            	</ol>
+				            	<p class="depende">(*)Rota flexível? falar c/ motorista</p>
+							</td>
+							<td>Seg a Sex</td>
+							<td>18:00 - 19:00</td>
+							<td>Silva</td>
+							<td><div id="button_carona"><a href="http://goo.gl/forms/87JyMW0t67" target="_blank">QUERO CARONA!</a></div></td>
+						</tr>
+						<tr>
 							<td><strong>Bom fim</strong></td>
 							<td>
 								<ol>
