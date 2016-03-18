@@ -95,6 +95,20 @@
 							<td><div id="button_carona"><a href="http://goo.gl/forms/o9oLoISHlK" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
+							<td><strong>Cavalhada</strong></td>
+							<td>
+								<ol id="passos">
+							    	<li>Origem: Tecnopuc</li>
+							        <li>Destino: Cavalhada, passando pelo Praia de Belas</li>
+								</ol>
+								<p class="depende">(*)Rota flexível? Não</p>
+							</td>
+							<td>Seg a Sex</td>
+							<td>19:00</td>
+							<td>Beltrano da Silva</td>
+							<td><div id="button_carona"><a href="http://goo.gl/forms/yIVHABCEkV" target="_blank">QUERO CARONA!</a></div></td>
+						</tr>
+						<tr>
 							<td><strong>Cidade Baixa</strong></td>
 							<td>
 								<ol id="passos">
@@ -165,20 +179,6 @@
 							<td><div id="button_carona"><a href="http://goo.gl/forms/dF11ctBlBT" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
-							<td><strong>Protásio Alves</strong></td>
-							<td>
-				            	<ol>
-				            		<li>Origem: Tecnopuc</li>
-				            		<li>Destino: Protásio Alves esquina com Carlos Gomes</li>
-								</ol>
-								<p class="depende">(*)Rota flexível? falar c/ motorista</p>
-							</td>
-							<td>Seg, Qua</td>
-							<td>18:00 a 19:00</td>
-							<td>Fulana Silva</td>
-							<td><div id="button_carona"><a href="http://goo.gl/forms/iKCKMbnNX3" target="_blank">QUERO CARONA!</a></div></td>
-						</tr>
-						<tr>
 							<td><strong>Santo Antônio (perto colégio La Salle)</strong></td>
 							<td>
 				            	<ol>
@@ -191,6 +191,20 @@
 							<td>Sob consulta</td>
 							<td>Fulano & Siclano</td>
 							<td><div id="button_carona"><a href="http://goo.gl/forms/yezpR5lzGY" target="_blank">QUERO CARONA!</a></div></td>
+						</tr>
+						<tr>
+							<td><strong>Sogipa</strong></td>
+							<td>
+				            	<ol>
+				            		<li>Origem: Tecnopuc</li>
+				            		<li>Destino: Sogipa, via C.Fisher, Perimetral e Assis Brasil</li>
+								</ol>
+								<p class="depende">(*)Rota flexível? falar c/ motorista</p>
+							</td>
+							<td>Seg & Qua</td>
+							<td>19:00</td>
+							<td>Fulana Silva</td>
+							<td><div id="button_carona"><a href="http://goo.gl/forms/iKCKMbnNX3" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 					</tbody> 
 				</table>
