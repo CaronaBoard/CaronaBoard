@@ -67,6 +67,20 @@
 							<td><div id="button_carona"><a href="http://goo.gl/forms/87JyMW0t67" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
+							<td><strong>Bela Vista</strong></td>
+							<td>
+								<ol id="passos">
+							    	<li>Origem: Tecnopuc</li>
+							        <li>Destino: Bela Vista/Auxiliadora, Carlos Trein/Praça da Encol</li>
+								</ol>
+								<p class="depende">(*)Rota flexível? falar c/ motorista</p>
+							</td>
+							<td>Seg a Sex</td>
+							<td>19:00</td>
+							<td>Fulana Silva</td>
+							<td><div id="button_carona"><a href="http://goo.gl/forms/wNlXVAzL6N" target="_blank">QUERO CARONA!</a></div></td>
+						</tr>
+						<tr>
 							<td><strong>Bom fim</strong></td>
 							<td>
 								<ol>
