@@ -141,7 +141,7 @@
 							<td>
 				            	<ol>
 				            		<li>Origem: Tecnopuc</li>
-				            		<li>Destino: Menino Deus, via Ipiranga até Praia de Belas</li>
+				            		<li>Destino: Menino Deus, via Ipiranga até Érico</li>
 								</ol>
 								<p class="sim">(*)Rota flexível? Sim</p>
 							</td>
