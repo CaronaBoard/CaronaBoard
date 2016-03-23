@@ -71,7 +71,7 @@
 						</tr>
 						<tr>
 							<td><strong>Bela Vista  </strong>								
-								<a href="https://www.google.com.br/maps/dir/TECNOPUC+-+Partenon,+Porto+Alegre+-+RS/Carlos+Trein+Filho+-+Bela+Vista,+Porto+Alegre+-+RS/@-30.0481431,-51.1852474,15z/am=t/data=!3m1!4b1!4m24!4m23!1m15!1m1!1s0x951977fd79a847e5:0xa0f279b1e3f4bf0c!2m2!1d-51.1708715!2d-30.0605766!3m4!1m2!1d-51.1699103!2d-30.0607584!3s0x95199d57c24395d1:0xcf307595038b8b1e!3m4!1m2!1d-51.169518!2d-30.0577733!3s0x951977fd2fdee359:0xadfb535019ff0522!1m5!1m1!1s0x9519782f3fcd7331:0x6cfe95fc3c8daf7a!2m2!1d-51.185946!2d-30.034618!3e0?hl=en" data-lity>InlineVer mapa</a>
+								<a href="https://www.google.com.br/maps/dir/TECNOPUC+-+Partenon,+Porto+Alegre+-+RS/Carlos+Trein+Filho+-+Bela+Vista,+Porto+Alegre+-+RS/@-30.0481431,-51.1852474,15z/am=t/data=!3m1!4b1!4m24!4m23!1m15!1m1!1s0x951977fd79a847e5:0xa0f279b1e3f4bf0c!2m2!1d-51.1708715!2d-30.0605766!3m4!1m2!1d-51.1699103!2d-30.0607584!3s0x95199d57c24395d1:0xcf307595038b8b1e!3m4!1m2!1d-51.169518!2d-30.0577733!3s0x951977fd2fdee359:0xadfb535019ff0522!1m5!1m1!1s0x9519782f3fcd7331:0x6cfe95fc3c8daf7a!2m2!1d-51.185946!2d-30.034618!3e0?hl=en" data-lity>Ver mapa</a>
 							</td>
 							<td>
 								<ol id="passos">
