@@ -7,6 +7,30 @@
 		<meta name="author" content="Hege Refsnes">
 		<link rel="stylesheet" type="text/css" href="index.css">
 		<script src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
+		<script type="text/javascript" charset="utf-8"> 
+					google.load("jquery", "1.4.2");
+		</script>
+		<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+		<link rel="stylesheet" href="css/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
+				<script src="js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+	
+				<!-- Google Maps Code -->
+				<script type="text/javascript"
+				    src="http://maps.google.com/maps/api/js?sensor=true">
+				</script>
+				<script type="text/javascript">
+				  function initialize() {
+				    var latlng = new google.maps.LatLng(-34.397, 150.644);
+				    var myOptions = {
+				      zoom: 8,
+				      center: latlng,
+				      mapTypeId: google.maps.MapTypeId.ROADMAP
+				    };
+				    var map = new google.maps.Map(document.getElementById("map_canvas"),
+				        myOptions);
+				  }
+
+				</script>
 	</head>
 	<body>
 		<div id="page-wrap">
@@ -84,7 +108,7 @@
 						</tr>
 						<tr>
 							<td><strong>Bom fim  </strong>
-								<a href="https://www.google.com.br/maps/dir/TECNOPUC+-+Partenon,+Porto+Alegre+-+RS/R.+Castro+Alves+-+Rio+Branco,+Porto+Alegre+-+RS,+90430-131/@-30.0466386,-51.1943547,15z/am=t/data=!3m1!4b1!4m19!4m18!1m10!1m1!1s0x951977fd79a847e5:0xa0f279b1e3f4bf0c!2m2!1d-51.1708715!2d-30.0605766!3m4!1m2!1d-51.168213!2d-30.0587225!3s0x951977e2b41b3051:0x88311f0f21437f8c!1m5!1m1!1s0x951979b4c2779f2b:0xc8efd031a2567be5!2m2!1d-51.2032468!2d-30.0312229!3e0?hl=en" target="_blank">Ver Mapa</a>
+								<a href="https://goo.gl/maps/e2BenuNQHyz#?custom=true&width=260&height=270" rel="prettyPhoto">Ver mapa</a>
 							</td>
 							<td>
 								<ol>
@@ -245,5 +269,13 @@
 			<h3>Nos ajude a melhorar!</h3> <a class="cadastro" href="http://goo.gl/forms/GYVDfZuhWg" target="_blank">Deixe aqui sua opinião/sugestão</a>
 			</div>
 		</div>
+		<script type="text/javascript" charset="utf-8">
+				$(document).ready(function(){			
+					$("a[rel^='prettyPhoto']").prettyPhoto({
+						custom_markup: '<div id="map_canvas" style="width:260px; height:265px"></div>',
+						changepicturecallback: function(){ initialize(); }
+					});
+				});
+		</script>
 	</body>
 <html>
