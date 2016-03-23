@@ -17,6 +17,8 @@
 			<div id="title">
 			<h1>Carona Board</h1>
 			<h2>Seu carro não precisa levar apenas você</h2>
+			<a href="//maps.google.com/maps?q=1600+Amphitheatre+Parkway,+Mountain+View,+CA" data-lity>Google Maps</a>
+
 			<ol>
 				<li>Encontre uma rota que passe perto do seu destino</li>
 				<li>Clique no botão "Quero Carona"</li>
