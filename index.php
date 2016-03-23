@@ -9,7 +9,6 @@
 		<link href="dist/lity.css" rel="stylesheet">
 		<script src="vendor/jquery.js"></script>
 		<script src="dist/lity.js"></script>
-		<script src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
 	</head>
 	<body>
 		<div id="page-wrap">
