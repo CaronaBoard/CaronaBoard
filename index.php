@@ -91,7 +91,7 @@
 									<li>Destino: Castro Alves</li>
 								</ol>
 								<p class="sim">(*)Rota flexível? Sim</p>
-								<a id="link" href="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d13814.42626985739!2d-51.18524735973117!3d-30.04814313616378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x951977fd79a847e5%3A0xa0f279b1e3f4bf0c!2sTECNOPUC+-+Partenon%2C+Porto+Alegre+-+RS!3m2!1d-30.060576599999997!2d-51.1708715!4m5!1s0x9519782f3fcd7331%3A0x6cfe95fc3c8daf7a!2sCarlos+Trein+Filho+-+Bela+Vista%2C+Porto+Alegre+-+RS!3m2!1d-30.034618!2d-51.185945999999994!5e0!3m2!1sen!2sbr!4v1458769235026">Click Here</a>
+								<a id="link" href="https://www.google.com.br/maps/dir/TECNOPUC+-+Partenon,+Porto+Alegre+-+RS/Carlos+Trein+Filho+-+Bela+Vista,+Porto+Alegre+-+RS/@-30.0481431,-51.1852474,15z/am=t/data=!3m1!4b1!4m24!4m23!1m15!1m1!1s0x951977fd79a847e5:0xa0f279b1e3f4bf0c!2m2!1d-51.1708715!2d-30.0605766!3m4!1m2!1d-51.1699103!2d-30.0607584!3s0x95199d57c24395d1:0xcf307595038b8b1e!3m4!1m2!1d-51.169518!2d-30.0577733!3s0x951977fd2fdee359:0xadfb535019ff0522!1m5!1m1!1s0x9519782f3fcd7331:0x6cfe95fc3c8daf7a!2m2!1d-51.185946!2d-30.034618!3e0?hl=en">Click Here</a>
 							</td>
 							<td>Seg a Sex</td>
 							<td>19:00 a 20:00</td>
