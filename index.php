@@ -6,7 +6,10 @@
 		<meta name="keywords" content="Transport, ride, urban, car, share">
 		<meta name="author" content="Hege Refsnes">
 		<link rel="stylesheet" type="text/css" href="index.css">
+		<link rel="stylesheet" type="text/css" href="css/divbox.css" media="screen" />
 		<script src="http://cdn.jquerytools.org/1.2.6/full/jquery.tools.min.js"></script>
+		<script type="text/javascript" src="js/jquery.js"></script> 
+		<script type="text/javascript" src="js/divbox.js"></script>
 	</head>
 	<body>
 		<div id="page-wrap">
@@ -88,6 +91,7 @@
 									<li>Destino: Castro Alves</li>
 								</ol>
 								<p class="sim">(*)Rota flexível? Sim</p>
+								<a id="link" href="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d13814.42626985739!2d-51.18524735973117!3d-30.04814313616378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x951977fd79a847e5%3A0xa0f279b1e3f4bf0c!2sTECNOPUC+-+Partenon%2C+Porto+Alegre+-+RS!3m2!1d-30.060576599999997!2d-51.1708715!4m5!1s0x9519782f3fcd7331%3A0x6cfe95fc3c8daf7a!2sCarlos+Trein+Filho+-+Bela+Vista%2C+Porto+Alegre+-+RS!3m2!1d-30.034618!2d-51.185945999999994!5e0!3m2!1sen!2sbr!4v1458769235026">Click Here</a>
 							</td>
 							<td>Seg a Sex</td>
 							<td>19:00 a 20:00</td>
@@ -241,5 +245,8 @@
 			<h3>Nos ajude a melhorar!</h3> <a class="cadastro" href="http://goo.gl/forms/GYVDfZuhWg" target="_blank">Deixe aqui sua opinião/sugestão</a>
 			</div>
 		</div>
+		<script type="text/javascript">
+ 		 $("#link").divbox({ type: 'iframe' });
+		</script>
 	</body>
 <html>
