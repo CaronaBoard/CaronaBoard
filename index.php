@@ -143,7 +143,7 @@
 							<td><div id="button_carona"><a href="http://goo.gl/forms/3zFqZS1SvR" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
-							<td><strong>Jardin Ypu</strong></td>
+							<td><strong>Antonio de Carvalho</strong></td>
 							<td>
 				            	<ol>
 				            		<li>Origem: Tecnopuc</li>
