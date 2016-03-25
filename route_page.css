@@ -4,35 +4,43 @@
 	display:block;
 	float: left;
 }
-div {
-	display: block;
-	float: left;
-	background-color: rgb(250, 250, 250);
-}
 .main { 
 	width:50%; 
 	height:1400px;
+	display:block;
+	float: left;
+	background-color: rgb(250, 250, 250);
 }
 .topo { 
 	width:100%; 
 	height:122px;
+	display:block;
+	float: left;
 	background-color: rgb(158, 158, 158);
 }
 .motorista { 
 	width:100%; 
 	height:300px;
+	display:block;
+	float: left;
 }
 .map { 
 	width:100%; 
 	height:450px;
+	display:block;
+	float: left;
 }
 .reviews { 
 	width:100%; 
 	height:450px;
+	display:block;
+	float: left;
 }
 .footer { 
 	width:100%; 
 	height:128px;
+	display:block;
+	float: left;
 }
 h1 {
 	font-size: 1em;	
