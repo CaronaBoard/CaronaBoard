@@ -6,9 +6,6 @@
 		<meta name="keywords" content="Transport, ride, urban, car, share">
 		<meta name="author" content="Hege Refsnes">
 		<link rel="stylesheet" type="text/css" href="index.css">
-		<link href="dist/lity.css" rel="stylesheet">
-		<script src="vendor/jquery.js"></script>
-		<script src="dist/lity.js"></script>
 	</head>
 	<body>
 		<div id="page-wrap">
