@@ -10,14 +10,14 @@
 	<body>
 	<div class="main">
 		<div class="topo">
-			<h1>Carona Board</h1>
- 			<h2>Rota: Bom Fim</h2>
+			<h1><a href="http://caronaboard.com">Carona Board</a></h1>
 		</div>	
 		<div class="motorista_pic">
 			<img src="images/mizu.png">
+			<h3>Fulano Silva</h3>
 		</div>
 		<div class="motorista_info">
-			<h3>Fulano Silva</h3>
+			<h2>Rota Bom Fim</h2>
  			<p><strong>Origem:</strong> Tecnopuc</p>
  			<p><strong>Destino:</strong> Castro Alves</p>
  			<p><strong>Dias:</strong> Seg a Sex</p>

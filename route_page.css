@@ -46,16 +46,20 @@ body {
 	float: left;
 	background-color: rgb(250, 250, 250);
 }
-h3{
+h2{
+ 	font-size: 1.4em;
+ 	font-weight: 700;
+ }
+ h3{
  	font-size: 1.2em;
  	font-weight: 700;
  }
  h1 {
- 	font-size: 1em;	
- 	color: #20BF55;
- }
- h2 {
  	font-size: 1.6em;	
  	font-weight: 700;
- 	color: #A80874;
+ 	color: #FFFFFF;
+ }
+ a {
+ 	color: #FFFFFF;
+ 	text-decoration: none;
  }
