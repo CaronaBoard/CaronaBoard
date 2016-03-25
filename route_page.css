@@ -10,3 +10,17 @@ height:1400px;
 display:block;
 float: left;
 }
+.motorista { 
+width:100%; 
+height:300px;
+display:block;
+float: left;
+background-color: #Fe3456;
+}
+.map { 
+width:100%; 
+height:300px;
+display:block;
+float: left;
+background-color: #45d435;
+}
