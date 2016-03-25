@@ -1,6 +1,6 @@
 ## What is CaronaBoard?
 
-CaronaBoard is an open source project, with the goal of creating a way to optimize the use of cars in cities, contributing to reduce local traffic, reduce use of fossil fuel, and help people to connect to its friends and colleagues.
+CaronaBoard.com is an open source project, with the goal of creating a way to optimize the use of cars in cities, contributing to reduce local traffic, reduce use of fossil fuel, and help people to connect to its friends and colleagues.
 
 Different than other products such as [BlablaCar](http://www.blablacar.com), CaronaBoard aim is to remain free! In our view give ride is a matter of friendship! We based the entire idea on principles of friendship and comradery, and that you would spend the same fuel and money if you go alone or if you give ride to your friends/colleagues.  If they want to give the rider a contribution it is up to them, and the tool won't be designed to make money out from it.
 
