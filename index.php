@@ -80,7 +80,7 @@
 							<td><div id="button_carona"><a href="http://goo.gl/forms/87JyMW0t67" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
-							<td><strong>Bela Vista  </strong>								
+							<td><strong>Bela Vista</strong>								
 							</td>
 							<td>
 								<ol id="passos">
@@ -95,7 +95,7 @@
 							<td><div id="button_carona"><a href="http://goo.gl/forms/wNlXVAzL6N" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
-							<td><strong>Bom fim  </strong>
+							<td><strong><a href="bonfim.php">Bom fim</a></strong>
 							</td>
 							<td>
 								<ol>
