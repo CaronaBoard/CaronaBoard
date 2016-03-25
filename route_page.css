@@ -10,17 +10,24 @@ height:1400px;
 display:block;
 float: left;
 }
-.motorista { 
+.topo { 
+width:100%; 
+height:122px;
+display:block;
+float: left;
+background-color: rgb(158, 158, 158);
+}
+.moorista { 
 width:100%; 
 height:300px;
 display:block;
 float: left;
-background-color: #Fe3456;
+background-color: #ede7f6;
 }
 .map { 
 width:100%; 
 height:300px;
 display:block;
 float: left;
-background-color: #45d435;
+background-color: #ede7f6;
 }
