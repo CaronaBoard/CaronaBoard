@@ -11,12 +11,11 @@
 		<div id="page-wrap">
 			<div id="header">
 				<div id="topbar">
+					<div id="title">
+					<h1>Carona Board</h1>
+					<h2>Seu carro não precisa levar apenas você</h2>
+					</div>
 				</div>
-				<div id="title">
-				<h1>Carona Board</h1>
-				<h2>Seu carro não precisa levar apenas você</h2>
-				</div>
-			</div>
 				<div id="how_to">
 				<ol>
 					<li>Encontre uma rota que passe perto do seu destino</li>
