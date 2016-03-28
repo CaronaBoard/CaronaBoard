@@ -56,7 +56,7 @@ body {
 	font: 14px/1.4 'Open Sans', Arial; 
 }
 #page-wrap {
-	margin: 10px 50px;
+	margin: auto 50px;
 }
 p {
 	margin: 20px 0; 
@@ -93,7 +93,8 @@ td p {
 }
 table { 
 	width: 90%; 
-	border-collapse: collapse; 
+	border-collapse: collapse;
+	margin: auto;
 }
 /* Zebra striping */
 tr:nth-of-type(odd) { 
@@ -129,6 +130,11 @@ td, th {
 #header {
 	display: inline-block;
 	width: 90%;
+	margin: auto;
+}
+#topbar {
+	background-color: #20BF55;
+	display: block;
 }
 #title {
 	display: block;

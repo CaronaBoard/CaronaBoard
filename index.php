@@ -10,20 +10,25 @@
 	<body>
 		<div id="page-wrap">
 			<div id="header">
-			<div id="title">
-			<h1>Carona Board</h1>
-			<h2>Seu carro não precisa levar apenas você</h2>
-			<ol>
-				<li>Encontre uma rota que passe perto do seu destino</li>
-				<li>Clique no botão "Quero Carona"</li>
-				<li>Preencha o pedido de carona e envie o pedido</li>
-				<li><strong>Pronto!</strong> Seu colega oferecendo carona para a rota selecionada irá receber sua mensagem</li>
-			</ol>
+				<div id="topbar">
+				</div>
+				<div id="title">
+				<h1>Carona Board</h1>
+				<h2>Seu carro não precisa levar apenas você</h2>
+				</div>
 			</div>
-			<div id="dar_carona">
-			<h4>AVISO: PRECISAMOS DE DOADORES DE CARONA PARA ZONA NORTE!</h4>
-			<h3>Voce quer dar carona? </h3> <a class="cadastro" href="http://goo.gl/forms/ohEbgkMa9i" target="_blank">Se cadastre aqui</a>
-			</div>
+				<div id="how_to">
+				<ol>
+					<li>Encontre uma rota que passe perto do seu destino</li>
+					<li>Clique no botão "Quero Carona"</li>
+					<li>Preencha o pedido de carona e envie o pedido</li>
+					<li><strong>Pronto!</strong> Seu colega oferecendo carona para a rota selecionada irá receber sua mensagem</li>
+				</ol>
+				</div>
+				<div id="dar_carona">
+				<h4>AVISO: PRECISAMOS DE DOADORES DE CARONA PARA ZONA NORTE!</h4>
+				<h3>Voce quer dar carona? </h3> <a class="cadastro" href="http://goo.gl/forms/ohEbgkMa9i" target="_blank">Se cadastre aqui</a>
+				</div>
 			</div>
 			<table>
 					<thead>

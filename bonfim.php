@@ -10,7 +10,7 @@
 	<body>
 	<div class="main">
 		<div class="topo">
-			<h1><a href="http://caronaboard.com">Carona Board</a></h1>
+			<h1><a href="http://caronaboard.com">voltar para home</a></h1>
 		</div>	
 		<div class="motorista_pic">
 			<img src="images/mizu.png">
