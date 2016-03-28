@@ -53,7 +53,8 @@
 		}
 	}
 body { 
-	font: 14px/1.4 'Open Sans', Arial; 
+	font: 14px/1.4 'Open Sans', Arial;
+	margin: 0;
 }
 #page-wrap {
 	margin: auto 50px;
@@ -63,12 +64,12 @@ p {
 }
 h1 {
 	color: #FFFFFF;
-	font-size: 1.4em;
+	font-size: 2em;
 	margin: 0;
 }
 h2 {
 	font-size: 1.0em;
-	margin: 0 0 1.2em 0;
+	margin-bottom: 0.8em;
 	font-style: italic;
 	font-weight: 300;
 	color: #FFFFFF;
@@ -143,6 +144,9 @@ td, th {
 	padding: 2% 5%;
 	text-align: left;
 	float: left;
+}
+#title {
+	padding: 5px 2%;
 }
 #dar_carona {
 	display: block;
