@@ -145,26 +145,6 @@ td, th {
 	text-decoration: none;
 	font-weight: bold;
 }
-#offers_list {
-	display: block;
-	width: 90%;
-	margin: auto;
-}
-#driver {
-	display: inline;
-	float: left;
-	width: 20%;
-}
-#ride_info {
-	display: inline;
-	float: left;
-	width: 30%;
-}
-#timetable {
-	display: inline;
-	float: left;
-	width: 30%;
-}
 #ask_ride {
 	display: inline;
 	float: left;

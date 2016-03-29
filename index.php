@@ -255,25 +255,6 @@
 						</tr>
 					</tbody> 
 				</table>
-
-				<div id="offers_list">
-					<div id="driver">
-						<img src="images/mizu.jpg">
-					</div>
-					<div id="ride_info">
-						<p>Origem: Tecnopuc</p>
-						<p>Destino: Castro Alves</p>
-					</div>
-					<div id="timetable">
-						<p>Segunda a Sexta</p>
-						<p>19:00 / 20:00</p>
-					</div>
-					<div id="ask_ride">
-						<div id="button_carona"><a href="bonfim.php">PEDIR CARONA</a></div>
-					</div>
-				</div>
-
-
 			<p></p>
 			<div id="feedback">
 			<h3>Nos ajude a melhorar!</h3> <a class="cadastro" href="http://goo.gl/forms/GYVDfZuhWg" target="_blank">Deixe aqui sua opinião/sugestão</a>
