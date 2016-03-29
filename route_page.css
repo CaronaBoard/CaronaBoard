@@ -13,7 +13,7 @@ body {
 	display:block;
 	float: left;
 }
-div .content-wrapper { 
+.content-wrapper { 
 	width: 90%; 
 	margin: auto;
 }
