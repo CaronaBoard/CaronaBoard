@@ -99,7 +99,7 @@
 							<td><div id="button_carona"><a href="http://goo.gl/forms/wNlXVAzL6N" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
-							<td><strong><a href="bonfim.pph">Bom fim</a></strong>
+							<td><strong><a href="bonfim.php">Bom fim</a></strong>
 							</td>
 							<td>
 								<ol>
