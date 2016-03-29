@@ -13,6 +13,10 @@ body {
 	display:block;
 	float: left;
 }
+.content-wrapper { 
+	width:90%; 
+	margin: auto;
+}
 .route_top { 
 	width:95%; 
 	height:122px;
@@ -21,8 +25,9 @@ body {
 	background-color: #FFFFFF;
 	padding-left: 5%;
 }
-.route_top h2 {
+.route_top h3 {
 	color: #000000;
+	padding: 
 }
 .motorista_pic { 
 	width:45%; 
