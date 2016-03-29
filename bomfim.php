@@ -22,14 +22,14 @@
 		</div>
 		<div class="main">
 			<div class="route_top">
-				<h2>Rota: Bom Fim</h2>
+				<h3>Rota: Bom Fim</h3>
 			</div>	
 			<div class="motorista_pic">
 				<img src="images/mizu.jpg">
-				<h3>Fulano Silva</h3>
+				<p>Fulano Silva</p>
 			</div>
 			<div class="motorista_info">
-				<h2>Dados do trajeto</h2>
+				<h4>Dados do trajeto</h4>
 	 			<p><strong>Origem:</strong> Tecnopuc</p>
 	 			<p><strong>Destino:</strong> Castro Alves</p>
 	 			<p><strong>Dias:</strong> Seg a Sex</p>
