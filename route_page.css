@@ -13,8 +13,8 @@ body {
 	display:block;
 	float: left;
 }
-.content-wrapper { 
-	width:90%; 
+div .content-wrapper { 
+	width: 90%; 
 	margin: auto;
 }
 .route_top { 
