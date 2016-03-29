@@ -270,7 +270,9 @@
 						<p>Segunda a Sexta</p>
 						<p>19:00 / 20:00</p>
 					</div>
-					<div id="button_carona"><a href="bonfim.php">PEDIR CARONA</a></div>
+					<div id="ask_ride">
+						<div id="button_carona"><a href="bonfim.php">PEDIR CARONA</a></div>
+					</div>
 				</div>
 
 
