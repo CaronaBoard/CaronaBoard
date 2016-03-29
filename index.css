@@ -115,14 +115,15 @@ td, th {
     width: auto;
 }
 #button_offer {
-	display: block;
-	border-radius: 0.4em;
-	margin: 0;
-	background-color: #A80874;
-	color: #FFF;
-	box-shadow: 0.1em 0.1em 0.2em #777;
-	padding:0.4em;
-	text-align: center;
+    display: block;
+    border-radius: 0.4em;
+    margin: 0;
+    background-color: #A80874;
+    color: #FFF;
+    box-shadow: 0.1em 0.1em 0.2em #777;
+    padding: 0.8em;
+    text-align: center;
+    width: 30%;
 }
 #button_offer a{
 	color: #FFF;
@@ -177,7 +178,7 @@ td, th {
 #topbar {
 	background-color: #20BF55;
 	display: block;
-	margin: 0 5%;
+	margin: 0;
 }
 #how_to {
 	display: block;
@@ -187,14 +188,16 @@ td, th {
 	float: left;
 }
 #title {
-	padding: 5px 5%;
-	width: 30%;
-	display: block;
+    padding: 5px 0 5px 5%;
+    width: 50%;
+    display: inline-block;
 }
 #main_menu {
-	padding: 5px 2%;
-	width: 70%;
-	display: block;
+	padding-top: 1.5%;
+    width: 25%;
+    display: inline-block;
+    margin-left: 15%;
+    vertical-align: top;
 }
 #dar_carona {
 	display: block;

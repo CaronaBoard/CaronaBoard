@@ -19,6 +19,7 @@
 						<div id="button_offer"><a href="http://goo.gl/forms/ohEbgkMa9i">DOU CARONA!</a></div>
 					</div>
 				</div>
+
 				<div id="how_to">
 				<ol>
 					<li>Encontre uma rota que passe perto do seu destino</li>
@@ -26,9 +27,6 @@
 					<li>Preencha o pedido de carona e envie o pedido</li>
 					<li><strong>Pronto!</strong> Seu colega oferecendo carona para a rota selecionada irá receber sua mensagem</li>
 				</ol>
-				</div>
-				<div id="dar_carona">
-				<h4>AVISO: PRECISAMOS DE DOADORES DE CARONA PARA ZONA NORTE!</h4>
 				</div>
 			</div>
 			<table>
