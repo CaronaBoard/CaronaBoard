@@ -6,6 +6,7 @@
 		<meta name="keywords" content="Transport, ride, urban, car, share">
 		<meta name="author" content="Hege Refsnes">
 		<link rel="stylesheet" type="text/css" href="route_page.css">
+		<link rel="stylesheet" type="text/css" href="index.css">
 	</head>
 	<body>
 		<div id="header">
@@ -20,7 +21,7 @@
 			</div>
 		</div>
 		<div class="main">
-			<div class="topo">
+			<div class="route_top">
 				<h1><a href="http://caronaboard.com">voltar para home</a></h1>
 			</div>	
 			<div class="motorista_pic">
