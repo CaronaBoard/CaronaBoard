@@ -21,6 +21,9 @@ body {
 	background-color: #FFFFFF;
 	padding-left: 5%;
 }
+.route_top h2 {
+	color: #000000;
+}
 .motorista_pic { 
 	width:45%; 
 	height:270px;
