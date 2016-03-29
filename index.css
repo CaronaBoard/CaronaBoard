@@ -149,15 +149,18 @@ td, th {
 	width: 90%;
 }
 #driver {
-	display: block;
+	display: inline;
+	float: left;
 	width: 20%;
 }
 #ride_info {
-	display: block;
+	display: inline;
+	float: left;
 	width: 30%;
 }
 #timetable {
-	display: block;
+	display: inline;
+	float: left;
 	width: 30%;
 }
 #header {
