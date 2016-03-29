@@ -13,7 +13,7 @@
 			<h1><a href="http://caronaboard.com">voltar para home</a></h1>
 		</div>	
 		<div class="motorista_pic">
-			<img src="images/mizu.png">
+			<img src="images/mizu.jpg">
 			<h3>Fulano Silva</h3>
 		</div>
 		<div class="motorista_info">

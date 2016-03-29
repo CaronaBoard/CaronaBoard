@@ -57,7 +57,8 @@ body {
 	margin: 0;
 }
 #page-wrap {
-	margin: auto 50px;
+	margin: 0;
+	width: 100%;
 }
 p {
 	margin: 20px 0; 
@@ -103,7 +104,7 @@ tr:nth-of-type(odd) {
 }
 th {
     background-color: #A80874;
-    color: #FFF;
+    color: #FFFFFF;
     font-weight: bold;
     padding: 6px;
 }
@@ -112,6 +113,21 @@ td, th {
     border: 1px solid #D0CCD0;
     text-align: left;
     width: auto;
+}
+#button_offer {
+	display: block;
+	border-radius: 0.4em;
+	margin: 0;
+	background-color: #A80874;
+	color: #FFF;
+	box-shadow: 0.1em 0.1em 0.2em #777;
+	padding:0.4em;
+	text-align: center;
+}
+#button_offer a{
+	color: #FFF;
+	text-decoration: none;
+	font-weight: bold;
 }
 #button_carona {
 	display: block;
@@ -127,6 +143,22 @@ td, th {
 	color: #FFF;
 	text-decoration: none;
 	font-weight: bold;
+}
+#offers_list {
+	display: block;
+	width: 90%;
+}
+#driver {
+	display: block;
+	width: 20%;
+}
+#ride_info {
+	display: block;
+	width: 30%;
+}
+#timetable {
+	display: block;
+	width: 30%;
 }
 #header {
 	display: inline-block;
@@ -146,7 +178,14 @@ td, th {
 	float: left;
 }
 #title {
+	padding: 5px 5%;
+	width: 30%;
+	display: block;
+}
+#main_menu {
 	padding: 5px 2%;
+	width: 70%;
+	display: block;
 }
 #dar_carona {
 	display: block;

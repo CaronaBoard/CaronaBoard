@@ -15,6 +15,9 @@
 					<h1>Carona Board</h1>
 					<h2>Seu carro não precisa levar apenas você</h2>
 					</div>
+					<div id="main_menu">
+						<div id="button_offer"><a href="http://goo.gl/forms/ohEbgkMa9i">DOU CARONA!</a></div>
+					</div>
 				</div>
 				<div id="how_to">
 				<ol>
@@ -26,7 +29,6 @@
 				</div>
 				<div id="dar_carona">
 				<h4>AVISO: PRECISAMOS DE DOADORES DE CARONA PARA ZONA NORTE!</h4>
-				<h3>Voce quer dar carona? </h3> <a class="cadastro" href="http://goo.gl/forms/ohEbgkMa9i" target="_blank">Se cadastre aqui</a>
 				</div>
 			</div>
 			<table>
@@ -80,7 +82,7 @@
 							</td>
 							<td>Seg a Sex</td>
 							<td>18:00 - 19:00</td>
-							<td>Silva</td>
+							<td>Siclano Silva</td>
 							<td><div id="button_carona"><a href="http://goo.gl/forms/87JyMW0t67" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
@@ -99,7 +101,7 @@
 							<td><div id="button_carona"><a href="http://goo.gl/forms/wNlXVAzL6N" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
-							<td><strong><a href="bonfim.php">Bom fim</a></strong>
+							<td><strong><a href="bonfim.pph">Bom fim</a></strong>
 							</td>
 							<td>
 								<ol>
@@ -124,7 +126,7 @@
 							</td>
 							<td>Ter a Qui</td>
 							<td>Sob Consulta</td>
-							<td>Siclano</td>
+							<td>Siclano Silva</td>
 							<td><div id="button_carona"><a href="http://goo.gl/forms/o9oLoISHlK" target="_blank">QUERO CARONA!</a></div></td>
 						</tr>
 						<tr>
@@ -255,6 +257,23 @@
 						</tr>
 					</tbody> 
 				</table>
+
+				<div id="offers_list">
+					<div id="driver">
+						<img src="images/mizu.jpg">
+					</div>
+					<div id="ride_info">
+						<p>Origem: Tecnopuc</p>
+						<p>Destino: Castro Alves</p>
+					</div>
+					<div id="timetable">
+						<p>Segunda a Sexta</p>
+						<p>19:00 / 20:00</p>
+					</div>
+					<div id="button_carona"><a href="bonfim.php">PEDIR CARONA</a></div>
+				</div>
+
+
 			<p></p>
 			<div id="feedback">
 			<h3>Nos ajude a melhorar!</h3> <a class="cadastro" href="http://goo.gl/forms/GYVDfZuhWg" target="_blank">Deixe aqui sua opinião/sugestão</a>
