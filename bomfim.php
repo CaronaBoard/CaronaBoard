@@ -22,7 +22,7 @@
 		</div>
 		<div class="main">
 			<div class="route_top">
-				<h1><a href="http://caronaboard.com">voltar para home</a></h1>
+				<h1>Rota: Bom Fim</h1>
 			</div>	
 			<div class="motorista_pic">
 				<img src="images/mizu.jpg">
