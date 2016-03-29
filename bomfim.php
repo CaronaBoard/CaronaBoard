@@ -21,7 +21,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="content-wrapper" style="margin: auto; width: 90%">
+			<div id="content_wrapper">
 				<div class="main">
 					<div class="route_top">
 						<h3>Rota: Bom Fim</h3>

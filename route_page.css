@@ -13,7 +13,7 @@ body {
 	display:block;
 	float: left;
 }
-.content-wrapper { 
+.content_wrapper { 
 	width: 90%; 
 	margin: auto;
 }
@@ -27,7 +27,11 @@ body {
 }
 .route_top h3 {
 	color: #000000;
-	padding: 
+	padding-top: 30px;
+	font-size: 1.6em; 
+}
+.motorista_info h4 {
+	font-size: 1.4em;
 }
 .motorista_pic { 
 	width:45%; 
