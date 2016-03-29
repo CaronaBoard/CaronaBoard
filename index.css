@@ -147,6 +147,7 @@ td, th {
 #offers_list {
 	display: block;
 	width: 90%;
+	margin: auto;
 }
 #driver {
 	display: inline;
@@ -162,6 +163,11 @@ td, th {
 	display: inline;
 	float: left;
 	width: 30%;
+}
+#ask_ride {
+	display: inline;
+	float: left;
+	width: 20%;
 }
 #header {
 	display: inline-block;
