@@ -13,7 +13,7 @@
 			<div id="header">
 				<div id="topbar">
 					<div id="title">
-					<h1><a class="logo" href="index.php">Carona Board</a></h1>
+					<h1><a class="logo" href="http://caronaboard.com">Carona Board</a></h1>
 					<h2>Seu carro não precisa levar apenas você</h2>
 					</div>
 					<div id="main_menu">
