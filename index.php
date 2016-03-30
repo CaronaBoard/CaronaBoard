@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<meta name="description" content="You app for smart urban transport">
 		<meta name="keywords" content="Transport, ride, urban, car, share">
+		<meta name="google-signin-client_id" content="377688505000-m7nf4gmqlngaiml9e3dvh2l8bocfrfhh.apps.googleusercontent.com">
 		<meta name="author" content="Hege Refsnes">
 		<link rel="stylesheet" type="text/css" href="index.css">
 	</head>
@@ -17,6 +18,7 @@
 					</div>
 					<div id="main_menu">
 						<div id="button_offer"><a href="http://goo.gl/forms/ohEbgkMa9i">DOU CARONA!</a></div>
+						<div class="g-signin2" data-onsuccess="onSignIn"></div>
 					</div>
 				</div>
 			</div>
@@ -287,5 +289,14 @@
 			<h3>Nos ajude a melhorar!</h3> <a class="cadastro" href="http://goo.gl/forms/GYVDfZuhWg" target="_blank">Deixe aqui sua opinião/sugestão</a>
 			</div>
 		</div>
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<script>function onSignIn(googleUser) {
+		  var profile = googleUser.getBasicProfile();
+		  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+		  console.log('Name: ' + profile.getName());
+		  console.log('Image URL: ' + profile.getImageUrl());
+		  console.log('Email: ' + profile.getEmail());
+		}
+		</script>
 	</body>
 <html>
