@@ -52,7 +52,7 @@
 						<td>Seg a Sex</td>
 						<td>19:00</td>
 						<td>Fulana Silva</td>
-						<td><div id="button_carona"><a href="aeroporto.php">QUERO CARONA!</a></div></td>
+						<td><div id="button_carona"><a href="aeroporto.php">VER TRAJETO</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Antonio de Carvalho</strong></td>
@@ -66,7 +66,7 @@
 						<td>Seg a Sex</td>
 						<td>19:00 / 20:00</td>
 						<td>Fulano da Silva</td>
-						<td><div id="button_carona"><a href="antonio_carvalho.php">QUERO CARONA!</a></div></td>
+						<td><div id="button_carona"><a href="antonio_carvalho.php">VER TRAJETO</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Auxiliadora</strong></td>
@@ -80,25 +80,25 @@
 						<td>Seg a Sex</td>
 						<td>18:00 - 19:00</td>
 						<td>Siclano Silva</td>
-						<td><div id="button_carona"><a href="http://goo.gl/forms/87JyMW0t67" target="_blank">QUERO CARONA!</a></div></td>
+						<td><div id="button_carona"><a href="auxiliadora.php">VER TRAJETO</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Bela Vista</strong>								
 						</td>
 						<td>
-							<ol id="passos">
+							<ol>
 						    	<li>Origem: Tecnopuc</li>
-						        <li>Destino: Bela Vista/Auxiliadora, Carlos Trein/Praça da Encol</li>
+						        <li>Destino: Carlos Trein via Carlos Gomes</li>
 							</ol>
 							<p class="depende">(*)Rota flexível? falar c/ motorista</p>
 						</td>
 						<td>Seg a Sex</td>
 						<td>19:00</td>
 						<td>Fulana Silva</td>
-						<td><div id="button_carona"><a href="http://goo.gl/forms/wNlXVAzL6N" target="_blank">QUERO CARONA!</a></div></td>
+						<td><div id="button_carona"><a href="bela_vista.php">VER TRAJETO</a></div></td>
 					</tr>
 					<tr>
-						<td><strong><a href="bomfim.php">Bom fim</a></strong>
+						<td><strong>Bom fim</strong>
 						</td>
 						<td>
 							<ol>
@@ -110,12 +110,12 @@
 						<td>Seg a Sex</td>
 						<td>19:00 a 20:00</td>
 						<td>Fulano Silva</td>
-						<td><div id="button_carona"><a href="bomfim.php">QUERO CARONA!</a></div></td>
+						<td><div id="button_carona"><a href="bomfim.php">VER TRAJETO</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Canoas</strong></td>
 						<td>
-							<ol id="passos">
+							<ol>
 						    	<li>Origem: Tecnopuc</li>
 						        <li>Destino: Canoas</li>
 							</ol>
@@ -124,12 +124,12 @@
 						<td>Ter a Qui</td>
 						<td>Sob Consulta</td>
 						<td>Siclano Silva</td>
-						<td><div id="button_carona"><a href="http://goo.gl/forms/o9oLoISHlK" target="_blank">QUERO CARONA!</a></div></td>
+						<td><div id="button_carona"><a href="canoas.php">VER TRAJETO</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Cavalhada</strong></td>
 						<td>
-							<ol id="passos">
+							<ol>
 							    <li>Origem: Tecnopuc</li>
 							    <li>Destino: Cavalhada, passando pelo Praia de Belas</li>
 							</ol>
@@ -138,21 +138,7 @@
 						<td>Ter a Sex</td>
 						<td>19:00</td>
 						<td>Beltrano da Silva</td>
-						<td><div id="button_carona"><a href="http://goo.gl/forms/yIVHABCEkV" target="_blank">QUERO CARONA!</a></div></td>
-					</tr>
-					<tr>
-						<td><strong>Cidade Baixa</strong></td>
-						<td>
-							<ol id="passos">
-						    	<li>Origem: Tecnopuc</li>
-						        <li>Destino: Lima e Silva / República</li>
-							</ol>
-							<p class="depende">(*)Rota flexível? falar c/ motorista</p>
-						</td>
-						<td>Seg a Sex</td>
-						<td>18:00 a 19:00</td>
-						<td>Siclana Silva & Beltrana da Silva</td>
-						<td><div id="button_carona"><a href="http://goo.gl/forms/3zFqZS1SvR" target="_blank">QUERO CARONA!</a></div></td>
+						<td><div id="button_carona"><a href="cavalhada.php">VER TRAJETO</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Lami</strong></td>
@@ -166,7 +152,21 @@
 						<td>Seg a Sex</td>
 						<td>Ida para PUC(8h00) - Volta, depende do dia (consultar)</td>
 						<td>Siclana Silva</td>
-						<td><div id="button_carona"><a href="http://goo.gl/forms/h8wRZf9hje" target="_blank">QUERO CARONA!</a></div></td>
+						<td><div id="button_carona"><a href="lami.php">VER TRAJETO</a></div></td>
+					</tr>
+					<tr>
+						<td><strong>Lima e Silva</strong></td>
+						<td>
+							<ol>
+						    	<li>Origem: Tecnopuc</li>
+						        <li>Destino: Lima e Silva</li>
+							</ol>
+							<p class="depende">(*)Rota flexível? falar c/ motorista</p>
+						</td>
+						<td>Seg a Sex</td>
+						<td>18:00 / 19:00</td>
+						<td>Siclana Silva</td>
+						<td><div id="button_carona"><a href="lima_e_silva.php">VER TRAJETO</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Menino Deus</strong></td>
@@ -180,7 +180,7 @@
 						<td>Seg a Sex</td>
 						<td>19:00 / 19:30</td>
 						<td>Fulano da Silva</td>
-						<td><div id="button_carona"><a href="http://goo.gl/forms/rPfxpSo5Vs" target="_blank">QUERO CARONA!</a></div></td>
+						<td><div id="button_carona"><a href="menino_deus.php">VER TRAJETO</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Nonoai</strong></td>
@@ -194,7 +194,7 @@
 						<td>Seg a Sex</td>
 						<td>19:00</td>
 						<td>Siclano Silva</td>
-						<td><div id="button_carona"><a href="http://goo.gl/forms/dbR9YM963H" target="_blank">QUERO CARONA!</a></div></td>
+						<td><div id="button_carona"><a href="nonoai.php">VER TRAJETO</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Oscar Pereira</strong></td>
@@ -208,7 +208,7 @@
 						<td>Seg a Sex</td>
 						<td>19:00 a 20:00</td>
 						<td>Beltrano Silva</td>
-						<td><div id="button_carona"><a href="http://goo.gl/forms/hyGj1rx26x" target="_blank">QUERO CARONA!</a></div></td>
+						<td><div id="button_carona"><a href="oscar_pereira.php">QUERO CARONA!</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Petrópolis</strong></td>
