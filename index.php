@@ -66,7 +66,7 @@
 						<td>Seg a Sex</td>
 						<td>19:00 / 20:00</td>
 						<td>Fulano da Silva</td>
-						<td><div id="button_carona"><a href="http://goo.gl/forms/HRhzsPQNXh" target="_blank">QUERO CARONA!</a></div></td>
+						<td><div id="button_carona"><a href="antonio_carvalho.php">QUERO CARONA!</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Auxiliadora</strong></td>
