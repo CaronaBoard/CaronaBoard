@@ -208,7 +208,7 @@
 						<td>Seg a Sex</td>
 						<td>19:00 a 20:00</td>
 						<td>Beltrano Silva</td>
-						<td><div id="button_carona"><a href="oscar_pereira.php">QUERO CARONA!</a></div></td>
+						<td><div id="button_carona"><a href="oscar_pereira.php">VER TRAJETO</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Petrópolis</strong></td>
@@ -225,18 +225,46 @@
 						<td><div id="button_carona"><a href="http://goo.gl/forms/dF11ctBlBT" target="_blank">QUERO CARONA!</a></div></td>
 					</tr>
 					<tr>
-						<td><strong>Santo Antônio (perto colégio La Salle)</strong></td>
+						<td><strong>República</strong></td>
+						<td>
+							<ol>
+						    	<li>Origem: Tecnopuc</li>
+						        <li>Destino: Rua da República</li>
+							</ol>
+							<p class="depende">(*)Rota flexível? falar c/ motorista</p>
+						</td>
+						<td>Sob consulta</td>
+						<td>Sob consulta</td>
+						<td>Beltrana da Silva</td>
+						<td><div id="button_carona"><a href="republica.php">VER TRAJETO</a></div></td>
+					</tr>
+					<tr>
+						<td><strong>Santo Antônio I</strong></td>
 						<td>
 			            	<ol>
 				           		<li>Origem: Tecnopuc</li>
-				           		<li>Destino: Santo Antônio via Bento</li>
+				           		<li>Destino: Santo Antônio (perto colégio La Salle)</li>
 							</ol>
 							<p class="depende">(*)Rota flexível? falar c/ motorista</p>
 						</td>
 						<td>Seg a Sex</td>
 						<td>Sob consulta</td>
-						<td>Fulano Silva & Siclano Silva</td>
-						<td><div id="button_carona"><a href="http://goo.gl/forms/yezpR5lzGY" target="_blank">QUERO CARONA!</a></div></td>
+						<td>Siclano Silva</td>
+						<td><div id="button_carona"><a href="santo_antonio_1.php">VER TRAJETO</a></div></td>
+					</tr>
+					<tr>
+						<td><strong>Santo Antônio II</strong></td>
+						<td>
+			            	<ol>
+				           		<li>Origem: Tecnopuc</li>
+				           		<li>Destino: Santo Antônio (perto colégio La Salle)</li>
+							</ol>
+							<p class="depende">(*)Rota flexível? falar c/ motorista</p>
+						</td>
+						<td>Seg a Sex</td>
+						<td>Sob consulta</td>
+						<td>Beltrano da Silva</td>
+						<td><div id="button_carona"><a href="santo_antonio_2.php">VER TRAJETO</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Sogipa</strong></td>
@@ -250,7 +278,7 @@
 						<td>Seg & Qua</td>
 						<td>19:00</td>
 						<td>Fulana Silva</td>
-						<td><div id="button_carona"><a href="http://goo.gl/forms/iKCKMbnNX3" target="_blank">QUERO CARONA!</a></div></td>
+						<td><div id="button_carona"><a href="sogipa.php">VER TRAJETO</a></div></td>
 					</tr>
 				</tbody> 
 			</table>
