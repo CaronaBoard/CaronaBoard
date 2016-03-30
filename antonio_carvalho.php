@@ -27,7 +27,7 @@
 						<h3>Rota: Antônio de Carvalho</h3>
 					</div>	
 					<div class="motorista_pic">
-						<img src="images/mizu.jpg">
+						<img src="images/rodrigo_edimar.jpg">
 						<p><strong>Fulano da Silva</strong></p>
 					</div>
 					<div class="motorista_info">
@@ -42,7 +42,7 @@
 					</div>
 				</div>
 				<div class="form">
-					<iframe src="https://docs.google.com/a/thoughtworks.com/forms/d/1aJ0JuIsRXP_6V8SAUP0-1xNO8Tb_Dwg6WprmTMfgwMU/viewform?embedded=true" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe> width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" align="right">form</iframe>
+					<iframe src="https://docs.google.com/a/thoughtworks.com/forms/d/1aJ0JuIsRXP_6V8SAUP0-1xNO8Tb_Dwg6WprmTMfgwMU/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0" scrolling="no" align="right">form</iframe>
 				</div>
 			</div>
 		</div>
