@@ -204,6 +204,10 @@ a .cadastro{
 	padding-bottom: 12px;
 	color: #A80874;
 }
+a .logo{
+	color: #FFFFFF;
+	text-decoration: none;
+}
 .depende {
 	padding-left: 12px;
 	color: red;
