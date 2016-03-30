@@ -52,7 +52,7 @@
 						<td>Seg a Sex</td>
 						<td>19:00</td>
 						<td>Fulana Silva</td>
-						<td><div id="button_carona"><a href="http://goo.gl/forms/TQAKwXzAg3" target="_blank">QUERO CARONA!</a></div></td>
+						<td><div id="button_carona"><a href="aeroporto.php">QUERO CARONA!</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Antonio de Carvalho</strong></td>
@@ -110,7 +110,7 @@
 						<td>Seg a Sex</td>
 						<td>19:00 a 20:00</td>
 						<td>Fulano Silva</td>
-						<td><div id="button_carona"><a href="http://goo.gl/forms/Jt7rddWqFn" target="_blank">QUERO CARONA!</a></div></td>
+						<td><div id="button_carona"><a href="bomfim.php">QUERO CARONA!</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Canoas</strong></td>
