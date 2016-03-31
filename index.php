@@ -4,7 +4,6 @@
 		<meta charset="UTF-8">
 		<meta name="description" content="You app for smart urban transport">
 		<meta name="keywords" content="Transport, ride, urban, car, share">
-		<meta name="google-signin-client_id" content="377688505000-m7nf4gmqlngaiml9e3dvh2l8bocfrfhh.apps.googleusercontent.com">
 		<meta name="author" content="Hege Refsnes">
 		<link rel="stylesheet" type="text/css" href="index.css">
 	</head>
@@ -54,7 +53,7 @@
 						<td>Seg a Sex</td>
 						<td>19:00</td>
 						<td>Fulana Silva</td>
-						<td><div id="button_carona"><a href="aeroporto.php">VER TRAJETO</a></div></td>
+						<td><div id="button_carona"><a href="http://goo.gl/forms/R5f1MI6WV2" target="_blank">QUERO CARONA</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Antonio de Carvalho</strong></td>
@@ -68,7 +67,7 @@
 						<td>Seg a Sex</td>
 						<td>19:00 / 20:00</td>
 						<td>Fulano da Silva</td>
-						<td><div id="button_carona"><a href="antonio_carvalho.php">VER TRAJETO</a></div></td>
+						<td><div id="button_carona"><a href="http://goo.gl/forms/ENbVseQzaV" target="_blank">QUERO CARONA</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Auxiliadora</strong></td>
@@ -82,7 +81,7 @@
 						<td>Seg a Sex</td>
 						<td>18:00 - 19:00</td>
 						<td>Siclano Silva</td>
-						<td><div id="button_carona"><a href="auxiliadora.php">VER TRAJETO</a></div></td>
+						<td><div id="button_carona"><a href="http://goo.gl/forms/pv7mrmcebD" target="_blank">QUERO CARONA</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Bela Vista</strong>								
@@ -97,7 +96,7 @@
 						<td>Seg a Sex</td>
 						<td>19:00</td>
 						<td>Fulana Silva</td>
-						<td><div id="button_carona"><a href="bela_vista.php">VER TRAJETO</a></div></td>
+						<td><div id="button_carona"><a href="http://goo.gl/forms/Zylcz5qJ1N" target="_blank">QUERO CARONA</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Bom fim</strong>
@@ -112,7 +111,7 @@
 						<td>Seg a Sex</td>
 						<td>19:00 a 20:00</td>
 						<td>Fulano Silva</td>
-						<td><div id="button_carona"><a href="bomfim.php">VER TRAJETO</a></div></td>
+						<td><div id="button_carona"><a href="http://goo.gl/forms/a78sbPFNZK" target="_blank">QUERO CARONA</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Canoas</strong></td>
@@ -126,7 +125,7 @@
 						<td>Ter a Qui</td>
 						<td>Sob Consulta</td>
 						<td>Siclano Silva</td>
-						<td><div id="button_carona"><a href="canoas.php">VER TRAJETO</a></div></td>
+						<td><div id="button_carona"><a href="http://goo.gl/forms/KjIhu6uCkV" target="_blank">QUERO CARONA</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Cavalhada</strong></td>
@@ -140,7 +139,7 @@
 						<td>Ter a Sex</td>
 						<td>19:00</td>
 						<td>Beltrano da Silva</td>
-						<td><div id="button_carona"><a href="cavalhada.php">VER TRAJETO</a></div></td>
+						<td><div id="button_carona"><a href="http://goo.gl/forms/xaByoXbykt" target="_blank">QUERO CARONA</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Lami</strong></td>
@@ -154,7 +153,7 @@
 						<td>Seg a Sex</td>
 						<td>Ida para PUC(8h00) - Volta, depende do dia (consultar)</td>
 						<td>Siclana Silva</td>
-						<td><div id="button_carona"><a href="lami.php">VER TRAJETO</a></div></td>
+						<td><div id="button_carona"><a href="http://goo.gl/forms/l6EJSHlV4k" target="_blank">QUERO CARONA</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Lima e Silva</strong></td>
@@ -168,7 +167,7 @@
 						<td>Seg a Sex</td>
 						<td>18:00 / 19:00</td>
 						<td>Siclana Silva</td>
-						<td><div id="button_carona"><a href="lima_e_silva.php">VER TRAJETO</a></div></td>
+						<td><div id="button_carona"><a href="http://goo.gl/forms/8hKCS47LwN" target="_blank">QUERO CARONA</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Menino Deus</strong></td>
@@ -182,7 +181,7 @@
 						<td>Seg a Sex</td>
 						<td>19:00 / 19:30</td>
 						<td>Fulano da Silva</td>
-						<td><div id="button_carona"><a href="menino_deus.php">VER TRAJETO</a></div></td>
+						<td><div id="button_carona"><a href="http://goo.gl/forms/PAeSCkAlo2" target="_blank">QUERO CARONA</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Nonoai</strong></td>
@@ -196,7 +195,7 @@
 						<td>Seg a Sex</td>
 						<td>19:00</td>
 						<td>Siclano Silva</td>
-						<td><div id="button_carona"><a href="nonoai.php">VER TRAJETO</a></div></td>
+						<td><div id="button_carona"><a href="http://goo.gl/forms/wfTJqUyQ0i" target="_blank">QUERO CARONA</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Oscar Pereira</strong></td>
@@ -210,7 +209,7 @@
 						<td>Seg a Sex</td>
 						<td>19:00 a 20:00</td>
 						<td>Beltrano Silva</td>
-						<td><div id="button_carona"><a href="oscar_pereira.php">VER TRAJETO</a></div></td>
+						<td><div id="button_carona"><a href="http://goo.gl/forms/3fyuQnEzDz" target="_blank">QUERO CARONA</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Petrópolis</strong></td>
@@ -224,7 +223,7 @@
 						<td>Seg a Sex</td>
 						<td>9:00</td>
 						<td>Fulano Silva</td>
-						<td><div id="button_carona"><a href="http://goo.gl/forms/dF11ctBlBT" target="_blank">QUERO CARONA!</a></div></td>
+						<td><div id="button_carona"><a href="http://goo.gl/forms/dF11ctBlBT" target="_blank">QUERO CARONA</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>República</strong></td>
@@ -238,7 +237,7 @@
 						<td>Sob consulta</td>
 						<td>Sob consulta</td>
 						<td>Beltrana da Silva</td>
-						<td><div id="button_carona"><a href="republica.php">VER TRAJETO</a></div></td>
+						<td><div id="button_carona"><a href="http://goo.gl/forms/MokTF6nmWF" target="_blank">QUERO CARONA</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Santo Antônio I</strong></td>
@@ -252,7 +251,7 @@
 						<td>Seg a Sex</td>
 						<td>Sob consulta</td>
 						<td>Siclano Silva</td>
-						<td><div id="button_carona"><a href="santo_antonio_1.php">VER TRAJETO</a></div></td>
+						<td><div id="button_carona"><a href="http://goo.gl/forms/PxneHz0Sbl" target="_blank">VQUERO CARONA</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Santo Antônio II</strong></td>
@@ -266,7 +265,7 @@
 						<td>Seg a Sex</td>
 						<td>Sob consulta</td>
 						<td>Beltrano da Silva</td>
-						<td><div id="button_carona"><a href="santo_antonio_2.php">VER TRAJETO</a></div></td>
+						<td><div id="button_carona"><a href="http://goo.gl/forms/0YrjUCGMd3" target="_blank">QUERO CARONA</a></div></td>
 					</tr>
 					<tr>
 						<td><strong>Sogipa</strong></td>
@@ -280,7 +279,7 @@
 						<td>Seg & Qua</td>
 						<td>19:00</td>
 						<td>Fulana Silva</td>
-						<td><div id="button_carona"><a href="sogipa.php">VER TRAJETO</a></div></td>
+						<td><div id="button_carona"><a href="http://goo.gl/forms/kK5uJDZiHd" target="_blank">QUERO CARONA</a></div></td>
 					</tr>
 				</tbody> 
 			</table>
@@ -289,14 +288,5 @@
 			<h3>Nos ajude a melhorar!</h3> <a class="cadastro" href="http://goo.gl/forms/GYVDfZuhWg" target="_blank">Deixe aqui sua opinião/sugestão</a>
 			</div>
 		</div>
-		<script src="https://apis.google.com/js/platform.js" async defer></script>
-		<script>function onSignIn(googleUser) {
-		  var profile = googleUser.getBasicProfile();
-		  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-		  console.log('Name: ' + profile.getName());
-		  console.log('Image URL: ' + profile.getImageUrl());
-		  console.log('Email: ' + profile.getEmail());
-		}
-		</script>
 	</body>
 <html>
