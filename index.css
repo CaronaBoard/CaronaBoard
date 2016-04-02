@@ -120,7 +120,7 @@ td, th {
     margin: 0;
     background-color: #EFEFD0;
     color: #FF6B35;
-    box-shadow: 0.1em 0.1em 0.2em #555;
+    box-shadow: 0.1em 0.1em 0.2em #000;
     padding: 0.8em;
     text-align: center;
     width: 30%;
