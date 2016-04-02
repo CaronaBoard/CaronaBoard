@@ -79,7 +79,7 @@ h3 {
 	margin: 16px 0 12px 0;
 }
 h4 {
-	color: #A80874;	
+	color: #1A659E;	
 }
 ul {
 	margin-bottom: 2em;
@@ -100,17 +100,17 @@ table {
 }
 /* Zebra striping */
 tr:nth-of-type(odd) { 
-	background-color: #DEE5E5; 
+	background-color: #EFEFD0; 
 }
 th {
-    background-color: #A80874;
+    background-color: #1A659E;
     color: #FFFFFF;
     font-weight: bold;
     padding: 6px;
 }
 td, th {
     padding: 6px;
-    border: 1px solid #D0CCD0;
+    border: 1px solid #F7C59F;
     text-align: left;
     width: auto;
 }
@@ -118,7 +118,7 @@ td, th {
     display: block;
     border-radius: 0.4em;
     margin: 0;
-    background-color: #A80874;
+    background-color: #FF6B35;
     color: #FFF;
     box-shadow: 0.1em 0.1em 0.2em #777;
     padding: 0.8em;
@@ -134,7 +134,7 @@ td, th {
 	display: block;
 	border-radius: 0.4em;
 	margin: 0;
-	background-color: #20BF55;
+	background-color: #FF6B35;
 	color: #FFF;
 	box-shadow: 0.1em 0.1em 0.2em #777;
 	padding:0.4em;
@@ -156,7 +156,7 @@ td, th {
 	margin: auto;
 }
 #topbar {
-	background-color: #20BF55;
+	background-color: #004E89;
 	display: block;
 	margin: 0;
 }
@@ -185,7 +185,7 @@ td, th {
 	margin: 1%;
 	border-radius: 0.4em;
 	border: solid 1px #20BF55;
-	background-color: #DEE5E5;
+	background-color: #EFEFD0;
 	padding: 12px;
 	text-align: center;
 	float: left;
@@ -195,8 +195,8 @@ td, th {
 	margin: 40px 30%;
 	width: 30%;
 	border-radius: 0.4em;
-	border: solid 1px #D0CCD0;
-	background-color: #DEE5E5;
+	border: solid 1px #F7C59F;
+	background-color: #EFEFD0;
 	padding: 12px;
 	text-align: center;
 }
