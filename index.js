@@ -1,7 +1,21 @@
 const express = require('express');
 const app = express();
+const babelify = require('babelify');
+const browserify = require('browserify-middleware');
 
 const PORT = process.env.PORT || 3000;
+
+app.get('/js/common.js', browserify(['react', 'react-router'], {
+  cache: true,
+  precompile: true
+}));
+
+app.use('/js', browserify(`${__dirname}/public/app/index.jsx`, {
+  extensions: ['.js', '.jsx'],
+  transform: [babelify.configure({
+    plugins: ['jsx-transform']
+  })]
+}));
 
 app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/index.html`);
