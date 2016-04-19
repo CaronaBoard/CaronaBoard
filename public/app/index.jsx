@@ -1,4 +1,5 @@
-var React = require('react');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 var HelloMessage = React.createClass({
   render: function() {
@@ -6,5 +7,5 @@ var HelloMessage = React.createClass({
   }
 });
 
-var appMain = $("#app-main")[0];
-React.render(<HelloMessage name="John" />, appMain);
+var appMain = document.getElementById("app-main");
+ReactDOM.render(<HelloMessage name="John" />, appMain);

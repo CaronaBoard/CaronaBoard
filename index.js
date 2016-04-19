@@ -5,7 +5,7 @@ const browserify = require('browserify-middleware');
 
 const PORT = process.env.PORT || 3000;
 
-app.get('/js/common.js', browserify(['react', 'react-router'], {
+app.get('/js/common.js', browserify(['react', 'react-router', 'react-dom'], {
   cache: true,
   precompile: true
 }));
@@ -13,7 +13,7 @@ app.get('/js/common.js', browserify(['react', 'react-router'], {
 app.use('/js', browserify(`${__dirname}/public/app/index.jsx`, {
   extensions: ['.js', '.jsx'],
   transform: [babelify.configure({
-    plugins: ['jsx-transform']
+    presets: ['es2015', 'react']
   })]
 }));
 
