@@ -3,7 +3,7 @@ import logo from '../../images/caronaboard_logo.png';
 
 const headerStyle = {
   float: 'left',
-  padding: '10px 20px 0 0',
+  padding: '10px 20px 0 0'
 };
 
 class Header extends Component {
