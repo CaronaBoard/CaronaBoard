@@ -1,4 +1,10 @@
 import React, {Component} from 'react';
+import logo from '../../images/caronaboard_logo.png';
+
+const headerStyle = {
+  float: 'left',
+  padding: '10px 20px 0 0',
+};
 
 class Header extends Component {
 
@@ -11,6 +17,7 @@ class Header extends Component {
       <div id="header">
         <div id="topbar">
           <div id="title">
+            <img style={headerStyle} src={logo}/>
             <h1>Carona Board</h1>
             <h2>Seu carro não precisa levar apenas você</h2>
           </div>
@@ -22,8 +29,6 @@ class Header extends Component {
       </div>
     );
   }
-
 }
-
 
 export default Header;
