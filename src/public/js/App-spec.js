@@ -11,7 +11,7 @@ describe('App', () => {
   });
 
   it('should render with correct id', () => {
-    expect(wrapper.find('#app-main')).to.have.length(1);
+    expect(wrapper.props().id).to.eql('app-main');
   });
 
   it('should render Header component', () => {

@@ -11,7 +11,7 @@ describe('Header', () => {
   });
 
   it('should render with correct id', () => {
-    expect(wrapper.find('#header')).to.have.length(1);
+    expect(wrapper.props().id).to.eql('header');
   });
 
   it('should render a title section', () => {
