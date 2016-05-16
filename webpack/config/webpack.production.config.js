@@ -7,8 +7,8 @@ const config = {
   module: {
     loaders: [
        {
-         test: /\.css$/,
-         loader: ExtractTextPlugin.extract('style', 'css'),
+         test: /\.scss$/,
+         loader: ExtractTextPlugin.extract('style', 'css', 'sass'),
          include: PATHS.style
        }
      ]
