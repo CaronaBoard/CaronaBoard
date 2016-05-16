@@ -2,3 +2,5 @@
 node_modules/
 public/lib
 *.log
+build/
+.eslintcache
