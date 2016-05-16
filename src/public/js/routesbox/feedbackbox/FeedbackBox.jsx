@@ -4,6 +4,7 @@ class FeedbackBox extends Component {
   constructor(props) {
     super(props);
   }
+
   render() {
     return (
       <div id="feedback">
@@ -11,6 +12,7 @@ class FeedbackBox extends Component {
       </div>
     );
   }
+
 }
 
 export default FeedbackBox;

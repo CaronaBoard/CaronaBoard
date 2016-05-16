@@ -23,7 +23,6 @@ class Header extends Component {
           </div>
           <div id="main_menu">
             <div id="button_offer"><a href="http://goo.gl/forms/ohEbgkMa9i">DOU CARONA!</a></div>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
           </div>
         </div>
       </div>
