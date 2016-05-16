@@ -9,7 +9,7 @@
     "build": "npm run clean && webpack --config ./webpack/webpack.config.js",
     "clean": "rm -rf ./build",
     "lint": "eslint ./src --ext .js --ext .jsx --cache",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "export NODE_ENV=test && mocha --compilers js:babel-core/register,.:mocha-image-compiler --recursive --check-leaks --full-trace ./src/**/*-spec.js"
   },
   "repository": {
     "type": "git",
@@ -61,6 +61,7 @@
     "expect": "^1.20.1",
     "jsdom": "^9.0.0",
     "mocha": "^2.4.5",
+    "mocha-image-compiler": "^1.0.0",
     "react-addons-test-utils": "^15.0.2",
     "react-shallow-testutils": "^2.0.0",
     "sinon": "^1.17.4",
