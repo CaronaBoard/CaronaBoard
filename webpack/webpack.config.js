@@ -18,7 +18,5 @@ const bundleConfig = function(environment) {
 };
 
 const currentConfig = bundleConfig(process.env.NODE_ENV);
-//required to activate environment presets in .babelrc
-process.env.BABEL_ENV = process.env.NODE_ENV;
 
 module.exports = validate(currentConfig);
