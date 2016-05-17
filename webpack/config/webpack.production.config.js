@@ -25,7 +25,7 @@ const config = {
         warnings: false
       }
     }),
-    new ExtractTextPlugin('[name].[chunkhash].css')
+    new ExtractTextPlugin('[name].css')
   ]
 }
 
