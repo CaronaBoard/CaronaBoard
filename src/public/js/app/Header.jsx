@@ -6,6 +6,14 @@ const headerStyle = {
   padding: '10px 20px 0 0'
 };
 
+const mainMenuStyle = {
+    paddingTop: '0.7%',
+    width: '25%',
+    display: 'inline-block',
+    verticalAlign: 'top',
+    float: 'right'
+};
+
 class Header extends Component {
 
   constructor(props) {
@@ -21,7 +29,7 @@ class Header extends Component {
             <h1>Carona Board</h1>
             <h2>Seu carro não precisa levar apenas você</h2>
           </div>
-          <div id="main_menu">
+          <div style={mainMenuStyle} id="main_menu">
             <div id="button_offer"><a href="http://goo.gl/forms/ohEbgkMa9i">DOU CARONA!</a></div>
           </div>
         </div>

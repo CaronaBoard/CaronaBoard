@@ -16,5 +16,5 @@ describe('RoutesBox', () => {
 
   it('should render FeedbackBox component', () => {
     expect(wrapper.find('FeedbackBox')).to.have.length(1);
-  })
+  });
 });

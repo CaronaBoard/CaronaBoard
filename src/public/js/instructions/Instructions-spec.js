@@ -21,4 +21,4 @@ describe('Instructions', () => {
     expect(liElements.at(2).text()).to.eql('Preencha o pedido de carona e envie o pedido');
     expect(liElements.at(3).text()).to.eql('Pronto! Seu colega oferecendo carona para a rota selecionada irá receber sua mensagem');
   });
-})
+});
