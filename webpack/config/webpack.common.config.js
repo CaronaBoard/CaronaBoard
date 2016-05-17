@@ -35,11 +35,6 @@ const common = {
         template: PATHS.pageTemplate
       })
     ],
-    resolve: {
-      alias: {
-        buildDir: PATHS.build
-      }
-    },
     eslint: {
       configFile: PATHS.eslintConfig,
       emitError: true
