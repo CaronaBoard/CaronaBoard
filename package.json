@@ -4,12 +4,12 @@
   "description": "Social ride network",
   "main": "index.js",
   "scripts": {
-    "start": "export NODE_ENV=production && npm run build && node ./src/main-server",
-    "dev-server": "export NODE_ENV=development && node ./src/main-server",
+    "start": "NODE_ENV=production npm run build && NODE_ENV=production node ./src/main-server",
+    "dev-server": "NODE_ENV=development node ./src/main-server",
     "build": "npm run clean && webpack --config ./webpack/webpack.config.js",
     "clean": "rm -rf ./build",
     "lint": "eslint ./src --ext .js --ext .jsx --cache",
-    "test": "export NODE_ENV=test && mocha --compilers js:babel-core/register,.:mocha-image-compiler --recursive --check-leaks --full-trace ./src/**/*-spec.js"
+    "test": "NODE_ENV=test mocha --compilers js:babel-core/register,.:mocha-image-compiler --recursive --check-leaks --full-trace ./src/**/*-spec.js"
   },
   "repository": {
     "type": "git",
