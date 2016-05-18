@@ -2,10 +2,9 @@ const express = require('express');
 const logger = require('../utils/logger');
 const path = require('path');
 
-const startApiServer = function(PORT) {
+const startExpressServer = (PORT) => {
   const app = express();
 
-  // app.use('/', express.static(path.join(`${__dirname}/../../build`)));
   app.get('/', (req, res) => {
     res.sendFile(path.resolve(`${__dirname}/../../index.html`));
   });
@@ -22,4 +21,4 @@ const startApiServer = function(PORT) {
 
 };
 
-module.exports = startApiServer;
+module.exports = startExpressServer;
