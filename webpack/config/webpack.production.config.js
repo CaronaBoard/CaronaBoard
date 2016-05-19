@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
+const PurifyCssPlugin = require("purifycss-webpack-plugin");
 const PATHS = require('../PATHS');
 
 const config = {
@@ -26,7 +27,11 @@ const config = {
         warnings: false
       }
     }),
-    new ExtractTextPlugin('[name].css')
+    new ExtractTextPlugin('[name].css'),
+    new PurifyCssPlugin({
+      basePath: __dirname,
+      paths: ['../../**/*.html']
+    })
   ]
 }
 

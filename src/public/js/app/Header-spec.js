@@ -37,5 +37,4 @@ describe('Header', () => {
     expect(wrapper.find('#button_offer a').props().href).to.not.eql(undefined);
   });
 
-
 });
