@@ -7,8 +7,12 @@ const config = {
     loaders: [
       {
         test: /\.scss$/,
-        loader: 'style!css!sass'
-       }
+        loaders: ['style', 'css?sourceMap', 'sass?sourceMap']
+      },
+      {
+        test: /\.css$/,
+        loaders: ['style', 'css?sourceMap']
+      }
     ]
   },
   entry: {
@@ -17,10 +21,8 @@ const config = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('development'),
-        'BABEL_ENV': JSON.stringify('development')
-      }
+      'process.env.NODE_ENV': '"development"',
+      'process.env.BABEL_ENV': '"development"'
     }),
     new webpack.HotModuleReplacementPlugin(),
     new WebpackBuildNotifierPlugin({successSound:false})

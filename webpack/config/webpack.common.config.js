@@ -1,9 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PATHS = require('../PATHS');
-
 const common = {
     entry: {
-      style: [PATHS.style],
       app: [PATHS.app]
     },
     output: {
@@ -25,9 +23,10 @@ const common = {
           loader: 'babel'
         },
         {
-          test: /\.(png|jpg|gif)$/,
+          test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
           loader: 'url-loader?limit=8192'
         }
+
       ]
     },
     plugins: [

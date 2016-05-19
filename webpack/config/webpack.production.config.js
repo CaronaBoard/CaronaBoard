@@ -8,17 +8,18 @@ const config = {
     loaders: [
        {
          test: /\.scss$/,
-         loader: ExtractTextPlugin.extract('style', 'css', 'sass'),
-         include: PATHS.style
+         loader: ExtractTextPlugin.extract('style', 'css?sourceMap', 'sass?sourceMap')
+       },
+       {
+         test: /\.css$/,
+         loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
        }
      ]
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production'),
-        'BABEL_ENV': JSON.stringify('production')
-      }
+      'process.env.NODE_ENV': '"production"',
+      'process.env.BABEL_ENV': '"production"'
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
