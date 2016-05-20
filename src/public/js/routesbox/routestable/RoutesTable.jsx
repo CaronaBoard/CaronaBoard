@@ -26,7 +26,7 @@ class RoutesTable extends Component {
               <li>Origem: Tecnopuc</li>
               <li>Destino: Estação Trensurb Bairro Anchieta</li>
             </ol>
-           <p class="depende">(*)Rota flexível? falar c/ motorista</p>
+            <p class="depende">(*)Rota flexível? falar c/ motorista</p>
           </td>
           <td>Seg a Sex</td>
           <td>19:00</td>

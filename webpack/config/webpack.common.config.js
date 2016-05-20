@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PATHS = require('../PATHS');
 const common = {
+    devtool: 'source-map',
     entry: {
       app: [PATHS.app]
     },
@@ -12,7 +13,7 @@ const common = {
       preLoaders: [
         {
           test: /\.js|.jsx?$/,
-          loaders: ['eslint'],
+          loaders: ['eslint-loader'],
           exclude: /node_modules/,
         }
       ],
@@ -20,13 +21,20 @@ const common = {
         {
           test: /\.js|.jsx$/,
           exclude: /node_modules/,
-          loader: 'babel'
+          loader: 'babel-loader'
         },
         {
-          test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
+           test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+           loader: "url-loader?limit=10000&mimetype=application/font-woff"
+        },
+        {
+          test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          loader: "url-loader?limit=10000"
+        },
+        {
+          test: /\.(png|jpg|gif)$/,
           loader: 'url-loader?limit=8192'
         }
-
       ]
     },
     plugins: [

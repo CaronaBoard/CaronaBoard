@@ -57,6 +57,7 @@ body {
 	font: 14px/1.4 'Open Sans', Arial;
 	margin: 0;
 }
+
 #page-wrap {
 	margin: 0;
 	width: 100%;
@@ -170,9 +171,12 @@ td, th {
 	float: left;
 }
 #title {
-    padding: 5px 0 5px 5%;
-    width: 50%;
-    display: inline-block;
+	padding: 5px 0 5px 5%;
+	width: 50%;
+	display: inline-block;
+	h1 {
+		font-weight: bold;
+	}
 }
 
 #dar_carona {

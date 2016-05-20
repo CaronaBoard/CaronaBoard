@@ -7,15 +7,15 @@ const PATHS = require('../PATHS');
 const config = {
   module: {
     loaders: [
-       {
-         test: /\.scss$/,
-         loader: ExtractTextPlugin.extract('style', 'css?sourceMap', 'sass?sourceMap')
-       },
-       {
-         test: /\.css$/,
-         loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
-       }
-     ]
+      {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!sass-loader?sourceMap')
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!sass-loader?sourceMap')
+      },
+    ]
   },
   plugins: [
     new webpack.DefinePlugin({
