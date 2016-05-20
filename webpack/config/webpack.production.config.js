@@ -14,7 +14,7 @@ const config = {
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!sass-loader?sourceMap')
-      },
+      }
     ]
   },
   plugins: [

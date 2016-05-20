@@ -14,7 +14,7 @@ const config = {
       {
         test: /\.scss$/,
         loaders: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap']
-      },
+      }
     ]
   },
   entry: {
