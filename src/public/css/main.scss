@@ -1,4 +1,5 @@
-@media 	only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px)  {
+
+@media 	only screen and (max-device-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px)  {
 		/* Force table to not be like tables anymore */
 		table, thead, tbody, th, td, tr {
 			display: block;
@@ -52,22 +53,24 @@
 			width: 495px;
 		}
 	}
-body { 
+body {
 	font: 14px/1.4 'Open Sans', Arial;
 	margin: 0;
 }
+
 #page-wrap {
 	margin: 0;
 	width: 100%;
 }
 p {
-	margin: 20px 0; 
+	margin: 20px 0;
 }
 h1 {
 	color: #FFFFFF;
 	font-size: 2em;
 	margin: 0.4em 0 0 0;
 }
+
 h2 {
 	font-size: 1.0em;
 	margin: 0 0 0.8em 0;
@@ -79,7 +82,7 @@ h3 {
 	margin: 16px 0 12px 0;
 }
 h4 {
-	color: #1A659E;	
+	color: #1A659E;
 }
 ul {
 	margin-bottom: 2em;
@@ -93,14 +96,14 @@ td p {
 	font-style: italic;
 	color: red;
 }
-table { 
-	width: 90%; 
+table {
+	width: 90%;
 	border-collapse: collapse;
 	margin: auto;
 }
 /* Zebra striping */
-tr:nth-of-type(odd) { 
-	background-color: #EFEFD0; 
+tr:nth-of-type(odd) {
+	background-color: #EFEFD0;
 }
 th {
     background-color: #1A659E;
@@ -168,17 +171,14 @@ td, th {
 	float: left;
 }
 #title {
-    padding: 5px 0 5px 5%;
-    width: 50%;
-    display: inline-block;
+	padding: 5px 0 5px 5%;
+	width: 50%;
+	display: inline-block;
+	h1 {
+		font-weight: bold;
+	}
 }
-#main_menu {
-	padding-top: 1.5%;
-    width: 25%;
-    display: inline-block;
-    margin-left: 15%;
-    vertical-align: top;
-}
+
 #dar_carona {
 	display: block;
 	width: 20%;
@@ -216,4 +216,10 @@ a .logo{
 	padding-left: 12px;
 	color: green;
 }
- 
+#main_menu {
+	padding-top: 1.5%;
+	width: 25%;
+	display: inline-block;
+	margin-left: 15%;
+	vertical-align: top;
+}
