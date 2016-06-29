@@ -22,7 +22,7 @@ Below some ideas about the concept of CaronaBoard:
 
 ### Prerequesites
 
-- Node.js 6.2.2 (We recommend using nvm to manage your Node version)
+- Node.js 6.2.2 (We recommend using [nvm](https://github.com/creationix/nvm) to manage your Node version)
 
 ### Installing
 
@@ -34,19 +34,20 @@ Below some ideas about the concept of CaronaBoard:
 ### Running tests
 
 We are using [enzyme](https://github.com/airbnb/enzyme) + [mocha](https://github.com/mochajs/mocha) + [chai](https://github.com/chaijs/chai) to unit test our ReactJS components.
+
 To run tests, simply run `npm test`.
 
 ### Deployment
 
 We have a CD pipeline consisting of TravisCI + Heroku automatic deploy once tests pass on master branch.
 
-#### TravisCI
+#### - TravisCI
  Travis is responsible for linting and running tests before deploying to
 heroku.
  The following npm script is run on Travis: `npm run ci`. Which currently lints and
 run unit tests located in our `src` folder
 
-#### Heroku
+#### - Heroku
  Heroku basically runs the following npm scripts in order to build and deploy our
 app:
 
