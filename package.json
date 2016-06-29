@@ -4,7 +4,8 @@
   "description": "Social ride network",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production npm run build && NODE_ENV=production node ./src/main-server",
+    "start": "NODE_ENV=production node ./src/main-server",
+    "postinstall": "npm run build",
     "dev-server": "NODE_ENV=development node ./src/main-server",
     "build": "npm run clean && webpack --config ./webpack/webpack.config.js",
     "clean": "rm -rf ./build",
