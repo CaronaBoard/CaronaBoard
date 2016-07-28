@@ -14,7 +14,7 @@ const common = {
         {
           test: /\.js|.jsx?$/,
           loaders: ['eslint-loader'],
-          exclude: /node_modules/,
+          exclude: /node_modules/
         }
       ],
       loaders: [
@@ -25,11 +25,11 @@ const common = {
         },
         {
            test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-           loader: "url-loader?limit=10000&mimetype=application/font-woff"
+           loader: 'url-loader?limit=10000&mimetype=application/font-woff'
         },
         {
           test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-          loader: "url-loader?limit=10000"
+          loader: 'url-loader?limit=10000'
         },
         {
           test: /\.(png|jpg|gif)$/,

@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 const config = {
   output: {
-    publicPath: "http://localhost:8079/",
+    publicPath: 'http://localhost:8079/'
   },
   module: {
     loaders: [
@@ -30,7 +30,7 @@ const config = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new WebpackBuildNotifierPlugin({successSound:false})
-  ],
+  ]
 };
 
 module.exports = config;

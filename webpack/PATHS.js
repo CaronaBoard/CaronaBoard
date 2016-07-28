@@ -5,4 +5,4 @@ module.exports = {
   build: path.join(`${__dirname}/../build`),
   pageTemplate: path.join(`${__dirname}/../src/public/index.html`),
   eslintConfig: path.join(`${__dirname}/../.eslintrc`)
-}
+};

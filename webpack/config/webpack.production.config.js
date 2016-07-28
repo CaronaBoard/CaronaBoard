@@ -1,8 +1,6 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
-const PurifyCssPlugin = require("purifycss-webpack-plugin");
-const PATHS = require('../PATHS');
+const PurifyCssPlugin = require('purifycss-webpack-plugin');
 
 const config = {
   module: {
@@ -33,6 +31,6 @@ const config = {
       paths: ['../../**/*.html']
     })
   ]
-}
+};
 
 module.exports = config;
