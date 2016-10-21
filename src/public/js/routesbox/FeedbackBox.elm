@@ -1,17 +1,11 @@
-module FeedbackBox exposing (..)
+module Routesbox.FeedbackBox exposing (feedbackBox)
 
 import Html exposing (Html, div, text, h3, a)
-import Html.App as App
 import Html.Attributes exposing (id, class, href, target)
 
 
-main : Program Never
-main =
-    App.beginnerProgram { model = Nothing, view = view, update = \_ _ -> Nothing }
-
-
-view : a -> Html a
-view model =
+feedbackBox : Html a
+feedbackBox =
     div [ id "feedback" ]
         [ h3 []
             [ text "Nos ajude a melhorar!"
