@@ -1,6 +1,5 @@
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let CopyWebpackPlugin = require('copy-webpack-plugin');
-let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let validate = require('webpack-validator');
 
 const config = {
