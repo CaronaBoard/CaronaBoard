@@ -217,9 +217,15 @@ a .logo{
 	color: green;
 }
 #main_menu {
-	padding-top: 1.5%;
+	padding-top: 0.7%;
 	width: 25%;
 	display: inline-block;
 	margin-left: 15%;
 	vertical-align: top;
+  float: right;
+}
+
+#title_img {
+  float: left;
+  padding: 10px 20px 0 0;
 }
