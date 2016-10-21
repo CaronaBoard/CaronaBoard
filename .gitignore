@@ -1,7 +1,5 @@
 .DS_Store
 node_modules/
-public/lib
 *.log
 build/
-.eslintcache
-elm-stuff
+elm-stuff/
