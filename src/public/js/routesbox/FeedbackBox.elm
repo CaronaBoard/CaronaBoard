@@ -9,13 +9,14 @@ main : Program Never
 main =
     App.beginnerProgram { model = Nothing, view = view, update = \_ _ -> Nothing }
 
+
 view : a -> Html a
 view model =
     div [ id "feedback" ]
         [ h3 []
-          [ text "Nos ajude a melhorar!"
-          ],
-          a [ class "cadastro", href "http://goo.gl/forms/GYVDfZuhWg", target "_blank" ]
-          [ text "Deixe aqui sua opinião/sugestão"
-          ]
+            [ text "Nos ajude a melhorar!"
+            ]
+        , a [ class "cadastro", href "http://goo.gl/forms/GYVDfZuhWg", target "_blank" ]
+            [ text "Deixe aqui sua opinião/sugestão"
+            ]
         ]
