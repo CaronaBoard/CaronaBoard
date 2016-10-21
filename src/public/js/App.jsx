@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import Header             from './app/Header.jsx';
 import Instructions       from './instructions/Instructions.jsx';
-import RoutesBox          from './routesbox/RoutesBox.jsx';
+import Elm                from 'react-elm-components';
+import { RoutesBox }      from './routesbox/RoutesBox.elm';
 
 class App extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class App extends Component {
       <div id="app-main">
         <Header/>
         <Instructions/>
-        <RoutesBox/>
+        <Elm src={ RoutesBox }/>
       </div>
     );
   }

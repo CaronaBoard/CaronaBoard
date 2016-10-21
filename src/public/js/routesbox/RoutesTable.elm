@@ -1,17 +1,11 @@
-module RoutesTable exposing (..)
+module Routesbox.RoutesTable exposing (routesTable)
 
 import Html exposing (Html, text, table, thead, tbody, tr, th, td, ol, li, a, div, strong, p)
-import Html.App as App
 import Html.Attributes exposing (id, class, href, target)
 
 
-main : Program Never
-main =
-    App.beginnerProgram { model = Nothing, view = view, update = \_ _ -> Nothing }
-
-
-view : a -> Html a
-view model =
+routesTable : Html a
+routesTable =
     table []
         [ thead []
             [ tr []
