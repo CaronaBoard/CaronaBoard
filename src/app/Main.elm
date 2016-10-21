@@ -3,7 +3,7 @@ module Main exposing (..)
 import Html exposing (Html, div, text, h3, a)
 import Html.App as App
 import Html.Attributes exposing (id, class, href, target)
-import App.Header exposing (header)
+import Header exposing (header)
 import Instructions.Instructions exposing (instructions)
 import RoutesBox.RoutesBox exposing (routesBox)
 
