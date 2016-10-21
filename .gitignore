@@ -4,3 +4,4 @@ public/lib
 *.log
 build/
 .eslintcache
+elm-stuff
