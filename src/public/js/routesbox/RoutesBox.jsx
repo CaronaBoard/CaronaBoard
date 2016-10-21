@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import RoutesTable        from './routestable/RoutesTable.jsx';
-import FeedbackBox        from './feedbackbox/FeedbackBox.jsx';
+import Elm from 'react-elm-components';
+import { FeedbackBox }    from './feedbackbox/FeedbackBox.elm';
 
 class RoutesBox extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class RoutesBox extends Component {
     return (
       <div className="routes-box">
         <RoutesTable/>
-        <FeedbackBox/>
+        <Elm src={ FeedbackBox }/>
       </div>
     );
   }
