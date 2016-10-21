@@ -5,7 +5,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve(`${__dirname}/../index.html`));
+  res.sendFile(path.resolve(`${__dirname}/../v1/index.html`));
 });
 
 app.get('/v2', (req, res) => {
@@ -17,3 +17,4 @@ app.listen(port, () => {
 });
 
 app.use(express.static(path.resolve(`${__dirname}/../build`)));
+app.use(express.static(path.resolve(`${__dirname}/../v1`)));

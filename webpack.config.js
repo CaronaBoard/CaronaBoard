@@ -14,7 +14,7 @@ const config = {
     loaders: [
       {
         test: /\.s?css$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?sourceMap!sass-loader?sourceMap')
+        loaders: ['style', 'css', 'sass']
       },
       {
         test: /\.elm$/,
@@ -27,10 +27,10 @@ const config = {
     new HtmlWebpackPlugin({
       template: 'src/index.html'
     }),
-    new CopyWebpackPlugin([
-      { from: 'src/images', to: 'images' }
-    ]),
-    new ExtractTextPlugin('[name].css')
+    new CopyWebpackPlugin([{
+      from: 'src/images',
+      to: 'images'
+    }])
   ]
 };
 

@@ -27,7 +27,6 @@
     "css-loader": "^0.25.0",
     "elm-webpack-loader": "^3.0.6",
     "express": "^4.13.4",
-    "extract-text-webpack-plugin": "^1.0.1",
     "html-webpack-plugin": "^2.16.0",
     "node-sass": "^3.7.0",
     "sass-loader": "^4.0.2",
