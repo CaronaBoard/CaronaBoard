@@ -5,7 +5,7 @@ let validate = require('webpack-validator');
 
 const config = {
   devtool: 'source-map',
-  entry: './src/public/index.js',
+  entry: './src/index.js',
   output: {
     path: 'build',
     filename: '[name].[hash].js'
@@ -33,10 +33,10 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/public/index.html'
+      template: 'src/index.html'
     }),
     new CopyWebpackPlugin([
-      { from: 'src/public/images', to: 'images' }
+      { from: 'src/images', to: 'images' }
     ]),
     new ExtractTextPlugin('[name].css')
   ]

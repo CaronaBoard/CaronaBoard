@@ -1,4 +1,4 @@
-module App.Header exposing (header)
+module Header exposing (header)
 
 import Html exposing (Html, div, img, h1, h2, a, text)
 import Html.Attributes exposing (id, href, src)
