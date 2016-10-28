@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/server.js",
-    "postinstall": "npm run build",
+    "postinstall": "yarn build",
     "dev-server": "webpack-dev-server",
     "build": "webpack -p --progress",
     "test": "elm-test",
-    "ci": "npm run test"
+    "ci": "yarn test"
   },
   "repository": {
     "type": "git",
