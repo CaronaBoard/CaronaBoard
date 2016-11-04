@@ -1,4 +1,4 @@
-module Main exposing (..)
+port module Main exposing (..)
 
 import Html exposing (Html, div, text, h3, a)
 import Html.App as App
@@ -10,13 +10,50 @@ import RoutesBox.RoutesBox exposing (routesBox)
 
 main : Program Never
 main =
-    App.beginnerProgram { model = Nothing, view = view, update = \_ _ -> Nothing }
+    App.program
+        { init = init
+        , view = view
+        , update = \msg model -> ( update msg model, Cmd.none )
+        , subscriptions = subscriptions
+        }
 
 
-view : a -> Html a
+type alias Model =
+    { riders : List Rider }
+
+
+init : ( Model, Cmd Msg )
+init =
+    ( { riders = [] }, Cmd.none )
+
+
+view : Model -> Html Msg
 view model =
     div [ id "app-main" ]
         [ header
         , instructions
         , routesBox
         ]
+
+
+type Msg
+    = UpdateRiders (List Rider)
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    riders UpdateRiders
+
+
+update : Msg -> Model -> Model
+update msg model =
+    case msg of
+        UpdateRiders riders ->
+            { riders = riders }
+
+
+type alias Rider =
+    { id : String, name : String }
+
+
+port riders : (List Rider -> msg) -> Sub msg
