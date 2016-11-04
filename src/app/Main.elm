@@ -6,6 +6,8 @@ import Html.Attributes exposing (id, class, href, target)
 import Header exposing (header)
 import Instructions.Instructions exposing (instructions)
 import RoutesBox.RoutesBox exposing (routesBox)
+import Model exposing (Model, Rider)
+import Msg exposing (Msg(UpdateRiders))
 
 
 main : Program Never
@@ -18,26 +20,18 @@ main =
         }
 
 
-type alias Model =
-    { riders : List Rider }
-
-
-init : ( Model, Cmd Msg )
-init =
-    ( { riders = [] }, Cmd.none )
-
-
 view : Model -> Html Msg
 view model =
     div [ id "app-main" ]
         [ header
         , instructions
-        , routesBox
+        , routesBox model
         ]
 
 
-type Msg
-    = UpdateRiders (List Rider)
+init : ( Model, Cmd Msg )
+init =
+    ( { riders = [] }, Cmd.none )
 
 
 subscriptions : Model -> Sub Msg
@@ -50,10 +44,6 @@ update msg model =
     case msg of
         UpdateRiders riders ->
             { riders = riders }
-
-
-type alias Rider =
-    { id : String, name : String }
 
 
 port riders : (List Rider -> msg) -> Sub msg
