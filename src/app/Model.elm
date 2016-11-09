@@ -1,4 +1,4 @@
-module Model exposing (Model, Rider)
+module Model exposing (Model, Rider, init)
 
 
 type alias Rider =
@@ -7,3 +7,8 @@ type alias Rider =
 
 type alias Model =
     { riders : List Rider }
+
+
+init : ( Model, Cmd a )
+init =
+    ( { riders = [] }, Cmd.none )
