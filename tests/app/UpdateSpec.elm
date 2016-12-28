@@ -21,6 +21,6 @@ tests =
                     { riders = ridersExample }
                     ({ riders = [] }
                         |> update (UpdateRiders ridersExample)
-                        |> fst
+                        |> Tuple.first
                     )
         ]
