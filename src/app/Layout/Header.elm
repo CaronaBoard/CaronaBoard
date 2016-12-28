@@ -1,7 +1,7 @@
 module Layout.Header exposing (header)
 
 import Html exposing (Html, div, img, h1, h2, a, text)
-import Html.Attributes exposing (id, href, src)
+import Html.Attributes exposing (id, href, src, rel, alt)
 
 
 header : Html a
@@ -9,7 +9,7 @@ header =
     div [ id "header" ]
         [ div [ id "topbar" ]
             [ div [ id "title" ]
-                [ img [ id "title_img", src "images/logo.svg" ]
+                [ img [ id "title_img", src "images/logo.svg", alt "Logo Carona Board" ]
                     []
                 , h1 []
                     [ text "Carona Board" ]
@@ -18,7 +18,7 @@ header =
                 ]
             , div [ id "main_menu" ]
                 [ div [ id "button_offer" ]
-                    [ a [ href "http://goo.gl/forms/ohEbgkMa9i" ]
+                    [ a [ href "http://goo.gl/forms/ohEbgkMa9i", rel "noopener" ]
                         [ text "DOU CARONA!" ]
                     ]
                 ]
