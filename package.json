@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/server.js",
-    "postinstall": "yarn build",
+    "postinstall": "npm rebuild && yarn build",
     "dev-server": "webpack-dev-server",
     "build": "webpack -p --progress",
     "test": "elm-test",
@@ -29,6 +29,7 @@
     "elm-test": "^0.17.3",
     "elm-webpack-loader": "^3.0.6",
     "express": "^4.13.4",
+    "firebase": "^3.5.3",
     "html-webpack-plugin": "^2.16.0",
     "node-sass": "^3.7.0",
     "sass-loader": "^4.0.2",
