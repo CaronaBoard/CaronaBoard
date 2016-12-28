@@ -12,7 +12,7 @@ tests =
         [ UpdateSpec.tests ]
 
 
-main : Program Value
+main : Test.Runner.Node.TestProgram
 main =
     run emit tests
 

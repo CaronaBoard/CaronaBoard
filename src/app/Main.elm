@@ -1,15 +1,16 @@
 port module Main exposing (..)
 
-import Html.App as App
+import Html
 import Model exposing (Model, Rider, init)
+import Msg exposing (Msg)
 import Update exposing (update)
 import Layout.Home exposing (view)
 import Ports exposing (subscriptions)
 
 
-main : Program Never
+main : Program Never Model Msg
 main =
-    App.program
+    Html.program
         { init = init
         , view = view
         , update = update
