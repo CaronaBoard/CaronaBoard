@@ -13,12 +13,12 @@ const config = {
     loaders: [
       {
         test: /\.s?css$/,
-        loaders: ['style', 'css', 'sass']
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
         test: /\.elm$/,
         exclude: [/elm-stuff/, /node_modules/],
-        loader: 'elm-webpack'
+        loader: 'elm-webpack-loader'
       }
     ]
   },

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/server.js",
     "start:dev": "webpack-dev-server",
-    "postinstall": "npm rebuild && yarn build",
+    "postinstall": "yarn build",
     "build": "webpack -p --progress",
     "test": "elm-test",
     "ci": "yarn test"
@@ -22,22 +22,22 @@
   },
   "homepage": "https://github.com/CaronaBoard/caronaboard#readme",
   "dependencies": {
-    "body-parser": "^1.15.0",
-    "copy-webpack-plugin": "^3.0.1",
-    "css-loader": "^0.25.0",
-    "elm": "^0.18.0",
-    "elm-test": "^0.18.2",
-    "elm-webpack-loader": "^3.0.6",
+    "body-parser": "^1.15.2",
     "express": "^4.13.4",
-    "firebase": "^3.5.3",
-    "html-webpack-plugin": "^2.16.0",
-    "node-sass": "^3.7.0",
-    "sass-loader": "^4.0.2",
-    "style-loader": "^0.13.1",
-    "webpack": "^1.13.0",
-    "webpack-validator": "^1.1.0"
+    "firebase": "^3.5.3"
   },
   "devDependencies": {
-    "webpack-dev-server": "^1.16.2"
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.26.1",
+    "elm": "^0.18.0",
+    "elm-test": "^0.18.2",
+    "elm-webpack-loader": "^4.1.1",
+    "html-webpack-plugin": "^2.24.1",
+    "node-sass": "^4.1.1",
+    "sass-loader": "^4.1.1",
+    "style-loader": "^0.13.1",
+    "webpack": "^2.2.0-rc.2",
+    "webpack-dev-server": "^2.2.0-rc.0",
+    "webpack-validator": "^2.3.0"
   }
 }
