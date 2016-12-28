@@ -15,9 +15,13 @@
     <link rel="shortcut icon" href="images/favicons/favicon.ico">
     <meta name="msapplication-config" content="images/favicons/browserconfig.xml">
     <meta name="theme-color" content="#004e89">
+
+    <style type="text/css">
+      <%= require('./css/main.scss') %>
+    </style>
   </head>
   <body>
-    <div id="page-wrap"></div>
+    <div id="page-wrap"><%= require('../build/elm.html') %></div>
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {

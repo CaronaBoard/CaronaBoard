@@ -1,5 +1,3 @@
-require('./css/main.scss');
-
 var Elm = require('./app/Main.elm');
 var connectFirebase = require('./firebase');
 
