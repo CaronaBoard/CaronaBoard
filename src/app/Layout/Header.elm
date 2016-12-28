@@ -9,7 +9,7 @@ header =
     div [ id "header" ]
         [ div [ id "topbar" ]
             [ div [ id "title" ]
-                [ img [ id "title_img", src "images/caronaboard_logo.png" ]
+                [ img [ id "title_img", src "images/logo.svg" ]
                     []
                 , h1 []
                     [ text "Carona Board" ]
