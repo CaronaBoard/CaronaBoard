@@ -6,10 +6,8 @@
   "scripts": {
     "start": "node src/server.js",
     "start:dev": "webpack-dev-server",
-    "postinstall": "yarn build",
     "build": "webpack -p --progress",
-    "test": "elm-test",
-    "ci": "yarn test"
+    "test": "elm-test"
   },
   "repository": {
     "type": "git",

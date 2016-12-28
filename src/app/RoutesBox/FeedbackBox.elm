@@ -1,4 +1,4 @@
-module Routesbox.FeedbackBox exposing (feedbackBox)
+module RoutesBox.FeedbackBox exposing (feedbackBox)
 
 import Html exposing (Html, div, text, h3, a)
 import Html.Attributes exposing (id, class, href, target)
