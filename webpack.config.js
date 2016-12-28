@@ -6,7 +6,7 @@ const config = {
   devtool: 'source-map',
   entry: './src/index.js',
   output: {
-    path: 'build',
+    path: `${__dirname}/build`,
     filename: '[name].[hash].js'
   },
   module: {
