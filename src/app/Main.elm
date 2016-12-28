@@ -4,7 +4,7 @@ import Html
 import Model exposing (Model, Rider, init)
 import Msg exposing (Msg)
 import Update exposing (update)
-import Layout.Home exposing (view)
+import View exposing (view)
 import Ports exposing (subscriptions)
 
 
