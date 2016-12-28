@@ -984,6 +984,13 @@ elliptic@^6.0.0:
     hash.js "^1.0.0"
     inherits "^2.0.1"
 
+elm-static-html@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/elm-static-html/-/elm-static-html-1.2.0.tgz#5f16356887bc92943b891298af540620c2ea3262"
+  dependencies:
+    node-elm-compiler "^4.2.0"
+    yargs "^6.4.0"
+
 elm-test@^0.18.2:
   version "0.18.2"
   resolved "https://registry.yarnpkg.com/elm-test/-/elm-test-0.18.2.tgz#1e94bd292de42a4960c6fdbe64eacee30669040a"
@@ -2282,7 +2289,7 @@ node-elm-compiler@4.1.0:
     lodash "4.14.2"
     temp "^0.8.3"
 
-node-elm-compiler@^4.2.1:
+node-elm-compiler@^4.2.0, node-elm-compiler@^4.2.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/node-elm-compiler/-/node-elm-compiler-4.2.1.tgz#25f991136d06173188000c61f24d4c36959e27a2"
   dependencies:
@@ -3987,7 +3994,7 @@ yargs@4.7.1, yargs@^4.7.1:
     y18n "^3.2.1"
     yargs-parser "^2.4.0"
 
-yargs@^6.0.0, yargs@^6.5.0:
+yargs@^6.0.0, yargs@^6.4.0, yargs@^6.5.0:
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/yargs/-/yargs-6.5.0.tgz#a902e23a1f0fe912b2a03f6131b7ed740c9718ff"
   dependencies:
