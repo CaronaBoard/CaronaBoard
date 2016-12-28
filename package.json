@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/server.js",
     "start:dev": "webpack-dev-server",
-    "build": "webpack -p --progress",
+    "build": "webpack -p --progress && sw-precache --config=sw-precache-config.js",
     "test": "elm-test"
   },
   "repository": {
@@ -34,6 +34,7 @@
     "node-sass": "^4.1.1",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
+    "sw-precache": "^4.2.3",
     "webpack": "^2.2.0-rc.2",
     "webpack-dev-server": "^2.2.0-rc.0",
     "webpack-validator": "^2.3.0"
