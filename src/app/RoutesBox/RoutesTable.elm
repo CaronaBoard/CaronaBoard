@@ -1,4 +1,4 @@
-module Routesbox.RoutesTable exposing (routesTable)
+module RoutesBox.RoutesTable exposing (routesTable)
 
 import Html exposing (Html, text, table, thead, tbody, tr, th, td, ol, li, a, div, strong, p)
 import Html.Attributes exposing (id, class, href, target)

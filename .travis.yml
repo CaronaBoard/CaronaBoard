@@ -3,11 +3,10 @@ cache:
   directories:
     - $HOME/.npm
     - $HOME/.yarn-cache
-    - node_modules
-    - elm-stuff/build-artifacts
 before_install:
   - npm install -g yarn
 install:
   - yarn
+  - yarn build
 script:
-  - yarn ci
+  - yarn test
