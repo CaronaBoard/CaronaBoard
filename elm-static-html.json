@@ -1,8 +1,8 @@
 {
     "files": {
         "src/app/View.elm": {
-            "output":"src/index.html",
-            "viewFunction":"initialView"
+            "output": "build/elm.html",
+            "viewFunction": "initialView"
         }
     }
 }

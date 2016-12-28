@@ -13,18 +13,22 @@ const config = {
     loaders: [
       {
         test: /\.s?css$/,
-        loaders: ['style-loader', 'css-loader', 'sass-loader']
+        loaders: ['raw-loader', 'sass-loader']
       },
       {
         test: /\.elm$/,
         exclude: [/elm-stuff/, /node_modules/],
         loader: 'elm-webpack-loader'
+      },
+      {
+        test: /\.html$/,
+        loader: 'raw-loader'
       }
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html'
+      template: 'src/index.ejs'
     }),
     new CopyWebpackPlugin([{
       from: 'src/images',
