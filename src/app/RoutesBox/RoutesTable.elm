@@ -1,7 +1,7 @@
 module RoutesBox.RoutesTable exposing (routesTable)
 
 import Html exposing (Html, text, table, thead, tbody, tr, th, td, ol, li, a, div, strong, p)
-import Html.Attributes exposing (id, class, href, target)
+import Html.Attributes exposing (id, class, href, target, rel)
 import Model exposing (Model, Rider)
 
 
@@ -54,7 +54,7 @@ riderRoute rider =
             [ text rider.name ]
         , td []
             [ div [ id "button_carona" ]
-                [ a [ href "http://goo.gl/forms/R5f1MI6WV2", target "_blank" ]
+                [ a [ href "http://goo.gl/forms/R5f1MI6WV2", target "_blank", rel "noopener" ]
                     [ text "QUERO CARONA" ]
                 ]
             ]

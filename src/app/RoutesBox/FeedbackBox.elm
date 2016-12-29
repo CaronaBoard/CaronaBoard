@@ -1,7 +1,7 @@
 module RoutesBox.FeedbackBox exposing (feedbackBox)
 
 import Html exposing (Html, div, text, h3, a)
-import Html.Attributes exposing (id, class, href, target)
+import Html.Attributes exposing (id, class, href, target, rel)
 
 
 feedbackBox : Html a
@@ -10,7 +10,7 @@ feedbackBox =
         [ h3 []
             [ text "Nos ajude a melhorar!"
             ]
-        , a [ class "cadastro", href "http://goo.gl/forms/GYVDfZuhWg", target "_blank" ]
+        , a [ class "cadastro", href "http://goo.gl/forms/GYVDfZuhWg", rel "noopener", target "_blank" ]
             [ text "Deixe aqui sua opinião/sugestão"
             ]
         ]
