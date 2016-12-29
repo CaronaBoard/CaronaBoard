@@ -3,7 +3,6 @@ let CopyWebpackPlugin = require('copy-webpack-plugin');
 let validate = require('webpack-validator');
 
 const config = {
-  devtool: 'source-map',
   entry: './src/index.js',
   output: {
     path: `${__dirname}/build`,

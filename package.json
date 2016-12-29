@@ -7,6 +7,7 @@
     "start": "node src/server.js",
     "start:dev": "yarn generate-html && webpack-dev-server",
     "build": "yarn generate-html && webpack -p --progress && sw-precache --config=sw-precache-config.js",
+    "build:analyze": "webpack -p --profile --json > build/stats.json && webpack-bundle-analyzer build/stats.json",
     "generate-html": "mkdir -p build && elm-static-html -c elm-static-html.json",
     "test": "elm-test"
   },
@@ -37,6 +38,7 @@
     "sass-loader": "^4.1.1",
     "sw-precache": "^4.2.3",
     "webpack": "^2.2.0-rc.2",
+    "webpack-bundle-analyzer": "^2.2.1",
     "webpack-dev-server": "^2.2.0-rc.0",
     "webpack-validator": "^2.3.0"
   }
