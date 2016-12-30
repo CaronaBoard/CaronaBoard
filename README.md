@@ -4,6 +4,8 @@
 
 Different than other products such as [BlablaCar](http://www.blablacar.com), CaronaBoard aim is to remain free! In our view give ride is a matter of friendship! We based the entire idea on principles of friendship and comradery, and that you would spend the same fuel and money if you go alone or if you give ride to your friends/colleagues.  If they want to give the rider a contribution it is up to them, and the tool won't be designed to make money out from it.
 
+Another huge difference from other car pooling systems is that the focus of Caronaboard is to serve people on their daily routine inside the cities. This conceptual difference makes CaronaBoard mission a lot more challenging because daily rides are less planned and least for a very short time span. The transportation subject in big urban centers is a super complex problem but at the same time we believe that this would make our mission and work fun and inspiring. In order to solve this problem we would like to gather brilliant people with the ideal of change the world.
+
 ### Product vision:
 
 Below some ideas about the concept of CaronaBoard:
