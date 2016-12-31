@@ -4,7 +4,7 @@
   "description": "Social ride network",
   "main": "index.js",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "http-server build",
     "start:dev": "yarn generate-html && webpack-dev-server",
     "build": "yarn generate-html && webpack -p --progress && sw-precache --config=sw-precache-config.js",
     "build:analyze": "webpack -p --profile --json > build/stats.json && webpack-bundle-analyzer build/stats.json",
@@ -22,9 +22,8 @@
   },
   "homepage": "https://github.com/CaronaBoard/caronaboard#readme",
   "dependencies": {
-    "body-parser": "^1.15.2",
-    "express": "^4.13.4",
-    "firebase": "^3.5.3"
+    "firebase": "^3.5.3",
+    "http-server": "^0.9.0"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^4.0.1",
