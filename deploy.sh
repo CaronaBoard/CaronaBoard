@@ -13,8 +13,6 @@ cd caronaboard.github.io
 git config user.name "Snap CI"
 git config user.email "snap-ci@caronaboard.com"
 
-git diff --exit-code && echo "No changes to the output on this push; exiting." && exit 0
-
 git add -A
 git commit -m "Deploy to GitHub Pages: ${SHA}"
 git push origin master
