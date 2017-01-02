@@ -14,5 +14,5 @@ git config user.name "Snap CI"
 git config user.email "snap-ci@caronaboard.com"
 
 git add -A
-git commit -m "Deploy to GitHub Pages: ${SHA}"
+git commit -m "Deploy to GitHub Pages: ${SHA}" || echo "nothing to commit"
 git push origin master
