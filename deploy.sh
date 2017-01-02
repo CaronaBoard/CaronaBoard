@@ -1,6 +1,8 @@
+set -e
+
 SHA=`git rev-parse --verify HEAD`
 
-git clone git@github.com:CaronaBoard/caronaboard.github.io.git
+git clone https://github.com/CaronaBoard/caronaboard.github.io
 rm -rf caronaboard.github.io/**/*
 cp -R build/* caronaboard.github.io
 cd caronaboard.github.io
@@ -11,7 +13,7 @@ git config user.email "snap-ci@caronaboard.com"
 eval `ssh-agent -s`
 ssh-add /var/snap-ci/repo/id_rsa_caronaboard
 
-if [ -z `git diff --exit-code` ]; then
+if [[ -z `git diff --exit-code` ]]; then
     echo "No changes to the output on this push; exiting."
     exit 0
 fi
