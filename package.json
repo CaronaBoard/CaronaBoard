@@ -9,7 +9,8 @@
     "build": "yarn generate-html && webpack -p --progress && sw-precache --config=sw-precache-config.js",
     "build:analyze": "webpack -p --profile --json > build/stats.json && webpack-bundle-analyzer build/stats.json",
     "generate-html": "mkdir -p build && elm-static-html -c elm-static-html.json",
-    "test": "elm-test"
+    "test": "elm-test",
+    "deploy": "./deploy.sh"
   },
   "repository": {
     "type": "git",
