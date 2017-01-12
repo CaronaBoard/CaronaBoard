@@ -1,3 +1,5 @@
+[![Build Status](https://snap-ci.com/CaronaBoard/caronaboard/branch/master/build_image)](https://snap-ci.com/CaronaBoard/caronaboard/branch/master)
+
 ## What is CaronaBoard?
 
 [CaronaBoard.com](http://caronaboard.com) is an open source project, with the goal of creating a way to optimize the use of cars in cities, contributing to reduce local traffic, reduce use of fossil fuel, and help people to connect to its friends and colleagues.
@@ -45,19 +47,11 @@ To run tests, simply run `npm test`.
 
 We have a CD pipeline consisting of TravisCI + Heroku automatic deploy once tests pass on master branch.
 
-#### - TravisCI
- Travis is responsible for linting and running tests before deploying to
-heroku.
- The following npm script is run on Travis: `npm run ci`. Which currently lints and
-run unit tests located in our `src` folder
+#### - Snap CI
 
-#### - Heroku
- Heroku basically runs the following npm scripts in order to build and deploy our
-app:
+Snap basically build the app and run the Elm tests. Then it deploys to github pages by creating a new commit on the repo [caronaboard.github.io](https://github.com/CaronaBoard/caronaboard.github.io).
 
- 1. `npm install --production`
- 2. `NODE_ENV=production npm run postinstall`
- 3. `npm run start`
+You can see Snap CI config and pipeline [here](https://app.snap-ci.com/CaronaBoard/caronaboard).
 
 ### Webpack
  We are using Webpack as our project's module bundler.
