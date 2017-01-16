@@ -1,11 +1,11 @@
-module Layout.Header exposing (header)
+module Layout.Header exposing (headerapp)
 
 import Html exposing (Html, div, img, h1, h2, a, text)
 import Html.Attributes exposing (id, href, src, rel, alt)
 
 
-header : Html a
-header =
+headerapp : Html a
+headerapp =
     div [ id "header" ]
         [ div [ id "topbar" ]
             [ div [ id "title" ]

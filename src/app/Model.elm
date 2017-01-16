@@ -1,6 +1,5 @@
 module Model exposing (Model, Rider, init)
 
-
 type alias Rider =
     { id : String, name : String }
 
@@ -12,3 +11,5 @@ type alias Model =
 init : ( Model, Cmd a )
 init =
     ( { riders = [] }, Cmd.none )
+
+
