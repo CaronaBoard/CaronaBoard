@@ -1,14 +1,14 @@
 module Layout.Home exposing (view)
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
-import Html.Events exposing (onInput)
+import Html exposing (Html, div)
+import Html.Attributes exposing (id)
 import Model exposing (Model, Rider)
 import Msg exposing (Msg)
-import Layout.Header exposing (headerapp)
-import Login.Login exposing (login)
+import Layout.Header exposing (header)
 import Instructions.Instructions exposing (instructions)
 import RoutesBox.RoutesBox exposing (routesBox)
+import Login.Login exposing (login)
+
 
 view : Model -> Html Msg
 view model =
@@ -16,7 +16,7 @@ view model =
     div [ id "app-login" ]
         [ login ]
     , div [ id "app-main" ]
-        [ headerapp
+        [ header
         , instructions
         , routesBox model
         ]
