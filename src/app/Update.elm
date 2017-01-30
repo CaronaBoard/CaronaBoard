@@ -1,7 +1,8 @@
 module Update exposing (update)
 
 import Model exposing (Model)
-import Msg exposing (Msg(UpdateRiders))
+import Msg exposing (Msg(..))
+import Login.Update as Login
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -13,4 +14,7 @@ modelUpdate : Msg -> Model -> Model
 modelUpdate msg model =
     case msg of
         UpdateRiders riders ->
-            { riders = riders }
+            { model | riders = riders }
+
+        UpdateLogin loginMsg ->
+            { model | login = Login.update loginMsg model.login }

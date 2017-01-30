@@ -12,12 +12,12 @@ import Login.Login exposing (login)
 
 view : Model -> Html Msg
 view model =
-    div [ id "app" ] [
-    div [ id "app-login" ]
-        [ login ]
-    , div [ id "app-main" ]
-        [ header
-        , instructions
-        , routesBox model
+    div [ id "app" ]
+        [ div [ id "app-login" ]
+            [ login model.login ]
+        , div [ id "app-main" ]
+            [ header
+            , instructions
+            , routesBox model
+            ]
         ]
-    ]
