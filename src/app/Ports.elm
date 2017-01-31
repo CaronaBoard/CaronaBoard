@@ -1,7 +1,7 @@
 port module Ports exposing (subscriptions)
 
 import Model exposing (Model, Rider)
-import Msg exposing (Msg(UpdateRiders))
+import Update exposing (Msg(UpdateRiders))
 
 
 subscriptions : Model -> Sub Msg

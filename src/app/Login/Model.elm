@@ -1,9 +1,11 @@
-module Login.Model exposing (Model, model, Step(..))
+module Login.Model exposing (Model, model, Step(..), User(..))
 
 
 type alias Model =
     { email : String
+    , password : String
     , step : Step
+    , user : User
     }
 
 
@@ -12,6 +14,18 @@ type Step
     | PasswordStep
 
 
+type User
+    = LoggedOut
+    | LoggedIn String
+    | Unregistered
+    | Loading
+    | Error String
+
+
 model : Model
 model =
-    { email = "", step = EmailStep }
+    { email = ""
+    , password = ""
+    , step = EmailStep
+    , user = LoggedOut
+    }

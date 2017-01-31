@@ -2,8 +2,7 @@ port module Main exposing (..)
 
 import Html
 import Model exposing (Model, Rider, init)
-import Msg exposing (Msg)
-import Update exposing (update)
+import Update exposing (Msg, update)
 import View exposing (view)
 import Ports exposing (subscriptions)
 
