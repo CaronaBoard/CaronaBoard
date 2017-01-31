@@ -248,9 +248,19 @@ a .logo{
   background-color: $primary_color;
 }
 
+.password-step {
+  transform: translateX(150%);
+  animation: slide-in 0.5s forwards;
+}
+
+@keyframes slide-in {
+    100% { transform: translateX(0%); }
+}
+
 #login{
 	padding: 80px 40px;
 	background-color: #fff;
+  overflow: hidden;
 	width: 100%;
 	max-width: 380px;
 	box-sizing: border-box;

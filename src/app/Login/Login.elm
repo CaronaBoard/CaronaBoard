@@ -1,7 +1,7 @@
 module Login.Login exposing (login)
 
 import Html exposing (Html, div, h2, input, text, form)
-import Html.Attributes exposing (id, type_, placeholder, value)
+import Html.Attributes exposing (id, type_, placeholder, value, class)
 import Html.Events exposing (onInput, onSubmit)
 import Msg as RootMsg
 import Login.Update exposing (Msg(..))
@@ -26,7 +26,7 @@ step model =
                 ]
 
         PasswordStep ->
-            div []
+            div [ class "password-step" ]
                 [ input [ type_ "password", placeholder "Senha", onInput (RootMsg.UpdateLogin << UpdateEmail), value model.email ] []
                 , input [ type_ "submit", value "Entrar" ] []
                 ]
