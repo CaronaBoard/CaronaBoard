@@ -249,11 +249,12 @@ a .logo{
 }
 
 .password-step {
-  transform: translateX(150%);
   animation: slide-in 0.5s forwards;
 }
 
 @keyframes slide-in {
+    0% { opacity: 0; }
+    10% { transform: translateX(150%); opacity: 1; }
     100% { transform: translateX(0%); }
 }
 

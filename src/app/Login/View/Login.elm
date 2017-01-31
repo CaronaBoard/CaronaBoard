@@ -6,65 +6,33 @@ import Html.Events exposing (onInput, onSubmit)
 import Msg as Root
 import Login.Msg exposing (Msg(..))
 import Login.Model exposing (Model, Step(..), Response(..), step)
+import Login.View.EmailStep exposing (emailStep)
+import Login.View.PasswordStep exposing (passwordStep)
 
 
 login : Model -> Html Root.Msg
 login model =
     div [ id "login" ]
-        [ h2 [] [ text "Login" ]
-        , form [ onSubmit (Root.MsgForLogin Submit) ] [ stepForm model ]
-        ]
+        [ stepForm model ]
 
 
 stepForm : Model -> Html Root.Msg
 stepForm model =
     case step model of
         EmailStep ->
-            div []
-                [ input
-                    [ type_ "email"
-                    , placeholder "Email"
-                    , onInput (Root.MsgForLogin << UpdateEmail)
-                    , value model.email
-                    ]
-                    []
-                , loadingOrSubmitButton "->" model.registered
-                ]
+            formStep (emailStep model)
 
         PasswordStep ->
-            div [ class "password-step" ]
-                [ renderErrors model.loggedIn
-                , text model.email
-                , input
-                    [ type_ "password"
-                    , placeholder "Senha"
-                    , onInput (Root.MsgForLogin << UpdatePassword)
-                    , value model.password
-                    ]
-                    []
-                , loadingOrSubmitButton "Entrar" model.loggedIn
-                ]
+            formStep (passwordStep model)
 
         NotRegisteredStep ->
             div []
                 [ text "O CaronaBoard está em fase de testes, seja o primeiro a saber quando for lançado" ]
 
 
-loadingOrSubmitButton : String -> Response a -> Html Root.Msg
-loadingOrSubmitButton buttonText response =
-    case response of
-        Loading ->
-            input [ type_ "submit", value "Carregando...", disabled True ] []
-
-        _ ->
-            input [ type_ "submit", value buttonText ] []
-
-
-renderErrors : Response a -> Html Root.Msg
-renderErrors response =
-    case response of
-        Error message ->
-            div [] [ text message ]
-
-        _ ->
-            div [] []
+formStep : Html Root.Msg -> Html Root.Msg
+formStep step =
+    div []
+        [ h2 [] [ text "Login" ]
+        , form [ onSubmit (Root.MsgForLogin Submit) ] [ step ]
+        ]
