@@ -1,0 +1,15 @@
+module Login.Msg exposing (Msg(..))
+
+import Login.Model exposing (Model, Response(..), LoggedIn(..), Step(..), User, step)
+
+
+type Msg
+    = UpdateEmail String
+    | UpdatePassword String
+    | Submit
+    | CheckRegistrationResponse Bool
+    | SignInResponse ( Maybe Error, Maybe User )
+
+
+type alias Error =
+    String

@@ -1,12 +1,8 @@
-module Update exposing (Msg(..), update)
+module Update exposing (update)
 
-import Model exposing (Model, Rider)
+import Model exposing (Model)
 import Login.Update as Login
-
-
-type Msg
-    = UpdateRiders (List Rider)
-    | UpdateLogin Login.Msg
+import Msg exposing (Msg(..))
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -20,7 +16,7 @@ modelUpdate msg model =
         UpdateRiders riders ->
             { model | riders = riders }
 
-        UpdateLogin loginMsg ->
+        MsgForLogin loginMsg ->
             { model | login = Login.update loginMsg model.login }
 
 
@@ -30,5 +26,5 @@ cmdUpdate msg model =
         UpdateRiders riders ->
             Cmd.none
 
-        UpdateLogin loginMsg ->
-            Cmd.map UpdateLogin <| Login.cmdUpdate loginMsg model.login
+        MsgForLogin loginMsg ->
+            Cmd.map MsgForLogin <| Login.cmdUpdate loginMsg model.login

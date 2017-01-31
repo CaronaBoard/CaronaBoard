@@ -1,12 +1,16 @@
-module Login.Model exposing (Model, model, Step(..), User(..))
+module Login.Model exposing (Model, model, Response(..), LoggedIn(..), Step(..), User, step)
 
 
 type alias Model =
     { email : String
     , password : String
-    , step : Step
-    , user : User
+    , registered : Response Bool
+    , loggedIn : Response LoggedIn
     }
+
+
+type alias User =
+    { id : String, name : String }
 
 
 type Step
@@ -14,18 +18,32 @@ type Step
     | PasswordStep
 
 
-type User
-    = LoggedOut
-    | LoggedIn String
-    | Unregistered
+type Response a
+    = Empty
     | Loading
+    | Success a
     | Error String
+
+
+type LoggedIn
+    = LoggedIn User
+    | LoggedOut
+
+
+step : Model -> Step
+step model =
+    case model.registered of
+        Success _ ->
+            PasswordStep
+
+        _ ->
+            EmailStep
 
 
 model : Model
 model =
     { email = ""
     , password = ""
-    , step = EmailStep
-    , user = LoggedOut
+    , registered = Empty
+    , loggedIn = Empty
     }

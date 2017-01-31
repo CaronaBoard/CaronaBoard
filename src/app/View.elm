@@ -2,7 +2,7 @@ module View exposing (view, initialView)
 
 import Html exposing (Html, div)
 import Model exposing (Model, init)
-import Update exposing (Msg)
+import Msg exposing (Msg)
 import Layout.Home
 
 
