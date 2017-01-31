@@ -1,4 +1,4 @@
-module Login.Login exposing (login)
+module Login.View.Login exposing (login)
 
 import Html exposing (Html, div, h2, input, text, form)
 import Html.Attributes exposing (id, type_, placeholder, value, class, disabled)
@@ -33,7 +33,8 @@ stepForm model =
 
         PasswordStep ->
             div [ class "password-step" ]
-                [ text model.email
+                [ renderErrors model.loggedIn
+                , text model.email
                 , input
                     [ type_ "password"
                     , placeholder "Senha"
@@ -44,6 +45,10 @@ stepForm model =
                 , loadingOrSubmitButton "Entrar" model.loggedIn
                 ]
 
+        NotRegisteredStep ->
+            div []
+                [ text "O CaronaBoard está em fase de testes, seja o primeiro a saber quando for lançado" ]
+
 
 loadingOrSubmitButton : String -> Response a -> Html Root.Msg
 loadingOrSubmitButton buttonText response =
@@ -53,3 +58,13 @@ loadingOrSubmitButton buttonText response =
 
         _ ->
             input [ type_ "submit", value buttonText ] []
+
+
+renderErrors : Response a -> Html Root.Msg
+renderErrors response =
+    case response of
+        Error message ->
+            div [] [ text message ]
+
+        _ ->
+            div [] []

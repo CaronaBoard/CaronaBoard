@@ -1,6 +1,6 @@
 module Login.Update exposing (update, cmdUpdate)
 
-import Login.Model exposing (Model, Response(..), LoggedIn(..), Step(..), User, step)
+import Login.Model exposing (Model, Response(..), Step(..), User, step)
 import Login.Ports exposing (checkRegistration, signIn)
 import Login.Msg exposing (Msg(..))
 
@@ -22,6 +22,9 @@ update msg model =
                 PasswordStep ->
                     { model | loggedIn = Loading }
 
+                NotRegisteredStep ->
+                    model
+
         CheckRegistrationResponse isRegistered ->
             { model | registered = Success isRegistered }
 
@@ -29,7 +32,7 @@ update msg model =
             let
                 successResponse =
                     success
-                        |> Maybe.map (Success << LoggedIn)
+                        |> Maybe.map Success
                         |> Maybe.withDefault Empty
 
                 loggedIn =
@@ -50,6 +53,9 @@ cmdUpdate msg model =
 
                 PasswordStep ->
                     signIn { email = model.email, password = model.password }
+
+                NotRegisteredStep ->
+                    Cmd.none
 
         _ ->
             Cmd.none

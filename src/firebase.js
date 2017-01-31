@@ -32,13 +32,13 @@ module.exports = function (app) {
     var randResult = Math.floor(Math.random() * 2);
 
     setTimeout(function () {
-      app.ports.checkRegistrationResponse.send(!!randResult);
+      app.ports.checkRegistrationResponse.send(!randResult);
     }, 2000);
   });
 
   app.ports.signIn.subscribe(function (credentials) {
     // 50/50% of success/error
-    var randResult = Math.floor(Math.random() * 3);
+    var randResult = Math.floor(Math.random() * 2);
 
     var result = [
       [null, { id: 'example-user-id', name: 'Fulano de Tal' }],
