@@ -45,20 +45,6 @@ $secondary_text_color: #757575;
 		td:nth-of-type(4):before { content: "Motorista"; }
 		td:nth-of-type(5):before { content: ""; }
 	}
-
-	/* Smartphones (portrait and landscape) ----------- */
-	@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
-		body {
-			padding: 0;
-			margin: 0;
-			width: 320px; }
-		}
-	/* iPads (portrait and landscape) ----------- */
-	@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-		body {
-			width: 495px;
-		}
-	}
 body {
 	font: 14px/1.4 'Open Sans', Arial;
 	margin: 0;
@@ -262,9 +248,20 @@ a .logo{
   background-color: $primary_color;
 }
 
+.password-step {
+  animation: slide-in 0.5s forwards;
+}
+
+@keyframes slide-in {
+    0% { opacity: 0; }
+    10% { transform: translateX(150%); opacity: 1; }
+    100% { transform: translateX(0%); }
+}
+
 #login{
 	padding: 80px 40px;
 	background-color: #fff;
+  overflow: hidden;
 	width: 100%;
 	max-width: 380px;
 	box-sizing: border-box;
@@ -299,6 +296,3 @@ a .logo{
 		margin-bottom: 0;
 	}
 }
-
-
-
