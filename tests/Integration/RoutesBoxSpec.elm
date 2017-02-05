@@ -28,7 +28,7 @@ ridersExample =
 
 tests : Test
 tests =
-    describe "Routesbox"
+    describe "RoutesBox"
         [ test "renders no routes when there are no riders loaded yet"
             <| routesBoxContext
             >> find [ class "routes-box" ]

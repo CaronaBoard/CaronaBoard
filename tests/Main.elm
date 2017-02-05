@@ -5,6 +5,7 @@ import Json.Encode exposing (Value)
 import Test exposing (..)
 import Fuzz.ExampleSpec
 import Integration.RoutesBoxSpec
+import Integration.LoginSpec
 
 
 tests : Test
@@ -12,6 +13,7 @@ tests =
     Test.concat
         [ Fuzz.ExampleSpec.tests
         , Integration.RoutesBoxSpec.tests
+        , Integration.LoginSpec.tests
         ]
 
 
