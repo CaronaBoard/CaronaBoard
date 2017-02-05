@@ -6,6 +6,7 @@ import Test exposing (..)
 import Fuzz.ExampleSpec
 import Integration.RoutesBoxSpec
 import Integration.LoginSpec
+import Integration.LayoutSpec
 
 
 tests : Test
@@ -14,6 +15,7 @@ tests =
         [ Fuzz.ExampleSpec.tests
         , Integration.RoutesBoxSpec.tests
         , Integration.LoginSpec.tests
+        , Integration.LayoutSpec.tests
         ]
 
 

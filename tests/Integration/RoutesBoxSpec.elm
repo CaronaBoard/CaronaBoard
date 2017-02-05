@@ -12,11 +12,11 @@ import Msg
 
 routesBoxContext : a -> TestContext Msg.Msg Model.Model
 routesBoxContext _ =
-    { init = Model.init
-    , update = Update.update
-    , view = routesBox
-    }
-        |> startForTest
+    startForTest
+        { init = Model.init
+        , update = Update.update
+        , view = routesBox
+        }
 
 
 ridersExample : List Model.Rider

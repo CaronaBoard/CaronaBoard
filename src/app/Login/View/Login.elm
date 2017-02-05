@@ -3,20 +3,19 @@ module Login.View.Login exposing (login)
 import Testable.Html exposing (Html, div, h2, input, text, form)
 import Testable.Html.Attributes exposing (id, type_, placeholder, value, class, disabled)
 import Testable.Html.Events exposing (onInput, onSubmit)
-import Msg as Root
 import Login.Msg exposing (Msg(..))
 import Login.Model exposing (Model, Step(..), Response(..), step)
 import Login.View.EmailStep exposing (emailStep)
 import Login.View.PasswordStep exposing (passwordStep)
 
 
-login : Model -> Html Root.Msg
+login : Model -> Html Msg
 login model =
     div [ id "login" ]
         [ stepForm model ]
 
 
-stepForm : Model -> Html Root.Msg
+stepForm : Model -> Html Msg
 stepForm model =
     case step model of
         EmailStep ->
@@ -30,9 +29,9 @@ stepForm model =
                 [ text "O CaronaBoard está em fase de testes, seja o primeiro a saber quando for lançado" ]
 
 
-formStep : Html Root.Msg -> Html Root.Msg
+formStep : Html Msg -> Html Msg
 formStep step =
     div []
         [ h2 [] [ text "Login" ]
-        , form [ onSubmit (Root.MsgForLogin Submit) ] [ step ]
+        , form [ onSubmit Submit ] [ step ]
         ]

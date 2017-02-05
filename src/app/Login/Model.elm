@@ -1,4 +1,4 @@
-module Login.Model exposing (Model, model, Response(..), Step(..), User, step, loggedInUser)
+module Login.Model exposing (Model, init, Response(..), Step(..), User, step, loggedInUser)
 
 
 type alias Model =
@@ -49,8 +49,8 @@ loggedInUser model =
             Nothing
 
 
-model : Model
-model =
+init : Model
+init =
     { email = ""
     , password = ""
     , registered = Empty

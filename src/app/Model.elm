@@ -17,7 +17,7 @@ type alias Model =
 init : ( Model, Testable.Cmd.Cmd a )
 init =
     ( { riders = []
-      , login = Login.model
+      , login = Login.init
       }
     , Testable.Cmd.none
     )

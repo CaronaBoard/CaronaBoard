@@ -4,24 +4,25 @@ import Test exposing (..)
 import Testable.TestContext exposing (..)
 import Testable.Html.Selectors exposing (..)
 import Expect exposing (equal)
-import Update
-import Model
-import View
-import Msg
+import Login.Update as Update
+import Login.Model as Model exposing (Model, loggedInUser)
+import Login.View.Login as View
+import Login.Msg exposing (Msg(..))
 import Login.Ports exposing (checkRegistration)
 import Login.Msg
+import Testable.Cmd
 
 
-loginContext : a -> TestContext Msg.Msg Model.Model
+loginContext : a -> TestContext Msg Model
 loginContext _ =
-    { init = Model.init
-    , update = Update.update
-    , view = View.view
-    }
-        |> startForTest
+    startForTest
+        { init = ( Model.init, Testable.Cmd.none )
+        , update = (\msg model -> ( Update.update msg model, Update.cmdUpdate msg model ))
+        , view = View.login
+        }
 
 
-submitEmail : a -> TestContext Msg.Msg Model.Model
+submitEmail : a -> TestContext Msg Model
 submitEmail =
     loginContext
         >> find [ tag "input", attribute "type" "email" ]
@@ -30,10 +31,10 @@ submitEmail =
         >> trigger "submit" "{}"
 
 
-submitEmailThenPassword : a -> TestContext Msg.Msg Model.Model
+submitEmailThenPassword : a -> TestContext Msg Model
 submitEmailThenPassword =
     submitEmail
-        >> update (Msg.MsgForLogin <| Login.Msg.CheckRegistrationResponse True)
+        >> update (Login.Msg.CheckRegistrationResponse True)
         >> find [ tag "input", attribute "type" "password" ]
         >> trigger "input" "{\"target\": {\"value\": \"baz\"}}"
         >> find [ tag "form" ]
@@ -60,10 +61,10 @@ tests =
                 >> assertAttribute "value" (Expect.equal "Carregando...")
             , test "calls checkRegistration port"
                 <| submitEmail
-                >> assertCalled (Cmd.map Msg.MsgForLogin <| checkRegistration "foo@bar.com")
+                >> assertCalled (checkRegistration "foo@bar.com")
             , test "shows beta message when user is not registered yet"
                 <| submitEmail
-                >> update (Msg.MsgForLogin <| Login.Msg.CheckRegistrationResponse False)
+                >> update (CheckRegistrationResponse False)
                 >> find [ id "login" ]
                 >> assertText (expectToContainText "em fase de testes")
             ]
@@ -74,21 +75,24 @@ tests =
                 >> assertAttribute "value" (Expect.equal "Carregando...")
             , test "shows error when signing in and renable button"
                 <| submitEmailThenPassword
-                >> update (Msg.MsgForLogin <| Login.Msg.SignInResponse ( Just "Invalid password", Nothing ))
+                >> update (SignInResponse ( Just "Invalid password", Nothing ))
                 >> Expect.all
                     [ find [ id "login" ]
                         >> assertText (expectToContainText "Invalid password")
                     , find [ tag "input", attribute "type" "submit" ]
                         >> assertAttribute "value" (Expect.equal "Entrar")
                     ]
-            , test "renders home and hide login when login succeeds"
+            , test "returns the logged in user from the model"
                 <| submitEmailThenPassword
-                >> update (Msg.MsgForLogin <| Login.Msg.SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
-                >> Expect.all
-                    [ find [ id "app-main" ]
-                        >> assertPresent
-                    , find [ id "login" ]
-                        >> assertNodeCount (Expect.equal 0)
-                    ]
+                >> update (SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
+                >> currentModel
+                >> (\result ->
+                        case result of
+                            Ok model ->
+                                Expect.equal (Just { id = "foo-bar-baz", name = "Baz" }) (loggedInUser model)
+
+                            Err err ->
+                                Expect.fail (toString err)
+                   )
             ]
         ]
