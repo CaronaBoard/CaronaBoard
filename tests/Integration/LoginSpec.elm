@@ -30,6 +30,16 @@ submitEmail =
         >> trigger "submit" "{}"
 
 
+submitEmailThenPassword : a -> TestContext Msg.Msg Model.Model
+submitEmailThenPassword =
+    submitEmail
+        >> update (Msg.MsgForLogin <| Login.Msg.CheckRegistrationResponse True)
+        >> find [ tag "input", attribute "type" "password" ]
+        >> trigger "input" "{\"target\": {\"value\": \"baz\"}}"
+        >> find [ tag "form" ]
+        >> trigger "submit" "{}"
+
+
 expectToContainText : String -> String -> Expect.Expectation
 expectToContainText expected actual =
     Expect.true ("Expected\n\t" ++ actual ++ "\nto contain\n\t" ++ expected)
@@ -56,5 +66,29 @@ tests =
                 >> update (Msg.MsgForLogin <| Login.Msg.CheckRegistrationResponse False)
                 >> find [ id "login" ]
                 >> assertText (expectToContainText "em fase de testes")
+            ]
+        , describe "password check"
+            [ test "shows loading button on submit"
+                <| submitEmailThenPassword
+                >> thenFind [ tag "input", attribute "type" "submit" ]
+                >> assertAttribute "value" (Expect.equal "Carregando...")
+            , test "shows error when signing in and renable button"
+                <| submitEmailThenPassword
+                >> update (Msg.MsgForLogin <| Login.Msg.SignInResponse ( Just "Invalid password", Nothing ))
+                >> Expect.all
+                    [ find [ id "login" ]
+                        >> assertText (expectToContainText "Invalid password")
+                    , find [ tag "input", attribute "type" "submit" ]
+                        >> assertAttribute "value" (Expect.equal "Entrar")
+                    ]
+            , test "renders home and hide login when login succeeds"
+                <| submitEmailThenPassword
+                >> update (Msg.MsgForLogin <| Login.Msg.SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
+                >> Expect.all
+                    [ find [ id "app-main" ]
+                        >> assertPresent
+                    , find [ id "login" ]
+                        >> assertNodeCount (Expect.equal 0)
+                    ]
             ]
         ]
