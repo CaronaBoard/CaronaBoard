@@ -1,8 +1,8 @@
 module Login.View.Login exposing (login)
 
-import Html exposing (Html, div, h2, input, text, form)
-import Html.Attributes exposing (id, type_, placeholder, value, class, disabled)
-import Html.Events exposing (onInput, onSubmit)
+import Testable.Html exposing (Html, div, h2, input, text, form)
+import Testable.Html.Attributes exposing (id, type_, placeholder, value, class, disabled)
+import Testable.Html.Events exposing (onInput, onSubmit)
 import Msg as Root
 import Login.Msg exposing (Msg(..))
 import Login.Model exposing (Model, Step(..), Response(..), step)

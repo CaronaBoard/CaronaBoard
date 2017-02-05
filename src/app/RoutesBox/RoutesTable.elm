@@ -1,7 +1,7 @@
 module RoutesBox.RoutesTable exposing (routesTable)
 
-import Html exposing (Html, text, table, thead, tbody, tr, th, td, ol, li, a, div, strong, p)
-import Html.Attributes exposing (id, class, href, target, rel)
+import Testable.Html exposing (Html, text, table, thead, tbody, tr, th, td, ol, li, a, div, strong, p)
+import Testable.Html.Attributes exposing (id, class, href, target, rel)
 import Model exposing (Model, Rider)
 
 
@@ -31,7 +31,7 @@ routesTable model =
 
 riderRoute : Rider -> Html a
 riderRoute rider =
-    tr []
+    tr [ class "route" ]
         [ td []
             [ strong []
                 [ text "Aeroporto" ]

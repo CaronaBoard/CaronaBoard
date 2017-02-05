@@ -1,8 +1,8 @@
 module Login.View.EmailStep exposing (emailStep)
 
-import Html exposing (Html, div, input)
-import Html.Attributes exposing (type_, placeholder, value)
-import Html.Events exposing (onInput, onSubmit)
+import Testable.Html exposing (Html, div, input)
+import Testable.Html.Attributes exposing (type_, placeholder, value)
+import Testable.Html.Events exposing (onInput, onSubmit)
 import Msg as Root
 import Login.Msg exposing (Msg(..))
 import Login.Model exposing (Model)

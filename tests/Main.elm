@@ -3,13 +3,16 @@ port module Main exposing (..)
 import Test.Runner.Node exposing (run)
 import Json.Encode exposing (Value)
 import Test exposing (..)
-import UpdateSpec
+import Fuzz.ExampleSpec
+import Integration.RoutesBoxSpec
 
 
 tests : Test
 tests =
     Test.concat
-        [ UpdateSpec.tests ]
+        [ Fuzz.ExampleSpec.tests
+        , Integration.RoutesBoxSpec.tests
+        ]
 
 
 main : Test.Runner.Node.TestProgram

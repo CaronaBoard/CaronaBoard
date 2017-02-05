@@ -1,8 +1,8 @@
 module Login.View.PasswordStep exposing (passwordStep)
 
-import Html exposing (Html, div, input, text)
-import Html.Attributes exposing (class, type_, placeholder, value, autofocus)
-import Html.Events exposing (onInput, onSubmit)
+import Testable.Html exposing (Html, div, input, text)
+import Testable.Html.Attributes exposing (class, type_, placeholder, value, autofocus)
+import Testable.Html.Events exposing (onInput, onSubmit)
 import Msg as Root
 import Login.Msg exposing (Msg(..))
 import Login.Model exposing (Model)

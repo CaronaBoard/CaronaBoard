@@ -1,7 +1,7 @@
 module Login.View.Common exposing (loadingOrSubmitButton, renderErrors)
 
-import Html exposing (Html, div, input, text)
-import Html.Attributes exposing (id, type_, value, disabled)
+import Testable.Html exposing (Html, div, input, text)
+import Testable.Html.Attributes exposing (id, type_, value, disabled)
 import Msg as Root
 import Login.Model exposing (Model, Step(..), Response(..), step)
 
