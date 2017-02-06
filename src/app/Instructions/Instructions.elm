@@ -1,7 +1,7 @@
 module Instructions.Instructions exposing (instructions)
 
-import Html exposing (Html, ol, li, text, strong, div)
-import Html.Attributes exposing (id)
+import Testable.Html exposing (Html, ol, li, text, strong, div)
+import Testable.Html.Attributes exposing (id)
 
 
 instructions : Html a

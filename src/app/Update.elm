@@ -3,9 +3,10 @@ module Update exposing (update)
 import Model exposing (Model)
 import Login.Update as Login
 import Msg exposing (Msg(..))
+import Testable.Cmd
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
+update : Msg -> Model -> ( Model, Testable.Cmd.Cmd Msg )
 update msg model =
     ( modelUpdate msg model, cmdUpdate msg model )
 
@@ -20,11 +21,11 @@ modelUpdate msg model =
             { model | login = Login.update loginMsg model.login }
 
 
-cmdUpdate : Msg -> Model -> Cmd Msg
+cmdUpdate : Msg -> Model -> Testable.Cmd.Cmd Msg
 cmdUpdate msg model =
     case msg of
         UpdateRiders riders ->
-            Cmd.none
+            Testable.Cmd.none
 
         MsgForLogin loginMsg ->
-            Cmd.map MsgForLogin <| Login.cmdUpdate loginMsg model.login
+            Testable.Cmd.map MsgForLogin <| Login.cmdUpdate loginMsg model.login

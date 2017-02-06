@@ -1,9 +1,9 @@
 module Layout.Home exposing (view)
 
-import Html exposing (Html, div)
-import Html.Attributes exposing (id)
+import Testable.Html exposing (Html, div)
+import Testable.Html.Attributes exposing (id)
 import Model exposing (Model, Rider)
-import Msg exposing (Msg)
+import Msg exposing (Msg(..))
 import Layout.Header exposing (header)
 import Instructions.Instructions exposing (instructions)
 import RoutesBox.RoutesBox exposing (routesBox)
@@ -29,4 +29,4 @@ loginOrHomeScreen model =
 
         Nothing ->
             div [ id "app-login" ]
-                [ login model.login ]
+                [ Testable.Html.map MsgForLogin <| login model.login ]

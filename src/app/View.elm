@@ -1,6 +1,6 @@
 module View exposing (view, initialView)
 
-import Html exposing (Html, div)
+import Testable.Html exposing (Html, div)
 import Model exposing (Model, init)
 import Msg exposing (Msg)
 import Layout.Home

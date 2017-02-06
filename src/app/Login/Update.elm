@@ -3,6 +3,7 @@ module Login.Update exposing (update, cmdUpdate)
 import Login.Model exposing (Model, Response(..), Step(..), User, step)
 import Login.Ports exposing (checkRegistration, signIn)
 import Login.Msg exposing (Msg(..))
+import Testable.Cmd
 
 
 update : Msg -> Model -> Model
@@ -43,19 +44,19 @@ update msg model =
                 { model | loggedIn = loggedIn }
 
 
-cmdUpdate : Msg -> Model -> Cmd Msg
+cmdUpdate : Msg -> Model -> Testable.Cmd.Cmd Msg
 cmdUpdate msg model =
     case msg of
         Submit ->
             case step model of
                 EmailStep ->
-                    checkRegistration model.email
+                    Testable.Cmd.wrap <| checkRegistration model.email
 
                 PasswordStep ->
-                    signIn { email = model.email, password = model.password }
+                    Testable.Cmd.wrap <| signIn { email = model.email, password = model.password }
 
                 NotRegisteredStep ->
-                    Cmd.none
+                    Testable.Cmd.none
 
         _ ->
-            Cmd.none
+            Testable.Cmd.none

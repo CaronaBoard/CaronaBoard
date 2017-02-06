@@ -1,6 +1,7 @@
 module Model exposing (Model, Rider, init)
 
 import Login.Model as Login
+import Testable.Cmd
 
 
 type alias Rider =
@@ -13,10 +14,10 @@ type alias Model =
     }
 
 
-init : ( Model, Cmd a )
+init : ( Model, Testable.Cmd.Cmd a )
 init =
     ( { riders = []
-      , login = Login.model
+      , login = Login.init
       }
-    , Cmd.none
+    , Testable.Cmd.none
     )
