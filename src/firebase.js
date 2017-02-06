@@ -36,10 +36,22 @@ module.exports = function (app) {
   });
 
   app.ports.signIn.subscribe(function (credentials) {
-    firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password).then(function (user) {
-      app.ports.signInResponse.send([null, {id: user.uid, name: user.displayName || ""}]);
-    }).catch(function (error) {
-      app.ports.signInResponse.send([error.message, null]);
-    });
+    firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
+      .then(signInUser)
+      .catch(function (error) {
+        app.ports.signInResponse.send([error.message, null]);
+      });
   });
+
+  var signInUser = function (user) {
+    app.ports.signInResponse.send([null, {id: user.uid, name: user.displayName || ""}]);
+  };
+
+  var checkIfUserIsSignedIn = function () {
+    var user = firebase.auth().currentUser;
+    if (user) signInUser(user);
+  };
+
+  checkIfUserIsSignedIn();
+  firebase.auth().onAuthStateChanged(checkIfUserIsSignedIn);
 }
