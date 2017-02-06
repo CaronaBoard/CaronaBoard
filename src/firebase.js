@@ -28,12 +28,11 @@ module.exports = function (app) {
   });
 
   app.ports.checkRegistration.subscribe(function (email) {
-    // 50/50% of chance of the email to exist
-    var randResult = Math.floor(Math.random() * 2);
-
-    setTimeout(function () {
-      app.ports.checkRegistrationResponse.send(!randResult);
-    }, 2000);
+    firebase.auth().fetchProvidersForEmail(email).then(function (providers) {
+      app.ports.checkRegistrationResponse.send(providers.length > 0);
+    }).catch(function (a) {
+      app.ports.checkRegistrationResponse.send(false);
+    });
   });
 
   app.ports.signIn.subscribe(function (credentials) {
