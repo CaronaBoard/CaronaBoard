@@ -30,22 +30,16 @@ module.exports = function (app) {
   app.ports.checkRegistration.subscribe(function (email) {
     firebase.auth().fetchProvidersForEmail(email).then(function (providers) {
       app.ports.checkRegistrationResponse.send(providers.length > 0);
-    }).catch(function (a) {
+    }).catch(function () {
       app.ports.checkRegistrationResponse.send(false);
     });
   });
 
   app.ports.signIn.subscribe(function (credentials) {
-    // 50/50% of success/error
-    var randResult = Math.floor(Math.random() * 2);
-
-    var result = [
-      [null, { id: 'example-user-id', name: 'Fulano de Tal' }],
-      ['Usuário/Senha Inválido', null]
-    ][randResult];
-
-    setTimeout(function () {
-      app.ports.signInResponse.send(result);
-    }, 3000);
+    firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password).then(function (user) {
+      app.ports.signInResponse.send([null, {id: user.uid, name: user.displayName || ""}]);
+    }).catch(function (error) {
+      app.ports.signInResponse.send([error.message, null]);
+    });
   });
 }
