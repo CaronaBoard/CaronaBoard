@@ -47,11 +47,9 @@ module.exports = function (app) {
     app.ports.signInResponse.send([null, {id: user.uid, name: user.displayName || ""}]);
   };
 
-  var checkIfUserIsSignedIn = function () {
+  firebase.auth().onAuthStateChanged(function () {
     var user = firebase.auth().currentUser;
+    // TODO: SignOut user if this is false;
     if (user) signInUser(user);
-  };
-
-  checkIfUserIsSignedIn();
-  firebase.auth().onAuthStateChanged(checkIfUserIsSignedIn);
+  });
 }

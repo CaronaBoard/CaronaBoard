@@ -49,10 +49,13 @@ loggedInUser model =
             Nothing
 
 
-init : Model
-init =
+init : Maybe User -> Model
+init user =
     { email = ""
     , password = ""
     , registered = Empty
-    , loggedIn = Empty
+    , loggedIn =
+        user
+            |> Maybe.map Success
+            |> Maybe.withDefault Empty
     }

@@ -15,4 +15,6 @@ view =
 
 initialView : Html.Html Msg
 initialView =
-    Testable.view view (Tuple.first init)
+    init { currentUser = Nothing }
+        |> Tuple.first
+        |> Testable.view view
