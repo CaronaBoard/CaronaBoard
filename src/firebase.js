@@ -28,25 +28,28 @@ module.exports = function (app) {
   });
 
   app.ports.checkRegistration.subscribe(function (email) {
-    // 50/50% of chance of the email to exist
-    var randResult = Math.floor(Math.random() * 2);
-
-    setTimeout(function () {
-      app.ports.checkRegistrationResponse.send(!randResult);
-    }, 2000);
+    firebase.auth().fetchProvidersForEmail(email).then(function (providers) {
+      app.ports.checkRegistrationResponse.send(providers.length > 0);
+    }).catch(function () {
+      app.ports.checkRegistrationResponse.send(false);
+    });
   });
 
   app.ports.signIn.subscribe(function (credentials) {
-    // 50/50% of success/error
-    var randResult = Math.floor(Math.random() * 2);
+    firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
+      .then(signInUser)
+      .catch(function (error) {
+        app.ports.signInResponse.send([error.message, null]);
+      });
+  });
 
-    var result = [
-      [null, { id: 'example-user-id', name: 'Fulano de Tal' }],
-      ['Usuário/Senha Inválido', null]
-    ][randResult];
+  var signInUser = function (user) {
+    app.ports.signInResponse.send([null, {id: user.uid, name: user.displayName || ""}]);
+  };
 
-    setTimeout(function () {
-      app.ports.signInResponse.send(result);
-    }, 3000);
+  firebase.auth().onAuthStateChanged(function () {
+    var user = firebase.auth().currentUser;
+    // TODO: SignOut user if this is false;
+    if (user) signInUser(user);
   });
 }
