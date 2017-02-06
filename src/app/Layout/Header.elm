@@ -1,7 +1,7 @@
 module Layout.Header exposing (header)
 
-import Html exposing (Html, div, img, h1, h2, a, text)
-import Html.Attributes exposing (id, href, src, rel, alt)
+import Testable.Html exposing (Html, div, img, h1, h2, a, text)
+import Testable.Html.Attributes exposing (id, href, src, rel, alt)
 
 
 header : Html a

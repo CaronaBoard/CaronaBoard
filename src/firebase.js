@@ -26,4 +26,30 @@ module.exports = function (app) {
   firebase.database().ref('riders').on('value', function (riders) {
     app.ports.riders.send(toArrayOfObjects(riders.val()));
   });
+
+  app.ports.checkRegistration.subscribe(function (email) {
+    firebase.auth().fetchProvidersForEmail(email).then(function (providers) {
+      app.ports.checkRegistrationResponse.send(providers.length > 0);
+    }).catch(function () {
+      app.ports.checkRegistrationResponse.send(false);
+    });
+  });
+
+  app.ports.signIn.subscribe(function (credentials) {
+    firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
+      .then(signInUser)
+      .catch(function (error) {
+        app.ports.signInResponse.send([error.message, null]);
+      });
+  });
+
+  var signInUser = function (user) {
+    app.ports.signInResponse.send([null, {id: user.uid, name: user.displayName || ""}]);
+  };
+
+  firebase.auth().onAuthStateChanged(function () {
+    var user = firebase.auth().currentUser;
+    // TODO: SignOut user if this is false;
+    if (user) signInUser(user);
+  });
 }
