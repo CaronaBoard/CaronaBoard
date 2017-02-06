@@ -16,7 +16,7 @@ import Testable.Cmd
 loginContext : a -> TestContext Msg Model
 loginContext _ =
     startForTest
-        { init = ( Model.init, Testable.Cmd.none )
+        { init = ( Model.init Nothing, Testable.Cmd.none )
         , update = (\msg model -> ( Update.update msg model, Update.cmdUpdate msg model ))
         , view = View.login
         }
@@ -50,49 +50,49 @@ expectToContainText expected actual =
 tests : Test
 tests =
     describe "Login"
-        [ test "renders the login when user is not logged in yet"
-            <| loginContext
-            >> find [ id "login" ]
-            >> assertPresent
-        , describe "email check"
-            [ test "shows loading button on submit"
-                <| submitEmail
-                >> thenFind [ tag "input", attribute "type" "submit" ]
-                >> assertAttribute "value" (Expect.equal "Carregando...")
-            , test "calls checkRegistration port"
-                <| submitEmail
-                >> assertCalled (checkRegistration "foo@bar.com")
-            , test "shows beta message when user is not registered yet"
-                <| submitEmail
-                >> update (CheckRegistrationResponse False)
+        [ test "renders the login when user is not logged in yet" <|
+            loginContext
                 >> find [ id "login" ]
-                >> assertText (expectToContainText "em fase de testes")
+                >> assertPresent
+        , describe "email check"
+            [ test "shows loading button on submit" <|
+                submitEmail
+                    >> thenFind [ tag "input", attribute "type" "submit" ]
+                    >> assertAttribute "value" (Expect.equal "Carregando...")
+            , test "calls checkRegistration port" <|
+                submitEmail
+                    >> assertCalled (checkRegistration "foo@bar.com")
+            , test "shows beta message when user is not registered yet" <|
+                submitEmail
+                    >> update (CheckRegistrationResponse False)
+                    >> find [ id "login" ]
+                    >> assertText (expectToContainText "em fase de testes")
             ]
         , describe "password check"
-            [ test "shows loading button on submit"
-                <| submitEmailThenPassword
-                >> thenFind [ tag "input", attribute "type" "submit" ]
-                >> assertAttribute "value" (Expect.equal "Carregando...")
-            , test "shows error when signing in and renable button"
-                <| submitEmailThenPassword
-                >> update (SignInResponse ( Just "Invalid password", Nothing ))
-                >> Expect.all
-                    [ find [ id "login" ]
-                        >> assertText (expectToContainText "Invalid password")
-                    , find [ tag "input", attribute "type" "submit" ]
-                        >> assertAttribute "value" (Expect.equal "Entrar")
-                    ]
-            , test "returns the logged in user from the model"
-                <| submitEmailThenPassword
-                >> update (SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
-                >> currentModel
-                >> (\result ->
-                        case result of
-                            Ok model ->
-                                Expect.equal (Just { id = "foo-bar-baz", name = "Baz" }) (loggedInUser model)
+            [ test "shows loading button on submit" <|
+                submitEmailThenPassword
+                    >> thenFind [ tag "input", attribute "type" "submit" ]
+                    >> assertAttribute "value" (Expect.equal "Carregando...")
+            , test "shows error when signing in and renable button" <|
+                submitEmailThenPassword
+                    >> update (SignInResponse ( Just "Invalid password", Nothing ))
+                    >> Expect.all
+                        [ find [ id "login" ]
+                            >> assertText (expectToContainText "Invalid password")
+                        , find [ tag "input", attribute "type" "submit" ]
+                            >> assertAttribute "value" (Expect.equal "Entrar")
+                        ]
+            , test "returns the logged in user from the model" <|
+                submitEmailThenPassword
+                    >> update (SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
+                    >> currentModel
+                    >> (\result ->
+                            case result of
+                                Ok model ->
+                                    Expect.equal (Just { id = "foo-bar-baz", name = "Baz" }) (loggedInUser model)
 
-                            Err err ->
-                                Expect.fail (toString err)
-                   )
+                                Err err ->
+                                    Expect.fail (toString err)
+                       )
             ]
         ]
