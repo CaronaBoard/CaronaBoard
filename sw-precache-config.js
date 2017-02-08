@@ -6,6 +6,10 @@ module.exports = {
     'build/manifest.json',
     'build/images/**/*'
   ],
+  runtimeCaching: [{
+    urlPattern: /cdnjs/,
+    handler: 'cacheFirst'
+  }],
   dontCacheBustUrlsMatching: /\.js/,
   swFilePath: 'build/service-worker.js'
 };
