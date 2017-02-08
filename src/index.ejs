@@ -18,9 +18,8 @@
     <meta name="msapplication-config" content="images/favicons/browserconfig.xml">
     <meta name="theme-color" content="#004e89">
 
-    <style type="text/css">
-      <%= require('./css/main.scss') %>
-    </style>
+    <link rel="stylesheet" href="<%= require('materialize-css/bin/materialize.css') %>">
+    <link rel="stylesheet" href="<%= require('./css/main.scss') %>">
   </head>
   <body>
     <div id="page-wrap"><%= require('../build/elm.html') %></div>
