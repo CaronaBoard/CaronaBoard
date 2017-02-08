@@ -4,8 +4,8 @@
   "description": "Social ride network",
   "main": "index.js",
   "scripts": {
-    "start": "http-server build",
-    "start:dev": "yarn generate-html && webpack-dev-server",
+    "start": "yarn generate-html && webpack-dev-server",
+    "start:dist": "http-server build",
     "build": "yarn generate-html && webpack -p --progress && sw-precache --config=sw-precache-config.js",
     "build:analyze": "webpack -p --profile --json > build/stats.json && webpack-bundle-analyzer build/stats.json",
     "generate-html": "mkdir -p build && elm-static-html -c elm-static-html.json",
