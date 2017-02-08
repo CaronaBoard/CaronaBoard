@@ -1,7 +1,7 @@
 module Login.View.EmailStep exposing (emailStep)
 
-import Testable.Html exposing (Html, div, input)
-import Testable.Html.Attributes exposing (type_, placeholder, value, class)
+import Testable.Html exposing (Html, div, input, label, text)
+import Testable.Html.Attributes exposing (type_, placeholder, value, class, id, for)
 import Testable.Html.Events exposing (onInput, onSubmit)
 import Login.Msg exposing (Msg(..))
 import Login.Model exposing (Model)
@@ -15,11 +15,12 @@ emailStep model =
         , div [ class "input-field" ]
             [ input
                 [ type_ "email"
-                , placeholder "Email"
+                , id "email"
                 , onInput UpdateEmail
                 , value model.email
                 ]
                 []
+            , label [ for "email" ] [ text "Email" ]
             ]
         , loadingOrSubmitButton "->" model.registered
         ]
