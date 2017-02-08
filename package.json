@@ -10,7 +10,8 @@
     "build:analyze": "webpack -p --profile --json > build/stats.json && webpack-bundle-analyzer build/stats.json",
     "generate-html": "mkdir -p build && elm-static-html -c elm-static-html.json",
     "test": "elm-test",
-    "deploy": "./deploy.sh"
+    "deploy": "./deploy.sh",
+    "deploy:now": "yarn build && now build"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
     "file-loader": "^0.10.0",
     "html-webpack-plugin": "^2.24.1",
     "node-sass": "^4.1.1",
+    "now": "^4.2.2",
     "raw-loader": "^0.5.1",
     "sass-loader": "^4.1.1",
     "sw-precache": "^4.2.3",
