@@ -45,14 +45,25 @@ module.exports = function (app) {
       });
   });
 
+  app.ports.signOut.subscribe(function () {
+    firebase.auth().signOut().then(signOutUser);
+  });
+
   var signInUser = function (user) {
     app.ports.signInResponse.send([null, {id: user.uid, name: user.displayName || ""}]);
     fetchRiders();
   };
 
+  var signOutUser = function () {
+    app.ports.signOutResponse.send(null);
+  };
+
   firebase.auth().onAuthStateChanged(function () {
     var user = firebase.auth().currentUser;
-    // TODO: SignOut user if this is false;
-    if (user) signInUser(user);
+    if (user) {
+      signInUser(user);
+    } else {
+      signOutUser();
+    }
   });
 }

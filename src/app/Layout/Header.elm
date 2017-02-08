@@ -1,10 +1,13 @@
 module Layout.Header exposing (header)
 
-import Testable.Html exposing (Html, div, img, h1, h2, a, text)
+import Testable.Html exposing (Html, div, img, h1, h2, a, text, button)
 import Testable.Html.Attributes exposing (id, href, src, rel, alt)
+import Testable.Html.Events exposing (onClick)
+import Msg exposing (Msg(MsgForLogin))
+import Login.Msg exposing (Msg(SignOut))
 
 
-header : Html a
+header : Html Msg.Msg
 header =
     div [ id "header" ]
         [ div [ id "topbar" ]
@@ -23,4 +26,5 @@ header =
                     ]
                 ]
             ]
+        , button [ id "signout-button", onClick (MsgForLogin SignOut) ] [ text "Sair" ]
         ]

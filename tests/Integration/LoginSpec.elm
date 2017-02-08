@@ -95,4 +95,19 @@ tests =
                                     Expect.fail (toString err)
                        )
             ]
+        , describe "logout"
+            [ test "removes the logged in user" <|
+                loginContext
+                    >> update (SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
+                    >> update SignOutResponse
+                    >> currentModel
+                    >> (\result ->
+                            case result of
+                                Ok model ->
+                                    Expect.equal Nothing (loggedInUser model)
+
+                                Err err ->
+                                    Expect.fail (toString err)
+                       )
+            ]
         ]

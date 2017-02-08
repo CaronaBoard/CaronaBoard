@@ -1,7 +1,7 @@
 module Login.Update exposing (update, cmdUpdate)
 
 import Login.Model exposing (Model, Response(..), Step(..), User, step)
-import Login.Ports exposing (checkRegistration, signIn)
+import Login.Ports exposing (checkRegistration, signIn, signOut)
 import Login.Msg exposing (Msg(..))
 import Testable.Cmd
 
@@ -43,6 +43,12 @@ update msg model =
             in
                 { model | loggedIn = loggedIn }
 
+        SignOut ->
+            model
+
+        SignOutResponse ->
+            { model | loggedIn = Empty }
+
 
 cmdUpdate : Msg -> Model -> Testable.Cmd.Cmd Msg
 cmdUpdate msg model =
@@ -57,6 +63,9 @@ cmdUpdate msg model =
 
                 NotRegisteredStep ->
                     Testable.Cmd.none
+
+        SignOut ->
+            Testable.Cmd.wrap <| signOut ()
 
         _ ->
             Testable.Cmd.none

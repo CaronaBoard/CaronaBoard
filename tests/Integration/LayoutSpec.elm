@@ -9,6 +9,7 @@ import Model
 import View
 import Msg
 import Login.Msg
+import Login.Ports exposing (signOut)
 
 
 loginContext : a -> TestContext Msg.Msg Model.Model
@@ -18,6 +19,14 @@ loginContext _ =
         , update = Update.update
         , view = View.view
         }
+
+
+loginThenLogout : a -> TestContext Msg.Msg Model.Model
+loginThenLogout =
+    loginContext
+        >> update (Msg.MsgForLogin <| Login.Msg.SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
+        >> find [ id "signout-button" ]
+        >> trigger "click" "{}"
 
 
 tests : Test
@@ -40,4 +49,26 @@ tests =
                     , find [ id "app-login" ]
                         >> assertNodeCount (Expect.equal 0)
                     ]
+        , describe "logout"
+            [ test "trigger port on sign out button click" <|
+                loginThenLogout
+                    >> assertCalled (Cmd.map Msg.MsgForLogin <| signOut ())
+            , test "does not log user out until the response from firebase" <|
+                loginThenLogout
+                    >> Expect.all
+                        [ find [ id "app-main" ]
+                            >> assertPresent
+                        , find [ id "app-login" ]
+                            >> assertNodeCount (Expect.equal 0)
+                        ]
+            , test "goes back to login page on logout" <|
+                loginThenLogout
+                    >> update (Msg.MsgForLogin Login.Msg.SignOutResponse)
+                    >> Expect.all
+                        [ find [ id "app-main" ]
+                            >> assertNodeCount (Expect.equal 0)
+                        , find [ id "app-login" ]
+                            >> assertPresent
+                        ]
+            ]
         ]

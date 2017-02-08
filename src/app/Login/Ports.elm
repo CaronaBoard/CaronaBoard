@@ -1,4 +1,4 @@
-port module Login.Ports exposing (subscriptions, checkRegistration, signIn)
+port module Login.Ports exposing (subscriptions, checkRegistration, signIn, signOut)
 
 import Login.Model exposing (User)
 import Login.Msg exposing (Msg(..))
@@ -9,6 +9,7 @@ subscriptions =
     Sub.batch
         [ checkRegistrationResponse CheckRegistrationResponse
         , signInResponse SignInResponse
+        , signOutResponse (always SignOutResponse)
         ]
 
 
@@ -34,3 +35,13 @@ type alias Error =
 
 
 port signInResponse : (( Maybe Error, Maybe User ) -> msg) -> Sub msg
+
+
+
+-- signOut
+
+
+port signOut : () -> Cmd msg
+
+
+port signOutResponse : (() -> msg) -> Sub msg

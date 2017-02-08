@@ -9,6 +9,8 @@ type Msg
     | Submit
     | CheckRegistrationResponse Bool
     | SignInResponse ( Maybe Error, Maybe User )
+    | SignOut
+    | SignOutResponse
 
 
 type alias Error =
