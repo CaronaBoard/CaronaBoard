@@ -242,9 +242,6 @@ a .logo{
 
 #app-login{
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: $primary_color;
 }
 
@@ -262,9 +259,6 @@ a .logo{
 	padding: 80px 40px;
 	background-color: #fff;
   overflow: hidden;
-	width: 100%;
-	max-width: 380px;
-	box-sizing: border-box;
 	box-shadow: 0 0.5em 0.5em rgba(000,000,000,0.1);
 
 	h2{

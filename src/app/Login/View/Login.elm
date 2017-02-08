@@ -11,7 +11,7 @@ import Login.View.PasswordStep exposing (passwordStep)
 
 login : Model -> Html Msg
 login model =
-    div [ id "login" ]
+    div [ id "login", class "col s12 m8 offset-m2 l6 offset-l3" ]
         [ stepForm model ]
 
 
