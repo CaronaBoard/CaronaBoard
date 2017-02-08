@@ -23,9 +23,11 @@ var toArrayOfObjects = function (object) {
 };
 
 module.exports = function (app) {
-  firebase.database().ref('riders').on('value', function (riders) {
-    app.ports.riders.send(toArrayOfObjects(riders.val()));
-  });
+  var fetchRiders = function () {
+    firebase.database().ref('riders').on('value', function (riders) {
+      app.ports.riders.send(toArrayOfObjects(riders.val()));
+    });
+  };
 
   app.ports.checkRegistration.subscribe(function (email) {
     firebase.auth().fetchProvidersForEmail(email).then(function (providers) {
@@ -45,6 +47,7 @@ module.exports = function (app) {
 
   var signInUser = function (user) {
     app.ports.signInResponse.send([null, {id: user.uid, name: user.displayName || ""}]);
+    fetchRiders();
   };
 
   firebase.auth().onAuthStateChanged(function () {
