@@ -1,6 +1,6 @@
 module Login.View.EmailStep exposing (emailStep)
 
-import Testable.Html exposing (Html, div, input, label, text)
+import Testable.Html exposing (Html, div, input, label, text, i)
 import Testable.Html.Attributes exposing (type_, placeholder, value, class, id, for)
 import Testable.Html.Events exposing (onInput, onSubmit)
 import Login.Msg exposing (Msg(..))
@@ -22,5 +22,9 @@ emailStep model =
                 []
             , label [ for "email" ] [ text "Email" ]
             ]
-        , loadingOrSubmitButton "->" model.registered
+        , loadingOrSubmitButton
+            [ i [ class "material-icons right" ] [ text "forward" ]
+            , text "Próximo"
+            ]
+            model.registered
         ]

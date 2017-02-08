@@ -1,19 +1,19 @@
 module Login.View.Common exposing (loadingOrSubmitButton, renderErrors)
 
-import Testable.Html exposing (Html, div, input, text)
-import Testable.Html.Attributes exposing (id, type_, value, disabled)
+import Testable.Html exposing (Html, div, button, text)
+import Testable.Html.Attributes exposing (id, value, disabled, class)
 import Login.Model exposing (Model, Step(..), Response(..), step)
 import Login.Msg exposing (Msg(..))
 
 
-loadingOrSubmitButton : String -> Response a -> Html Msg
-loadingOrSubmitButton buttonText response =
+loadingOrSubmitButton : List (Html Msg) -> Response a -> Html Msg
+loadingOrSubmitButton buttonChildren response =
     case response of
         Loading ->
-            input [ type_ "submit", value "Carregando...", disabled True ] []
+            button [ disabled True, class "waves-effect waves-light btn-large" ] buttonChildren
 
         _ ->
-            input [ type_ "submit", value buttonText ] []
+            button [ class "waves-effect waves-light btn-large" ] buttonChildren
 
 
 renderErrors : Response a -> Html Msg
