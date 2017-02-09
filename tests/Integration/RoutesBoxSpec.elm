@@ -6,7 +6,7 @@ import Testable.Html.Selectors exposing (..)
 import Expect exposing (equal)
 import Update
 import Model
-import RoutesBox.RoutesBox exposing (routesBox)
+import RoutesBox.RoutesList exposing (routesList)
 import Msg
 
 
@@ -15,7 +15,7 @@ routesBoxContext _ =
     startForTest
         { init = Model.init { currentUser = Nothing }
         , update = Update.update
-        , view = routesBox
+        , view = routesList
         }
 
 
@@ -37,7 +37,6 @@ tests =
         , test "renders routes when they load" <|
             routesBoxContext
                 >> update (Msg.UpdateRiders ridersExample)
-                >> find [ class "routes-box" ]
-                >> thenFindAll [ class "route" ]
+                >> findAll [ class "rider-card" ]
                 >> assertNodeCount (Expect.equal 2)
         ]

@@ -57,8 +57,8 @@ tests =
         , describe "email check"
             [ test "shows loading button on submit" <|
                 submitEmail
-                    >> thenFind [ tag "input", attribute "type" "submit" ]
-                    >> assertAttribute "value" (Expect.equal "Carregando...")
+                    >> thenFind [ tag "button" ]
+                    >> assertText (Expect.equal "Carregando...")
             , test "calls checkRegistration port" <|
                 submitEmail
                     >> assertCalled (checkRegistration "foo@bar.com")
@@ -71,16 +71,16 @@ tests =
         , describe "password check"
             [ test "shows loading button on submit" <|
                 submitEmailThenPassword
-                    >> thenFind [ tag "input", attribute "type" "submit" ]
-                    >> assertAttribute "value" (Expect.equal "Carregando...")
+                    >> thenFind [ tag "button" ]
+                    >> assertText (Expect.equal "Carregando...")
             , test "shows error when signing in and renable button" <|
                 submitEmailThenPassword
                     >> update (SignInResponse ( Just "Invalid password", Nothing ))
                     >> Expect.all
                         [ find [ id "login" ]
                             >> assertText (expectToContainText "Invalid password")
-                        , find [ tag "input", attribute "type" "submit" ]
-                            >> assertAttribute "value" (Expect.equal "Entrar")
+                        , find [ tag "button" ]
+                            >> assertText (expectToContainText "Entrar")
                         ]
             , test "returns the logged in user from the model" <|
                 submitEmailThenPassword
