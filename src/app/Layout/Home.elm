@@ -6,7 +6,7 @@ import Model exposing (Model, Rider)
 import Msg exposing (Msg(..))
 import Layout.Header exposing (header)
 import Instructions.Instructions exposing (instructions)
-import RoutesBox.RoutesBox exposing (routesBox)
+import RoutesBox.RoutesList exposing (routesList)
 import Login.View.Login exposing (login)
 import Login.Model exposing (loggedInUser)
 
@@ -24,7 +24,7 @@ loginOrHomeScreen model =
             div [ id "app-main" ]
                 [ header
                 , instructions
-                , routesBox model
+                , routesList model
                 ]
 
         Nothing ->

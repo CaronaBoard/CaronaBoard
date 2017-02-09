@@ -1,6 +1,6 @@
 module Layout.Header exposing (header)
 
-import Testable.Html exposing (Html, img, h1, h2, a, text, button, nav, div, ul, li, i)
+import Testable.Html exposing (Html, img, h1, h2, a, b, text, button, nav, div, ul, li, i)
 import Testable.Html.Attributes exposing (id, class, href, src, rel, alt)
 import Testable.Html.Events exposing (onClick)
 import Msg exposing (Msg(MsgForLogin))
@@ -10,15 +10,17 @@ import Common.Icon exposing (icon)
 
 header : Html Msg.Msg
 header =
-    Testable.Html.header []
+    Testable.Html.header [ class "navbar-fixed" ]
         [ nav []
             [ div [ class "nav-wrapper" ]
-                [ a [ class "brand-logo", href "/" ]
-                    [ text "CaronaBoard" ]
-                , ul [ class "right hide-on-med-and-down", id "nav-mobile" ]
+                [ a [ class "brand-logo left", href "/" ]
+                    [ b [] [ text "Carona" ]
+                    , text "Board"
+                    ]
+                , ul [ class "right" ]
                     [ li []
                         [ a [ href "http://goo.gl/forms/ohEbgkMa9i" ]
-                            [ text "Dou Carona!" ]
+                            [ icon "directions_car" ]
                         ]
                     , li []
                         [ a [ class "dropdown-button", href "#" ]
