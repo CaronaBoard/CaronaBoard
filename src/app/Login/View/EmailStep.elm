@@ -5,7 +5,8 @@ import Testable.Html.Attributes exposing (type_, placeholder, value, class, id, 
 import Testable.Html.Events exposing (onInput, onSubmit)
 import Login.Msg exposing (Msg(..))
 import Login.Model exposing (Model)
-import Login.View.Common exposing (loadingOrSubmitButton, renderErrors)
+import Common.Form exposing (loadingOrSubmitButton, renderErrors)
+import Common.Icon exposing (iconRight)
 
 
 emailStep : Model -> Html Msg
@@ -23,7 +24,7 @@ emailStep model =
             , label [ for "email" ] [ text "Email" ]
             ]
         , loadingOrSubmitButton
-            [ i [ class "material-icons right" ] [ text "forward" ]
+            [ iconRight "forward"
             , text "Próximo"
             ]
             model.registered

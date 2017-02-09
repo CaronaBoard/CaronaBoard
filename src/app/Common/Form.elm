@@ -1,9 +1,9 @@
-module Login.View.Common exposing (loadingOrSubmitButton, renderErrors)
+module Common.Form exposing (loadingOrSubmitButton, renderErrors)
 
 import Testable.Html exposing (Html, div, button, text)
 import Testable.Html.Attributes exposing (id, value, disabled, class)
-import Login.Model exposing (Model, Step(..), Response(..), step)
 import Login.Msg exposing (Msg(..))
+import Common.Response exposing (Response(..))
 
 
 loadingOrSubmitButton : List (Html Msg) -> Response a -> Html Msg

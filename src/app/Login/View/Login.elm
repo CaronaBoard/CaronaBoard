@@ -4,7 +4,7 @@ import Testable.Html exposing (Html, div, h2, input, text, form)
 import Testable.Html.Attributes exposing (id, type_, placeholder, value, class, disabled)
 import Testable.Html.Events exposing (onInput, onSubmit)
 import Login.Msg exposing (Msg(..))
-import Login.Model exposing (Model, Step(..), Response(..), step)
+import Login.Model exposing (Model, Step(..), step)
 import Login.View.EmailStep exposing (emailStep)
 import Login.View.PasswordStep exposing (passwordStep)
 

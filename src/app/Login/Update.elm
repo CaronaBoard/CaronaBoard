@@ -1,9 +1,10 @@
 module Login.Update exposing (update, cmdUpdate)
 
-import Login.Model exposing (Model, Response(..), Step(..), User, step)
+import Login.Model exposing (Model, Step(..), User, step)
 import Login.Ports exposing (checkRegistration, signIn, signOut)
 import Login.Msg exposing (Msg(..))
 import Testable.Cmd
+import Common.Response exposing (Response(..))
 
 
 update : Msg -> Model -> Model
