@@ -1,4 +1,6 @@
-module Login.Model exposing (Model, init, Response(..), Step(..), User, step, loggedInUser)
+module Login.Model exposing (Model, init, Step(..), User, step, loggedInUser)
+
+import Common.Response exposing (Response(..))
 
 
 type alias Model =
@@ -17,13 +19,6 @@ type Step
     = EmailStep
     | NotRegisteredStep
     | PasswordStep
-
-
-type Response a
-    = Empty
-    | Loading
-    | Success a
-    | Error String
 
 
 step : Model -> Step

@@ -1,23 +1,31 @@
 module Login.View.EmailStep exposing (emailStep)
 
-import Testable.Html exposing (Html, div, input)
-import Testable.Html.Attributes exposing (type_, placeholder, value)
+import Testable.Html exposing (Html, div, input, label, text, i)
+import Testable.Html.Attributes exposing (type_, placeholder, value, class, id, for)
 import Testable.Html.Events exposing (onInput, onSubmit)
 import Login.Msg exposing (Msg(..))
 import Login.Model exposing (Model)
-import Login.View.Common exposing (loadingOrSubmitButton, renderErrors)
+import Common.Form exposing (loadingOrSubmitButton, renderErrors)
+import Common.Icon exposing (iconRight)
 
 
 emailStep : Model -> Html Msg
 emailStep model =
     div []
         [ renderErrors model.loggedIn
-        , input
-            [ type_ "email"
-            , placeholder "Email"
-            , onInput UpdateEmail
-            , value model.email
+        , div [ class "input-field" ]
+            [ input
+                [ type_ "email"
+                , id "email"
+                , onInput UpdateEmail
+                , value model.email
+                ]
+                []
+            , label [ for "email" ] [ text "Email" ]
             ]
-            []
-        , loadingOrSubmitButton "->" model.registered
+        , loadingOrSubmitButton
+            [ iconRight "forward"
+            , text "Próximo"
+            ]
+            model.registered
         ]

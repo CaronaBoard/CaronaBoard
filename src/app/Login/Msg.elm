@@ -1,6 +1,6 @@
 module Login.Msg exposing (Msg(..))
 
-import Login.Model exposing (Model, Response(..), Step(..), User, step)
+import Login.Model exposing (Model, Step(..), User, step)
 
 
 type Msg

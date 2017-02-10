@@ -1,6 +1,5 @@
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let CopyWebpackPlugin = require('copy-webpack-plugin');
-let validate = require('webpack-validator');
 
 const config = {
   entry: './src/index.js',
@@ -12,7 +11,7 @@ const config = {
     loaders: [
       {
         test: /\.s?css$/,
-        loaders: ['raw-loader', 'sass-loader']
+        loaders: ['file-loader?name=[name].[hash].css', 'sass-loader']
       },
       {
         test: /\.elm$/,
@@ -36,4 +35,4 @@ const config = {
   ]
 };
 
-module.exports = validate(config);
+module.exports = config;

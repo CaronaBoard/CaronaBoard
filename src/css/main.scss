@@ -1,250 +1,58 @@
-$primary_color: #303F9F;
+
+
+$primary_color: #0255FB;
 $secondary_color: #FF9800;
-$primary_text_color: #212121;
+$primary_text_color: #555555;
 $secondary_text_color: #757575;
 
+html {
+  font-family: Lato, sans-serif;
+}
 
-
-@media 	only screen and (max-device-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px)  {
-		/* Force table to not be like tables anymore */
-		table, thead, tbody, th, td, tr {
-			display: block;
-		}
-		th {font-weight: bold;}
-		/* Hide table headers (but not display: none;, for accessibility) */
-		thead tr {
-			position: absolute;
-			top: -9999px;
-			left: -9999px;
-		}
-		tr { border: 1px solid #000000; }
-		td {
-			/* Behave  like a "row" */
-			border: none;
-			border-bottom: 1px solid #000000;
-			position: relative;
-			padding-left: 30% !important;
-		}
-		td:before {
-			/* Now like a table header */
-			position: absolute;
-			/* Top/left values mimic padding */
-			top: 6px;
-			left: 6px;
-			width: 25%;
-			padding-right: 10px;
-			white-space: nowrap;
-			font-weight: bold;
-		}
-		/*
-		Label the data
-		*/
-		td:nth-of-type(1):before { content: "Rota"; }
-		td:nth-of-type(2):before { content: "Quando"; }
-		td:nth-of-type(3):before { content: "Horário"; }
-		td:nth-of-type(4):before { content: "Motorista"; }
-		td:nth-of-type(5):before { content: ""; }
-	}
 body {
-	font: 14px/1.4 'Open Sans', Arial;
-	margin: 0;
-	color: $primary_text_color
+  background: #EDF2F5;
 }
 
-body, html, #page-wrap, #app{
-	height: 100%;
+nav {
+  background-color: $primary_color;
+  .brand-logo {
+    font-size: 1.4rem;
+  }
 }
 
-#page-wrap {
-	margin: 0;
-	width: 100%;
-}
-p {
-	margin: 20px 0;
-}
-
-h3 {
-	margin: 16px 0 12px 0;
-}
-h4 {
-	color: #1A659E;
-}
-ul {
-	margin-bottom: 2em;
-}
-#passos {
-	font-size: 1.2em;
-}
-td p {
-	margin: 0 30px 0 0;
-	font-size: 1em;
-	font-style: italic;
-	color: red;
-}
-table {
-	width: 90%;
-	border-collapse: collapse;
-	margin: auto;
-}
-/* Zebra striping */
-tr:nth-of-type(odd) {
-	background-color: #f5f5f5;
-}
-th {
-    background-color: $primary_color;
-    color: #FFFFFF;
+.rider-card {
+  display: block;
+  color: $primary_text_color;
+  .card-title {
+    font-size: 16px;
     font-weight: bold;
-    text-transform: uppercase;
-    font-size: 0.8em;
-}
-td, th {
-    padding: 15px;
-    border: 1px solid #BDBDBD;
-    text-align: left;
-    width: auto;
-}
-#button_offer {
-    display: block;
+  }
+  .material-icons {
+    font-size: 16px;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+  .icon-path .material-icons {
+    position: absolute;
+    font-size: 16px;
+    margin-top: 14px;
+    margin-left: 2px;
+  }
+  .icon-path-dot .material-icons {
+    font-size: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  .ride-path {
+    margin-bottom: 10px;
+  }
+  .card-action p {
     margin: 0;
-    background-color: $secondary_color;
-    color: #FFF;
-    box-shadow: 0.1em 0.1em 0.2em rgba(000,000,000,0.5);
-    padding: 0.8em;
-    text-align: center;
-    width: 30%;
-}
-#button_offer a{
-	color: #fff;
-	text-decoration: none;
-	font-weight: bold;
-}
-#button_carona {
-	display: block;
-	margin: 0;
-	background-color: $secondary_color;
-	color: #FFF;
-	box-shadow: 0.1em 0.1em 0.2em rgba(000,000,000,0.5);
-	padding:0.4em;
-	text-align: center;
-}
-#button_carona a{
-	color: #FFF;
-	text-decoration: none;
-	font-weight: bold;
-}
-#ask_ride {
-	display: inline;
-	float: left;
-	width: 20%;
-}
-#header {
-	display: inline-block;
-	width: 100%;
-	margin: auto;
-
-	h1 {
-		color: #FFFFFF;
-		font-size: 2em;
-		margin: 0.4em 0 0 0;
-	}
-
-	h2 {
-		font-size: 1.0em;
-		margin: 0 0 0.8em 0;
-		font-style: italic;
-		font-weight: 300;
-		color: #FFFFFF;
-	}
-}
-#topbar {
-	background-color: $primary_color;
-	display: block;
-	margin: 0;
-}
-#how_to {
-	display: block;
-	width: 60%;
-	padding: 2% 5%;
-	text-align: left;
-	float: left;
-}
-#title {
-	padding: 5px 0 5px 5%;
-	width: 50%;
-	display: inline-block;
-	h1 {
-		font-weight: bold;
-	}
-}
-
-#dar_carona {
-	display: block;
-	width: 20%;
-	margin: 1%;
-	border-radius: 0.4em;
-	border: solid 1px #20BF55;
-	background-color: #EFEFD0;
-	padding: 12px;
-	text-align: center;
-	float: left;
-}
-#feedback {
-	display: inline-block;
-	margin: 40px 30%;
-	width: 30%;
-	border-radius: 0.4em;
-	background-color: #C5CAE9;
-	padding: 20px;
-	text-align: center;
-
-	h3{
-		margin-top: 0;
-	}
-
-	a{
-		color: $primary_text_color;
-	}
-}
-a .cadastro{
-	padding-bottom: 12px;
-	color: #A80874;
-}
-a .logo{
-	color: #FFFFFF;
-	text-decoration: none;
-}
-.depende {
-	padding-left: 12px;
-	color: red;
-}
-.sim {
-	padding-left: 12px;
-	color: green;
-}
-#main_menu {
-	padding-top: 0.7%;
-	width: 25%;
-	display: inline-block;
-	margin-left: 15%;
-	vertical-align: top;
-  float: right;
-}
-
-#title_img {
-  float: left;
-  width: 80px;
-  padding-right: 10px;
-}
-
-#app-main{
-	/*display: none;*/
+  }
 }
 
 #app-login{
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: $primary_color;
 }
 
@@ -262,37 +70,5 @@ a .logo{
 	padding: 80px 40px;
 	background-color: #fff;
   overflow: hidden;
-	width: 100%;
-	max-width: 380px;
-	box-sizing: border-box;
 	box-shadow: 0 0.5em 0.5em rgba(000,000,000,0.1);
-
-	h2{
-		text-align: center;
-		text-transform: uppercase;
-		color: $secondary_text_color;
-	}
-
-	input{
-		width: 100%;
-		height: 40px;
-		border: none;
-		border-bottom: 1px solid #BDBDBD;
-		margin: 0 0 30px;
-		padding: 0;
-		box-sizing: border-box;
-
-		&:focus{
-			outline: none !important;
-			border-color: $primary_color;
-		}
-	}
-
-	input[type="submit"]{
-		background-color: $secondary_color;
-		text-transform: uppercase;
-		color: #FFF;
-		border: none;
-		margin-bottom: 0;
-	}
 }
