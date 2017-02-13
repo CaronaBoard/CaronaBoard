@@ -5,7 +5,16 @@ import Testable.Cmd
 
 
 type alias Rider =
-    { id : String, name : String }
+    { id : String
+    , name : String
+    , origin : String
+    , destination : String
+    , area : String
+    , days : String
+    , hours : String
+    , flexible : Bool
+    , formUrl : String
+    }
 
 
 type alias Model =

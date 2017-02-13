@@ -21,8 +21,8 @@ routesBoxContext _ =
 
 ridersExample : List Model.Rider
 ridersExample =
-    [ { id = "1", name = "foo" }
-    , { id = "2", name = "bar" }
+    [ { id = "1", name = "foo", origin = "lorem", destination = "ipsum", area = "dolor", days = "sit", hours = "amet", flexible = True, formUrl = "http://foo" }
+    , { id = "2", name = "bar", origin = "lorem", destination = "ipsum", area = "dolor", days = "sit", hours = "amet", flexible = True, formUrl = "http://foo" }
     ]
 
 

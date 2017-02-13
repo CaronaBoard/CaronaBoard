@@ -13,33 +13,31 @@ routesList model =
 
 riderRoute : Rider -> Html a
 riderRoute rider =
-    a [ href "http://goo.gl/forms/R5f1MI6WV2", target "_blank", class "card rider-card" ]
+    a [ href rider.formUrl, target "_blank", class "card rider-card" ]
         [ div [ class "card-content" ]
-            [ span [ class "card-title" ] [ text "Aeroporto" ]
-            , div [ class "ride-path" ]
+            ([ span [ class "card-title" ] [ text rider.area ]
+             , div [ class "ride-path" ]
                 [ p []
                     [ div [ class "icon-path" ] [ icon "more_vert" ]
                     , span [ class "icon-path-dot" ] [ icon "radio_button_unchecked" ]
-                    , text "Origem: Tecnopuc"
+                    , text <| "Origem: " ++ rider.origin
                     ]
                 , p []
                     [ span [ class "icon-path-dot" ] [ icon "radio_button_unchecked" ]
-                    , text "Destino: Estação Trensurb Bairro Anchieta"
+                    , text <| "Destino: " ++ rider.destination
                     ]
                 ]
-            , p []
-                [ icon "call_split"
-                , text "Rota flexível"
-                ]
-            ]
+             ]
+                ++ (flexibleRoute rider)
+            )
         , div [ class "card-action" ]
             [ p []
                 [ icon "today"
-                , text "Seg, Sex e Qua"
+                , text rider.days
                 ]
             , p []
                 [ icon "schedule"
-                , text "Ida 19h / volta 20:00"
+                , text rider.hours
                 ]
             , p []
                 [ icon "directions_car"
@@ -47,3 +45,15 @@ riderRoute rider =
                 ]
             ]
         ]
+
+
+flexibleRoute : Rider -> List (Html a)
+flexibleRoute rider =
+    if rider.flexible then
+        [ p []
+            [ icon "call_split"
+            , text "Rota flexível"
+            ]
+        ]
+    else
+        []
