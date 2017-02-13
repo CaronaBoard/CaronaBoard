@@ -13,3 +13,5 @@ var app = Elm.Main.embed(document.getElementById('page-wrap'), { currentUser: cu
 System.import('./firebase').then(function (connectFirebase) {
   connectFirebase(app);
 });
+
+require('./dropdown');
