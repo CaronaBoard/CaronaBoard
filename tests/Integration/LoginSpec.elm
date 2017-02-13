@@ -5,18 +5,17 @@ import Testable.TestContext exposing (..)
 import Testable.Html.Selectors exposing (..)
 import Expect exposing (equal)
 import Login.Update as Update
-import Login.Model as Model exposing (Model, loggedInUser)
+import Login.Model exposing (Model, loggedInUser, init)
 import Login.View.Login as View
 import Login.Msg exposing (Msg(..))
 import Login.Ports exposing (checkRegistration)
-import Login.Msg
 import Testable.Cmd
 
 
 loginContext : a -> TestContext Msg Model
 loginContext _ =
     startForTest
-        { init = ( Model.init Nothing, Testable.Cmd.none )
+        { init = ( init Nothing, Testable.Cmd.none )
         , update = (\msg model -> ( Update.update msg model, Update.cmdUpdate msg model ))
         , view = View.login
         }

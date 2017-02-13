@@ -1,16 +1,14 @@
 port module Ports exposing (subscriptions)
 
-import Model exposing (Model, Rider)
+import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
 import Login.Ports as Login
+import Rides.Ports as Rides
 
 
 subscriptions : Model -> Sub Root.Msg
 subscriptions _ =
     Sub.batch
-        [ riders UpdateRiders
+        [ Sub.map MsgForRides Rides.subscriptions
         , Sub.map MsgForLogin Login.subscriptions
         ]
-
-
-port riders : (List Rider -> msg) -> Sub msg
