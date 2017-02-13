@@ -1,4 +1,4 @@
-module Integration.RoutesBoxSpec exposing (..)
+module Integration.RidesSpec exposing (..)
 
 import Test exposing (..)
 import Testable.TestContext exposing (..)
@@ -6,12 +6,12 @@ import Testable.Html.Selectors exposing (..)
 import Expect exposing (equal)
 import Update
 import Model
-import RoutesBox.RoutesList exposing (routesList)
+import Rides.RoutesList exposing (routesList)
 import Msg
 
 
-routesBoxContext : a -> TestContext Msg.Msg Model.Model
-routesBoxContext _ =
+RidesContext : a -> TestContext Msg.Msg Model.Model
+RidesContext _ =
     startForTest
         { init = Model.init { currentUser = Nothing }
         , update = Update.update
@@ -28,14 +28,14 @@ ridersExample =
 
 tests : Test
 tests =
-    describe "RoutesBox"
+    describe "Rides"
         [ test "renders no routes when there are no riders loaded yet" <|
-            routesBoxContext
+            RidesContext
                 >> find [ class "routes-box" ]
                 >> thenFindAll [ class "route" ]
                 >> assertNodeCount (Expect.equal 0)
         , test "renders routes when they load" <|
-            routesBoxContext
+            RidesContext
                 >> update (Msg.UpdateRiders ridersExample)
                 >> findAll [ class "rider-card" ]
                 >> assertNodeCount (Expect.equal 2)

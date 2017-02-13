@@ -1,4 +1,4 @@
-module RoutesBox.RoutesList exposing (routesList)
+module Rides.RoutesList exposing (routesList)
 
 import Testable.Html exposing (Html, text, span, ol, li, a, div, strong, p, hr)
 import Testable.Html.Attributes exposing (id, class, href, target, rel)

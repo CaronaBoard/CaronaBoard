@@ -6,7 +6,7 @@ import Model exposing (Model, Rider)
 import Msg exposing (Msg(..))
 import Layout.Header exposing (header)
 import Instructions.Instructions exposing (instructions)
-import RoutesBox.RoutesList exposing (routesList)
+import Rides.RoutesList exposing (routesList)
 import Login.View.Login exposing (login)
 import Login.Model exposing (loggedInUser)
 
