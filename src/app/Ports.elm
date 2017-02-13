@@ -1,6 +1,6 @@
 port module Ports exposing (subscriptions)
 
-import Model exposing (Model, Rider)
+import Model exposing (Model, Ride)
 import Msg as Root exposing (Msg(..))
 import Login.Ports as Login
 
@@ -8,9 +8,9 @@ import Login.Ports as Login
 subscriptions : Model -> Sub Root.Msg
 subscriptions _ =
     Sub.batch
-        [ riders UpdateRiders
+        [ rides UpdateRides
         , Sub.map MsgForLogin Login.subscriptions
         ]
 
 
-port riders : (List Rider -> msg) -> Sub msg
+port rides : (List Ride -> msg) -> Sub msg

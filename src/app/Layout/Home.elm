@@ -2,7 +2,7 @@ module Layout.Home exposing (view)
 
 import Testable.Html exposing (Html, div)
 import Testable.Html.Attributes exposing (id, class)
-import Model exposing (Model, Rider)
+import Model exposing (Model, Ride)
 import Msg exposing (Msg(..))
 import Layout.Header exposing (header)
 import Instructions.Instructions exposing (instructions)

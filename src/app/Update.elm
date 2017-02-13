@@ -14,8 +14,8 @@ update msg model =
 modelUpdate : Msg -> Model -> Model
 modelUpdate msg model =
     case msg of
-        UpdateRiders riders ->
-            { model | riders = riders }
+        UpdateRides rides ->
+            { model | rides = rides }
 
         MsgForLogin loginMsg ->
             { model | login = Login.update loginMsg model.login }
@@ -24,7 +24,7 @@ modelUpdate msg model =
 cmdUpdate : Msg -> Model -> Testable.Cmd.Cmd Msg
 cmdUpdate msg model =
     case msg of
-        UpdateRiders riders ->
+        UpdateRides rides ->
             Testable.Cmd.none
 
         MsgForLogin loginMsg ->

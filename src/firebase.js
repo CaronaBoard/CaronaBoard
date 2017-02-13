@@ -12,7 +12,7 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
-var ridersRef = firebase.database().ref('riders');
+var ridesRef = firebase.database().ref('rides');
 
 var toArrayOfObjects = function (object) {
   return Object.keys(object).reduce(function (accumulated, itemId) {
@@ -23,9 +23,9 @@ var toArrayOfObjects = function (object) {
 };
 
 module.exports = function (app) {
-  var fetchRiders = function () {
-    firebase.database().ref('riders').on('value', function (riders) {
-      app.ports.riders.send(toArrayOfObjects(riders.val()));
+  var fetchRides = function () {
+    firebase.database().ref('rides').on('value', function (rides) {
+      app.ports.rides.send(toArrayOfObjects(rides.val()));
     });
   };
 
@@ -51,7 +51,7 @@ module.exports = function (app) {
 
   var signInUser = function (user) {
     app.ports.signInResponse.send([null, {id: user.uid, name: user.displayName || ""}]);
-    fetchRiders();
+    fetchRides();
   };
 
   var signOutUser = function () {

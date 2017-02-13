@@ -10,8 +10,8 @@ import Rides.RoutesList exposing (routesList)
 import Msg
 
 
-RidesContext : a -> TestContext Msg.Msg Model.Model
-RidesContext _ =
+ridesContext : a -> TestContext Msg.Msg Model.Model
+ridesContext _ =
     startForTest
         { init = Model.init { currentUser = Nothing }
         , update = Update.update
@@ -19,8 +19,8 @@ RidesContext _ =
         }
 
 
-ridersExample : List Model.Rider
-ridersExample =
+ridesExample : List Model.Ride
+ridesExample =
     [ { id = "1", name = "foo", origin = "lorem", destination = "ipsum", area = "dolor", days = "sit", hours = "amet", flexible = True, formUrl = "http://foo" }
     , { id = "2", name = "bar", origin = "lorem", destination = "ipsum", area = "dolor", days = "sit", hours = "amet", flexible = True, formUrl = "http://foo" }
     ]
@@ -29,14 +29,14 @@ ridersExample =
 tests : Test
 tests =
     describe "Rides"
-        [ test "renders no routes when there are no riders loaded yet" <|
-            RidesContext
+        [ test "renders no routes when there are no rides loaded yet" <|
+            ridesContext
                 >> find [ class "routes-box" ]
                 >> thenFindAll [ class "route" ]
                 >> assertNodeCount (Expect.equal 0)
         , test "renders routes when they load" <|
-            RidesContext
-                >> update (Msg.UpdateRiders ridersExample)
-                >> findAll [ class "rider-card" ]
+            ridesContext
+                >> update (Msg.UpdateRides ridesExample)
+                >> findAll [ class "ride-card" ]
                 >> assertNodeCount (Expect.equal 2)
         ]
