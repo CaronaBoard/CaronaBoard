@@ -1,9 +1,9 @@
 module Msg exposing (Msg(..))
 
-import Model exposing (Ride)
 import Login.Msg as Login
+import Rides.Msg as Rides
 
 
 type Msg
-    = UpdateRides (List Ride)
+    = MsgForRides Rides.Msg
     | MsgForLogin Login.Msg

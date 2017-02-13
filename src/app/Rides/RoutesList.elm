@@ -2,13 +2,13 @@ module Rides.RoutesList exposing (routesList)
 
 import Testable.Html exposing (Html, text, span, ol, li, a, div, strong, p, hr)
 import Testable.Html.Attributes exposing (id, class, href, target, rel)
-import Model exposing (Model, Ride)
+import Rides.Model exposing (Model, Ride)
 import Common.Icon exposing (icon)
 
 
 routesList : Model -> Html a
-routesList model =
-    div [ class "container" ] (List.map rideRoute model.rides)
+routesList rides =
+    div [ class "container" ] (List.map rideRoute rides)
 
 
 rideRoute : Ride -> Html a

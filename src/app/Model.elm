@@ -1,24 +1,12 @@
-module Model exposing (Model, Ride, Flags, init)
+module Model exposing (Model, Flags, init)
 
 import Login.Model as Login
+import Rides.Model as Rides
 import Testable.Cmd
 
 
-type alias Ride =
-    { id : String
-    , name : String
-    , origin : String
-    , destination : String
-    , area : String
-    , days : String
-    , hours : String
-    , flexible : Bool
-    , formUrl : String
-    }
-
-
 type alias Model =
-    { rides : List Ride
+    { rides : Rides.Model
     , login : Login.Model
     }
 
@@ -30,7 +18,7 @@ type alias Flags =
 
 init : Flags -> ( Model, Testable.Cmd.Cmd a )
 init { currentUser } =
-    ( { rides = []
+    ( { rides = Rides.init
       , login = Login.init currentUser
       }
     , Testable.Cmd.none

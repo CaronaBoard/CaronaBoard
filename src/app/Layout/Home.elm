@@ -2,7 +2,7 @@ module Layout.Home exposing (view)
 
 import Testable.Html exposing (Html, div)
 import Testable.Html.Attributes exposing (id, class)
-import Model exposing (Model, Ride)
+import Model exposing (Model)
 import Msg exposing (Msg(..))
 import Layout.Header exposing (header)
 import Instructions.Instructions exposing (instructions)
@@ -24,7 +24,7 @@ loginOrHomeScreen model =
             div [ id "app-main" ]
                 [ header
                 , instructions
-                , routesList model
+                , routesList model.rides
                 ]
 
         Nothing ->
