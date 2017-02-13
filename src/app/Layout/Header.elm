@@ -16,7 +16,7 @@ header =
                 [ a [ href "http://goo.gl/forms/GYVDfZuhWg" ] [ text "Dar Feedback" ]
                 ]
             , li []
-                [ a [ href "javascript:;", onClick (MsgForLogin SignOut) ] [ text "Sair" ]
+                [ a [ href "javascript:;", onClick (MsgForLogin SignOut), id "signout-button" ] [ text "Sair" ]
                 ]
             ]
         , nav []
