@@ -1,4 +1,4 @@
-module Router.Routes exposing (toPath, redirectTo, pathParser, Page(..))
+module UrlRouter.Routes exposing (toPath, redirectTo, pathParser, Page(..))
 
 import UrlParser exposing (Parser, (</>), map, oneOf, string, parseHash)
 import Navigation

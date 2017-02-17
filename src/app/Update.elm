@@ -1,7 +1,7 @@
 module Update exposing (update)
 
 import Model exposing (Model)
-import Router.Update as Router
+import UrlRouter.Update as UrlRouter
 import Login.Update as Login
 import Rides.Update as Rides
 import Msg exposing (Msg(..))
@@ -16,8 +16,8 @@ update msg model =
 modelUpdate : Msg -> Model -> Model
 modelUpdate msg model =
     case msg of
-        MsgForRouter routerMsg ->
-            { model | router = Router.update routerMsg model.router model.login }
+        MsgForUrlRouter urlRouterMsg ->
+            { model | urlRouter = UrlRouter.update urlRouterMsg model.urlRouter model.login }
 
         MsgForLogin loginMsg ->
             { model | login = Login.update loginMsg model.login }
@@ -29,8 +29,8 @@ modelUpdate msg model =
 cmdUpdate : Msg -> Model -> Testable.Cmd.Cmd Msg
 cmdUpdate msg model =
     case msg of
-        MsgForRouter routerMsg ->
-            Testable.Cmd.map MsgForRouter <| Router.cmdUpdate routerMsg model.router model.login
+        MsgForUrlRouter urlRouterMsg ->
+            Testable.Cmd.map MsgForUrlRouter <| UrlRouter.cmdUpdate urlRouterMsg model.urlRouter model.login
 
         MsgForLogin loginMsg ->
             Testable.Cmd.map MsgForLogin <| Login.cmdUpdate loginMsg model.login

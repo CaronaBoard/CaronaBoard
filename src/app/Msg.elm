@@ -2,10 +2,10 @@ module Msg exposing (Msg(..))
 
 import Login.Msg as Login
 import Rides.Msg as Rides
-import Router.Msg as Router
+import UrlRouter.Msg as UrlRouter
 
 
 type Msg
-    = MsgForRouter Router.Msg
+    = MsgForUrlRouter UrlRouter.Msg
     | MsgForLogin Login.Msg
     | MsgForRides Rides.Msg

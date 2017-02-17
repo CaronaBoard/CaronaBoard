@@ -1,6 +1,6 @@
-module Router.Msg exposing (Msg(..))
+module UrlRouter.Msg exposing (Msg(..))
 
-import Router.Routes exposing (Page)
+import UrlRouter.Routes exposing (Page)
 import Navigation exposing (Location)
 
 

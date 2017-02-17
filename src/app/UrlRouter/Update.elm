@@ -1,9 +1,9 @@
-module Router.Update exposing (..)
+module UrlRouter.Update exposing (..)
 
 import Login.Model as Login
-import Router.Model exposing (Model)
-import Router.Msg exposing (Msg(..))
-import Router.Routes exposing (Page, pathParser, toPath, redirectTo)
+import UrlRouter.Model exposing (Model)
+import UrlRouter.Msg exposing (Msg(..))
+import UrlRouter.Routes exposing (Page, pathParser, toPath, redirectTo)
 import Testable.Cmd
 import Navigation exposing (Location)
 

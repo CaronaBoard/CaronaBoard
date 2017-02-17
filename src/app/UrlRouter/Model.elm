@@ -1,6 +1,6 @@
-module Router.Model exposing (..)
+module UrlRouter.Model exposing (..)
 
-import Router.Routes exposing (Page(..), pathParser)
+import UrlRouter.Routes exposing (Page(..), pathParser)
 import Navigation exposing (Location)
 
 

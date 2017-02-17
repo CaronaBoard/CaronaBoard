@@ -1,17 +1,17 @@
 module Model exposing (Model, Flags, init)
 
-import Router.Model as Router
+import UrlRouter.Model as UrlRouter
 import Login.Model as Login
 import Rides.Model as Rides
 import Testable.Cmd
 import Navigation exposing (Location)
-import Router.Update as RouterUpdate
-import Router.Msg exposing (Msg(UrlChange))
-import Msg exposing (Msg(MsgForRouter))
+import UrlRouter.Update as UrlRouterUpdate
+import UrlRouter.Msg exposing (Msg(UrlChange))
+import Msg exposing (Msg(MsgForUrlRouter))
 
 
 type alias Model =
-    { router : Router.Model
+    { urlRouter : UrlRouter.Model
     , login : Login.Model
     , rides : Rides.Model
     }
@@ -26,11 +26,11 @@ init : Flags -> Location -> ( Model, Testable.Cmd.Cmd Msg.Msg )
 init { currentUser } location =
     let
         initialModel =
-            { router = Router.init location
+            { urlRouter = UrlRouter.init location
             , login = Login.init currentUser
             , rides = Rides.init
             }
     in
         ( initialModel
-        , Testable.Cmd.map MsgForRouter <| RouterUpdate.cmdUpdate (UrlChange location) initialModel.router initialModel.login
+        , Testable.Cmd.map MsgForUrlRouter <| UrlRouterUpdate.cmdUpdate (UrlChange location) initialModel.urlRouter initialModel.login
         )
