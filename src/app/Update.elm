@@ -17,7 +17,7 @@ modelUpdate : Msg -> Model -> Model
 modelUpdate msg model =
     case msg of
         MsgForRouter routerMsg ->
-            { model | router = Router.update routerMsg model.router }
+            { model | router = Router.update routerMsg model.router model.login }
 
         MsgForLogin loginMsg ->
             { model | login = Login.update loginMsg model.login }
@@ -30,7 +30,7 @@ cmdUpdate : Msg -> Model -> Testable.Cmd.Cmd Msg
 cmdUpdate msg model =
     case msg of
         MsgForRouter routerMsg ->
-            Testable.Cmd.map MsgForRouter <| Router.cmdUpdate routerMsg model.router
+            Testable.Cmd.map MsgForRouter <| Router.cmdUpdate routerMsg model.router model.login
 
         MsgForLogin loginMsg ->
             Testable.Cmd.map MsgForLogin <| Login.cmdUpdate loginMsg model.login

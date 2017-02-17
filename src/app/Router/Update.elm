@@ -1,37 +1,47 @@
 module Router.Update exposing (..)
 
-import Router.Msg exposing (Msg(..))
+import Login.Model as Login
 import Router.Model exposing (Model)
-import Router.Routes exposing (pathParser, toPath)
+import Router.Msg exposing (Msg(..))
+import Router.Routes exposing (Page, pathParser, toPath, redirectTo)
 import Testable.Cmd
-import Navigation
+import Navigation exposing (Location)
 
 
-update : Msg -> Model -> Model
-update msg model =
+update : Msg -> Model -> Login.Model -> Model
+update msg model login =
     case msg of
         Go _ ->
             model
 
         UrlChange location ->
-            case pathParser location of
+            case locationWithRedirect login location of
                 Nothing ->
                     model
 
                 Just page ->
-                    { page = page }
+                    { model | page = page }
 
 
-cmdUpdate : Msg -> Model -> Testable.Cmd.Cmd Msg
-cmdUpdate msg model =
+cmdUpdate : Msg -> Model -> Login.Model -> Testable.Cmd.Cmd Msg
+cmdUpdate msg model login =
     case msg of
         Go route ->
             Testable.Cmd.wrap <| Navigation.newUrl (toPath route)
 
         UrlChange location ->
-            case pathParser location of
+            case locationWithRedirect login location of
                 Nothing ->
-                    Testable.Cmd.wrap <| Navigation.modifyUrl (toPath model.page)
+                    Testable.Cmd.none
 
                 Just page ->
-                    Testable.Cmd.none
+                    if page /= model.page then
+                        Testable.Cmd.wrap <| Navigation.modifyUrl (toPath page)
+                    else
+                        Testable.Cmd.none
+
+
+locationWithRedirect : Login.Model -> Location -> Maybe Page
+locationWithRedirect login location =
+    pathParser location
+        |> Maybe.map (redirectTo login)

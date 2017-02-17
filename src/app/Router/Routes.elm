@@ -1,7 +1,8 @@
-module Router.Routes exposing (..)
+module Router.Routes exposing (toPath, redirectTo, pathParser, Page(..))
 
 import UrlParser exposing (Parser, (</>), map, oneOf, string, parseHash)
 import Navigation
+import Login.Model as Login exposing (isLoggedIn)
 
 
 type Page
@@ -30,6 +31,28 @@ toPath page =
 
         RidesRoute ->
             "#rides"
+
+
+redirectTo : Login.Model -> Page -> Page
+redirectTo login page =
+    case page of
+        HomeRoute ->
+            if isLoggedIn login then
+                RidesRoute
+            else
+                LoginRoute
+
+        RidesRoute ->
+            if isLoggedIn login then
+                page
+            else
+                LoginRoute
+
+        LoginRoute ->
+            if isLoggedIn login then
+                RidesRoute
+            else
+                page
 
 
 pathParser : Navigation.Location -> Maybe Page

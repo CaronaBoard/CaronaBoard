@@ -5,6 +5,9 @@ import Login.Model as Login
 import Rides.Model as Rides
 import Testable.Cmd
 import Navigation exposing (Location)
+import Router.Update as RouterUpdate
+import Router.Msg exposing (Msg(UrlChange))
+import Msg exposing (Msg(MsgForRouter))
 
 
 type alias Model =
@@ -19,11 +22,15 @@ type alias Flags =
     }
 
 
-init : Flags -> Location -> ( Model, Testable.Cmd.Cmd a )
+init : Flags -> Location -> ( Model, Testable.Cmd.Cmd Msg.Msg )
 init { currentUser } location =
-    ( { router = Router.init location
-      , login = Login.init currentUser
-      , rides = Rides.init
-      }
-    , Testable.Cmd.none
-    )
+    let
+        initialModel =
+            { router = Router.init location
+            , login = Login.init currentUser
+            , rides = Rides.init
+            }
+    in
+        ( initialModel
+        , Testable.Cmd.map MsgForRouter <| RouterUpdate.cmdUpdate (UrlChange location) initialModel.router initialModel.login
+        )
