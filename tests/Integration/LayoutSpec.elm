@@ -9,7 +9,11 @@ import Model
 import Msg
 import Login.Msg
 import Login.Ports exposing (signOut)
-import View exposing (homeLocation)
+
+
+homeLocation : Location
+homeLocation =
+    { href = "", host = "", hostname = "", protocol = "", origin = "", port_ = "", pathname = "", search = "", hash = "", username = "", password = "" }
 
 
 loginContext : a -> TestContext Msg.Msg Model.Model

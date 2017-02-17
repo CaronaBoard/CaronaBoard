@@ -9,6 +9,7 @@ import Instructions.Instructions exposing (instructions)
 import Rides.RoutesList exposing (routesList)
 import Login.View.Login exposing (login)
 import UrlRouter.Routes exposing (Page(..))
+import Layout.SplashScreen exposing (splashScreen)
 
 
 view : Model -> Html Msg
@@ -20,6 +21,9 @@ view model =
 routeRender : Model -> Html Msg
 routeRender model =
     case model.urlRouter.page of
+        HomeRoute ->
+            splashScreen
+
         LoginRoute ->
             div [ id "app-login" ]
                 [ div [ class "row" ]
