@@ -6,16 +6,16 @@ import Testable.Html.Selectors exposing (..)
 import Expect exposing (equal)
 import Update
 import Model
-import View
 import Msg
 import Login.Msg
 import Login.Ports exposing (signOut)
+import View exposing (homeLocation)
 
 
 loginContext : a -> TestContext Msg.Msg Model.Model
 loginContext _ =
     startForTest
-        { init = Model.init { currentUser = Nothing }
+        { init = Model.init { currentUser = Nothing } homeLocation
         , update = Update.update
         , view = View.view
         }
