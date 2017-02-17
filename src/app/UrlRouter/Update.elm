@@ -3,7 +3,7 @@ module UrlRouter.Update exposing (..)
 import Login.Model as Login
 import UrlRouter.Model exposing (Model)
 import UrlRouter.Msg exposing (Msg(..))
-import UrlRouter.Routes exposing (Page, pathParser, toPath, redirectTo)
+import UrlRouter.Routes exposing (Page(NotFound), pathParser, toPath, redirectTo)
 import Testable.Cmd
 import Navigation exposing (Location)
 
@@ -15,7 +15,7 @@ update msg model login =
             model
 
         UrlChange location ->
-            case locationWithRedirect login location of
+            case changePageTo model login location of
                 Nothing ->
                     model
 
@@ -30,18 +30,27 @@ cmdUpdate msg model login =
             Testable.Cmd.wrap <| Navigation.newUrl (toPath route)
 
         UrlChange location ->
-            case locationWithRedirect login location of
+            case changePageTo model login location of
                 Nothing ->
                     Testable.Cmd.none
 
                 Just page ->
-                    if page /= model.page then
-                        Testable.Cmd.wrap <| Navigation.modifyUrl (toPath page)
-                    else
-                        Testable.Cmd.none
+                    Testable.Cmd.wrap <| Navigation.modifyUrl (toPath page)
 
 
-locationWithRedirect : Login.Model -> Location -> Maybe Page
-locationWithRedirect login location =
-    pathParser location
-        |> Maybe.map (redirectTo login)
+changePageTo : Model -> Login.Model -> Location -> Maybe Page
+changePageTo model login location =
+    let
+        requestedPage =
+            Maybe.withDefault NotFound (pathParser location)
+
+        pageAfterRedirect =
+            redirectTo login requestedPage
+
+        shouldChangeUrl =
+            (model.page /= requestedPage) || (model.page /= pageAfterRedirect)
+    in
+        if shouldChangeUrl then
+            Just pageAfterRedirect
+        else
+            Nothing

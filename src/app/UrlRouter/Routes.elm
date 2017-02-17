@@ -9,6 +9,7 @@ type Page
     = HomeRoute
     | LoginRoute
     | RidesRoute
+    | NotFound
 
 
 pageParser : Parser (Page -> a) a
@@ -32,6 +33,9 @@ toPath page =
         RidesRoute ->
             "#rides"
 
+        NotFound ->
+            "#not-found"
+
 
 redirectTo : Login.Model -> Page -> Page
 redirectTo login page =
@@ -53,6 +57,9 @@ redirectTo login page =
                 RidesRoute
             else
                 page
+
+        NotFound ->
+            NotFound
 
 
 pathParser : Navigation.Location -> Maybe Page
