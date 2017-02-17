@@ -33,7 +33,7 @@ cmdUpdate msg model =
             Testable.Cmd.map MsgForUrlRouter <| UrlRouter.cmdUpdate urlRouterMsg model.urlRouter model.login
 
         MsgForLogin loginMsg ->
-            Testable.Cmd.map MsgForLogin <| Login.cmdUpdate loginMsg model.login
+            Login.cmdUpdate loginMsg model.login
 
         MsgForRides ridesMsg ->
             Testable.Cmd.none

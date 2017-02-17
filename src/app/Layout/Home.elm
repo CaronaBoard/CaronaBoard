@@ -8,27 +8,27 @@ import Layout.Header exposing (header)
 import Instructions.Instructions exposing (instructions)
 import Rides.RoutesList exposing (routesList)
 import Login.View.Login exposing (login)
-import Login.Model exposing (loggedInUser)
+import UrlRouter.Routes exposing (Page(..))
 
 
 view : Model -> Html Msg
 view model =
     div [ id "app" ]
-        [ loginOrHomeScreen model ]
+        [ routeRender model ]
 
 
-loginOrHomeScreen : Model -> Html Msg
-loginOrHomeScreen model =
-    case loggedInUser model.login of
-        Just user ->
+routeRender : Model -> Html Msg
+routeRender model =
+    case model.urlRouter.page of
+        LoginRoute ->
+            div [ id "app-login" ]
+                [ div [ class "row" ]
+                    [ Testable.Html.map MsgForLogin <| login model.login ]
+                ]
+
+        _ ->
             div [ id "app-main" ]
                 [ header
                 , instructions
                 , routesList model.rides
-                ]
-
-        Nothing ->
-            div [ id "app-login" ]
-                [ div [ class "row" ]
-                    [ Testable.Html.map MsgForLogin <| login model.login ]
                 ]
