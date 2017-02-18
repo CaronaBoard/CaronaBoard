@@ -1,4 +1,4 @@
-module UrlRouter.Update exposing (..)
+module UrlRouter.Update exposing (update, urlRouterUpdate, changePageTo)
 
 import Login.Model as Login
 import UrlRouter.Model exposing (Model)

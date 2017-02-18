@@ -64,7 +64,8 @@ redirectTo login page =
 
 pathParser : Navigation.Location -> Maybe Page
 pathParser location =
-    if location.hash == "" then
+    -- This if is here due to this issue https://github.com/evancz/url-parser/issues/21
+    if location.hash == "" || location.hash == "#" then
         Just HomeRoute
     else
         parseHash pageParser location
