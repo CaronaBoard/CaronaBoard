@@ -31,23 +31,23 @@ tests =
                 \login randomPath ->
                     let
                         pageToGo =
-                            changePageTo { page = HomeRoute } login (pathToLocation randomPath)
+                            changePageTo { page = SplashScreenPage } login (pathToLocation randomPath)
                     in
-                        Expect.equal (Just NotFound) pageToGo
+                        Expect.equal (Just NotFoundPage) pageToGo
             ]
         ]
 
 
 pages : Array Page
 pages =
-    fromList [ HomeRoute, LoginRoute, RidesRoute, NotFound ]
+    fromList [ SplashScreenPage, LoginPage, RidesPage, NotFoundPage ]
 
 
 randomPage : Fuzzer Page
 randomPage =
     Fuzz.intRange 0 (length pages - 1)
         |> Fuzz.map (\index -> get index pages)
-        |> Fuzz.map (Maybe.withDefault NotFound)
+        |> Fuzz.map (Maybe.withDefault NotFoundPage)
 
 
 pathToLocation : String -> Location

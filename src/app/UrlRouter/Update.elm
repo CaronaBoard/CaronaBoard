@@ -3,7 +3,7 @@ module UrlRouter.Update exposing (update, urlRouterUpdate, changePageTo)
 import Login.Model as Login
 import UrlRouter.Model exposing (Model)
 import UrlRouter.Msg exposing (Msg(Go, UrlChange))
-import UrlRouter.Routes exposing (Page(NotFound, RidesRoute, LoginRoute), pathParser, toPath, redirectTo)
+import UrlRouter.Routes exposing (Page(NotFoundPage, RidesPage, LoginPage), pathParser, toPath, redirectTo)
 import Testable.Cmd
 import Navigation exposing (Location)
 import Msg as Root exposing (Msg(MsgForUrlRouter, MsgForLogin))
@@ -17,10 +17,10 @@ update msg model login =
             urlRouterUpdate urlMsg model login
 
         MsgForLogin (SignInResponse ( Nothing, Just _ )) ->
-            urlRouterUpdate (Go RidesRoute) model login
+            urlRouterUpdate (Go RidesPage) model login
 
         MsgForLogin SignOutResponse ->
-            urlRouterUpdate (Go LoginRoute) model login
+            urlRouterUpdate (Go LoginPage) model login
 
         _ ->
             ( model, Testable.Cmd.none )
@@ -45,7 +45,7 @@ changePageTo : Model -> Login.Model -> Location -> Maybe Page
 changePageTo model login location =
     let
         requestedPage =
-            Maybe.withDefault NotFound (pathParser location)
+            Maybe.withDefault NotFoundPage (pathParser location)
 
         pageAfterRedirect =
             redirectTo login requestedPage

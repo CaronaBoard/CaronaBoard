@@ -13,7 +13,7 @@ init : Location -> Model
 init location =
     case pathParser location of
         Nothing ->
-            { page = HomeRoute
+            { page = SplashScreenPage
             }
 
         Just page ->

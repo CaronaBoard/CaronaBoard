@@ -6,67 +6,67 @@ import Login.Model as Login exposing (isLoggedIn)
 
 
 type Page
-    = HomeRoute
-    | LoginRoute
-    | RidesRoute
-    | NotFound
+    = SplashScreenPage
+    | LoginPage
+    | RidesPage
+    | NotFoundPage
 
 
 pageParser : Parser (Page -> a) a
 pageParser =
     oneOf
-        [ map HomeRoute (static "")
-        , map LoginRoute (static "login")
-        , map RidesRoute (static "rides")
+        [ map SplashScreenPage (static "")
+        , map LoginPage (static "login")
+        , map RidesPage (static "rides")
         ]
 
 
 toPath : Page -> String
 toPath page =
     case page of
-        HomeRoute ->
+        SplashScreenPage ->
             "#/"
 
-        LoginRoute ->
+        LoginPage ->
             "#/login"
 
-        RidesRoute ->
+        RidesPage ->
             "#/rides"
 
-        NotFound ->
+        NotFoundPage ->
             "#/not-found"
 
 
 redirectTo : Login.Model -> Page -> Page
 redirectTo login page =
     case page of
-        HomeRoute ->
+        SplashScreenPage ->
             if isLoggedIn login then
-                RidesRoute
+                RidesPage
             else
-                LoginRoute
+                LoginPage
 
-        RidesRoute ->
+        RidesPage ->
             if isLoggedIn login then
                 page
             else
-                LoginRoute
+                LoginPage
 
-        LoginRoute ->
+        LoginPage ->
             if isLoggedIn login then
-                RidesRoute
+                RidesPage
             else
                 page
 
-        NotFound ->
-            NotFound
+        NotFoundPage ->
+            NotFoundPage
 
 
 pathParser : Navigation.Location -> Maybe Page
 pathParser location =
     -- This if is here due to this issue https://github.com/evancz/url-parser/issues/21
     if location.hash == "" then
-        Just HomeRoute
+        Just SplashScreenPage
     else
         parseHash pageParser location
 
