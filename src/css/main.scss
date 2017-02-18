@@ -1,5 +1,5 @@
 $primary_color: #0255FB;
-$secondary_color: #FF9800;
+$secondary_color: #EDF2F5;
 $primary_text_color: #555555;
 $secondary_text_color: #757575;
 
@@ -8,7 +8,7 @@ html {
 }
 
 body {
-  background: #EDF2F5;
+  background: $secondary_color;
 }
 
 nav {
@@ -64,11 +64,6 @@ nav {
   .card-action p {
     margin: 0;
   }
-}
-
-#app-login{
-  height: 100%;
-  background-color: $primary_color;
 }
 
 .password-step {

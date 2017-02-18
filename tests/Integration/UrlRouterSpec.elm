@@ -90,9 +90,9 @@ loginThenLogout =
 expectToBeOnLoginPage : TestContext msg model -> Expect.Expectation
 expectToBeOnLoginPage =
     Expect.all
-        [ find [ id "app-main" ]
+        [ find [ id "rides-page" ]
             >> assertNodeCount (Expect.equal 0)
-        , find [ id "app-login" ]
+        , find [ id "login-page" ]
             >> assertPresent
         ]
 
@@ -100,9 +100,9 @@ expectToBeOnLoginPage =
 expectToBeOnRidesPage : TestContext msg model -> Expect.Expectation
 expectToBeOnRidesPage =
     Expect.all
-        [ find [ id "app-main" ]
+        [ find [ id "rides-page" ]
             >> assertPresent
-        , find [ id "app-login" ]
+        , find [ id "login-page" ]
             >> assertNodeCount (Expect.equal 0)
         ]
 

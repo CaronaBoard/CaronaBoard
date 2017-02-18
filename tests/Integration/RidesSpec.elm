@@ -7,7 +7,7 @@ import Testable.Html.Selectors exposing (..)
 import Expect exposing (equal)
 import Rides.Update as Update
 import Rides.Model exposing (Model, Ride, init)
-import Rides.RoutesList exposing (routesList)
+import Rides.View.RoutesList exposing (routesList)
 import Rides.Msg exposing (Msg(..))
 import Testable.Cmd
 import Msg as Root exposing (Msg(MsgForRides))
