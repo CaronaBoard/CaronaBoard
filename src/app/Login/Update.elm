@@ -1,17 +1,13 @@
 module Login.Update exposing (update, cmdUpdate)
 
-import Msg as RootMsg exposing (Msg(..))
 import Login.Model exposing (Model, Step(..), User, step)
 import Login.Ports exposing (checkRegistration, signIn, signOut)
 import Login.Msg exposing (Msg(..))
 import Testable.Cmd
 import Common.Response exposing (Response(..))
-import UrlRouter.Msg exposing (Msg(..))
-import UrlRouter.Routes exposing (Page(RidesRoute))
-import Testable.Task exposing (perform, succeed)
 
 
-update : Login.Msg.Msg -> Model -> Model
+update : Msg -> Model -> Model
 update msg model =
     case msg of
         UpdateEmail email ->
@@ -55,30 +51,22 @@ update msg model =
             { model | loggedIn = Empty }
 
 
-cmdUpdate : Login.Msg.Msg -> Model -> Testable.Cmd.Cmd RootMsg.Msg
+cmdUpdate : Msg -> Model -> Testable.Cmd.Cmd Msg
 cmdUpdate msg model =
     case msg of
         Submit ->
             case step model of
                 EmailStep ->
-                    Testable.Cmd.map MsgForLogin <| Testable.Cmd.wrap <| checkRegistration model.email
+                    Testable.Cmd.wrap <| checkRegistration model.email
 
                 PasswordStep ->
-                    Testable.Cmd.map MsgForLogin <| Testable.Cmd.wrap <| signIn { email = model.email, password = model.password }
+                    Testable.Cmd.wrap <| signIn { email = model.email, password = model.password }
 
                 NotRegisteredStep ->
                     Testable.Cmd.none
 
         SignOut ->
             Testable.Cmd.wrap <| signOut ()
-
-        SignInResponse ( error, success ) ->
-            case success of
-                Just _ ->
-                    perform identity (MsgForUrlRouter (Go RidesRoute) |> succeed)
-
-                Nothing ->
-                    Testable.Cmd.none
 
         _ ->
             Testable.Cmd.none

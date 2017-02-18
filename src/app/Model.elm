@@ -30,7 +30,10 @@ init { currentUser } location =
             , login = Login.init currentUser
             , rides = Rides.init
             }
+
+        initialRouteChange =
+            Testable.Cmd.map MsgForUrlRouter <| Tuple.second <| UrlRouterUpdate.update (MsgForUrlRouter <| UrlChange location) initialModel.urlRouter initialModel.login
     in
         ( initialModel
-        , Testable.Cmd.map MsgForUrlRouter <| UrlRouterUpdate.cmdUpdate (UrlChange location) initialModel.urlRouter initialModel.login
+        , initialRouteChange
         )

@@ -2,40 +2,40 @@ module UrlRouter.Update exposing (..)
 
 import Login.Model as Login
 import UrlRouter.Model exposing (Model)
-import UrlRouter.Msg exposing (Msg(..))
-import UrlRouter.Routes exposing (Page(NotFound), pathParser, toPath, redirectTo)
+import UrlRouter.Msg exposing (Msg(Go, UrlChange))
+import UrlRouter.Routes exposing (Page(NotFound, RidesRoute), pathParser, toPath, redirectTo)
 import Testable.Cmd
 import Navigation exposing (Location)
+import Msg as Root exposing (Msg(MsgForUrlRouter, MsgForLogin))
+import Login.Msg exposing (Msg(SignInResponse))
 
 
-update : Msg -> Model -> Login.Model -> Model
+update : Root.Msg -> Model -> Login.Model -> ( Model, Testable.Cmd.Cmd UrlRouter.Msg.Msg )
 update msg model login =
     case msg of
-        Go _ ->
-            model
+        MsgForUrlRouter urlMsg ->
+            urlRouterUpdate urlMsg model login
 
-        UrlChange location ->
-            case changePageTo model login location of
-                Nothing ->
-                    model
+        MsgForLogin (SignInResponse ( Nothing, Just _ )) ->
+            urlRouterUpdate (Go RidesRoute) model login
 
-                Just page ->
-                    { model | page = page }
+        _ ->
+            ( model, Testable.Cmd.none )
 
 
-cmdUpdate : Msg -> Model -> Login.Model -> Testable.Cmd.Cmd Msg
-cmdUpdate msg model login =
+urlRouterUpdate : UrlRouter.Msg.Msg -> Model -> Login.Model -> ( Model, Testable.Cmd.Cmd UrlRouter.Msg.Msg )
+urlRouterUpdate msg model login =
     case msg of
         Go route ->
-            Testable.Cmd.wrap <| Navigation.newUrl (toPath route)
+            ( model, Testable.Cmd.wrap <| Navigation.newUrl (toPath route) )
 
         UrlChange location ->
             case changePageTo model login location of
                 Nothing ->
-                    Testable.Cmd.none
+                    ( model, Testable.Cmd.none )
 
                 Just page ->
-                    Testable.Cmd.wrap <| Navigation.modifyUrl (toPath page)
+                    ( { model | page = page }, Testable.Cmd.wrap <| Navigation.modifyUrl (toPath page) )
 
 
 changePageTo : Model -> Login.Model -> Location -> Maybe Page

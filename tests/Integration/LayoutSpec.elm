@@ -7,8 +7,10 @@ import Expect exposing (equal)
 import Update
 import Model
 import Msg
+import View
 import Login.Msg
 import Login.Ports exposing (signOut)
+import Navigation exposing (Location)
 
 
 homeLocation : Location

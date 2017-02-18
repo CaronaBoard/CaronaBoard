@@ -16,8 +16,8 @@ update msg model =
 modelUpdate : Msg -> Model -> Model
 modelUpdate msg model =
     case msg of
-        MsgForUrlRouter urlRouterMsg ->
-            { model | urlRouter = UrlRouter.update urlRouterMsg model.urlRouter model.login }
+        MsgForUrlRouter _ ->
+            { model | urlRouter = Tuple.first <| UrlRouter.update msg model.urlRouter model.login }
 
         MsgForLogin loginMsg ->
             { model | login = Login.update loginMsg model.login }
@@ -29,11 +29,11 @@ modelUpdate msg model =
 cmdUpdate : Msg -> Model -> Testable.Cmd.Cmd Msg
 cmdUpdate msg model =
     case msg of
-        MsgForUrlRouter urlRouterMsg ->
-            Testable.Cmd.map MsgForUrlRouter <| UrlRouter.cmdUpdate urlRouterMsg model.urlRouter model.login
+        MsgForUrlRouter _ ->
+            Testable.Cmd.map MsgForUrlRouter <| Tuple.second <| UrlRouter.update msg model.urlRouter model.login
 
         MsgForLogin loginMsg ->
-            Login.cmdUpdate loginMsg model.login
+            Testable.Cmd.map MsgForLogin <| Login.cmdUpdate loginMsg model.login
 
         MsgForRides ridesMsg ->
             Testable.Cmd.none
