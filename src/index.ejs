@@ -16,15 +16,17 @@
     <link rel="mask-icon" href="images/favicons/safari-pinned-tab.svg" color="#5bbad5">
     <link rel="shortcut icon" href="images/favicons/favicon.ico">
     <meta name="msapplication-config" content="images/favicons/browserconfig.xml">
-    <meta name="theme-color" content="#004e89">
+    <meta name="theme-color" content="#0255FB">
+  </head>
+  <body>
+    <link rel="stylesheet" href="<%= require('./css/splash.scss') %>">
+    <div id="page-wrap"><%= require('../build/elm.html') %></div>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
     <link rel="stylesheet" href="<%= require('./css/main.scss') %>">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
-  </head>
-  <body>
-    <div id="page-wrap"><%= require('../build/elm.html') %></div>
+
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
