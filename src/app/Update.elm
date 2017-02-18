@@ -1,6 +1,7 @@
 module Update exposing (update)
 
 import Model exposing (Model)
+import UrlRouter.Update as UrlRouter
 import Login.Update as Login
 import Rides.Update as Rides
 import Msg exposing (Msg(..))
@@ -9,24 +10,27 @@ import Testable.Cmd
 
 update : Msg -> Model -> ( Model, Testable.Cmd.Cmd Msg )
 update msg model =
-    ( modelUpdate msg model, cmdUpdate msg model )
+    let
+        urlRouter =
+            UrlRouter.update msg model.urlRouter model.login
 
+        login =
+            Login.update msg model.login
 
-modelUpdate : Msg -> Model -> Model
-modelUpdate msg model =
-    case msg of
-        MsgForRides ridesMsg ->
-            { model | rides = Rides.update ridesMsg model.rides }
+        rides =
+            Rides.update msg model.rides
 
-        MsgForLogin loginMsg ->
-            { model | login = Login.update loginMsg model.login }
+        updatedModel =
+            { urlRouter = Tuple.first urlRouter
+            , login = Tuple.first login
+            , rides = Tuple.first rides
+            }
 
-
-cmdUpdate : Msg -> Model -> Testable.Cmd.Cmd Msg
-cmdUpdate msg model =
-    case msg of
-        MsgForRides ridesMsg ->
-            Testable.Cmd.none
-
-        MsgForLogin loginMsg ->
-            Testable.Cmd.map MsgForLogin <| Login.cmdUpdate loginMsg model.login
+        cmds =
+            Testable.Cmd.batch
+                [ Testable.Cmd.map MsgForUrlRouter <| Tuple.second urlRouter
+                , Testable.Cmd.map MsgForLogin <| Tuple.second login
+                , Testable.Cmd.map MsgForRides <| Tuple.second rides
+                ]
+    in
+        ( updatedModel, cmds )

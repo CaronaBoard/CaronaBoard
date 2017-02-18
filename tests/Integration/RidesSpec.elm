@@ -2,21 +2,23 @@ module Integration.RidesSpec exposing (..)
 
 import Test exposing (..)
 import Testable.TestContext exposing (..)
+import Testable.Html
 import Testable.Html.Selectors exposing (..)
 import Expect exposing (equal)
 import Rides.Update as Update
 import Rides.Model exposing (Model, Ride, init)
-import Rides.RoutesList exposing (routesList)
+import Rides.View.RoutesList exposing (routesList)
 import Rides.Msg exposing (Msg(..))
 import Testable.Cmd
+import Msg as Root exposing (Msg(MsgForRides))
 
 
-ridesContext : a -> TestContext Msg Model
+ridesContext : a -> TestContext Root.Msg Model
 ridesContext _ =
     startForTest
         { init = ( init, Testable.Cmd.none )
-        , update = (\msg model -> ( Update.update msg model, Testable.Cmd.none ))
-        , view = routesList
+        , update = (\msg model -> Tuple.mapSecond (Testable.Cmd.map MsgForRides) <| Update.update msg model)
+        , view = routesList >> Testable.Html.map MsgForRides
         }
 
 
@@ -37,7 +39,7 @@ tests =
                 >> assertNodeCount (Expect.equal 0)
         , test "renders routes when they load" <|
             ridesContext
-                >> update (UpdateRides ridesExample)
+                >> update (MsgForRides <| UpdateRides ridesExample)
                 >> findAll [ class "ride-card" ]
                 >> assertNodeCount (Expect.equal 2)
         ]

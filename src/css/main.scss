@@ -1,5 +1,5 @@
 $primary_color: #0255FB;
-$secondary_color: #FF9800;
+$secondary_color: #EDF2F5;
 $primary_text_color: #555555;
 $secondary_text_color: #757575;
 
@@ -8,7 +8,7 @@ html {
 }
 
 body {
-  background: #EDF2F5;
+  background: $secondary_color;
 }
 
 nav {
@@ -17,6 +17,14 @@ nav {
     font-size: 1.4rem;
     margin-left: 10px;
   }
+}
+
+#splash-screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: url('images/logo.svg') $primary_color no-repeat center;
+  background-size: 192px 192px;
 }
 
 .dropdown-content {
@@ -56,11 +64,6 @@ nav {
   .card-action p {
     margin: 0;
   }
-}
-
-#app-login{
-  height: 100%;
-  background-color: $primary_color;
 }
 
 .password-step {

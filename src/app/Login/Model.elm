@@ -1,4 +1,4 @@
-module Login.Model exposing (Model, init, Step(..), User, step, loggedInUser)
+module Login.Model exposing (Model, init, Step(..), User, step, loggedInUser, isLoggedIn)
 
 import Common.Response exposing (Response(..))
 
@@ -42,6 +42,16 @@ loggedInUser model =
 
         _ ->
             Nothing
+
+
+isLoggedIn : Model -> Bool
+isLoggedIn model =
+    case loggedInUser model of
+        Just _ ->
+            True
+
+        Nothing ->
+            False
 
 
 init : Maybe User -> Model

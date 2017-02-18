@@ -3,19 +3,19 @@ port module Main exposing (..)
 import Test.Runner.Node exposing (run)
 import Json.Encode exposing (Value)
 import Test exposing (..)
-import Fuzz.ExampleSpec
+import Fuzz.UrlRouter.UpdateSpec
 import Integration.RidesSpec
 import Integration.LoginSpec
-import Integration.LayoutSpec
+import Integration.UrlRouterSpec
 
 
 tests : Test
 tests =
     Test.concat
-        [ Fuzz.ExampleSpec.tests
+        [ Fuzz.UrlRouter.UpdateSpec.tests
         , Integration.RidesSpec.tests
         , Integration.LoginSpec.tests
-        , Integration.LayoutSpec.tests
+        , Integration.UrlRouterSpec.tests
         ]
 
 

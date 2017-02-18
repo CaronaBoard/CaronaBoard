@@ -1,12 +1,12 @@
-module Instructions.Instructions exposing (instructions)
+module Rides.View.Instructions exposing (instructions)
 
 import Testable.Html exposing (Html, ol, li, text, strong, div)
-import Testable.Html.Attributes exposing (id)
+import Testable.Html.Attributes exposing (class)
 
 
 instructions : Html a
 instructions =
-    div [ id "how_to" ]
+    div [ class "container" ]
         [ ol []
             [ li []
                 [ text "Encontre uma rota que passe perto do seu destino" ]

@@ -2,7 +2,7 @@
     "files": {
         "src/app/View.elm": {
             "output": "build/elm.html",
-            "viewFunction": "initialView"
+            "viewFunction": "staticView"
         }
     }
 }

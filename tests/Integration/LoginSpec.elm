@@ -2,6 +2,7 @@ module Integration.LoginSpec exposing (..)
 
 import Test exposing (..)
 import Testable.TestContext exposing (..)
+import Testable.Html
 import Testable.Html.Selectors exposing (..)
 import Expect exposing (equal)
 import Login.Update as Update
@@ -10,18 +11,19 @@ import Login.View.Login as View
 import Login.Msg exposing (Msg(..))
 import Login.Ports exposing (checkRegistration)
 import Testable.Cmd
+import Msg as Root exposing (Msg(MsgForLogin))
 
 
-loginContext : a -> TestContext Msg Model
+loginContext : a -> TestContext Root.Msg Model
 loginContext _ =
     startForTest
         { init = ( init Nothing, Testable.Cmd.none )
-        , update = (\msg model -> ( Update.update msg model, Update.cmdUpdate msg model ))
-        , view = View.login
+        , update = (\msg model -> Tuple.mapSecond (Testable.Cmd.map MsgForLogin) <| Update.update msg model)
+        , view = View.login >> Testable.Html.map MsgForLogin
         }
 
 
-submitEmail : a -> TestContext Msg Model
+submitEmail : a -> TestContext Root.Msg Model
 submitEmail =
     loginContext
         >> find [ tag "input", attribute "type" "email" ]
@@ -30,10 +32,10 @@ submitEmail =
         >> trigger "submit" "{}"
 
 
-submitEmailThenPassword : a -> TestContext Msg Model
+submitEmailThenPassword : a -> TestContext Root.Msg Model
 submitEmailThenPassword =
     submitEmail
-        >> update (Login.Msg.CheckRegistrationResponse True)
+        >> update (MsgForLogin <| CheckRegistrationResponse True)
         >> find [ tag "input", attribute "type" "password" ]
         >> trigger "input" "{\"target\": {\"value\": \"baz\"}}"
         >> find [ tag "form" ]
@@ -60,10 +62,10 @@ tests =
                     >> assertText (Expect.equal "Carregando...")
             , test "calls checkRegistration port" <|
                 submitEmail
-                    >> assertCalled (checkRegistration "foo@bar.com")
+                    >> assertCalled (Cmd.map MsgForLogin <| checkRegistration "foo@bar.com")
             , test "shows beta message when user is not registered yet" <|
                 submitEmail
-                    >> update (CheckRegistrationResponse False)
+                    >> update (MsgForLogin <| CheckRegistrationResponse False)
                     >> find [ id "login" ]
                     >> assertText (expectToContainText "em fase de testes")
             ]
@@ -74,7 +76,7 @@ tests =
                     >> assertText (Expect.equal "Carregando...")
             , test "shows error when signing in and renable button" <|
                 submitEmailThenPassword
-                    >> update (SignInResponse ( Just "Invalid password", Nothing ))
+                    >> update (MsgForLogin <| SignInResponse ( Just "Invalid password", Nothing ))
                     >> Expect.all
                         [ find [ id "login" ]
                             >> assertText (expectToContainText "Invalid password")
@@ -83,7 +85,7 @@ tests =
                         ]
             , test "returns the logged in user from the model" <|
                 submitEmailThenPassword
-                    >> update (SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
+                    >> update (MsgForLogin <| SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
                     >> currentModel
                     >> (\result ->
                             case result of
@@ -97,8 +99,8 @@ tests =
         , describe "logout"
             [ test "removes the logged in user" <|
                 loginContext
-                    >> update (SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
-                    >> update SignOutResponse
+                    >> update (MsgForLogin <| SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
+                    >> update (MsgForLogin SignOutResponse)
                     >> currentModel
                     >> (\result ->
                             case result of
