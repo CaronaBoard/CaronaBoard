@@ -6,7 +6,7 @@ import Test exposing (..)
 import Fuzz.UrlRouter.UpdateSpec
 import Integration.RidesSpec
 import Integration.LoginSpec
-import Integration.RouterSpec
+import Integration.UrlRouterSpec
 
 
 tests : Test
@@ -15,7 +15,7 @@ tests =
         [ Fuzz.UrlRouter.UpdateSpec.tests
         , Integration.RidesSpec.tests
         , Integration.LoginSpec.tests
-        , Integration.RouterSpec.tests
+        , Integration.UrlRouterSpec.tests
         ]
 
 

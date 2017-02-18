@@ -1,4 +1,4 @@
-module Integration.RouterSpec exposing (..)
+module Integration.UrlRouterSpec exposing (..)
 
 import Test exposing (..)
 import Testable.TestContext exposing (..)
@@ -10,6 +10,7 @@ import Msg as Root exposing (Msg(MsgForUrlRouter, MsgForLogin))
 import View
 import Login.Msg exposing (Msg(..))
 import Login.Ports exposing (signOut)
+import Login.Model exposing (User)
 import Navigation exposing (Location)
 import UrlRouter.Msg exposing (Msg(UrlChange))
 import UrlRouter.Routes exposing (toPath, Page(HomeRoute, RidesRoute, LoginRoute))
@@ -17,8 +18,16 @@ import UrlRouter.Routes exposing (toPath, Page(HomeRoute, RidesRoute, LoginRoute
 
 tests : Test
 tests =
-    describe "Layout"
-        [ test "renders login and hides rides when user is not logged in and is on login route" <|
+    describe "UrlRouter"
+        [ describe "initial routing"
+            [ test "renders rides page if app starts on login page but user is already logged in" <|
+                initialContext (Just someUser) LoginRoute
+                    >> expectToBeOnRidesPage
+            , test "renders login page if app starts on rides page but user is not logged in" <|
+                initialContext Nothing RidesRoute
+                    >> expectToBeOnLoginPage
+            ]
+        , test "renders login and hides rides when user is not logged in and is on login route" <|
             loginContext
                 >> expectToBeOnLoginPage
         , test "redirects user to login page if it is not logged in and goes to home or page" <|
@@ -29,12 +38,12 @@ tests =
                     ]
         , test "renders rides and hides login when user is logged in and on rides route" <|
             loginContext
-                >> update (MsgForLogin <| SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
+                >> update (MsgForLogin <| SignInResponse ( Nothing, Just someUser ))
                 >> update (MsgForUrlRouter <| UrlChange (toLocation RidesRoute))
                 >> expectToBeOnRidesPage
         , test "redirects user to rides page if it is already logged in and goes to login page or home page" <|
             loginContext
-                >> update (MsgForLogin <| SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
+                >> update (MsgForLogin <| SignInResponse ( Nothing, Just someUser ))
                 >> Expect.all
                     [ update (MsgForUrlRouter <| UrlChange (toLocation LoginRoute)) >> expectToBeOnRidesPage
                     , update (MsgForUrlRouter <| UrlChange (toLocation HomeRoute)) >> expectToBeOnRidesPage
@@ -56,9 +65,14 @@ toLocation page =
 
 
 loginContext : a -> TestContext Root.Msg Model.Model
-loginContext _ =
+loginContext =
+    initialContext Nothing LoginRoute
+
+
+initialContext : Maybe User -> Page -> a -> TestContext Root.Msg Model.Model
+initialContext currentUser page _ =
     startForTest
-        { init = Model.init { currentUser = Nothing } (toLocation LoginRoute)
+        { init = Model.init { currentUser = currentUser } (toLocation page)
         , update = Update.update
         , view = View.view
         }
@@ -67,7 +81,7 @@ loginContext _ =
 loginThenLogout : a -> TestContext Root.Msg Model
 loginThenLogout =
     loginContext
-        >> update (MsgForLogin <| SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
+        >> update (MsgForLogin <| SignInResponse ( Nothing, Just someUser ))
         >> update (MsgForUrlRouter <| UrlChange (toLocation RidesRoute))
         >> find [ id "signout-button" ]
         >> trigger "click" "{}"
@@ -91,3 +105,8 @@ expectToBeOnRidesPage =
         , find [ id "app-login" ]
             >> assertNodeCount (Expect.equal 0)
         ]
+
+
+someUser : User
+someUser =
+    { id = "foo-bar-bar", name = "Baz" }
