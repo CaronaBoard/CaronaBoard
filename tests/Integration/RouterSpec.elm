@@ -1,36 +1,39 @@
-module Integration.LayoutSpec exposing (..)
+module Integration.RouterSpec exposing (..)
 
 import Test exposing (..)
 import Testable.TestContext exposing (..)
 import Testable.Html.Selectors exposing (..)
 import Expect exposing (equal)
+import Model exposing (Model)
 import Update
-import Model
-import Msg
+import Msg as Root exposing (Msg(MsgForUrlRouter, MsgForLogin))
 import View
-import Login.Msg
+import Login.Msg exposing (Msg(..))
 import Login.Ports exposing (signOut)
 import Navigation exposing (Location)
+import UrlRouter.Msg exposing (Msg(UrlChange))
+import UrlRouter.Routes exposing (toPath, Page(HomeRoute, RidesRoute))
 
 
-homeLocation : Location
-homeLocation =
-    { href = "", host = "", hostname = "", protocol = "", origin = "", port_ = "", pathname = "", search = "", hash = "", username = "", password = "" }
+toLocation : Page -> Location
+toLocation page =
+    { href = "", host = "", hostname = "", protocol = "", origin = "", port_ = "", pathname = "", search = "", hash = toPath page, username = "", password = "" }
 
 
-loginContext : a -> TestContext Msg.Msg Model.Model
+loginContext : a -> TestContext Root.Msg Model.Model
 loginContext _ =
     startForTest
-        { init = Model.init { currentUser = Nothing } homeLocation
+        { init = Model.init { currentUser = Nothing } (toLocation HomeRoute)
         , update = Update.update
         , view = View.view
         }
 
 
-loginThenLogout : a -> TestContext Msg.Msg Model.Model
+loginThenLogout : a -> TestContext Root.Msg Model
 loginThenLogout =
     loginContext
-        >> update (Msg.MsgForLogin <| Login.Msg.SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
+        >> update (MsgForLogin <| SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
+        >> update (MsgForUrlRouter <| UrlChange (toLocation RidesRoute))
         >> find [ id "signout-button" ]
         >> trigger "click" "{}"
 
@@ -48,7 +51,7 @@ tests =
                     ]
         , test "renders home and hides login when user loggs in" <|
             loginContext
-                >> update (Msg.MsgForLogin <| Login.Msg.SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
+                >> update (MsgForLogin <| SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
                 >> Expect.all
                     [ find [ id "app-main" ]
                         >> assertPresent
@@ -58,7 +61,7 @@ tests =
         , describe "logout"
             [ test "trigger port on sign out button click" <|
                 loginThenLogout
-                    >> assertCalled (Cmd.map Msg.MsgForLogin <| signOut ())
+                    >> assertCalled (Cmd.map MsgForLogin <| signOut ())
             , test "does not log user out until the response from firebase" <|
                 loginThenLogout
                     >> Expect.all
@@ -69,7 +72,7 @@ tests =
                         ]
             , test "goes back to login page on logout" <|
                 loginThenLogout
-                    >> update (Msg.MsgForLogin Login.Msg.SignOutResponse)
+                    >> update (MsgForLogin SignOutResponse)
                     >> Expect.all
                         [ find [ id "app-main" ]
                             >> assertNodeCount (Expect.equal 0)
