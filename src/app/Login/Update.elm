@@ -1,34 +1,45 @@
-module Login.Update exposing (update, cmdUpdate)
+module Login.Update exposing (update)
 
-import Login.Model exposing (Model, Step(..), User, step)
+import Msg as Root exposing (Msg(MsgForUrlRouter, MsgForLogin))
+import Login.Model exposing (Model, Step(..), User, step, init)
 import Login.Ports exposing (checkRegistration, signIn, signOut)
 import Login.Msg exposing (Msg(..))
 import Testable.Cmd
 import Common.Response exposing (Response(..))
 
 
-update : Msg -> Model -> Model
+update : Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd Login.Msg.Msg )
 update msg model =
     case msg of
+        MsgForLogin loginMsg ->
+            loginUpdate loginMsg model
+
+        _ ->
+            ( model, Testable.Cmd.none )
+
+
+loginUpdate : Login.Msg.Msg -> Model -> ( Model, Testable.Cmd.Cmd Login.Msg.Msg )
+loginUpdate msg model =
+    case msg of
         UpdateEmail email ->
-            { model | email = email }
+            ( { model | email = email }, Testable.Cmd.none )
 
         UpdatePassword password ->
-            { model | password = password }
+            ( { model | password = password }, Testable.Cmd.none )
 
         Submit ->
             case step model of
                 EmailStep ->
-                    { model | registered = Loading }
+                    ( { model | registered = Loading }, Testable.Cmd.wrap <| checkRegistration model.email )
 
                 PasswordStep ->
-                    { model | loggedIn = Loading }
+                    ( { model | loggedIn = Loading }, Testable.Cmd.wrap <| signIn { email = model.email, password = model.password } )
 
                 NotRegisteredStep ->
-                    model
+                    ( model, Testable.Cmd.none )
 
         CheckRegistrationResponse isRegistered ->
-            { model | registered = Success isRegistered }
+            ( { model | registered = Success isRegistered }, Testable.Cmd.none )
 
         SignInResponse ( error, success ) ->
             let
@@ -42,31 +53,10 @@ update msg model =
                         |> Maybe.map Error
                         |> Maybe.withDefault successResponse
             in
-                { model | loggedIn = loggedIn }
+                ( { model | loggedIn = loggedIn }, Testable.Cmd.none )
 
         SignOut ->
-            model
+            ( model, Testable.Cmd.wrap <| signOut () )
 
         SignOutResponse ->
-            { model | loggedIn = Empty }
-
-
-cmdUpdate : Msg -> Model -> Testable.Cmd.Cmd Msg
-cmdUpdate msg model =
-    case msg of
-        Submit ->
-            case step model of
-                EmailStep ->
-                    Testable.Cmd.wrap <| checkRegistration model.email
-
-                PasswordStep ->
-                    Testable.Cmd.wrap <| signIn { email = model.email, password = model.password }
-
-                NotRegisteredStep ->
-                    Testable.Cmd.none
-
-        SignOut ->
-            Testable.Cmd.wrap <| signOut ()
-
-        _ ->
-            Testable.Cmd.none
+            ( init Nothing, Testable.Cmd.none )

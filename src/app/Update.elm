@@ -10,30 +10,27 @@ import Testable.Cmd
 
 update : Msg -> Model -> ( Model, Testable.Cmd.Cmd Msg )
 update msg model =
-    ( modelUpdate msg model, cmdUpdate msg model )
+    let
+        urlRouter =
+            UrlRouter.update msg model.urlRouter model.login
 
+        login =
+            Login.update msg model.login
 
-modelUpdate : Msg -> Model -> Model
-modelUpdate msg model =
-    case msg of
-        MsgForUrlRouter _ ->
-            { model | urlRouter = Tuple.first <| UrlRouter.update msg model.urlRouter model.login }
+        rides =
+            Rides.update msg model.rides
 
-        MsgForLogin loginMsg ->
-            { model | login = Login.update loginMsg model.login }
+        updatedModel =
+            { urlRouter = Tuple.first urlRouter
+            , login = Tuple.first login
+            , rides = Tuple.first rides
+            }
 
-        MsgForRides ridesMsg ->
-            { model | rides = Rides.update ridesMsg model.rides }
-
-
-cmdUpdate : Msg -> Model -> Testable.Cmd.Cmd Msg
-cmdUpdate msg model =
-    case msg of
-        MsgForUrlRouter _ ->
-            Testable.Cmd.map MsgForUrlRouter <| Tuple.second <| UrlRouter.update msg model.urlRouter model.login
-
-        MsgForLogin loginMsg ->
-            Testable.Cmd.map MsgForLogin <| Login.cmdUpdate loginMsg model.login
-
-        MsgForRides ridesMsg ->
-            Testable.Cmd.none
+        cmds =
+            Testable.Cmd.batch
+                [ Testable.Cmd.map MsgForUrlRouter <| Tuple.second urlRouter
+                , Testable.Cmd.map MsgForLogin <| Tuple.second login
+                , Testable.Cmd.map MsgForRides <| Tuple.second rides
+                ]
+    in
+        ( updatedModel, cmds )
