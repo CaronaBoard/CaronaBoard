@@ -22,10 +22,11 @@
     <link rel="stylesheet" href="<%= require('./css/splash.scss') %>">
     <div id="page-wrap"><%= require('../build/elm.html') %></div>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
-    <link rel="stylesheet" href="<%= require('./css/main.scss') %>">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+    <% deferCss = 'media="none" onload="if(media!=\'all\')media=\'all\'"' %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css" <%= deferCss %>>
+    <link rel="stylesheet" href="<%= require('./css/main.scss') %>" <%= deferCss %>>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
 
     <script>
       if ('serviceWorker' in navigator) {
