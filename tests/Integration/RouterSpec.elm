@@ -12,7 +12,42 @@ import Login.Msg exposing (Msg(..))
 import Login.Ports exposing (signOut)
 import Navigation exposing (Location)
 import UrlRouter.Msg exposing (Msg(UrlChange))
-import UrlRouter.Routes exposing (toPath, Page(HomeRoute, RidesRoute))
+import UrlRouter.Routes exposing (toPath, Page(HomeRoute, RidesRoute, LoginRoute))
+
+
+tests : Test
+tests =
+    describe "Layout"
+        [ test "renders login and hides rides when user is not logged in and is on login route" <|
+            loginContext
+                >> expectToBeOnLoginPage
+        , test "redirects user to login page if it is not logged in and goes to home or page" <|
+            loginContext
+                >> Expect.all
+                    [ update (MsgForUrlRouter <| UrlChange (toLocation RidesRoute)) >> expectToBeOnLoginPage
+                    , update (MsgForUrlRouter <| UrlChange (toLocation HomeRoute)) >> expectToBeOnLoginPage
+                    ]
+        , test "renders rides and hides login when user is logged in and on rides route" <|
+            loginContext
+                >> update (MsgForLogin <| SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
+                >> update (MsgForUrlRouter <| UrlChange (toLocation RidesRoute))
+                >> expectToBeOnRidesPage
+        , test "redirects user to rides page if it is already logged in and goes to login page or home page" <|
+            loginContext
+                >> update (MsgForLogin <| SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
+                >> Expect.all
+                    [ update (MsgForUrlRouter <| UrlChange (toLocation LoginRoute)) >> expectToBeOnRidesPage
+                    , update (MsgForUrlRouter <| UrlChange (toLocation HomeRoute)) >> expectToBeOnRidesPage
+                    ]
+        , describe "logout"
+            [ test "trigger port on sign out button click" <|
+                loginThenLogout
+                    >> assertCalled (Cmd.map MsgForLogin <| signOut ())
+            , test "does not log user out until the response from firebase" <|
+                loginThenLogout
+                    >> expectToBeOnRidesPage
+            ]
+        ]
 
 
 toLocation : Page -> Location
@@ -23,7 +58,7 @@ toLocation page =
 loginContext : a -> TestContext Root.Msg Model.Model
 loginContext _ =
     startForTest
-        { init = Model.init { currentUser = Nothing } (toLocation HomeRoute)
+        { init = Model.init { currentUser = Nothing } (toLocation LoginRoute)
         , update = Update.update
         , view = View.view
         }
@@ -38,46 +73,21 @@ loginThenLogout =
         >> trigger "click" "{}"
 
 
-tests : Test
-tests =
-    describe "Layout"
-        [ test "renders login and hides home when user is logged out" <|
-            loginContext
-                >> Expect.all
-                    [ find [ id "app-main" ]
-                        >> assertNodeCount (Expect.equal 0)
-                    , find [ id "app-login" ]
-                        >> assertPresent
-                    ]
-        , test "renders home and hides login when user loggs in" <|
-            loginContext
-                >> update (MsgForLogin <| SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
-                >> Expect.all
-                    [ find [ id "app-main" ]
-                        >> assertPresent
-                    , find [ id "app-login" ]
-                        >> assertNodeCount (Expect.equal 0)
-                    ]
-        , describe "logout"
-            [ test "trigger port on sign out button click" <|
-                loginThenLogout
-                    >> assertCalled (Cmd.map MsgForLogin <| signOut ())
-            , test "does not log user out until the response from firebase" <|
-                loginThenLogout
-                    >> Expect.all
-                        [ find [ id "app-main" ]
-                            >> assertPresent
-                        , find [ id "app-login" ]
-                            >> assertNodeCount (Expect.equal 0)
-                        ]
-            , test "goes back to login page on logout" <|
-                loginThenLogout
-                    >> update (MsgForLogin SignOutResponse)
-                    >> Expect.all
-                        [ find [ id "app-main" ]
-                            >> assertNodeCount (Expect.equal 0)
-                        , find [ id "app-login" ]
-                            >> assertPresent
-                        ]
-            ]
+expectToBeOnLoginPage : TestContext msg model -> Expect.Expectation
+expectToBeOnLoginPage =
+    Expect.all
+        [ find [ id "app-main" ]
+            >> assertNodeCount (Expect.equal 0)
+        , find [ id "app-login" ]
+            >> assertPresent
+        ]
+
+
+expectToBeOnRidesPage : TestContext msg model -> Expect.Expectation
+expectToBeOnRidesPage =
+    Expect.all
+        [ find [ id "app-main" ]
+            >> assertPresent
+        , find [ id "app-login" ]
+            >> assertNodeCount (Expect.equal 0)
         ]
