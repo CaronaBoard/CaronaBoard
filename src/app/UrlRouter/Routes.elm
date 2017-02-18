@@ -25,16 +25,16 @@ toPath : Page -> String
 toPath page =
     case page of
         HomeRoute ->
-            "#"
+            "#/"
 
         LoginRoute ->
-            "#login"
+            "#/login"
 
         RidesRoute ->
-            "#rides"
+            "#/rides"
 
         NotFound ->
-            "#not-found"
+            "#/not-found"
 
 
 redirectTo : Login.Model -> Page -> Page
@@ -65,7 +65,7 @@ redirectTo login page =
 pathParser : Navigation.Location -> Maybe Page
 pathParser location =
     -- This if is here due to this issue https://github.com/evancz/url-parser/issues/21
-    if location.hash == "" || location.hash == "#" then
+    if location.hash == "" then
         Just HomeRoute
     else
         parseHash pageParser location

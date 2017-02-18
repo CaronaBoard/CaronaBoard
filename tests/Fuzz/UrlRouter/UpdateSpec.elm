@@ -76,7 +76,7 @@ randomPath : Fuzzer String
 randomPath =
     Fuzz.map
         (\path ->
-            if path == "" || path == "#" then
+            if path == "" then
                 "foo"
             else
                 path
