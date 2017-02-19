@@ -13,3 +13,8 @@ install:
   - yarn build
 script:
   - yarn test
+deploy:
+  provider: script
+  script: ./deploy.sh
+  on:
+    branch: replace-snap-with-travis
