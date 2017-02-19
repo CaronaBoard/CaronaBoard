@@ -8,8 +8,6 @@ cache:
     - elm-stuff/packages
     - tests/elm-stuff/build-artifacts
     - tests/elm-stuff/packages
-    - .elm-static-html/elm-stuff/build-artifacts
-    - .elm-static-html/elm-stuff/packages
     - sysconfcpus
 before_install:
   - npm install -g yarn
