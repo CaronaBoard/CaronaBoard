@@ -1,8 +1,8 @@
 language: node_js
 cache:
   directories:
-    - $HOME/.npm
-    - $HOME/.yarn-cache
+    - "$HOME/.npm"
+    - "$HOME/.yarn-cache"
     - node_modules
     - elm-stuff
     - test/elm-stuff
@@ -13,8 +13,10 @@ install:
   - yarn build
 script:
   - yarn test
+before_deploy:
+  - openssl aes-256-cbc -K $encrypted_6d2f7c519862_key -iv $encrypted_6d2f7c519862_iv -in id_rsa_caronaboard.enc -out id_rsa_caronaboard -d
 deploy:
   provider: script
-  script: ./deploy.sh
+  script: "./deploy.sh"
   on:
     branch: replace-snap-with-travis
