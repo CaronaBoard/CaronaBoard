@@ -11,7 +11,7 @@ const config = {
     loaders: [
       {
         test: /\.s?css$/,
-        loaders: ['file-loader?name=[name].[hash].css', 'sass-loader']
+        loaders: ['sass-loader']
       },
       {
         test: /\.elm$/,

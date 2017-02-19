@@ -1,7 +1,7 @@
 {
     "files": {
         "src/app/View.elm": {
-            "output": "build/elm.html",
+            "output": "build/splash.html",
             "viewFunction": "staticView"
         }
     }
