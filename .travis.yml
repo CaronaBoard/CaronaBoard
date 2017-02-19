@@ -1,0 +1,15 @@
+language: node_js
+ cache:
+   directories:
+     - $HOME/.npm
+     - $HOME/.yarn-cache
+     - node_modules
+     - elm-stuff
+     - test/elm-stuff
+ before_install:
+   - npm install -g yarn
+ install:
+   - yarn
+   - yarn build
+ script:
+   - yarn test
