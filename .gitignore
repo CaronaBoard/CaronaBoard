@@ -4,3 +4,4 @@ node_modules/
 build/
 elm-stuff/
 .elm-static-html
+id_rsa_caronaboard

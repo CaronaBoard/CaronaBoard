@@ -1,0 +1,34 @@
+language: node_js
+cache:
+  directories:
+    - "$HOME/.npm"
+    - "$HOME/.yarn-cache"
+    - node_modules
+    - elm-stuff/build-artifacts
+    - elm-stuff/packages
+    - tests/elm-stuff/build-artifacts
+    - tests/elm-stuff/packages
+    - sysconfcpus
+before_install:
+  - npm install -g yarn
+  # Faster compile of Elm on Travis.
+  - |
+    if [ ! -d sysconfcpus/bin ];
+    then
+      git clone https://github.com/obmarg/libsysconfcpus.git;
+      cd libsysconfcpus;
+      ./configure --prefix=$TRAVIS_BUILD_DIR/sysconfcpus;
+      make && make install;
+      cd ..;
+    fi
+install:
+  - yarn
+  - $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 yarn build
+script:
+  - $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 yarn test
+deploy:
+  provider: script
+  script: "./deploy.sh"
+  skip_cleanup: true
+  on:
+    branch: master
