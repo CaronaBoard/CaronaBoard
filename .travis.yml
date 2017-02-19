@@ -6,8 +6,11 @@ cache:
     - node_modules
     - elm-stuff/build-artifacts
     - elm-stuff/packages
+    - tests/elm-stuff/build-artifacts
+    - tests/elm-stuff/packages
+    - .elm-static-html/elm-stuff/build-artifacts
+    - .elm-static-html/elm-stuff/packages
     - sysconfcpus
-    - test/elm-stuff
 before_install:
   - npm install -g yarn
   # Faster compile of Elm on Travis.
