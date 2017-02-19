@@ -25,8 +25,6 @@ install:
   - $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 yarn build
 script:
   - $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2 yarn test
-before_deploy:
-  - openssl aes-256-cbc -K $encrypted_6d2f7c519862_key -iv $encrypted_6d2f7c519862_iv -in id_rsa_caronaboard.enc -out id_rsa_caronaboard -d
 deploy:
   provider: script
   script: "./deploy.sh"
