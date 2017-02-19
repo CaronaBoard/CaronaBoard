@@ -46,7 +46,7 @@ We are using [elm-test](https://github.com/elm-community/elm-test) for writing t
 
 To run tests, simply run `yarn test`.
 
-#### Deployment - Travis CI
+### Deployment - Travis CI
 
 Travis builds the app and run the Elm tests. Then, when in master branch, it deploys to github pages by creating a new commit on the repo [caronaboard.github.io](https://github.com/CaronaBoard/caronaboard.github.io).
 
