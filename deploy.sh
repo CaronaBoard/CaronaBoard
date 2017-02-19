@@ -9,6 +9,7 @@ eval `ssh-agent -s`
 ssh-add id_rsa_caronaboard
 
 git clone git@github.com:CaronaBoard/caronaboard.github.io.git caronaboard.github.io
+rm -rf caronaboard.github.io/*
 rm -rf caronaboard.github.io/**/*
 cp -R build/* caronaboard.github.io
 cd caronaboard.github.io
