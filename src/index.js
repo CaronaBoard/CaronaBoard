@@ -1,17 +1,17 @@
-var Elm = require('./app/Main.elm');
+// After splash screen loaded
+window.addEventListener('load', function () {
+  // Load all CSS
+  var loadCSS = require('fg-loadcss').loadCSS;
+  loadCSS('https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css');
+  loadCSS(require('file-loader?name=[name].[hash].css!./css/main.scss'));
+  loadCSS('https://fonts.googleapis.com/icon?family=Material+Icons');
+  loadCSS('https://fonts.googleapis.com/css?family=Lato:400,700');
 
-var currentUser = Object.keys(localStorage).filter(function (key) {
-  return key.match(/firebase:authUser/);
-}).map(function (key) {
-  return JSON.parse(localStorage.getItem(key));
-}).map(function (user) {
-  return { id: user.uid, name: user.displayName || ""}
-})[0] || null;
+  // Load Elm and connect it with Firebase
+  require('./elm.js');
 
-var app = Elm.Main.embed(document.getElementById('page-wrap'), { currentUser: currentUser });
-
-System.import('./firebase').then(function (connectFirebase) {
-  connectFirebase(app);
+  // Load serviceWorkers
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js');
+  }
 });
-
-require('./dropdown');

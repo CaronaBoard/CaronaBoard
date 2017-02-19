@@ -19,23 +19,12 @@
     <meta name="theme-color" content="#0255FB">
   </head>
   <body>
-    <link rel="stylesheet" href="<%= require('./css/splash.scss') %>">
-    <div id="page-wrap"><%= require('../build/elm.html') %></div>
+    <style>
+      <%= require('raw-loader!./css/splash.scss') %>
+    </style>
+    <div id="page-wrap"><%= require('../build/splash.html') %></div>
 
-    <% deferCss = 'media="none" onload="if(media!=\'all\')media=\'all\'"' %>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css" <%= deferCss %>>
-    <link rel="stylesheet" href="<%= require('./css/main.scss') %>" <%= deferCss %>>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700">
-
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/service-worker.js');
-        });
-      }
-    </script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
   </body>
 <html>
