@@ -10,6 +10,7 @@ type Page
     | LoginPage
     | RidesPage
     | NotFoundPage
+    | PasswordResetPage
 
 
 pageParser : Parser (Page -> a) a
@@ -18,6 +19,7 @@ pageParser =
         [ map SplashScreenPage (static "")
         , map LoginPage (static "login")
         , map RidesPage (static "rides")
+        , map PasswordResetPage (static "password-reset")
         ]
 
 
@@ -35,6 +37,9 @@ toPath page =
 
         NotFoundPage ->
             "#/not-found"
+
+        PasswordResetPage ->
+            "#/password-reset"
 
 
 redirectTo : Login.Model -> Page -> Page
@@ -60,6 +65,9 @@ redirectTo login page =
 
         NotFoundPage ->
             NotFoundPage
+
+        PasswordResetPage ->
+            PasswordResetPage
 
 
 pathParser : Navigation.Location -> Maybe Page

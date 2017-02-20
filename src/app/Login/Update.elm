@@ -2,7 +2,7 @@ module Login.Update exposing (update)
 
 import Msg as Root exposing (Msg(MsgForUrlRouter, MsgForLogin))
 import Login.Model exposing (Model, Step(..), User, step, init)
-import Login.Ports exposing (checkRegistration, signIn, signOut)
+import Login.Ports exposing (checkRegistration, signIn, signOut, passwordReset)
 import Login.Msg exposing (Msg(..))
 import Testable.Cmd
 import Common.Response exposing (Response(..))
@@ -60,3 +60,14 @@ loginUpdate msg model =
 
         SignOutResponse ->
             ( init Nothing, Testable.Cmd.none )
+
+        PasswordReset ->
+            ( { model | passwordReset = Loading }, Testable.Cmd.wrap <| passwordReset model.email )
+
+        PasswordResetResponse error ->
+            let
+                response =
+                    Maybe.map Error error
+                        |> Maybe.withDefault (Success ())
+            in
+                ( { model | passwordReset = response }, Testable.Cmd.none )

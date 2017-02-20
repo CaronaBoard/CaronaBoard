@@ -7,8 +7,9 @@ import Html
 import Model exposing (Model, init)
 import Msg exposing (Msg(MsgForLogin))
 import Layout.SplashScreen exposing (splashScreen)
-import UrlRouter.Routes exposing (Page(SplashScreenPage, LoginPage, RidesPage, NotFoundPage))
+import UrlRouter.Routes exposing (Page(SplashScreenPage, LoginPage, RidesPage, NotFoundPage, PasswordResetPage))
 import Login.View.Login exposing (login)
+import Login.View.PasswordReset exposing (passwordReset)
 import Layout.Header exposing (header)
 import Rides.View.Instructions exposing (instructions)
 import Rides.View.RoutesList exposing (routesList)
@@ -32,10 +33,7 @@ routeRender model =
             splashScreen
 
         LoginPage ->
-            div [ id "login-page" ]
-                [ div [ class "row" ]
-                    [ Testable.Html.map MsgForLogin <| login model.login ]
-                ]
+            loginLayout (Testable.Html.map MsgForLogin <| login model.login)
 
         RidesPage ->
             div [ id "rides-page" ]
@@ -46,3 +44,16 @@ routeRender model =
 
         NotFoundPage ->
             h1 [] [ text "404 não encontrado" ]
+
+        PasswordResetPage ->
+            loginLayout passwordReset
+
+
+loginLayout : Testable.Html.Html Msg -> Testable.Html.Html Msg
+loginLayout child =
+    div [ id "login-page" ]
+        [ div [ class "row" ]
+            [ div [ id "login", class "col s12 m8 offset-m2 l6 offset-l3" ]
+                [ child ]
+            ]
+        ]

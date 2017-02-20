@@ -66,4 +66,12 @@ module.exports = function (app) {
       signOutUser();
     }
   });
+
+  app.ports.passwordReset.subscribe(function (email) {
+    firebase.auth().sendPasswordResetEmail(email).then(function () {
+      app.ports.passwordResetResponse.send(null);
+    }).catch(function (error) {
+      app.ports.passwordResetResponse.send(error.message);
+    });
+  });
 }

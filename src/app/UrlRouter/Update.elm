@@ -3,11 +3,11 @@ module UrlRouter.Update exposing (update, urlRouterUpdate, changePageTo)
 import Login.Model as Login
 import UrlRouter.Model exposing (Model)
 import UrlRouter.Msg exposing (Msg(Go, UrlChange))
-import UrlRouter.Routes exposing (Page(NotFoundPage, RidesPage, LoginPage), pathParser, toPath, redirectTo)
+import UrlRouter.Routes exposing (Page(NotFoundPage, RidesPage, LoginPage, PasswordResetPage), pathParser, toPath, redirectTo)
 import Testable.Cmd
 import Navigation exposing (Location)
 import Msg as Root exposing (Msg(MsgForUrlRouter, MsgForLogin))
-import Login.Msg exposing (Msg(SignInResponse, SignOutResponse))
+import Login.Msg exposing (Msg(SignInResponse, SignOutResponse, PasswordResetResponse))
 
 
 update : Root.Msg -> Model -> Login.Model -> ( Model, Testable.Cmd.Cmd UrlRouter.Msg.Msg )
@@ -21,6 +21,9 @@ update msg model login =
 
         MsgForLogin SignOutResponse ->
             urlRouterUpdate (Go LoginPage) model login
+
+        MsgForLogin (PasswordResetResponse Nothing) ->
+            urlRouterUpdate (Go PasswordResetPage) model login
 
         _ ->
             ( model, Testable.Cmd.none )
