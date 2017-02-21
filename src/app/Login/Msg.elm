@@ -11,6 +11,8 @@ type Msg
     | SignInResponse ( Maybe Error, Maybe User )
     | SignOut
     | SignOutResponse
+    | PasswordReset
+    | PasswordResetResponse (Maybe Error)
 
 
 type alias Error =

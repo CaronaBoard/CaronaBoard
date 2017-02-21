@@ -1,20 +1,20 @@
 module Common.Form exposing (loadingOrSubmitButton, renderErrors)
 
-import Testable.Html exposing (Html, div, button, text, i)
+import Testable.Html exposing (Html, Attribute, div, button, text, i)
 import Testable.Html.Attributes exposing (id, value, disabled, class)
 import Login.Msg exposing (Msg(..))
 import Common.Response exposing (Response(..))
 
 
-loadingOrSubmitButton : List (Html Msg) -> Response a -> Html Msg
-loadingOrSubmitButton buttonChildren response =
+loadingOrSubmitButton : Response a -> List (Attribute Msg) -> List (Html Msg) -> Html Msg
+loadingOrSubmitButton response extraAttributes children =
     case response of
         Loading ->
-            button [ disabled True, class "waves-effect waves-light btn-large" ]
+            button ([ disabled True, class "waves-effect waves-light btn-large" ] ++ extraAttributes)
                 [ i [] [], text "Carregando..." ]
 
         _ ->
-            button [ class "waves-effect waves-light btn-large" ] buttonChildren
+            button ([ class "waves-effect waves-light btn-large" ] ++ extraAttributes) children
 
 
 renderErrors : Response a -> Html Msg

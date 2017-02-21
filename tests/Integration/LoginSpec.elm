@@ -9,7 +9,7 @@ import Login.Update as Update
 import Login.Model exposing (Model, loggedInUser, init)
 import Login.View.Login as View
 import Login.Msg exposing (Msg(..))
-import Login.Ports exposing (checkRegistration)
+import Login.Ports exposing (checkRegistration, signIn, passwordReset)
 import Testable.Cmd
 import Msg as Root exposing (Msg(MsgForLogin))
 
@@ -42,6 +42,14 @@ submitEmailThenPassword =
         >> trigger "submit" "{}"
 
 
+submitEmailThenForgotPassword : a -> TestContext Root.Msg Model
+submitEmailThenForgotPassword =
+    submitEmail
+        >> update (MsgForLogin <| CheckRegistrationResponse True)
+        >> find [ id "password-reset-button" ]
+        >> trigger "click" "{}"
+
+
 expectToContainText : String -> String -> Expect.Expectation
 expectToContainText expected actual =
     Expect.true ("Expected\n\t" ++ actual ++ "\nto contain\n\t" ++ expected)
@@ -51,22 +59,18 @@ expectToContainText expected actual =
 tests : Test
 tests =
     describe "Login"
-        [ test "renders the login when user is not logged in yet" <|
-            loginContext
-                >> find [ id "login" ]
-                >> assertPresent
-        , describe "email check"
+        [ describe "email check"
             [ test "shows loading button on submit" <|
                 submitEmail
                     >> thenFind [ tag "button" ]
                     >> assertText (Expect.equal "Carregando...")
-            , test "calls checkRegistration port" <|
+            , test "sends request via checkRegistration port" <|
                 submitEmail
                     >> assertCalled (Cmd.map MsgForLogin <| checkRegistration "foo@bar.com")
             , test "shows beta message when user is not registered yet" <|
                 submitEmail
                     >> update (MsgForLogin <| CheckRegistrationResponse False)
-                    >> find [ id "login" ]
+                    >> find []
                     >> assertText (expectToContainText "em fase de testes")
             ]
         , describe "password check"
@@ -74,12 +78,14 @@ tests =
                 submitEmailThenPassword
                     >> thenFind [ tag "button" ]
                     >> assertText (Expect.equal "Carregando...")
+            , test "sends request via checkRegistration port" <|
+                submitEmailThenPassword
+                    >> assertCalled (Cmd.map MsgForLogin <| signIn { email = "foo@bar.com", password = "baz" })
             , test "shows error when signing in and renable button" <|
                 submitEmailThenPassword
                     >> update (MsgForLogin <| SignInResponse ( Just "Invalid password", Nothing ))
                     >> Expect.all
-                        [ find [ id "login" ]
-                            >> assertText (expectToContainText "Invalid password")
+                        [ assertText (expectToContainText "Invalid password")
                         , find [ tag "button" ]
                             >> assertText (expectToContainText "Entrar")
                         ]
@@ -110,5 +116,23 @@ tests =
                                 Err err ->
                                     Expect.fail (toString err)
                        )
+            ]
+        , describe "password reset"
+            [ test "shows loading on submit" <|
+                submitEmailThenForgotPassword
+                    >> find [ id "password-reset-button" ]
+                    >> assertText (Expect.equal "Carregando...")
+            , test "calls the resetPassword port" <|
+                submitEmailThenForgotPassword
+                    >> assertCalled (Cmd.map MsgForLogin <| passwordReset "foo@bar.com")
+            , test "shows error when reseting password and renable button" <|
+                submitEmailThenForgotPassword
+                    >> update (MsgForLogin <| PasswordResetResponse (Just "Could not send email"))
+                    >> Expect.all
+                        [ find []
+                            >> assertText (expectToContainText "Could not send email")
+                        , find [ id "password-reset-button" ]
+                            >> assertText (expectToContainText "Esqueci a Senha")
+                        ]
             ]
         ]

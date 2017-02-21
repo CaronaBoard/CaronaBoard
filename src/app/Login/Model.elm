@@ -8,6 +8,7 @@ type alias Model =
     , password : String
     , registered : Response Bool
     , loggedIn : Response User
+    , passwordReset : Response ()
     }
 
 
@@ -63,4 +64,5 @@ init user =
         user
             |> Maybe.map Success
             |> Maybe.withDefault Empty
+    , passwordReset = Empty
     }
