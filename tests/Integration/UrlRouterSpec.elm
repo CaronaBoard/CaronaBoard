@@ -83,6 +83,8 @@ loginThenLogout =
     loginContext
         >> update (MsgForLogin <| SignInResponse ( Nothing, Just someUser ))
         >> update (MsgForUrlRouter <| UrlChange (toLocation RidesPage))
+        >> find [ id "open-menu-button" ]
+        >> trigger "click" "{}"
         >> find [ id "signout-button" ]
         >> trigger "click" "{}"
 

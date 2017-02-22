@@ -7,6 +7,7 @@ import Fuzz.UrlRouter.UpdateSpec
 import Integration.RidesSpec
 import Integration.LoginSpec
 import Integration.UrlRouterSpec
+import Integration.LayoutSpec
 
 
 tests : Test
@@ -16,6 +17,7 @@ tests =
         , Integration.RidesSpec.tests
         , Integration.LoginSpec.tests
         , Integration.UrlRouterSpec.tests
+        , Integration.LayoutSpec.tests
         ]
 
 

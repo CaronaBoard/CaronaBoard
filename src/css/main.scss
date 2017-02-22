@@ -19,12 +19,13 @@ nav {
   }
 }
 
-.dropdown-content {
+#menu {
   margin: 10px;
   display: block;
+  top: 0;
   right: 0;
-  left: auto!important;
-  width: auto!important;
+  width: auto;
+  opacity: 1;
 }
 
 .ride-card {
