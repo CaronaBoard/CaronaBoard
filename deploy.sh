@@ -14,7 +14,8 @@ rm -rf caronaboard.github.io/**/*
 cp -R build/* caronaboard.github.io
 cd caronaboard.github.io
 
-echo "www.caronaboard.com" > CNAME
+echo "caronaboard.com" >> CNAME
+echo "www.caronaboard.com" >> CNAME
 
 git config user.name "Travis CI"
 git config user.email "travis-ci@caronaboard.com"
