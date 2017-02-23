@@ -7,7 +7,7 @@ import Msg exposing (Msg(MsgForLogin, MsgForLayout))
 import Login.Msg exposing (Msg(SignOut))
 import Common.Icon exposing (icon)
 import Layout.Model exposing (Model)
-import Layout.Msg exposing (Msg(OpenDropdown))
+import Layout.Msg exposing (Msg(OpenDropdown, CloseDropdown))
 
 
 header : Model -> Html Msg.Msg
@@ -39,12 +39,14 @@ header model =
 menu : Model -> List (Html Msg.Msg)
 menu model =
     if model.dropdownOpen then
-        [ ul [ id "menu", class "dropdown-content" ]
-            [ li []
-                [ a [ href "http://goo.gl/forms/GYVDfZuhWg" ] [ text "Dar Feedback" ]
-                ]
-            , li []
-                [ a [ href "javascript:;", onClick (MsgForLogin SignOut), id "signout-button" ] [ text "Sair" ]
+        [ div [ id "menu", onClick (MsgForLayout CloseDropdown) ]
+            [ ul [ class "dropdown-content" ]
+                [ li []
+                    [ a [ href "http://goo.gl/forms/GYVDfZuhWg" ] [ text "Dar Feedback" ]
+                    ]
+                , li []
+                    [ a [ href "javascript:;", onClick (MsgForLogin SignOut), id "signout-button" ] [ text "Sair" ]
+                    ]
                 ]
             ]
         ]

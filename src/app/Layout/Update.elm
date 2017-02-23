@@ -23,4 +23,4 @@ updateLayout msg model =
             { model | dropdownOpen = True }
 
         CloseDropdown ->
-            model
+            { model | dropdownOpen = False }

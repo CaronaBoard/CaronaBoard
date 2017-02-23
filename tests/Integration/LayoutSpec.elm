@@ -33,4 +33,12 @@ tests =
                 >> trigger "click" "{}"
                 >> find [ id "menu" ]
                 >> assertPresent
+        , test "closes the dropdown when clicking outside" <|
+            layoutContext
+                >> find [ id "open-menu-button" ]
+                >> trigger "click" "{}"
+                >> find [ id "menu" ]
+                >> trigger "click" "{}"
+                >> findAll [ id "menu" ]
+                >> assertNodeCount (Expect.equal 0)
         ]
