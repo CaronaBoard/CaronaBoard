@@ -95,3 +95,32 @@ nav {
   overflow: hidden;
 	box-shadow: 0 0.5em 0.5em rgba(000,000,000,0.1);
 }
+
+@mixin float-label {
+  label, > span {
+    position: absolute;
+    left: 0;
+    top: -10px;
+    cursor: text;
+    font-size: 80%;
+    opacity: 1;
+    transition: all .2s;
+    @content;
+  }
+}
+
+@mixin float-label-scaled {
+  &:placeholder-shown:not(:focus) + * {
+    font-size: 100%;
+    top: 10px;
+    @content;
+  }
+}
+
+.input-field {
+  @include float-label;
+
+  input, select {
+    @include float-label-scaled;
+  }
+}
