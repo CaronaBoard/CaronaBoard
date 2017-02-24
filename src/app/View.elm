@@ -37,7 +37,7 @@ routeRender model =
 
         RidesPage ->
             div [ id "rides-page" ]
-                [ header
+                [ header model.layout
                 , instructions
                 , routesList model.rides
                 ]

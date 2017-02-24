@@ -19,6 +19,7 @@ emailStep model =
                 , id "email"
                 , onInput UpdateEmail
                 , value model.email
+                , placeholder " "
                 ]
                 []
             , label [ for "email" ] [ text "Email" ]

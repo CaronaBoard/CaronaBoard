@@ -3,6 +3,7 @@ module Model exposing (Model, Flags, init)
 import UrlRouter.Model as UrlRouter
 import Login.Model as Login
 import Rides.Model as Rides
+import Layout.Model as Layout
 import Testable.Cmd
 import Navigation exposing (Location)
 import UrlRouter.Update as UrlRouterUpdate
@@ -14,6 +15,7 @@ type alias Model =
     { urlRouter : UrlRouter.Model
     , login : Login.Model
     , rides : Rides.Model
+    , layout : Layout.Model
     }
 
 
@@ -29,6 +31,7 @@ init { currentUser } location =
             { urlRouter = UrlRouter.init location
             , login = Login.init currentUser
             , rides = Rides.init
+            , layout = Layout.init
             }
     in
         updateUrlRouter location initialModel

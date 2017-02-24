@@ -12,9 +12,6 @@ System.import('./app/Main.elm').then(function (Elm) {
 
   app = Elm.Main.embed(document.getElementById('page-wrap'), { currentUser: currentUser });
   if (connectFirebase) connectFirebase(app);
-
-  // Load dropdown fix for materialize
-  require('./dropdown');
 });
 
 System.import('./firebase').then(function (connect) {

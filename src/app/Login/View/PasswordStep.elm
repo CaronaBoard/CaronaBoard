@@ -23,6 +23,7 @@ passwordStep model =
                 , onInput UpdatePassword
                 , value model.password
                 , autofocus True
+                , placeholder " "
                 ]
                 []
             , label [ for "password" ] [ text "Senha" ]
