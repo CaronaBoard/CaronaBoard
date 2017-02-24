@@ -89,11 +89,28 @@ nav {
     100% { transform: translateX(0%); }
 }
 
+#login-page {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background: $primary_color;
+  color: #FFF;
+  padding: 20px;
+  text-align: center;
+
+  h1 {
+    font-size: 32px;
+  }
+  input {
+    border-bottom: 1px solid #fff;
+  }
+  label {
+    color: #FFF;
+  }
+}
+
 #login{
-	padding: 80px 40px;
-	background-color: #fff;
-  overflow: hidden;
-	box-shadow: 0 0.5em 0.5em rgba(000,000,000,0.1);
+
 }
 
 @mixin float-label {

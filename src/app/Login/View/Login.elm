@@ -1,6 +1,6 @@
 module Login.View.Login exposing (login)
 
-import Testable.Html exposing (Html, div, h2, input, text, form)
+import Testable.Html exposing (Html, div, h1, b, input, text, form)
 import Testable.Html.Events exposing (onInput, onSubmit)
 import Login.Msg exposing (Msg(..))
 import Login.Model exposing (Model, Step(..), step)
@@ -25,6 +25,9 @@ login model =
 formStep : Html Msg -> Html Msg
 formStep step =
     div []
-        [ h2 [] [ text "Login" ]
+        [ h1 []
+            [ b [] [ text "Carona" ]
+            , text "Board"
+            ]
         , form [ onSubmit Submit ] [ step ]
         ]

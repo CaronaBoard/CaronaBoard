@@ -51,9 +51,7 @@ routeRender model =
 
 loginLayout : Testable.Html.Html Msg -> Testable.Html.Html Msg
 loginLayout child =
-    div [ id "login-page" ]
-        [ div [ class "row" ]
-            [ div [ id "login", class "col s12 m8 offset-m2 l6 offset-l3" ]
-                [ child ]
-            ]
+    div [ id "login-page", class "row" ]
+        [ div [ id "login", class "col s12 m8 offset-m2 l6 offset-l3" ]
+            [ child ]
         ]
