@@ -26,7 +26,7 @@ header model =
                                     [ icon "directions_car" ]
                                 ]
                             , li []
-                                [ a [ id "open-menu-button", href "javascript:;", onClick (MsgForLayout OpenDropdown) ]
+                                [ a [ id "open-menu-button", onClick (MsgForLayout OpenDropdown) ]
                                     [ icon "more_vert"
                                     ]
                                 ]
@@ -45,7 +45,7 @@ menu model =
                     [ a [ href "http://goo.gl/forms/GYVDfZuhWg" ] [ text "Dar Feedback" ]
                     ]
                 , li []
-                    [ a [ href "javascript:;", onClick (MsgForLogin SignOut), id "signout-button" ] [ text "Sair" ]
+                    [ a [ onClick (MsgForLogin SignOut), id "signout-button" ] [ text "Sair" ]
                     ]
                 ]
             ]
