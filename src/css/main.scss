@@ -3,6 +3,8 @@ $secondary_color: #EDF2F5;
 $primary_text_color: #555555;
 $secondary_text_color: #757575;
 
+/* General */
+
 html {
   font-family: Lato, sans-serif;
 }
@@ -17,98 +19,6 @@ nav {
     font-size: 1.4rem;
     margin-left: 10px;
   }
-}
-
-#menu {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: 998;
-
-  .dropdown-content {
-    margin: 10px;
-    display: block;
-    top: 0;
-    right: 0;
-    width: auto;
-    opacity: 1;
-    animation: slideDown 0.3s;
-    overflow: hidden;
-  }
-}
-
-@keyframes slideDown {
-  from {
-    max-height: 0;
-    opacity: 0;
-  }
-  to {
-    max-height: 100px;
-    opacity: 1;
-  }
-}
-
-.ride-card {
-  display: block;
-  color: $primary_text_color;
-  .card-title {
-    font-size: 16px;
-    font-weight: bold;
-  }
-  .material-icons {
-    font-size: 16px;
-    margin-right: 5px;
-    vertical-align: middle;
-  }
-  .icon-path .material-icons {
-    position: absolute;
-    font-size: 16px;
-    margin-top: 14px;
-    margin-left: 2px;
-  }
-  .icon-path-dot .material-icons {
-    font-size: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-  .ride-path {
-    margin-bottom: 10px;
-  }
-  .card-action p {
-    margin: 0;
-  }
-}
-
-.password-step {
-  animation: slide-in 0.5s forwards;
-}
-
-@keyframes slide-in {
-    0% { opacity: 0; }
-    10% { transform: translateX(150%); opacity: 1; }
-    100% { transform: translateX(0%); }
-}
-
-#login-page {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  background: $primary_color;
-  color: #FFF;
-  padding: 40px;
-  text-align: center;
-
-  h1 { font-size: 32px; }
-  input { border-bottom: 1px solid #fff; }
-  label { color: #FFF; }
-  .login-submit { background: #FFF; color: $primary_color; width: 100%; }
-}
-
-.login-container {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  height: 100%;
 }
 
 .btn-large {
@@ -141,5 +51,120 @@ nav {
 
   input, select {
     @include float-label-scaled;
+  }
+}
+
+/* Layout */
+
+#menu {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 998;
+
+  .dropdown-content {
+    margin: 10px;
+    display: block;
+    top: 0;
+    right: 0;
+    width: auto;
+    opacity: 1;
+    animation: slideDown 0.3s;
+    overflow: hidden;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+  to {
+    max-height: 100px;
+    opacity: 1;
+  }
+}
+
+/* Login */
+
+#login-page {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background: $primary_color;
+  color: #FFF;
+  padding: 40px;
+  text-align: center;
+
+  h1 {
+    font-size: 32px;
+  }
+  input {
+    border-bottom: 1px solid #fff;
+  }
+  label {
+    color: #FFF;
+  }
+  .login-submit {
+    background: #FFF;
+    color: $primary_color;
+    width: 100%;
+  }
+}
+
+.login-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+}
+
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    transform: translateX(150%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.password-step {
+  animation: slide-in 0.5s forwards;
+}
+
+/* Rides */
+
+.ride-card {
+  display: block;
+  color: $primary_text_color;
+  .card-title {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .material-icons {
+    font-size: 16px;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+  .icon-path .material-icons {
+    position: absolute;
+    font-size: 16px;
+    margin-top: 14px;
+    margin-left: 2px;
+  }
+  .icon-path-dot .material-icons {
+    font-size: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  .ride-path {
+    margin-bottom: 10px;
+  }
+  .card-action p {
+    margin: 0;
   }
 }
