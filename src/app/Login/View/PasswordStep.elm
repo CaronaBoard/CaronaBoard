@@ -28,7 +28,7 @@ passwordStep model =
                 []
             , label [ for "password" ] [ text "Senha" ]
             ]
-        , loadingOrSubmitButton model.loggedIn [] [ iconRight "done", text "Entrar" ]
+        , loadingOrSubmitButton model.loggedIn [ class "login-submit" ] [ iconRight "done", text "Entrar" ]
         , loadingOrSubmitButton model.passwordReset
             [ class "btn-flat"
             , id "password-reset-button"

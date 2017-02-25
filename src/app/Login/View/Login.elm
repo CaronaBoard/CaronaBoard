@@ -1,7 +1,8 @@
 module Login.View.Login exposing (login)
 
-import Testable.Html exposing (Html, div, h1, b, input, text, form)
+import Testable.Html exposing (Html, div, h1, b, p, input, text, form)
 import Testable.Html.Events exposing (onInput, onSubmit)
+import Testable.Html.Attributes exposing (class)
 import Login.Msg exposing (Msg(..))
 import Login.Model exposing (Model, Step(..), step)
 import Login.View.EmailStep exposing (emailStep)
@@ -24,10 +25,18 @@ login model =
 
 formStep : Html Msg -> Html Msg
 formStep step =
-    div []
-        [ h1 []
-            [ b [] [ text "Carona" ]
-            , text "Board"
+    div [ class "login-container" ]
+        [ div []
+            [ h1 []
+                [ b [] [ text "Carona" ]
+                , text "Board"
+                ]
+            , p []
+                [ text "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                ]
             ]
         , form [ onSubmit Submit ] [ step ]
+        , div []
+            [ text "Ainda estamos em fase beta, novos cadastros serão aceitos em breve"
+            ]
         ]

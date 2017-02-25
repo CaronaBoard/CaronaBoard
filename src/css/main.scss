@@ -1,4 +1,4 @@
-$primary_color: #0255FB;
+$primary_color: #3467FF;
 $secondary_color: #EDF2F5;
 $primary_text_color: #555555;
 $secondary_text_color: #757575;
@@ -95,22 +95,24 @@ nav {
   width: 100%;
   background: $primary_color;
   color: #FFF;
-  padding: 20px;
+  padding: 40px;
   text-align: center;
 
-  h1 {
-    font-size: 32px;
-  }
-  input {
-    border-bottom: 1px solid #fff;
-  }
-  label {
-    color: #FFF;
-  }
+  h1 { font-size: 32px; }
+  input { border-bottom: 1px solid #fff; }
+  label { color: #FFF; }
+  .login-submit { background: #FFF; color: $primary_color; width: 100%; }
 }
 
-#login{
+.login-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+}
 
+.btn-large {
+  border-radius: 54px;
 }
 
 @mixin float-label {

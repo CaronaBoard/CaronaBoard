@@ -24,5 +24,5 @@ emailStep model =
                 []
             , label [ for "email" ] [ text "Email" ]
             ]
-        , loadingOrSubmitButton model.registered [] [ iconRight "forward", text "Próximo" ]
+        , loadingOrSubmitButton model.registered [ class "login-submit" ] [ iconRight "arrow_forward", text "Próximo" ]
         ]
