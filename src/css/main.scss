@@ -85,12 +85,9 @@ nav {
 /* Login */
 
 #login-page {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: 100%;
   width: 100%;
-  position: fixed;
+  position: absolute;
   margin: 0 auto;
 
   h1 {
@@ -203,6 +200,10 @@ nav {
   }
 
   #login-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     input {
       border-bottom: 1px solid $primary_text_color;
     }
