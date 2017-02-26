@@ -126,8 +126,23 @@ nav {
   justify-content: space-between;
   flex-direction: column;
   height: 100%;
-  padding: 40px;
   background: linear-gradient($primary_color 0%, rgba(52,103,255,.96) 50%, rgba(52,103,255,.9) 100%);
+  overflow: hidden;
+}
+
+.login-item {
+  padding: 40px;
+}
+
+.login-item-form {
+  flex-grow: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.login-icon {
+  display: none;
 }
 
 @keyframes slide-in {
@@ -145,6 +160,54 @@ nav {
 
 .password-step {
   animation: slide-in 0.5s forwards;
+}
+
+@media (min-width: 1200px) {
+  .login-background {
+    max-height: 680px;
+    box-shadow: 0em 0.3em 1.2em rgba(0,0,0,0.5);
+  }
+
+  .login-container {
+    flex-wrap: wrap;
+  }
+
+  .login-item {
+    width: 50%;
+    height: 100%;
+  }
+
+  .login-item-title {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .login-item-form {
+    background: #FFF;
+    color: #899AAD;
+    justify-content: space-around;
+  }
+
+  .login-icon {
+    display: block;
+    .material-icons {
+      font-size: 80px;
+    }
+  }
+
+  #login-page {
+    input {
+      border-bottom: 1px solid #899AAD;
+    }
+    label {
+      color: #899AAD;
+    }
+    .login-submit {
+      background: $primary_color;
+      color: #FFF;
+    }
+  }
 }
 
 /* Rides */
