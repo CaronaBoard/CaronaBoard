@@ -24,6 +24,9 @@ nav {
 .btn-large {
   border-radius: 54px;
   text-transform: none;
+}
+
+.btn-container {
   display: flex;
   justify-content: center;
 }
@@ -167,6 +170,7 @@ nav {
 @media (min-width: 1200px) {
   .login-background {
     max-height: 680px;
+    max-width: 945px;
     box-shadow: 0em 0.3em 1.2em rgba(0,0,0,0.5);
   }
 

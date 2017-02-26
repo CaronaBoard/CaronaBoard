@@ -11,10 +11,10 @@ loadingOrSubmitButton response extraAttributes children =
     case response of
         Loading ->
             button ([ disabled True, class "waves-effect waves-light btn-large" ] ++ extraAttributes)
-                [ text "Carregando...", i [] [] ]
+                [ div [ class "btn-container" ] [ text "Carregando...", i [] [] ] ]
 
         _ ->
-            button ([ class "waves-effect waves-light btn-large" ] ++ extraAttributes) children
+            button ([ class "waves-effect waves-light btn-large" ] ++ extraAttributes) [ div [ class "btn-container" ] children ]
 
 
 renderErrors : Response a -> Html Msg
