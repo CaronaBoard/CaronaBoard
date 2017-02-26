@@ -15,7 +15,7 @@ passwordStep model =
     div [ class "password-step" ]
         [ renderErrors model.loggedIn
         , renderErrors model.passwordReset
-        , text model.email
+        , div [ class "filled-email-field" ] [ text model.email ]
         , div [ class "input-field" ]
             [ input
                 [ type_ "password"
