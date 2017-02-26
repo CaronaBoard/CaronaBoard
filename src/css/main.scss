@@ -88,13 +88,13 @@ nav {
 /* Login */
 
 #login-page {
-  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100%;
   width: 100%;
-  background: $primary_color;
-  color: #FFF;
-  padding: 40px;
-  text-align: center;
+  position: fixed;
+  margin: 0 auto;
 
   h1 {
     font-size: 32px;
@@ -112,11 +112,22 @@ nav {
   }
 }
 
+.login-background {
+  background-image: url(images/streets.svg);
+  background-color: #FFF;
+  background-size: cover;
+  text-align: center;
+  color: #FFF;
+  height: 100%;
+}
+
 .login-container {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   height: 100%;
+  padding: 40px;
+  background: linear-gradient($primary_color 0%, rgba(52,103,255,.96) 50%, rgba(52,103,255,.9) 100%);
 }
 
 @keyframes slide-in {

@@ -25,18 +25,21 @@ login model =
 
 formStep : Html Msg -> Html Msg
 formStep step =
-    div [ class "login-container" ]
-        [ div []
-            [ h1 []
-                [ b [] [ text "Carona" ]
-                , text "Board"
+    div [ class "login-background" ]
+        [ div
+            [ class "login-container" ]
+            [ div []
+                [ h1 []
+                    [ b [] [ text "Carona" ]
+                    , text "Board"
+                    ]
+                , p []
+                    [ text "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                    ]
                 ]
-            , p []
-                [ text "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            , form [ onSubmit Submit ] [ step ]
+            , div []
+                [ text "Ainda estamos em fase beta, novos cadastros serão aceitos em breve"
                 ]
-            ]
-        , form [ onSubmit Submit ] [ step ]
-        , div []
-            [ text "Ainda estamos em fase beta, novos cadastros serão aceitos em breve"
             ]
         ]
