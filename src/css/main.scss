@@ -23,6 +23,9 @@ nav {
 
 .btn-large {
   border-radius: 54px;
+  text-transform: none;
+  display: flex;
+  justify-content: center;
 }
 
 .input-field {
@@ -96,10 +99,14 @@ nav {
   label {
     color: #FFF;
   }
+  .btn-large {
+    width: 100%;
+    color: #FFF;
+  }
   .login-submit {
     background: #FFF;
     color: $primary_color;
-    width: 100%;
+    margin-bottom: 10px;
   }
 }
 
@@ -180,7 +187,7 @@ nav {
 
   .login-item-form {
     background: #FFF;
-    color: #899AAD;
+    color: $primary_text_color;
     justify-content: space-around;
   }
 
@@ -193,10 +200,14 @@ nav {
 
   #login-page {
     input {
-      border-bottom: 1px solid #899AAD;
+      border-bottom: 1px solid $primary_text_color;
     }
     label {
-      color: #899AAD;
+      color: $primary_text_color;
+    }
+    .btn-large {
+      width: 100%;
+      color: $primary_text_color;
     }
     .login-submit {
       background: $primary_color;
