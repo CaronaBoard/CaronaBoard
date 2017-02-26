@@ -1,7 +1,9 @@
-$primary_color: #0255FB;
+$primary_color: #3467FF;
 $secondary_color: #EDF2F5;
 $primary_text_color: #555555;
 $secondary_text_color: #757575;
+
+/* General */
 
 html {
   font-family: Lato, sans-serif;
@@ -18,6 +20,35 @@ nav {
     margin-left: 10px;
   }
 }
+
+.btn-large {
+  border-radius: 54px;
+  text-transform: none;
+  display: flex;
+  justify-content: center;
+}
+
+.input-field {
+  label, > span {
+    position: absolute;
+    left: 0;
+    top: -10px;
+    cursor: text;
+    font-size: 80%;
+    opacity: 1;
+    transition: all .2s;
+    text-align: left;
+  }
+
+  input, select {
+    &:placeholder-shown:not(:focus) + * {
+      font-size: 100%;
+      top: 10px;
+    }
+  }
+}
+
+/* Layout */
 
 #menu {
   position: fixed;
@@ -48,6 +79,145 @@ nav {
   }
 }
 
+/* Login */
+
+#login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  margin: 0 auto;
+
+  h1 {
+    font-size: 32px;
+  }
+  input {
+    border-bottom: 1px solid #fff;
+  }
+  label {
+    color: #FFF;
+  }
+  .btn-large {
+    width: 100%;
+    color: #FFF;
+  }
+  .login-submit {
+    background: #FFF;
+    color: $primary_color;
+    margin-bottom: 10px;
+  }
+}
+
+.login-background {
+  background-image: url(images/streets.svg);
+  background-color: #FFF;
+  background-size: cover;
+  text-align: center;
+  color: #FFF;
+  height: 100%;
+}
+
+.login-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+  background: linear-gradient($primary_color 0%, rgba(52,103,255,.96) 50%, rgba(52,103,255,.9) 100%);
+  overflow: hidden;
+}
+
+.login-item {
+  padding: 40px;
+}
+
+.login-item-form {
+  flex-grow: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.login-icon {
+  display: none;
+}
+
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    transform: translateX(150%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.password-step {
+  animation: slide-in 0.5s forwards;
+}
+
+.filled-email-field {
+  text-align: left;
+}
+
+@media (min-width: 1200px) {
+  .login-background {
+    max-height: 680px;
+    box-shadow: 0em 0.3em 1.2em rgba(0,0,0,0.5);
+  }
+
+  .login-container {
+    flex-wrap: wrap;
+  }
+
+  .login-item {
+    width: 50%;
+    height: 100%;
+  }
+
+  .login-item-title {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .login-item-form {
+    background: #FFF;
+    color: $primary_text_color;
+    justify-content: space-around;
+  }
+
+  .login-icon {
+    display: block;
+    .material-icons {
+      font-size: 80px;
+    }
+  }
+
+  #login-page {
+    input {
+      border-bottom: 1px solid $primary_text_color;
+    }
+    label {
+      color: $primary_text_color;
+    }
+    .btn-large {
+      width: 100%;
+      color: $primary_text_color;
+    }
+    .login-submit {
+      background: $primary_color;
+      color: #FFF;
+    }
+  }
+}
+
+/* Rides */
+
 .ride-card {
   display: block;
   color: $primary_text_color;
@@ -76,51 +246,5 @@ nav {
   }
   .card-action p {
     margin: 0;
-  }
-}
-
-.password-step {
-  animation: slide-in 0.5s forwards;
-}
-
-@keyframes slide-in {
-    0% { opacity: 0; }
-    10% { transform: translateX(150%); opacity: 1; }
-    100% { transform: translateX(0%); }
-}
-
-#login{
-	padding: 80px 40px;
-	background-color: #fff;
-  overflow: hidden;
-	box-shadow: 0 0.5em 0.5em rgba(000,000,000,0.1);
-}
-
-@mixin float-label {
-  label, > span {
-    position: absolute;
-    left: 0;
-    top: -10px;
-    cursor: text;
-    font-size: 80%;
-    opacity: 1;
-    transition: all .2s;
-    @content;
-  }
-}
-
-@mixin float-label-scaled {
-  &:placeholder-shown:not(:focus) + * {
-    font-size: 100%;
-    top: 10px;
-    @content;
-  }
-}
-
-.input-field {
-  @include float-label;
-
-  input, select {
-    @include float-label-scaled;
   }
 }

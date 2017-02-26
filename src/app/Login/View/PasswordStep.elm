@@ -6,7 +6,7 @@ import Testable.Html.Events exposing (onInput, onSubmit, onWithOptions)
 import Login.Msg exposing (Msg(UpdatePassword, PasswordReset))
 import Login.Model exposing (Model)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors)
-import Common.Icon exposing (iconRight)
+import Common.Icon exposing (icon)
 import Json.Decode as Json
 
 
@@ -15,7 +15,7 @@ passwordStep model =
     div [ class "password-step" ]
         [ renderErrors model.loggedIn
         , renderErrors model.passwordReset
-        , text model.email
+        , div [ class "filled-email-field" ] [ text model.email ]
         , div [ class "input-field" ]
             [ input
                 [ type_ "password"
@@ -28,7 +28,7 @@ passwordStep model =
                 []
             , label [ for "password" ] [ text "Senha" ]
             ]
-        , loadingOrSubmitButton model.loggedIn [] [ iconRight "done", text "Entrar" ]
+        , loadingOrSubmitButton model.loggedIn [ class "login-submit" ] [ text "Entrar", icon "done" ]
         , loadingOrSubmitButton model.passwordReset
             [ class "btn-flat"
             , id "password-reset-button"

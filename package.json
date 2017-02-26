@@ -4,7 +4,7 @@
   "description": "Social ride network",
   "main": "index.js",
   "scripts": {
-    "start": "yarn generate-html && webpack-dev-server",
+    "start": "yarn generate-html && webpack-dev-server --hot",
     "start:dist": "http-server build",
     "build": "rm -r build; yarn generate-html && webpack -p --progress && sw-precache --config=sw-precache-config.js",
     "build:analyze": "webpack -p --profile --json > build/stats.json && webpack-bundle-analyzer build/stats.json",
@@ -31,6 +31,7 @@
   "devDependencies": {
     "copy-webpack-plugin": "^4.0.1",
     "elm": "^0.18.0",
+    "elm-hot-loader": "^0.5.4",
     "elm-static-html": "^1.2.0",
     "elm-test": "^0.18.2",
     "elm-webpack-loader": "^4.1.1",

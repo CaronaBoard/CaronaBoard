@@ -71,7 +71,7 @@ tests =
                 submitEmail
                     >> update (MsgForLogin <| CheckRegistrationResponse False)
                     >> find []
-                    >> assertText (expectToContainText "em fase de testes")
+                    >> assertText (expectToContainText "em fase beta")
             ]
         , describe "password check"
             [ test "shows loading button on submit" <|

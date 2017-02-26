@@ -11,7 +11,7 @@ loadingOrSubmitButton response extraAttributes children =
     case response of
         Loading ->
             button ([ disabled True, class "waves-effect waves-light btn-large" ] ++ extraAttributes)
-                [ i [] [], text "Carregando..." ]
+                [ text "Carregando...", i [] [] ]
 
         _ ->
             button ([ class "waves-effect waves-light btn-large" ] ++ extraAttributes) children
