@@ -21,7 +21,7 @@ login model =
 
         NotRegisteredStep ->
             div []
-                [ text "O CaronaBoard está em fase de testes, seja o primeiro a saber quando for lançado" ]
+                [ text "Seu email não está cadastrado. Ainda estamos em fase beta, novos cadastros serão aceitos em breve" ]
 
 
 formStep : Html Msg -> Html Msg
