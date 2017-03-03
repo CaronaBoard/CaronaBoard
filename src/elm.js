@@ -2,7 +2,6 @@ var app;
 var connectFirebase;
 
 require(['./app/Main.elm', './app/Stylesheets.elm'], function (Elm, Stylesheet) {
-  console.log(Stylesheet);
   var currentUser = Object.keys(localStorage).filter(function (key) {
     return key.match(/firebase:authUser/);
   }).map(function (key) {
