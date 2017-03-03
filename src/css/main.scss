@@ -53,22 +53,15 @@ nav {
 
 /* Layout */
 
-#menu {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: 998;
-
-  .dropdown-content {
-    margin: 10px;
-    display: block;
-    top: 0;
-    right: 0;
-    width: auto;
-    opacity: 1;
-    animation: slideDown 0.3s;
-    overflow: hidden;
-  }
+.dropdown-content {
+  margin: 10px;
+  display: block;
+  top: 0;
+  right: 0;
+  width: auto;
+  opacity: 1;
+  animation: slideDown 0.3s;
+  overflow: hidden;
 }
 
 @keyframes slideDown {

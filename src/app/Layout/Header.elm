@@ -1,13 +1,14 @@
 module Layout.Header exposing (header)
 
 import Testable.Html exposing (Html, img, h1, h2, a, b, text, button, nav, div, ul, li, i)
-import Testable.Html.Attributes exposing (id, class, href, src, rel, alt)
+import Testable.Html.Attributes exposing (id, class, href, src, rel, alt, style)
 import Testable.Html.Events exposing (onClick)
 import Msg exposing (Msg(MsgForLogin, MsgForLayout))
 import Login.Msg exposing (Msg(SignOut))
 import Common.Icon exposing (icon)
 import Layout.Model exposing (Model)
 import Layout.Msg exposing (Msg(OpenDropdown, CloseDropdown))
+import Layout.Styles exposing (scopedId, Ids(Menu))
 
 
 header : Model -> Html Msg.Msg
@@ -39,7 +40,7 @@ header model =
 menu : Model -> List (Html Msg.Msg)
 menu model =
     if model.dropdownOpen then
-        [ div [ id "menu", onClick (MsgForLayout CloseDropdown) ]
+        [ div [ scopedId Menu, onClick (MsgForLayout CloseDropdown) ]
             [ ul [ class "dropdown-content" ]
                 [ li []
                     [ a [ href "http://goo.gl/forms/GYVDfZuhWg" ] [ text "Dar Feedback" ]

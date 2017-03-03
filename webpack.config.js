@@ -14,6 +14,10 @@ const config = {
         loaders: ['sass-loader']
       },
       {
+        test: /Stylesheets\.elm$/,
+        loader: 'style-loader!css-loader!elm-css-webpack-loader'
+      },
+      {
         test: /\.elm$/,
         exclude: [/elm-stuff/, /node_modules/],
         loader: 'elm-hot-loader!elm-webpack-loader'

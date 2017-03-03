@@ -1,7 +1,8 @@
 var app;
 var connectFirebase;
 
-System.import('./app/Main.elm').then(function (Elm) {
+require(['./app/Main.elm', './app/Stylesheets.elm'], function (Elm, Stylesheet) {
+  console.log(Stylesheet);
   var currentUser = Object.keys(localStorage).filter(function (key) {
     return key.match(/firebase:authUser/);
   }).map(function (key) {
@@ -14,7 +15,7 @@ System.import('./app/Main.elm').then(function (Elm) {
   if (connectFirebase) connectFirebase(app);
 });
 
-System.import('./firebase').then(function (connect) {
+require(['./firebase'], function (connect) {
   connectFirebase = connect;
   if (app) connectFirebase(app);
 });
