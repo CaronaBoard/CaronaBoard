@@ -2,6 +2,7 @@ port module Stylesheets exposing (..)
 
 import Css.File exposing (CssFileStructure, CssCompilerProgram)
 import Layout.Styles
+import Login.Styles
 
 
 port files : CssFileStructure -> Cmd msg
@@ -13,6 +14,7 @@ fileStructure =
         [ ( "main.css"
           , Css.File.compile
                 [ Layout.Styles.styles
+                , Login.Styles.styles
                 ]
           )
         ]

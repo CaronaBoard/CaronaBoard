@@ -94,7 +94,7 @@ expectToBeOnLoginPage =
     Expect.all
         [ find [ id "rides-page" ]
             >> assertNodeCount (Expect.equal 0)
-        , find [ id "login-page" ]
+        , find [ class "loginPage" ]
             >> assertPresent
         ]
 
@@ -104,7 +104,7 @@ expectToBeOnRidesPage =
     Expect.all
         [ find [ id "rides-page" ]
             >> assertPresent
-        , find [ id "login-page" ]
+        , find [ class "loginPage" ]
             >> assertNodeCount (Expect.equal 0)
         ]
 

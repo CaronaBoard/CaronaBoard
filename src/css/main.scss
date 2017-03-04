@@ -51,24 +51,17 @@ nav {
   }
 }
 
-
-
 /* Login */
 
-#login-page {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  margin: 0 auto;
-
+.loginPage {
   h1 {
     font-size: 32px;
   }
   input {
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid #fff!important;
   }
   label {
-    color: #FFF;
+    color: #FFF!important;
   }
   .btn-large {
     width: 100%;
@@ -170,7 +163,7 @@ nav {
     }
   }
 
-  #login-page {
+  .loginPage {
     display: flex;
     align-items: center;
     justify-content: center;

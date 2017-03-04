@@ -8,6 +8,7 @@ import Model exposing (Model, init)
 import Msg exposing (Msg(MsgForLogin))
 import Layout.View.SplashScreen exposing (splashScreen)
 import UrlRouter.Routes exposing (Page(SplashScreenPage, LoginPage, RidesPage, NotFoundPage, PasswordResetPage))
+import Login.View.Layout exposing (loginLayout)
 import Login.View.Login exposing (login)
 import Login.View.PasswordReset exposing (passwordReset)
 import Layout.View.Header exposing (header)
@@ -47,9 +48,3 @@ routeRender model =
 
         PasswordResetPage ->
             loginLayout passwordReset
-
-
-loginLayout : Testable.Html.Html Msg -> Testable.Html.Html Msg
-loginLayout child =
-    div [ id "login-page", class "row" ]
-        [ child ]
