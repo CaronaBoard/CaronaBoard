@@ -1,4 +1,4 @@
-module Layout.SplashScreen exposing (splashScreen)
+module Layout.View.SplashScreen exposing (splashScreen)
 
 import Testable.Html exposing (Html, div)
 import Testable.Html.Attributes exposing (style)

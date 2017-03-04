@@ -1,4 +1,4 @@
-module Layout.Header exposing (header)
+module Layout.View.Header exposing (header)
 
 import Testable.Html exposing (Html, img, h1, h2, a, b, text, button, nav, div, ul, li, i)
 import Testable.Html.Attributes exposing (id, class, href, src, rel, alt, style)

@@ -6,7 +6,7 @@ import Testable.Html.Selectors exposing (..)
 import Expect exposing (equal)
 import Layout.Update as Update
 import Layout.Model exposing (Model, init)
-import Layout.Header exposing (header)
+import Layout.View.Header exposing (header)
 import Testable.Cmd
 import Msg as Root exposing (Msg(MsgForLayout))
 

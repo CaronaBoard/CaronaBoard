@@ -6,11 +6,11 @@ import Testable.Html.Attributes exposing (id, class)
 import Html
 import Model exposing (Model, init)
 import Msg exposing (Msg(MsgForLogin))
-import Layout.SplashScreen exposing (splashScreen)
+import Layout.View.SplashScreen exposing (splashScreen)
 import UrlRouter.Routes exposing (Page(SplashScreenPage, LoginPage, RidesPage, NotFoundPage, PasswordResetPage))
 import Login.View.Login exposing (login)
 import Login.View.PasswordReset exposing (passwordReset)
-import Layout.Header exposing (header)
+import Layout.View.Header exposing (header)
 import Rides.View.Instructions exposing (instructions)
 import Rides.View.RoutesList exposing (routesList)
 
