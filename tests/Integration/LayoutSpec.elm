@@ -25,20 +25,20 @@ tests =
     describe "Layout"
         [ test "starts with the dropdown in the header closed" <|
             layoutContext
-                >> findAll [ id "Menu" ]
+                >> findAll [ class "layoutMenu" ]
                 >> assertNodeCount (Expect.equal 0)
         , test "opens the dropdown on click" <|
             layoutContext
                 >> find [ id "open-menu-button" ]
                 >> trigger "click" "{}"
-                >> find [ id "Menu" ]
+                >> find [ class "layoutMenu" ]
                 >> assertPresent
         , test "closes the dropdown when clicking outside" <|
             layoutContext
                 >> find [ id "open-menu-button" ]
                 >> trigger "click" "{}"
-                >> find [ id "Menu" ]
+                >> find [ class "layoutMenu" ]
                 >> trigger "click" "{}"
-                >> findAll [ id "Menu" ]
+                >> findAll [ class "layoutMenu" ]
                 >> assertNodeCount (Expect.equal 0)
         ]

@@ -8,7 +8,7 @@ import Login.Msg exposing (Msg(SignOut))
 import Common.Icon exposing (icon)
 import Layout.Model exposing (Model)
 import Layout.Msg exposing (Msg(OpenDropdown, CloseDropdown))
-import Layout.Styles exposing (scopedId, Ids(Menu))
+import Layout.Styles exposing (scopedClass, Classes(Menu, AnimatedDropdown))
 
 
 header : Model -> Html Msg.Msg
@@ -40,8 +40,8 @@ header model =
 menu : Model -> List (Html Msg.Msg)
 menu model =
     if model.dropdownOpen then
-        [ div [ scopedId Menu, onClick (MsgForLayout CloseDropdown) ]
-            [ ul [ class "dropdown-content" ]
+        [ div [ scopedClass [ Menu ], onClick (MsgForLayout CloseDropdown) ]
+            [ ul [ class "dropdown-content", scopedClass [ AnimatedDropdown ] ]
                 [ li []
                     [ a [ href "http://goo.gl/forms/GYVDfZuhWg" ] [ text "Dar Feedback" ]
                     ]
