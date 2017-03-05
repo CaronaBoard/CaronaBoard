@@ -7,7 +7,7 @@ import Login.Model exposing (Model, Step(..), step)
 import Login.View.EmailStep exposing (emailStep)
 import Login.View.PasswordStep exposing (passwordStep)
 import Common.Icon exposing (icon)
-import Login.Styles exposing (scopedClass, Classes(Background, Container, Item, ItemForm, Icon))
+import Login.Styles exposing (scopedClass, Classes(Background, Container, Item, ItemTitle, ItemForm, Icon))
 
 
 login : Model -> Html Msg
@@ -29,7 +29,7 @@ formStep step =
     div [ scopedClass [ Background ] ]
         [ div
             [ scopedClass [ Container ] ]
-            [ div [ scopedClass [ Item ] ]
+            [ div [ scopedClass [ Item, ItemTitle ] ]
                 [ h1 []
                     [ b [] [ text "Carona" ]
                     , text "Board"

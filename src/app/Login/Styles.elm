@@ -1,7 +1,7 @@
 module Login.Styles exposing (styles, Classes(..), scopedId, scopedClass, scopedClassList)
 
 import Css exposing (..)
-import Css.Elements exposing (..)
+import Css.Elements exposing (h1, input, label)
 import Common.Colors exposing (..)
 import Css.Namespace
 import Common.CssHelpers as CssHelpers
@@ -18,6 +18,7 @@ type Classes
     | Button
     | SubmitButton
     | Item
+    | ItemTitle
     | ItemForm
     | Icon
     | PasswordStep
@@ -40,11 +41,11 @@ styles =
                     [ important <| borderBottom3 (px 1) solid white
                     ]
                 , label
-                    [ important <| color white
+                    [ important <| color lightTextColor
                     ]
                 , class Button
                     [ width (pct 100)
-                    , color white
+                    , color lightTextColor
                     ]
                 , class SubmitButton
                     [ color primaryBlue
@@ -60,7 +61,7 @@ styles =
             , backgroundColor primaryBlue
             , backgroundSize cover
             , textAlign center
-            , color white
+            , color lightTextColor
             , height (pct 100)
             ]
         , class Container
@@ -106,5 +107,66 @@ styles =
             ]
         , class FilledEmail
             [ textAlign left
+            ]
+        , desktopStyles
+        ]
+
+
+desktopStyles : Snippet
+desktopStyles =
+    mediaQuery "(min-width: 1200px)"
+        [ class Background
+            [ maxHeight (px 680)
+            , maxWidth (px 945)
+            , boxShadow4 (em 0) (em 0.3) (em 1.2) (rgba 0 0 0 0.5)
+            ]
+        , class Container
+            [ flexWrap wrap
+            ]
+        , class Item
+            [ width (pct 50)
+            , height (pct 100)
+            ]
+        , class ItemTitle
+            [ displayFlex
+            , justifyContent center
+            , flexDirection column
+            ]
+        , class ItemForm
+            [ backgroundColor (rgb 255 255 255)
+            , color darkTextColor
+            , justifyContent spaceAround
+            ]
+        , class Icon
+            [ display block
+            , descendants
+                [ selector ".material-icons"
+                    [ fontSize (px 80)
+                    ]
+                ]
+            ]
+        , class Page
+            [ displayFlex
+            , alignItems center
+            , justifyContent center
+            , descendants
+                [ input
+                    [ important <| borderBottom3 (px 1) solid primaryBlack
+                    ]
+                , label
+                    [ important <| color darkTextColor
+                    ]
+                , class Button
+                    [ width (pct 100)
+                    , color darkTextColor
+                    ]
+                , class SubmitButton
+                    [ backgroundColor primaryBlue
+                    , color lightTextColor
+                    , hover
+                        [ backgroundColor lighterBlue
+                        ]
+                    ]
+                ]
             ]
         ]

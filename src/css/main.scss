@@ -51,65 +51,6 @@ nav {
   }
 }
 
-/* Login */
-
-@media (min-width: 1200px) {
-  .loginBackground {
-    max-height: 680px;
-    max-width: 945px;
-    box-shadow: 0em 0.3em 1.2em rgba(0,0,0,0.5);
-  }
-
-  .loginContainer {
-    flex-wrap: wrap;
-  }
-
-  .loginItem {
-    width: 50%;
-    height: 100%;
-  }
-
-  .loginItemTitle {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-  }
-
-  .loginItemForm {
-    background: #FFF;
-    color: $primary_text_color;
-    justify-content: space-around;
-  }
-
-  .loginIcon {
-    display: block;
-    .material-icons {
-      font-size: 80px;
-    }
-  }
-
-  .loginPage {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    input {
-      border-bottom: 1px solid $primary_text_color;
-    }
-    label {
-      color: $primary_text_color;
-    }
-    .loginButton {
-      width: 100%;
-      color: $primary_text_color;
-    }
-    .loginSubmit {
-      background: $primary_color;
-      color: #FFF;
-    }
-  }
-}
-
 /* Rides */
 
 .ride-card {
