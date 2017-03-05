@@ -10,10 +10,6 @@ const config = {
   module: {
     loaders: [
       {
-        test: /\.s?css$/,
-        loaders: ['sass-loader']
-      },
-      {
         test: /Stylesheets\.elm$/,
         loader: 'style-loader!css-loader?url=false!elm-css-webpack-loader'
       },
