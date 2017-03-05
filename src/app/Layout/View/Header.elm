@@ -8,16 +8,16 @@ import Login.Msg exposing (Msg(SignOut))
 import Common.Icon exposing (icon)
 import Layout.Model exposing (Model)
 import Layout.Msg exposing (Msg(OpenDropdown, CloseDropdown))
-import Layout.Styles exposing (scopedClass, Classes(Menu, AnimatedDropdown))
+import Layout.Styles exposing (scopedClass, Classes(Navbar, BrandLogo, Menu, AnimatedDropdown))
 
 
 header : Model -> Html Msg.Msg
 header model =
     Testable.Html.header [ class "navbar-fixed" ] <|
         menu model
-            ++ [ nav []
+            ++ [ nav [ scopedClass [ Navbar ] ]
                     [ div [ class "nav-wrapper" ]
-                        [ a [ class "brand-logo left", href "/" ]
+                        [ a [ scopedClass [ BrandLogo ], class "left", href "/" ]
                             [ b [] [ text "Carona" ]
                             , text "Board"
                             ]

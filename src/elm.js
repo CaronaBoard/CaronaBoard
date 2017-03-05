@@ -10,7 +10,7 @@ require(['./app/Main.elm', './app/Stylesheets.elm'], function (Elm, Stylesheet) 
     return { id: user.uid, name: user.displayName || ""}
   })[0] || null;
 
-  app = Elm.Main.embed(document.getElementById('page-wrap'), { currentUser: currentUser });
+  app = Elm.Main.embed(document.getElementById('app'), { currentUser: currentUser });
   if (connectFirebase) connectFirebase(app);
 });
 

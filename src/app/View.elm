@@ -18,17 +18,6 @@ import Rides.View.RoutesList exposing (routesList)
 
 view : Model -> Testable.Html.Html Msg
 view model =
-    div [ id "app" ]
-        [ routeRender model ]
-
-
-staticView : Html.Html Msg
-staticView =
-    Testable.view (always splashScreen) Nothing
-
-
-routeRender : Model -> Testable.Html.Html Msg
-routeRender model =
     case model.urlRouter.page of
         SplashScreenPage ->
             splashScreen
@@ -48,3 +37,8 @@ routeRender model =
 
         PasswordResetPage ->
             loginLayout passwordReset
+
+
+staticView : Html.Html Msg
+staticView =
+    Testable.view (always splashScreen) Nothing

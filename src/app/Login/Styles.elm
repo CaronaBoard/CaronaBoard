@@ -160,7 +160,8 @@ desktopStyles =
                     ]
                 ]
             ]
-        , class StepTitle centralizeContents
+        , class StepTitle
+            (centralizeContents ++ [ flexDirection column ])
         , class StepForm
             [ backgroundColor (rgb 255 255 255)
             , darkTextColor
