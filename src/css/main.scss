@@ -1,7 +1,5 @@
 $primary_color: #3467FF;
 $secondary_color: #EDF2F5;
-$primary_text_color: #555555;
-$secondary_text_color: #757575;
 
 /* General */
 
@@ -48,38 +46,5 @@ nav {
       font-size: 100%;
       top: 10px;
     }
-  }
-}
-
-/* Rides */
-
-.ride-card {
-  display: block;
-  color: $primary_text_color;
-  .card-title {
-    font-size: 16px;
-    font-weight: bold;
-  }
-  .material-icons {
-    font-size: 16px;
-    margin-right: 5px;
-    vertical-align: middle;
-  }
-  .icon-path .material-icons {
-    position: absolute;
-    font-size: 16px;
-    margin-top: 14px;
-    margin-left: 2px;
-  }
-  .icon-path-dot .material-icons {
-    font-size: 10px;
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-  .ride-path {
-    margin-bottom: 10px;
-  }
-  .card-action p {
-    margin: 0;
   }
 }
