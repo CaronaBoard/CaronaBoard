@@ -17,6 +17,11 @@ type Classes
     | Container
     | Button
     | SubmitButton
+    | Item
+    | ItemForm
+    | Icon
+    | PasswordStep
+    | FilledEmail
 
 
 styles : Stylesheet
@@ -65,5 +70,41 @@ styles =
             , height (pct 100)
             , property "background" "linear-gradient(rgb(52,103,255) 0%, rgba(52,103,255,.96) 50%, rgba(52,103,255,.9) 100%)"
             , overflow hidden
+            ]
+        , class Item
+            [ padding (px 40)
+            ]
+        , class ItemForm
+            [ flexGrow (int 2)
+            , displayFlex
+            , flexDirection column
+            , justifyContent spaceBetween
+            ]
+        , class Icon
+            [ display none
+            ]
+        , class PasswordStep
+            [ property "animation" "slide-in 0.5s forwards"
+            ]
+        , -- TODO: This below is a very hacky way of adding keyframes, waiting for elm-css to add support for it
+          selector "@keyframes slide-in {"
+            [ descendants
+                [ selector "0%"
+                    [ opacity (int 0)
+                    , property "} /*" ""
+                    ]
+                , selector "*/ 10%"
+                    [ opacity (int 1)
+                    , transform (translateX (pct 150))
+                    , property "} /*" ""
+                    ]
+                , selector "*/ to"
+                    [ transform (translateX (pct 0))
+                    , property "} /*" "*/"
+                    ]
+                ]
+            ]
+        , class FilledEmail
+            [ textAlign left
             ]
         ]

@@ -7,16 +7,16 @@ import Login.Msg exposing (Msg(UpdatePassword, PasswordReset))
 import Login.Model exposing (Model)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors)
 import Common.Icon exposing (icon)
-import Login.Styles exposing (scopedClass, Classes(Button, SubmitButton))
+import Login.Styles exposing (scopedClass, Classes(Button, SubmitButton, PasswordStep, FilledEmail))
 import Json.Decode as Json
 
 
 passwordStep : Model -> Html Msg
 passwordStep model =
-    div [ class "password-step" ]
+    div [ scopedClass [ PasswordStep ] ]
         [ renderErrors model.loggedIn
         , renderErrors model.passwordReset
-        , div [ class "filled-email-field" ] [ text model.email ]
+        , div [ scopedClass [ FilledEmail ] ] [ text model.email ]
         , div [ class "input-field" ]
             [ input
                 [ type_ "password"

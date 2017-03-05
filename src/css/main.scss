@@ -53,71 +53,35 @@ nav {
 
 /* Login */
 
-.login-item {
-  padding: 40px;
-}
-
-.login-item-form {
-  flex-grow: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.login-icon {
-  display: none;
-}
-
-@keyframes slide-in {
-  0% {
-    opacity: 0;
-  }
-  10% {
-    transform: translateX(150%);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(0%);
-  }
-}
-
-.password-step {
-  animation: slide-in 0.5s forwards;
-}
-
-.filled-email-field {
-  text-align: left;
-}
-
 @media (min-width: 1200px) {
-  .login-background {
+  .loginBackground {
     max-height: 680px;
     max-width: 945px;
     box-shadow: 0em 0.3em 1.2em rgba(0,0,0,0.5);
   }
 
-  .login-container {
+  .loginContainer {
     flex-wrap: wrap;
   }
 
-  .login-item {
+  .loginItem {
     width: 50%;
     height: 100%;
   }
 
-  .login-item-title {
+  .loginItemTitle {
     display: flex;
     justify-content: center;
     flex-direction: column;
   }
 
-  .login-item-form {
+  .loginItemForm {
     background: #FFF;
     color: $primary_text_color;
     justify-content: space-around;
   }
 
-  .login-icon {
+  .loginIcon {
     display: block;
     .material-icons {
       font-size: 80px;
@@ -135,11 +99,11 @@ nav {
     label {
       color: $primary_text_color;
     }
-    .btn-large {
+    .loginButton {
       width: 100%;
       color: $primary_text_color;
     }
-    .login-submit {
+    .loginSubmit {
       background: $primary_color;
       color: #FFF;
     }
