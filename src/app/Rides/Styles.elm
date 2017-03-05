@@ -2,8 +2,8 @@ module Rides.Styles exposing (styles, Classes(..), class, classes)
 
 import Css exposing (..)
 import Css.Elements exposing (p)
-import Common.Colors exposing (..)
 import Css.Namespace
+import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
 
 

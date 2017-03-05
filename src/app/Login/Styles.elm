@@ -2,8 +2,8 @@ module Login.Styles exposing (styles, Classes(..), class, classes)
 
 import Css exposing (..)
 import Css.Elements exposing (h1, input, label)
-import Common.Colors exposing (..)
 import Css.Namespace
+import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
 
 

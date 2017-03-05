@@ -2,12 +2,13 @@ module Layout.Styles exposing (styles, Classes(..), class, classes)
 
 import Css exposing (..)
 import Css.Elements exposing (..)
+import Css.Namespace
 import Common.CssHelpers exposing (..)
 import Common.Colors exposing (..)
 
 
 { class, classes, namespace } =
-    withNamespace ""
+    withNamespace "layout"
 
 
 type Classes
@@ -20,7 +21,8 @@ type Classes
 
 styles : Stylesheet
 styles =
-    stylesheet (generalStyles ++ layoutStyles)
+    (stylesheet << Css.Namespace.namespace namespace)
+        (generalStyles ++ layoutStyles)
 
 
 generalStyles : List Snippet
