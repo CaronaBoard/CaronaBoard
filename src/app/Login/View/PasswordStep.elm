@@ -7,6 +7,7 @@ import Login.Msg exposing (Msg(UpdatePassword, PasswordReset))
 import Login.Model exposing (Model)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors)
 import Common.Icon exposing (icon)
+import Login.Styles exposing (scopedClass, Classes(Button, SubmitButton))
 import Json.Decode as Json
 
 
@@ -28,9 +29,10 @@ passwordStep model =
                 []
             , label [ for "password" ] [ text "Senha" ]
             ]
-        , loadingOrSubmitButton model.loggedIn [ class "login-submit" ] [ text "Entrar", icon "done" ]
+        , loadingOrSubmitButton model.loggedIn [ scopedClass [ Button, SubmitButton ] ] [ text "Entrar", icon "done" ]
         , loadingOrSubmitButton model.passwordReset
             [ class "btn-flat"
+            , scopedClass [ Button ]
             , id "password-reset-button"
             , onWithOptions "click" { stopPropagation = True, preventDefault = True } (Json.succeed PasswordReset)
             ]

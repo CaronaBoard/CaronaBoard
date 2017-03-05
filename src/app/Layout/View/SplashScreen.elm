@@ -4,6 +4,7 @@ import Testable.Html exposing (Html, div)
 import Testable.Html.Attributes exposing (style)
 import Msg exposing (Msg(..))
 import Css exposing (..)
+import Common.Colors exposing (..)
 
 
 splashScreen : Html Msg
@@ -20,7 +21,7 @@ splashScreenStyle =
         , left (px 0)
         , position fixed
         , backgroundImage (url "images/logo.svg")
-        , backgroundColor (rgb 52 103 255)
+        , backgroundColor primaryBlue
         , backgroundRepeat noRepeat
         , backgroundPosition center
         , backgroundSize2 (px 192) (px 192)

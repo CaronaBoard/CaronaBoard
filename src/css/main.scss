@@ -53,27 +53,6 @@ nav {
 
 /* Login */
 
-.loginPage {
-  h1 {
-    font-size: 32px;
-  }
-  input {
-    border-bottom: 1px solid #fff!important;
-  }
-  label {
-    color: #FFF!important;
-  }
-  .btn-large {
-    width: 100%;
-    color: #FFF;
-  }
-  .login-submit {
-    background: #FFF;
-    color: $primary_color;
-    margin-bottom: 10px;
-  }
-}
-
 .login-background {
   background-image: url(images/streets.svg);
   background-color: $primary_color;
