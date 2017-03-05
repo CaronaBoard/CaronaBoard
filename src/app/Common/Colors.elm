@@ -1,16 +1,16 @@
 module Common.Colors exposing (darkTextColor, lightTextColor, primaryBlue, lighterBlue, primaryBlack, white, grey)
 
-import Css exposing (Color, rgb)
+import Css exposing (Color, Mixin, color, rgb)
 
 
-darkTextColor : Color
+darkTextColor : Mixin
 darkTextColor =
-    primaryBlack
+    color primaryBlack
 
 
-lightTextColor : Color
+lightTextColor : Mixin
 lightTextColor =
-    white
+    color white
 
 
 primaryBlue : Color
