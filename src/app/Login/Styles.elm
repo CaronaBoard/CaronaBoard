@@ -1,14 +1,14 @@
-module Login.Styles exposing (styles, Classes(..), scopedId, scopedClass, scopedClassList)
+module Login.Styles exposing (styles, Classes(..), class, classes)
 
 import Css exposing (..)
 import Css.Elements exposing (h1, input, label)
 import Common.Colors exposing (..)
 import Css.Namespace
-import Common.CssHelpers as CssHelpers
+import Common.CssHelpers exposing (..)
 
 
-{ scopedId, scopedClass, scopedClassList, namespace } =
-    CssHelpers.withNamespace "login"
+{ class, classes, namespace } =
+    withNamespace "login"
 
 
 type Classes
@@ -28,13 +28,13 @@ type Classes
 styles : Stylesheet
 styles =
     (stylesheet << Css.Namespace.namespace namespace)
-        [ class Page
+        [ cssClass Page
             [ height (pct 100)
             , width (pct 100)
             , position absolute
             , margin2 (pct 0) auto
             ]
-        , class Background
+        , cssClass Background
             [ backgroundImage (url "images/streets.svg")
             , backgroundColor primaryBlue
             , backgroundSize cover
@@ -42,7 +42,7 @@ styles =
             , lightTextColor
             , height (pct 100)
             ]
-        , class Container
+        , cssClass Container
             [ displayFlex
             , justifyContent spaceBetween
             , flexDirection column
@@ -50,10 +50,10 @@ styles =
             , property "background" "linear-gradient(rgb(52, 103, 255) 0%, rgba(52, 103, 255, .96) 50%, rgba(52, 103, 255, .9) 100%)"
             , overflow hidden
             ]
-        , class Icon
+        , cssClass Icon
             [ display none
             ]
-        , class Step
+        , cssClass Step
             [ padding (px 40)
             , descendants
                 [ h1
@@ -65,11 +65,11 @@ styles =
                 , label
                     [ important <| lightTextColor
                     ]
-                , class Button
+                , cssClass Button
                     [ width (pct 100)
                     , lightTextColor
                     ]
-                , class SubmitButton
+                , cssClass SubmitButton
                     [ color primaryBlue
                     , backgroundColor white
                     , hover
@@ -78,17 +78,17 @@ styles =
                     ]
                 ]
             ]
-        , class StepForm
+        , cssClass StepForm
             [ flexGrow (int 2)
             , displayFlex
             , flexDirection column
             , justifyContent spaceBetween
             ]
-        , class PasswordStep
+        , cssClass PasswordStep
             [ property "animation" "slide-in 0.5s forwards"
             ]
         , slideInAnimation
-        , class FilledEmail
+        , cssClass FilledEmail
             [ textAlign left
             ]
         , desktopStyles
@@ -120,16 +120,16 @@ slideInAnimation =
 desktopStyles : Snippet
 desktopStyles =
     mediaQuery "(min-width: 1200px)"
-        [ class Page centralizeContents
-        , class Background
+        [ cssClass Page centralizeContents
+        , cssClass Background
             [ maxHeight (px 680)
             , maxWidth (px 945)
             , boxShadow4 (em 0) (em 0.3) (em 1.2) (rgba 0 0 0 0.5)
             ]
-        , class Container
+        , cssClass Container
             [ flexWrap wrap
             ]
-        , class Icon
+        , cssClass Icon
             [ display block
             , descendants
                 [ selector ".material-icons"
@@ -137,7 +137,7 @@ desktopStyles =
                     ]
                 ]
             ]
-        , class Step
+        , cssClass Step
             [ width (pct 50)
             , height (pct 100)
             , descendants
@@ -147,11 +147,11 @@ desktopStyles =
                 , label
                     [ important darkTextColor
                     ]
-                , class Button
+                , cssClass Button
                     [ width (pct 100)
                     , darkTextColor
                     ]
-                , class SubmitButton
+                , cssClass SubmitButton
                     [ backgroundColor primaryBlue
                     , lightTextColor
                     , hover
@@ -160,9 +160,9 @@ desktopStyles =
                     ]
                 ]
             ]
-        , class StepTitle
+        , cssClass StepTitle
             (centralizeContents ++ [ flexDirection column ])
-        , class StepForm
+        , cssClass StepForm
             [ backgroundColor (rgb 255 255 255)
             , darkTextColor
             , justifyContent spaceAround

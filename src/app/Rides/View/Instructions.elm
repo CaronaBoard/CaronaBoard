@@ -1,12 +1,12 @@
 module Rides.View.Instructions exposing (instructions)
 
 import Testable.Html exposing (Html, ol, li, text, strong, div)
-import Testable.Html.Attributes exposing (class)
+import Common.CssHelpers exposing (materializeClass)
 
 
 instructions : Html a
 instructions =
-    div [ class "container" ]
+    div [ materializeClass "container" ]
         [ ol []
             [ li []
                 [ text "Encontre uma rota que passe perto do seu destino" ]

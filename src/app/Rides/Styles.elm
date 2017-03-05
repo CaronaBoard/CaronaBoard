@@ -1,14 +1,14 @@
-module Rides.Styles exposing (styles, Classes(..), scopedId, scopedClass, scopedClassList)
+module Rides.Styles exposing (styles, Classes(..), class, classes)
 
 import Css exposing (..)
 import Css.Elements exposing (p)
 import Common.Colors exposing (..)
 import Css.Namespace
-import Common.CssHelpers as CssHelpers
+import Common.CssHelpers exposing (..)
 
 
-{ scopedId, scopedClass, scopedClassList, namespace } =
-    CssHelpers.withNamespace "rides"
+{ class, classes, namespace } =
+    withNamespace "rides"
 
 
 type Classes
@@ -23,7 +23,7 @@ type Classes
 styles : Stylesheet
 styles =
     (stylesheet << Css.Namespace.namespace namespace)
-        [ class Card
+        [ cssClass Card
             [ display block
             , darkTextColor
             , descendants cardStyles
@@ -38,21 +38,21 @@ cardStyles =
         , marginRight (px 5)
         , verticalAlign middle
         ]
-    , class CardTitle
+    , cssClass CardTitle
         [ fontSize (px 16)
         , fontWeight bold
         ]
-    , class OtherDetails
+    , cssClass OtherDetails
         [ descendants
             [ p
                 [ margin (px 0)
                 ]
             ]
         ]
-    , class Path
+    , cssClass Path
         [ marginBottom (px 10)
         ]
-    , class PathIcon
+    , cssClass PathIcon
         [ descendants
             [ selector ".material-icons"
                 [ position absolute
@@ -62,7 +62,7 @@ cardStyles =
                 ]
             ]
         ]
-    , class PathIconDot
+    , cssClass PathIconDot
         [ descendants
             [ selector ".material-icons"
                 [ fontSize (px 10)

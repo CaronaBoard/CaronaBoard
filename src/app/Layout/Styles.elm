@@ -1,13 +1,13 @@
-module Layout.Styles exposing (styles, Classes(..), scopedId, scopedClass, scopedClassList)
+module Layout.Styles exposing (styles, Classes(..), class, classes)
 
 import Css exposing (..)
 import Css.Elements exposing (..)
-import Common.CssHelpers as CssHelpers
+import Common.CssHelpers exposing (..)
 import Common.Colors exposing (..)
 
 
-{ scopedId, scopedClass, scopedClassList, namespace } =
-    CssHelpers.withNamespace ""
+{ class, classes, namespace } =
+    withNamespace ""
 
 
 type Classes
@@ -35,7 +35,7 @@ generalStyles =
         [ important <| borderRadius (px 54)
         , important <| property "text-transform" "none"
         ]
-    , class ButtonContainer
+    , cssClass ButtonContainer
         [ displayFlex
         , justifyContent center
         ]
@@ -56,20 +56,20 @@ generalStyles =
 
 layoutStyles : List Snippet
 layoutStyles =
-    [ class Navbar
+    [ cssClass Navbar
         [ backgroundColor primaryBlue
         ]
-    , class BrandLogo
+    , cssClass BrandLogo
         [ fontSize (Css.rem 1.4)
         , marginLeft (px 10)
         ]
-    , class Menu
+    , cssClass Menu
         [ position fixed
         , width (pct 100)
         , height (pct 100)
         , zIndex (int 998)
         , children
-            [ class AnimatedDropdown
+            [ cssClass AnimatedDropdown
                 [ margin (px 10)
                 , display block
                 , top (px 0)

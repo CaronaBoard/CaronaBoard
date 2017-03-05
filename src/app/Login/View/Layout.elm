@@ -1,12 +1,12 @@
 module Login.View.Layout exposing (loginLayout)
 
 import Testable.Html exposing (div)
-import Testable.Html.Attributes exposing (id, class)
 import Msg exposing (Msg)
-import Login.Styles exposing (scopedClass, Classes(Page))
+import Login.Styles exposing (class, Classes(Page))
+import Common.CssHelpers exposing (materializeClass)
 
 
 loginLayout : Testable.Html.Html Msg -> Testable.Html.Html Msg
 loginLayout child =
-    div [ scopedClass [ Page ], class "row" ]
+    div [ class Page, materializeClass "row" ]
         [ child ]

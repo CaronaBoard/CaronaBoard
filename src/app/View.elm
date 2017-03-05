@@ -2,7 +2,7 @@ module View exposing (view, staticView)
 
 import Testable
 import Testable.Html exposing (div, h1, text)
-import Testable.Html.Attributes exposing (id, class)
+import Testable.Html.Attributes exposing (id)
 import Html
 import Model exposing (Model, init)
 import Msg exposing (Msg(MsgForLogin))

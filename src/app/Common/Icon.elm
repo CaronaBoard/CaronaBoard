@@ -1,7 +1,7 @@
 module Common.Icon exposing (icon, iconLeft, iconRight)
 
 import Testable.Html exposing (Html, i, text)
-import Testable.Html.Attributes exposing (class)
+import Common.CssHelpers exposing (materializeClass)
 
 
 iconRight : String -> Html a
@@ -21,5 +21,5 @@ icon =
 
 icon_ : String -> String -> Html a
 icon_ extraClasses name =
-    i [ class <| "material-icons " ++ extraClasses ]
+    i [ materializeClass <| "material-icons " ++ extraClasses ]
         [ text name ]
