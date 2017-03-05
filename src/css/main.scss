@@ -53,24 +53,6 @@ nav {
 
 /* Login */
 
-.login-background {
-  background-image: url(images/streets.svg);
-  background-color: $primary_color;
-  background-size: cover;
-  text-align: center;
-  color: #FFF;
-  height: 100%;
-}
-
-.login-container {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  height: 100%;
-  background: linear-gradient($primary_color 0%, rgba(52,103,255,.96) 50%, rgba(52,103,255,.9) 100%);
-  overflow: hidden;
-}
-
 .login-item {
   padding: 40px;
 }

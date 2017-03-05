@@ -8,6 +8,7 @@ import Login.Model exposing (Model, Step(..), step)
 import Login.View.EmailStep exposing (emailStep)
 import Login.View.PasswordStep exposing (passwordStep)
 import Common.Icon exposing (icon)
+import Login.Styles exposing (scopedClass, Classes(Background, Container))
 
 
 login : Model -> Html Msg
@@ -26,9 +27,9 @@ login model =
 
 formStep : Html Msg -> Html Msg
 formStep step =
-    div [ class "login-background" ]
+    div [ scopedClass [ Background ] ]
         [ div
-            [ class "login-container" ]
+            [ scopedClass [ Container ] ]
             [ div [ class "login-item login-item-title" ]
                 [ h1 []
                     [ b [] [ text "Carona" ]

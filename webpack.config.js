@@ -15,7 +15,7 @@ const config = {
       },
       {
         test: /Stylesheets\.elm$/,
-        loader: 'style-loader!css-loader!elm-css-webpack-loader'
+        loader: 'style-loader!css-loader?url=false!elm-css-webpack-loader'
       },
       {
         test: /\.elm$/,

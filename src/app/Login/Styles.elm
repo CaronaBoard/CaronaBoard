@@ -13,6 +13,8 @@ import Common.CssHelpers as CssHelpers
 
 type Classes
     = Page
+    | Background
+    | Container
     | Button
     | SubmitButton
 
@@ -47,5 +49,21 @@ styles =
                         ]
                     ]
                 ]
+            ]
+        , class Background
+            [ backgroundImage (url "images/streets.svg")
+            , backgroundColor primaryBlue
+            , backgroundSize cover
+            , textAlign center
+            , color white
+            , height (pct 100)
+            ]
+        , class Container
+            [ displayFlex
+            , justifyContent spaceBetween
+            , flexDirection column
+            , height (pct 100)
+            , property "background" "linear-gradient(rgb(52,103,255) 0%, rgba(52,103,255,.96) 50%, rgba(52,103,255,.9) 100%)"
+            , overflow hidden
             ]
         ]
