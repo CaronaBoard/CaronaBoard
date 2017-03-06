@@ -7,7 +7,7 @@ import Login.Msg exposing (Msg(UpdateEmail))
 import Login.Model exposing (Model)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors)
 import Common.Icon exposing (icon)
-import Login.Styles exposing (classes, Classes(Button, SubmitButton))
+import Login.Styles exposing (class, Classes(SubmitButton))
 import Common.CssHelpers exposing (materializeClass)
 
 
@@ -26,5 +26,5 @@ emailStep model =
                 []
             , label [ for "email" ] [ text "Email" ]
             ]
-        , loadingOrSubmitButton model.registered [ classes [ Button, SubmitButton ] ] [ text "Próximo", icon "arrow_forward" ]
+        , loadingOrSubmitButton model.registered [ class SubmitButton ] [ text "Próximo", icon "arrow_forward" ]
         ]

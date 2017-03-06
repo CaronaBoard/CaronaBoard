@@ -1,4 +1,4 @@
-module Login.Styles exposing (styles, Classes(..), class, classes)
+module Login.Styles exposing (styles, Classes(..), class)
 
 import Css exposing (..)
 import Css.Elements exposing (h1, input, label)
@@ -7,7 +7,7 @@ import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
 
 
-{ class, classes, namespace } =
+{ class, namespace } =
     withNamespace "login"
 
 
@@ -16,9 +16,8 @@ type Classes
     | Background
     | Container
     | Icon
-    | Button
     | SubmitButton
-    | Step
+    | ResetPasswordButton
     | StepTitle
     | StepForm
     | PasswordStep
@@ -53,37 +52,14 @@ styles =
         , cssClass Icon
             [ display none
             ]
-        , cssClass Step
-            [ padding (px 40)
-            , descendants
-                [ h1
-                    [ fontSize (px 32)
-                    ]
-                , input
-                    [ important <| borderBottom3 (px 1) solid white
-                    ]
-                , label
-                    [ important <| lightTextColor
-                    ]
-                , cssClass Button
-                    [ width (pct 100)
-                    , lightTextColor
-                    ]
-                , cssClass SubmitButton
-                    [ color primaryBlue
-                    , backgroundColor white
-                    , hover
-                        [ backgroundColor grey
-                        ]
-                    ]
-                ]
-            ]
-        , cssClass StepForm
-            [ flexGrow (int 2)
-            , displayFlex
-            , flexDirection column
-            , justifyContent spaceBetween
-            ]
+        , cssClass StepTitle step
+        , cssClass StepForm <|
+            step
+                ++ [ flexGrow (int 2)
+                   , displayFlex
+                   , flexDirection column
+                   , justifyContent spaceBetween
+                   ]
         , cssClass PasswordStep
             [ property "animation" "slide-in 0.5s forwards"
             ]
@@ -93,6 +69,39 @@ styles =
             ]
         , desktopStyles
         ]
+
+
+step : List Mixin
+step =
+    [ padding (px 40)
+    , descendants
+        [ h1
+            [ fontSize (px 32)
+            ]
+        , input
+            [ important <| borderBottom3 (px 1) solid white
+            ]
+        , label
+            [ important <| lightTextColor
+            ]
+        , cssClass SubmitButton <|
+            button
+                ++ [ color primaryBlue
+                   , backgroundColor white
+                   , hover
+                        [ backgroundColor grey
+                        ]
+                   ]
+        , cssClass ResetPasswordButton button
+        ]
+    ]
+
+
+button : List Mixin
+button =
+    [ width (pct 100)
+    , lightTextColor
+    ]
 
 
 slideInAnimation : Snippet
@@ -137,37 +146,48 @@ desktopStyles =
                     ]
                 ]
             ]
-        , cssClass Step
-            [ width (pct 50)
-            , height (pct 100)
-            , descendants
-                [ input
-                    [ important <| borderBottom3 (px 1) solid primaryBlack
-                    ]
-                , label
-                    [ important darkTextColor
-                    ]
-                , cssClass Button
-                    [ width (pct 100)
-                    , darkTextColor
-                    ]
-                , cssClass SubmitButton
-                    [ backgroundColor primaryBlue
-                    , lightTextColor
-                    , hover
+        , cssClass StepTitle <|
+            stepDesktop
+                ++ centralizeContents
+                ++ [ flexDirection column ]
+        , cssClass StepForm <|
+            stepDesktop
+                ++ [ backgroundColor (rgb 255 255 255)
+                   , darkTextColor
+                   , justifyContent spaceAround
+                   ]
+        ]
+
+
+stepDesktop : List Mixin
+stepDesktop =
+    [ width (pct 50)
+    , height (pct 100)
+    , descendants
+        [ input
+            [ important <| borderBottom3 (px 1) solid primaryBlack
+            ]
+        , label
+            [ important darkTextColor
+            ]
+        , cssClass SubmitButton <|
+            buttonDesktop
+                ++ [ backgroundColor primaryBlue
+                   , lightTextColor
+                   , hover
                         [ backgroundColor lighterBlue
                         ]
-                    ]
-                ]
-            ]
-        , cssClass StepTitle
-            (centralizeContents ++ [ flexDirection column ])
-        , cssClass StepForm
-            [ backgroundColor (rgb 255 255 255)
-            , darkTextColor
-            , justifyContent spaceAround
-            ]
+                   ]
+        , cssClass ResetPasswordButton buttonDesktop
         ]
+    ]
+
+
+buttonDesktop : List Mixin
+buttonDesktop =
+    [ width (pct 100)
+    , darkTextColor
+    ]
 
 
 centralizeContents : List Mixin

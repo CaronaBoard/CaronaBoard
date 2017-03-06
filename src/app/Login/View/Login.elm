@@ -7,7 +7,7 @@ import Login.Model exposing (Model, Step(..), step)
 import Login.View.EmailStep exposing (emailStep)
 import Login.View.PasswordStep exposing (passwordStep)
 import Common.Icon exposing (icon)
-import Login.Styles exposing (class, classes, Classes(Background, Container, Step, StepTitle, StepForm, Icon))
+import Login.Styles exposing (class, Classes(Background, Container, StepTitle, StepForm, Icon))
 
 
 login : Model -> Html Msg
@@ -29,7 +29,7 @@ formStep step =
     div [ class Background ]
         [ div
             [ class Container ]
-            [ div [ classes [ Step, StepTitle ] ]
+            [ div [ class StepTitle ]
                 [ h1 []
                     [ b [] [ text "Carona" ]
                     , text "Board"
@@ -38,7 +38,7 @@ formStep step =
                     [ text "O CaronaBoard é um aplicativo de grupos de caronas, descubra quem está indo para o mesmo lugar que você e dê ou peça uma carona"
                     ]
                 ]
-            , div [ classes [ Step, StepForm ] ]
+            , div [ class StepForm ]
                 [ div [ class Icon ]
                     [ div [] [ icon "lock_outline" ]
                     , text "Entre com sua conta"

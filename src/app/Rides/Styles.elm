@@ -1,4 +1,4 @@
-module Rides.Styles exposing (styles, Classes(..), class, classes)
+module Rides.Styles exposing (styles, Classes(..), class)
 
 import Css exposing (..)
 import Css.Elements exposing (p)
@@ -7,7 +7,7 @@ import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
 
 
-{ class, classes, namespace } =
+{ class, namespace } =
     withNamespace "rides"
 
 

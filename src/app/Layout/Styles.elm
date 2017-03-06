@@ -1,4 +1,4 @@
-module Layout.Styles exposing (styles, Classes(..), class, classes)
+module Layout.Styles exposing (styles, Classes(..), class)
 
 import Css exposing (..)
 import Css.Elements exposing (..)
@@ -7,7 +7,7 @@ import Common.CssHelpers exposing (..)
 import Common.Colors exposing (..)
 
 
-{ class, classes, namespace } =
+{ class, namespace } =
     withNamespace "layout"
 
 
