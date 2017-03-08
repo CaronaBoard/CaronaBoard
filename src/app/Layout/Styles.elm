@@ -17,6 +17,8 @@ type Classes
     | Navbar
     | BrandLogo
     | ButtonContainer
+    | OpenMenuButton
+    | SignOutButton
 
 
 styles : Stylesheet

@@ -8,7 +8,7 @@ import Login.Msg exposing (Msg(SignOut))
 import Common.Icon exposing (icon)
 import Layout.Model exposing (Model)
 import Layout.Msg exposing (Msg(OpenDropdown, CloseDropdown))
-import Layout.Styles exposing (class, Classes(Navbar, BrandLogo, Menu, AnimatedDropdown))
+import Layout.Styles exposing (class, Classes(Navbar, BrandLogo, Menu, AnimatedDropdown, OpenMenuButton, SignOutButton))
 import Common.CssHelpers exposing (materializeClass)
 
 
@@ -28,7 +28,7 @@ header model =
                                     [ icon "directions_car" ]
                                 ]
                             , li []
-                                [ a [ id "open-menu-button", onClick (MsgForLayout OpenDropdown) ]
+                                [ a [ class OpenMenuButton, onClick (MsgForLayout OpenDropdown) ]
                                     [ icon "more_vert"
                                     ]
                                 ]
@@ -47,7 +47,7 @@ menu model =
                     [ a [ href "http://goo.gl/forms/GYVDfZuhWg" ] [ text "Dar Feedback" ]
                     ]
                 , li []
-                    [ a [ onClick (MsgForLogin SignOut), id "signout-button" ] [ text "Sair" ]
+                    [ a [ onClick (MsgForLogin SignOut), class SignOutButton ] [ text "Sair" ]
                     ]
                 ]
             ]

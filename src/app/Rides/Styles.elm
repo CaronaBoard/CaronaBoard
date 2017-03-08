@@ -12,7 +12,8 @@ import Common.CssHelpers exposing (..)
 
 
 type Classes
-    = Card
+    = Page
+    | Card
     | CardTitle
     | OtherDetails
     | Path

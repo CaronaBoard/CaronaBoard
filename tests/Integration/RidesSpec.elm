@@ -10,7 +10,7 @@ import Rides.Update as Update
 import Rides.Model exposing (Model, Ride, init)
 import Rides.View.RoutesList exposing (routesList)
 import Rides.Msg exposing (Msg(..))
-import Rides.Styles exposing (Classes(Card), namespace)
+import Rides.Styles exposing (Classes(Card))
 import Testable.Cmd
 import Msg as Root exposing (Msg(MsgForRides))
 import Css.Helpers exposing (identifierToString)
@@ -49,4 +49,4 @@ ridesExample =
 
 class : Classes -> Selector
 class =
-    Testable.Html.Selectors.class << identifierToString namespace
+    Testable.Html.Selectors.class << identifierToString Rides.Styles.namespace

@@ -4,12 +4,15 @@ import Test exposing (..)
 import Testable.TestContext exposing (..)
 import Testable.Html
 import Testable.Html.Selectors exposing (..)
+import Testable.Html.Types exposing (Selector)
 import Expect exposing (equal)
 import Login.Update as Update
 import Login.Model exposing (Model, loggedInUser, init)
 import Login.View.Login as View
 import Login.Msg exposing (Msg(..))
 import Login.Ports exposing (checkRegistration, signIn, passwordReset)
+import Login.Styles exposing (Classes(ResetPasswordButton))
+import Css.Helpers exposing (identifierToString)
 import Testable.Cmd
 import Msg as Root exposing (Msg(MsgForLogin))
 
@@ -78,7 +81,7 @@ tests =
         , describe "password reset"
             [ test "shows loading on submit" <|
                 submitEmailThenForgotPassword
-                    >> find [ id "password-reset-button" ]
+                    >> find [ class ResetPasswordButton ]
                     >> assertText (Expect.equal "Carregando...")
             , test "calls the resetPassword port" <|
                 submitEmailThenForgotPassword
@@ -89,11 +92,16 @@ tests =
                     >> Expect.all
                         [ find []
                             >> assertText (expectToContainText "Could not send email")
-                        , find [ id "password-reset-button" ]
+                        , find [ class ResetPasswordButton ]
                             >> assertText (expectToContainText "Esqueci a Senha")
                         ]
             ]
         ]
+
+
+class : Login.Styles.Classes -> Selector
+class =
+    Testable.Html.Selectors.class << identifierToString Login.Styles.namespace
 
 
 loginContext : a -> TestContext Root.Msg Model
@@ -128,7 +136,7 @@ submitEmailThenForgotPassword : a -> TestContext Root.Msg Model
 submitEmailThenForgotPassword =
     submitEmail
         >> update (MsgForLogin <| CheckRegistrationResponse True)
-        >> find [ id "password-reset-button" ]
+        >> find [ class ResetPasswordButton ]
         >> trigger "click" "{}"
 
 

@@ -2,7 +2,6 @@ module View exposing (view, staticView)
 
 import Testable
 import Testable.Html exposing (div, h1, text)
-import Testable.Html.Attributes exposing (id)
 import Html
 import Model exposing (Model, init)
 import Msg exposing (Msg(MsgForLogin))
@@ -14,6 +13,7 @@ import Login.View.PasswordReset exposing (passwordReset)
 import Layout.View.Header exposing (header)
 import Rides.View.Instructions exposing (instructions)
 import Rides.View.RoutesList exposing (routesList)
+import Rides.Styles exposing (class, Classes(Page))
 
 
 view : Model -> Testable.Html.Html Msg
@@ -26,7 +26,7 @@ view model =
             loginLayout (Testable.Html.map MsgForLogin <| login model.login)
 
         RidesPage ->
-            div [ id "rides-page" ]
+            div [ class Page ]
                 [ header model.layout
                 , instructions
                 , routesList model.rides

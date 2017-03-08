@@ -34,7 +34,6 @@ passwordStep model =
         , loadingOrSubmitButton model.passwordReset
             [ class ResetPasswordButton
             , materializeClass "btn-flat"
-            , id "password-reset-button"
             , onWithOptions "click" { stopPropagation = True, preventDefault = True } (Json.succeed PasswordReset)
             ]
             [ text "Esqueci a Senha" ]

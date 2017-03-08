@@ -8,7 +8,7 @@ import Expect exposing (equal)
 import Layout.Update as Update
 import Layout.Model exposing (Model, init)
 import Layout.View.Header exposing (header)
-import Layout.Styles exposing (namespace, Classes(Menu))
+import Layout.Styles exposing (Classes(Menu, OpenMenuButton))
 import Testable.Cmd
 import Msg as Root exposing (Msg(MsgForLayout))
 import Css.Helpers exposing (identifierToString)
@@ -23,13 +23,13 @@ tests =
                 >> assertNodeCount (Expect.equal 0)
         , test "opens the dropdown on click" <|
             layoutContext
-                >> find [ id "open-menu-button" ]
+                >> find [ class OpenMenuButton ]
                 >> trigger "click" "{}"
                 >> find [ class Menu ]
                 >> assertPresent
         , test "closes the dropdown when clicking outside" <|
             layoutContext
-                >> find [ id "open-menu-button" ]
+                >> find [ class OpenMenuButton ]
                 >> trigger "click" "{}"
                 >> find [ class Menu ]
                 >> trigger "click" "{}"
@@ -49,4 +49,4 @@ layoutContext _ =
 
 class : Classes -> Selector
 class =
-    Testable.Html.Selectors.class << identifierToString namespace
+    Testable.Html.Selectors.class << identifierToString Layout.Styles.namespace
