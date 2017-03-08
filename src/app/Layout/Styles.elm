@@ -1,4 +1,4 @@
-module Layout.Styles exposing (styles, Classes(..), class)
+module Layout.Styles exposing (styles, Classes(..), class, namespace)
 
 import Css exposing (..)
 import Css.Elements exposing (..)

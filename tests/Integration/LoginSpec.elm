@@ -1,4 +1,4 @@
-module Integration.LoginSpec exposing (..)
+module Integration.LoginSpec exposing (tests)
 
 import Test exposing (..)
 import Testable.TestContext exposing (..)
@@ -12,48 +12,6 @@ import Login.Msg exposing (Msg(..))
 import Login.Ports exposing (checkRegistration, signIn, passwordReset)
 import Testable.Cmd
 import Msg as Root exposing (Msg(MsgForLogin))
-
-
-loginContext : a -> TestContext Root.Msg Model
-loginContext _ =
-    startForTest
-        { init = ( init Nothing, Testable.Cmd.none )
-        , update = (\msg model -> Tuple.mapSecond (Testable.Cmd.map MsgForLogin) <| Update.update msg model)
-        , view = View.login >> Testable.Html.map MsgForLogin
-        }
-
-
-submitEmail : a -> TestContext Root.Msg Model
-submitEmail =
-    loginContext
-        >> find [ tag "input", attribute "type" "email" ]
-        >> trigger "input" "{\"target\": {\"value\": \"foo@bar.com\"}}"
-        >> find [ tag "form" ]
-        >> trigger "submit" "{}"
-
-
-submitEmailThenPassword : a -> TestContext Root.Msg Model
-submitEmailThenPassword =
-    submitEmail
-        >> update (MsgForLogin <| CheckRegistrationResponse True)
-        >> find [ tag "input", attribute "type" "password" ]
-        >> trigger "input" "{\"target\": {\"value\": \"baz\"}}"
-        >> find [ tag "form" ]
-        >> trigger "submit" "{}"
-
-
-submitEmailThenForgotPassword : a -> TestContext Root.Msg Model
-submitEmailThenForgotPassword =
-    submitEmail
-        >> update (MsgForLogin <| CheckRegistrationResponse True)
-        >> find [ id "password-reset-button" ]
-        >> trigger "click" "{}"
-
-
-expectToContainText : String -> String -> Expect.Expectation
-expectToContainText expected actual =
-    Expect.true ("Expected\n\t" ++ actual ++ "\nto contain\n\t" ++ expected)
-        (String.contains expected actual)
 
 
 tests : Test
@@ -136,3 +94,45 @@ tests =
                         ]
             ]
         ]
+
+
+loginContext : a -> TestContext Root.Msg Model
+loginContext _ =
+    startForTest
+        { init = ( init Nothing, Testable.Cmd.none )
+        , update = (\msg model -> Tuple.mapSecond (Testable.Cmd.map MsgForLogin) <| Update.update msg model)
+        , view = View.login >> Testable.Html.map MsgForLogin
+        }
+
+
+submitEmail : a -> TestContext Root.Msg Model
+submitEmail =
+    loginContext
+        >> find [ tag "input", attribute "type" "email" ]
+        >> trigger "input" "{\"target\": {\"value\": \"foo@bar.com\"}}"
+        >> find [ tag "form" ]
+        >> trigger "submit" "{}"
+
+
+submitEmailThenPassword : a -> TestContext Root.Msg Model
+submitEmailThenPassword =
+    submitEmail
+        >> update (MsgForLogin <| CheckRegistrationResponse True)
+        >> find [ tag "input", attribute "type" "password" ]
+        >> trigger "input" "{\"target\": {\"value\": \"baz\"}}"
+        >> find [ tag "form" ]
+        >> trigger "submit" "{}"
+
+
+submitEmailThenForgotPassword : a -> TestContext Root.Msg Model
+submitEmailThenForgotPassword =
+    submitEmail
+        >> update (MsgForLogin <| CheckRegistrationResponse True)
+        >> find [ id "password-reset-button" ]
+        >> trigger "click" "{}"
+
+
+expectToContainText : String -> String -> Expect.Expectation
+expectToContainText expected actual =
+    Expect.true ("Expected\n\t" ++ actual ++ "\nto contain\n\t" ++ expected)
+        (String.contains expected actual)

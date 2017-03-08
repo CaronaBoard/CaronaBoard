@@ -1,4 +1,4 @@
-module Login.Styles exposing (styles, Classes(..), class)
+module Login.Styles exposing (styles, Classes(..), class, namespace)
 
 import Css exposing (..)
 import Css.Elements exposing (h1, input, label)

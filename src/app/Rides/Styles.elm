@@ -1,4 +1,4 @@
-module Rides.Styles exposing (styles, Classes(..), class)
+module Rides.Styles exposing (styles, Classes(..), class, namespace)
 
 import Css exposing (..)
 import Css.Elements exposing (p)

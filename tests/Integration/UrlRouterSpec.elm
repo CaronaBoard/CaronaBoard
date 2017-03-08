@@ -1,8 +1,9 @@
-module Integration.UrlRouterSpec exposing (..)
+module Integration.UrlRouterSpec exposing (tests)
 
 import Test exposing (..)
 import Testable.TestContext exposing (..)
 import Testable.Html.Selectors exposing (..)
+import Testable.Html.Types exposing (Selector)
 import Expect exposing (equal)
 import Model exposing (Model)
 import Update
@@ -11,9 +12,11 @@ import View
 import Login.Msg exposing (Msg(..))
 import Login.Ports exposing (signOut)
 import Login.Model exposing (User)
+import Login.Styles exposing (namespace, Classes(Page))
 import Navigation exposing (Location)
 import UrlRouter.Msg exposing (Msg(UrlChange))
 import UrlRouter.Routes exposing (toPath, Page(SplashScreenPage, RidesPage, LoginPage))
+import Css.Helpers exposing (identifierToString)
 
 
 tests : Test
@@ -89,12 +92,17 @@ loginThenLogout =
         >> trigger "click" "{}"
 
 
+class : Classes -> Selector
+class =
+    Testable.Html.Selectors.class << identifierToString namespace
+
+
 expectToBeOnLoginPage : TestContext msg model -> Expect.Expectation
 expectToBeOnLoginPage =
     Expect.all
         [ find [ id "rides-page" ]
             >> assertNodeCount (Expect.equal 0)
-        , find [ class "loginPage" ]
+        , find [ class Page ]
             >> assertPresent
         ]
 
@@ -104,7 +112,7 @@ expectToBeOnRidesPage =
     Expect.all
         [ find [ id "rides-page" ]
             >> assertPresent
-        , find [ class "loginPage" ]
+        , find [ class Page ]
             >> assertNodeCount (Expect.equal 0)
         ]
 
