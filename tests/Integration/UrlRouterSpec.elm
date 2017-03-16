@@ -1,8 +1,9 @@
-module Integration.UrlRouterSpec exposing (..)
+module Integration.UrlRouterSpec exposing (tests)
 
 import Test exposing (..)
 import Testable.TestContext exposing (..)
 import Testable.Html.Selectors exposing (..)
+import Testable.Html.Types exposing (Selector)
 import Expect exposing (equal)
 import Model exposing (Model)
 import Update
@@ -11,9 +12,13 @@ import View
 import Login.Msg exposing (Msg(..))
 import Login.Ports exposing (signOut)
 import Login.Model exposing (User)
+import Login.Styles
+import Layout.Styles exposing (Classes(OpenMenuButton, SignOutButton))
+import Rides.Styles
 import Navigation exposing (Location)
 import UrlRouter.Msg exposing (Msg(UrlChange))
 import UrlRouter.Routes exposing (toPath, Page(SplashScreenPage, RidesPage, LoginPage))
+import Css.Helpers exposing (identifierToString)
 
 
 tests : Test
@@ -78,23 +83,38 @@ initialContext currentUser page _ =
         }
 
 
+layoutClass : Layout.Styles.Classes -> Selector
+layoutClass =
+    Testable.Html.Selectors.class << identifierToString Layout.Styles.namespace
+
+
+loginClass : Login.Styles.Classes -> Selector
+loginClass =
+    Testable.Html.Selectors.class << identifierToString Login.Styles.namespace
+
+
+ridesClass : Rides.Styles.Classes -> Selector
+ridesClass =
+    Testable.Html.Selectors.class << identifierToString Rides.Styles.namespace
+
+
 loginThenLogout : a -> TestContext Root.Msg Model
 loginThenLogout =
     loginContext
         >> update (MsgForLogin <| SignInResponse ( Nothing, Just someUser ))
         >> update (MsgForUrlRouter <| UrlChange (toLocation RidesPage))
-        >> find [ id "open-menu-button" ]
+        >> find [ layoutClass OpenMenuButton ]
         >> trigger "click" "{}"
-        >> find [ id "signout-button" ]
+        >> find [ layoutClass SignOutButton ]
         >> trigger "click" "{}"
 
 
 expectToBeOnLoginPage : TestContext msg model -> Expect.Expectation
 expectToBeOnLoginPage =
     Expect.all
-        [ find [ id "rides-page" ]
+        [ find [ ridesClass Rides.Styles.Page ]
             >> assertNodeCount (Expect.equal 0)
-        , find [ id "login-page" ]
+        , find [ loginClass Login.Styles.Page ]
             >> assertPresent
         ]
 
@@ -102,9 +122,9 @@ expectToBeOnLoginPage =
 expectToBeOnRidesPage : TestContext msg model -> Expect.Expectation
 expectToBeOnRidesPage =
     Expect.all
-        [ find [ id "rides-page" ]
+        [ find [ ridesClass Rides.Styles.Page ]
             >> assertPresent
-        , find [ id "login-page" ]
+        , find [ loginClass Login.Styles.Page ]
             >> assertNodeCount (Expect.equal 0)
         ]
 

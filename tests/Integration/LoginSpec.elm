@@ -1,59 +1,20 @@
-module Integration.LoginSpec exposing (..)
+module Integration.LoginSpec exposing (tests)
 
 import Test exposing (..)
 import Testable.TestContext exposing (..)
 import Testable.Html
 import Testable.Html.Selectors exposing (..)
+import Testable.Html.Types exposing (Selector)
 import Expect exposing (equal)
 import Login.Update as Update
 import Login.Model exposing (Model, loggedInUser, init)
 import Login.View.Login as View
 import Login.Msg exposing (Msg(..))
 import Login.Ports exposing (checkRegistration, signIn, passwordReset)
+import Login.Styles exposing (Classes(ResetPasswordButton))
+import Css.Helpers exposing (identifierToString)
 import Testable.Cmd
 import Msg as Root exposing (Msg(MsgForLogin))
-
-
-loginContext : a -> TestContext Root.Msg Model
-loginContext _ =
-    startForTest
-        { init = ( init Nothing, Testable.Cmd.none )
-        , update = (\msg model -> Tuple.mapSecond (Testable.Cmd.map MsgForLogin) <| Update.update msg model)
-        , view = View.login >> Testable.Html.map MsgForLogin
-        }
-
-
-submitEmail : a -> TestContext Root.Msg Model
-submitEmail =
-    loginContext
-        >> find [ tag "input", attribute "type" "email" ]
-        >> trigger "input" "{\"target\": {\"value\": \"foo@bar.com\"}}"
-        >> find [ tag "form" ]
-        >> trigger "submit" "{}"
-
-
-submitEmailThenPassword : a -> TestContext Root.Msg Model
-submitEmailThenPassword =
-    submitEmail
-        >> update (MsgForLogin <| CheckRegistrationResponse True)
-        >> find [ tag "input", attribute "type" "password" ]
-        >> trigger "input" "{\"target\": {\"value\": \"baz\"}}"
-        >> find [ tag "form" ]
-        >> trigger "submit" "{}"
-
-
-submitEmailThenForgotPassword : a -> TestContext Root.Msg Model
-submitEmailThenForgotPassword =
-    submitEmail
-        >> update (MsgForLogin <| CheckRegistrationResponse True)
-        >> find [ id "password-reset-button" ]
-        >> trigger "click" "{}"
-
-
-expectToContainText : String -> String -> Expect.Expectation
-expectToContainText expected actual =
-    Expect.true ("Expected\n\t" ++ actual ++ "\nto contain\n\t" ++ expected)
-        (String.contains expected actual)
 
 
 tests : Test
@@ -120,7 +81,7 @@ tests =
         , describe "password reset"
             [ test "shows loading on submit" <|
                 submitEmailThenForgotPassword
-                    >> find [ id "password-reset-button" ]
+                    >> find [ class ResetPasswordButton ]
                     >> assertText (Expect.equal "Carregando...")
             , test "calls the resetPassword port" <|
                 submitEmailThenForgotPassword
@@ -131,8 +92,55 @@ tests =
                     >> Expect.all
                         [ find []
                             >> assertText (expectToContainText "Could not send email")
-                        , find [ id "password-reset-button" ]
+                        , find [ class ResetPasswordButton ]
                             >> assertText (expectToContainText "Esqueci a Senha")
                         ]
             ]
         ]
+
+
+class : Login.Styles.Classes -> Selector
+class =
+    Testable.Html.Selectors.class << identifierToString Login.Styles.namespace
+
+
+loginContext : a -> TestContext Root.Msg Model
+loginContext _ =
+    startForTest
+        { init = ( init Nothing, Testable.Cmd.none )
+        , update = (\msg model -> Tuple.mapSecond (Testable.Cmd.map MsgForLogin) <| Update.update msg model)
+        , view = View.login >> Testable.Html.map MsgForLogin
+        }
+
+
+submitEmail : a -> TestContext Root.Msg Model
+submitEmail =
+    loginContext
+        >> find [ tag "input", attribute "type" "email" ]
+        >> trigger "input" "{\"target\": {\"value\": \"foo@bar.com\"}}"
+        >> find [ tag "form" ]
+        >> trigger "submit" "{}"
+
+
+submitEmailThenPassword : a -> TestContext Root.Msg Model
+submitEmailThenPassword =
+    submitEmail
+        >> update (MsgForLogin <| CheckRegistrationResponse True)
+        >> find [ tag "input", attribute "type" "password" ]
+        >> trigger "input" "{\"target\": {\"value\": \"baz\"}}"
+        >> find [ tag "form" ]
+        >> trigger "submit" "{}"
+
+
+submitEmailThenForgotPassword : a -> TestContext Root.Msg Model
+submitEmailThenForgotPassword =
+    submitEmail
+        >> update (MsgForLogin <| CheckRegistrationResponse True)
+        >> find [ class ResetPasswordButton ]
+        >> trigger "click" "{}"
+
+
+expectToContainText : String -> String -> Expect.Expectation
+expectToContainText expected actual =
+    Expect.true ("Expected\n\t" ++ actual ++ "\nto contain\n\t" ++ expected)
+        (String.contains expected actual)

@@ -1,16 +1,34 @@
-module Integration.RidesSpec exposing (..)
+module Integration.RidesSpec exposing (tests)
 
 import Test exposing (..)
 import Testable.TestContext exposing (..)
 import Testable.Html
 import Testable.Html.Selectors exposing (..)
+import Testable.Html.Types exposing (Selector)
 import Expect exposing (equal)
 import Rides.Update as Update
 import Rides.Model exposing (Model, Ride, init)
 import Rides.View.RoutesList exposing (routesList)
 import Rides.Msg exposing (Msg(..))
+import Rides.Styles exposing (Classes(Card))
 import Testable.Cmd
 import Msg as Root exposing (Msg(MsgForRides))
+import Css.Helpers exposing (identifierToString)
+
+
+tests : Test
+tests =
+    describe "Rides"
+        [ test "renders no routes when there are no rides loaded yet" <|
+            ridesContext
+                >> findAll [ class Card ]
+                >> assertNodeCount (Expect.equal 0)
+        , test "renders routes when they load" <|
+            ridesContext
+                >> update (MsgForRides <| UpdateRides ridesExample)
+                >> findAll [ class Card ]
+                >> assertNodeCount (Expect.equal 2)
+        ]
 
 
 ridesContext : a -> TestContext Root.Msg Model
@@ -29,17 +47,6 @@ ridesExample =
     ]
 
 
-tests : Test
-tests =
-    describe "Rides"
-        [ test "renders no routes when there are no rides loaded yet" <|
-            ridesContext
-                >> find [ class "routes-box" ]
-                >> thenFindAll [ class "route" ]
-                >> assertNodeCount (Expect.equal 0)
-        , test "renders routes when they load" <|
-            ridesContext
-                >> update (MsgForRides <| UpdateRides ridesExample)
-                >> findAll [ class "ride-card" ]
-                >> assertNodeCount (Expect.equal 2)
-        ]
+class : Classes -> Selector
+class =
+    Testable.Html.Selectors.class << identifierToString Rides.Styles.namespace

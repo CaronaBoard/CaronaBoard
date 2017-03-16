@@ -4,7 +4,7 @@ import Test exposing (..)
 import Expect exposing (equal)
 import Fuzz exposing (Fuzzer)
 import UrlRouter.Update exposing (changePageTo)
-import UrlRouter.Routes exposing (Page(..), toPath, redirectTo)
+import UrlRouter.Routes exposing (Page(..), toPath, redirectTo, pathParser)
 import Array exposing (Array, fromList, get, length)
 import Navigation exposing (Location)
 import Login.Model as Login
@@ -76,7 +76,7 @@ randomPath : Fuzzer String
 randomPath =
     Fuzz.map
         (\path ->
-            if path == "" then
+            if pathParser (pathToLocation path) == Just SplashScreenPage then
                 "foo"
             else
                 path
