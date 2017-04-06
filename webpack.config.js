@@ -16,7 +16,10 @@ const config = {
       {
         test: /\.elm$/,
         exclude: [/elm-stuff/, /node_modules/],
-        loader: 'elm-hot-loader!elm-webpack-loader'
+        loader:
+          process.env.NODE_ENV === 'production' ?
+            'elm-webpack-loader' :
+            'elm-hot-loader!elm-webpack-loader?debug=true'
       },
       {
         test: /\.html$/,
