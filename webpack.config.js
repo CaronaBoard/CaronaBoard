@@ -9,22 +9,22 @@ const config = {
     filename: '[name].[hash].js'
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /Stylesheets\.elm$/,
-        loader: 'style-loader!css-loader?url=false!elm-css-webpack-loader'
+        test:    /\.elm$/,
+        exclude: [/elm-stuff/, /node_modules/, /Stylesheets\.elm$/],
+        use:
+          process.env.DEBUG ?
+            ['elm-hot-loader', 'elm-webpack-loader?debug=true'] :
+            ['elm-webpack-loader']
       },
       {
-        test: /\.elm$/,
-        exclude: [/elm-stuff/, /node_modules/, /Stylesheets\.elm$/],
-        loader:
-          process.env.DEBUG ?
-            'elm-hot-loader!elm-webpack-loader?debug=true' :
-            'elm-webpack-loader'
+        test: /Stylesheets\.elm$/,
+        use: ['style-loader', 'css-loader?url=false', 'elm-css-webpack-loader']
       },
       {
         test: /\.html$/,
-        loader: 'raw-loader'
+        use: ['raw-loader']
       }
     ]
   },
