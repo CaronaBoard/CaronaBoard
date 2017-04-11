@@ -16,7 +16,7 @@ const config = {
       },
       {
         test: /\.elm$/,
-        exclude: [/elm-stuff/, /node_modules/],
+        exclude: [/elm-stuff/, /node_modules/, /Stylesheets\.elm$/],
         loader:
           process.env.DEBUG ?
             'elm-hot-loader!elm-webpack-loader?debug=true' :
