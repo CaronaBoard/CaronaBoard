@@ -1,5 +1,6 @@
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let CopyWebpackPlugin = require('copy-webpack-plugin');
+let StatsVisualizerPlugin = require('webpack-visualizer-plugin');
 
 const config = {
   entry: './src/index.js',
@@ -34,7 +35,8 @@ const config = {
     new CopyWebpackPlugin([{
       from: 'src/images',
       to: 'images'
-    }])
+    }]),
+    new StatsVisualizerPlugin()
   ]
 };
 
