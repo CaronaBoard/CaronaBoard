@@ -1,7 +1,9 @@
 var app;
 var connectFirebase;
 
-require(['./app/Main.elm', './app/Stylesheets.elm'], function (Elm, Stylesheet) {
+require(['./app/Stylesheets.elm'], function (Stylesheet) {});
+
+require(['./app/Main.elm'], function (Elm) {
   var currentUser = Object.keys(localStorage).filter(function (key) {
     return key.match(/firebase:authUser/);
   }).map(function (key) {
