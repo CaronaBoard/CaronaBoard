@@ -19,6 +19,7 @@ type Classes
     | ButtonContainer
     | OpenMenuButton
     | SignOutButton
+    | AddRideLink
 
 
 styles : Stylesheet
@@ -52,6 +53,15 @@ generalStyles =
             , selector "input:placeholder-shown:not(:focus) + *"
                 [ important <| fontSize (pct 100)
                 , important <| top (px 10)
+                ]
+            ]
+        ]
+    , cssClass AddRideLink
+        [ displayFlex
+        , alignItems center
+        , descendants
+            [ selector "i"
+                [ marginRight (px 10)
                 ]
             ]
         ]

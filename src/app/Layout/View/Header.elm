@@ -4,7 +4,7 @@ import Common.CssHelpers exposing (materializeClass)
 import Common.Icon exposing (icon)
 import Layout.Model exposing (Model)
 import Layout.Msg exposing (Msg(CloseDropdown, OpenDropdown))
-import Layout.Styles exposing (Classes(AnimatedDropdown, BrandLogo, Menu, Navbar, OpenMenuButton, SignOutButton), class)
+import Layout.Styles exposing (Classes(..), class)
 import Login.Msg exposing (Msg(SignOut))
 import Msg exposing (Msg(MsgForLayout, MsgForLogin))
 import Testable.Html exposing (Html, a, b, button, div, h1, h2, i, img, li, nav, text, ul)
@@ -24,8 +24,10 @@ header model =
                             ]
                         , ul [ materializeClass "right" ]
                             [ li []
-                                [ a [ href "http://goo.gl/forms/ohEbgkMa9i" ]
-                                    [ icon "directions_car" ]
+                                [ a [ href "http://goo.gl/forms/ohEbgkMa9i", class AddRideLink ]
+                                    [ icon "directions_car"
+                                    , text "Dou carona"
+                                    ]
                                 ]
                             , li []
                                 [ a [ class OpenMenuButton, onClick (MsgForLayout OpenDropdown) ]
