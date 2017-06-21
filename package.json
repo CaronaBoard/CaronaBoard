@@ -11,7 +11,8 @@
     "generate-html": "mkdir -p build && elm-static-html -c elm-static-html.json",
     "test": "elm-test",
     "deploy": "./deploy.sh",
-    "deploy:now": "yarn build && now build"
+    "deploy:now": "yarn build && now build",
+    "install": "elm package install -y && cd tests && elm package install -y"
   },
   "repository": {
     "type": "git",
