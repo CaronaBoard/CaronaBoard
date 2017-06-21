@@ -6,10 +6,12 @@ import Layout.Model exposing (Model)
 import Layout.Msg exposing (Msg(CloseDropdown, OpenDropdown))
 import Layout.Styles exposing (Classes(..), class)
 import Login.Msg exposing (Msg(SignOut))
-import Msg exposing (Msg(MsgForLayout, MsgForLogin))
+import Msg exposing (Msg(..))
 import Testable.Html exposing (Html, a, b, button, div, h1, h2, i, img, li, nav, text, ul)
 import Testable.Html.Attributes exposing (alt, href, id, rel, src, style)
 import Testable.Html.Events exposing (onClick)
+import UrlRouter.Msg exposing (Msg(Go))
+import UrlRouter.Routes exposing (Page(GiveRidePage))
 
 
 header : Model -> Html Msg.Msg
@@ -24,7 +26,7 @@ header model =
                             ]
                         , ul [ materializeClass "right" ]
                             [ li []
-                                [ a [ href "http://goo.gl/forms/ohEbgkMa9i", class AddRideLink ]
+                                [ a [ onClick (MsgForUrlRouter (Go GiveRidePage)), class AddRideLink ]
                                     [ icon "directions_car"
                                     , text "Dou carona"
                                     ]
