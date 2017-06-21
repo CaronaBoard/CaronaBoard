@@ -1,4 +1,4 @@
-module Login.Model exposing (Model, init, Step(..), User, step, loggedInUser, isLoggedIn)
+module Login.Model exposing (Model, Step(..), User, init, isLoggedIn, loggedInUser, step)
 
 import Common.Response exposing (Response(..))
 

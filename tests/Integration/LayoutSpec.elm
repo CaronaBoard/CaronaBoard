@@ -1,17 +1,17 @@
 module Integration.LayoutSpec exposing (tests)
 
+import Css.Helpers exposing (identifierToString)
+import Expect exposing (equal)
+import Layout.Model exposing (Model, init)
+import Layout.Styles exposing (Classes(Menu, OpenMenuButton))
+import Layout.Update as Update
+import Layout.View.Header exposing (header)
+import Msg as Root exposing (Msg(MsgForLayout))
 import Test exposing (..)
-import Testable.TestContext exposing (..)
+import Testable.Cmd
 import Testable.Html.Selectors exposing (..)
 import Testable.Html.Types exposing (Selector)
-import Expect exposing (equal)
-import Layout.Update as Update
-import Layout.Model exposing (Model, init)
-import Layout.View.Header exposing (header)
-import Layout.Styles exposing (Classes(Menu, OpenMenuButton))
-import Testable.Cmd
-import Msg as Root exposing (Msg(MsgForLayout))
-import Css.Helpers exposing (identifierToString)
+import Testable.TestContext exposing (..)
 
 
 tests : Test
@@ -42,7 +42,7 @@ layoutContext : a -> TestContext Root.Msg Model
 layoutContext _ =
     startForTest
         { init = ( init, Testable.Cmd.none )
-        , update = (\msg model -> Tuple.mapSecond (Testable.Cmd.map MsgForLayout) <| Update.update msg model)
+        , update = \msg model -> Tuple.mapSecond (Testable.Cmd.map MsgForLayout) <| Update.update msg model
         , view = header
         }
 

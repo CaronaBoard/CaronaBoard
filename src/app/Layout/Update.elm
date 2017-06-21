@@ -1,8 +1,8 @@
 module Layout.Update exposing (update)
 
-import Msg as Root exposing (Msg(MsgForLayout))
 import Layout.Model exposing (Model)
-import Layout.Msg exposing (Msg(OpenDropdown, CloseDropdown))
+import Layout.Msg exposing (Msg(CloseDropdown, OpenDropdown))
+import Msg as Root exposing (Msg(MsgForLayout))
 import Testable.Cmd
 
 

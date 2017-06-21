@@ -1,14 +1,14 @@
-module Model exposing (Model, Flags, init)
+module Model exposing (Flags, Model, init)
 
-import UrlRouter.Model as UrlRouter
-import Login.Model as Login
-import Rides.Model as Rides
 import Layout.Model as Layout
-import Testable.Cmd
-import Navigation exposing (Location)
-import UrlRouter.Update as UrlRouterUpdate
-import UrlRouter.Msg exposing (Msg(UrlChange))
+import Login.Model as Login
 import Msg exposing (Msg(MsgForUrlRouter))
+import Navigation exposing (Location)
+import Rides.Model as Rides
+import Testable.Cmd
+import UrlRouter.Model as UrlRouter
+import UrlRouter.Msg exposing (Msg(UrlChange))
+import UrlRouter.Update as UrlRouterUpdate
 
 
 type alias Model =
@@ -34,7 +34,7 @@ init { currentUser } location =
             , layout = Layout.init
             }
     in
-        updateUrlRouter location initialModel
+    updateUrlRouter location initialModel
 
 
 updateUrlRouter : Location -> Model -> ( Model, Testable.Cmd.Cmd Msg.Msg )
@@ -43,6 +43,6 @@ updateUrlRouter location model =
         updatedUrlRouter =
             UrlRouterUpdate.update (MsgForUrlRouter <| UrlChange location) model.urlRouter model.login
     in
-        ( { model | urlRouter = Tuple.first updatedUrlRouter }
-        , Testable.Cmd.map MsgForUrlRouter <| Tuple.second updatedUrlRouter
-        )
+    ( { model | urlRouter = Tuple.first updatedUrlRouter }
+    , Testable.Cmd.map MsgForUrlRouter <| Tuple.second updatedUrlRouter
+    )

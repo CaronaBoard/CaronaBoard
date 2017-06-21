@@ -1,7 +1,7 @@
 module UrlRouter.Model exposing (..)
 
-import UrlRouter.Routes exposing (Page(..), pathParser)
 import Navigation exposing (Location)
+import UrlRouter.Routes exposing (Page(..), pathParser)
 
 
 type alias Model =

@@ -1,19 +1,19 @@
 port module Main exposing (..)
 
-import Navigation
-import Model exposing (Model, Flags, init)
+import Model exposing (Flags, Model, init)
 import Msg exposing (Msg(MsgForUrlRouter))
-import UrlRouter.Msg exposing (Msg(UrlChange))
-import Update exposing (update)
-import View exposing (view)
+import Navigation
 import Ports exposing (subscriptions)
 import Testable
+import Update exposing (update)
+import UrlRouter.Msg exposing (Msg(UrlChange))
+import View exposing (view)
 
 
 main : Program Flags Model Msg.Msg
 main =
     Navigation.programWithFlags (MsgForUrlRouter << UrlChange)
-        { init = (\navigation -> Testable.init << init navigation)
+        { init = \navigation -> Testable.init << init navigation
         , view = Testable.view view
         , update = Testable.update update
         , subscriptions = subscriptions

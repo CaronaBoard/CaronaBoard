@@ -1,15 +1,15 @@
 module Login.View.PasswordStep exposing (passwordStep)
 
-import Testable.Html exposing (Html, div, input, text, i, label)
-import Testable.Html.Attributes exposing (id, type_, for, placeholder, value, autofocus)
-import Testable.Html.Events exposing (onInput, onSubmit, onWithOptions)
-import Login.Msg exposing (Msg(UpdatePassword, PasswordReset))
-import Login.Model exposing (Model)
+import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors)
 import Common.Icon exposing (icon)
-import Login.Styles exposing (class, Classes(ResetPasswordButton, SubmitButton, PasswordStep, FilledEmail))
-import Common.CssHelpers exposing (materializeClass)
 import Json.Decode as Json
+import Login.Model exposing (Model)
+import Login.Msg exposing (Msg(PasswordReset, UpdatePassword))
+import Login.Styles exposing (Classes(FilledEmail, PasswordStep, ResetPasswordButton, SubmitButton), class)
+import Testable.Html exposing (Html, div, i, input, label, text)
+import Testable.Html.Attributes exposing (autofocus, for, id, placeholder, type_, value)
+import Testable.Html.Events exposing (onInput, onSubmit, onWithOptions)
 
 
 passwordStep : Model -> Html Msg

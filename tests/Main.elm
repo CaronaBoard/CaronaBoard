@@ -1,13 +1,13 @@
 port module Main exposing (..)
 
-import Test.Runner.Node exposing (run)
+import Fuzz.UrlRouter.UpdateSpec
+import Integration.LayoutSpec
+import Integration.LoginSpec
+import Integration.RidesSpec
+import Integration.UrlRouterSpec
 import Json.Encode exposing (Value)
 import Test exposing (..)
-import Fuzz.UrlRouter.UpdateSpec
-import Integration.RidesSpec
-import Integration.LoginSpec
-import Integration.UrlRouterSpec
-import Integration.LayoutSpec
+import Test.Runner.Node exposing (run)
 
 
 tests : Test

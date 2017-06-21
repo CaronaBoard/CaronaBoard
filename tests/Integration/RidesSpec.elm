@@ -1,19 +1,19 @@
 module Integration.RidesSpec exposing (tests)
 
+import Css.Helpers exposing (identifierToString)
+import Expect exposing (equal)
+import Msg as Root exposing (Msg(MsgForRides))
+import Rides.Model exposing (Model, Ride, init)
+import Rides.Msg exposing (Msg(..))
+import Rides.Styles exposing (Classes(Card))
+import Rides.Update as Update
+import Rides.View.RoutesList exposing (routesList)
 import Test exposing (..)
-import Testable.TestContext exposing (..)
+import Testable.Cmd
 import Testable.Html
 import Testable.Html.Selectors exposing (..)
 import Testable.Html.Types exposing (Selector)
-import Expect exposing (equal)
-import Rides.Update as Update
-import Rides.Model exposing (Model, Ride, init)
-import Rides.View.RoutesList exposing (routesList)
-import Rides.Msg exposing (Msg(..))
-import Rides.Styles exposing (Classes(Card))
-import Testable.Cmd
-import Msg as Root exposing (Msg(MsgForRides))
-import Css.Helpers exposing (identifierToString)
+import Testable.TestContext exposing (..)
 
 
 tests : Test
@@ -35,7 +35,7 @@ ridesContext : a -> TestContext Root.Msg Model
 ridesContext _ =
     startForTest
         { init = ( init, Testable.Cmd.none )
-        , update = (\msg model -> Tuple.mapSecond (Testable.Cmd.map MsgForRides) <| Update.update msg model)
+        , update = \msg model -> Tuple.mapSecond (Testable.Cmd.map MsgForRides) <| Update.update msg model
         , view = routesList >> Testable.Html.map MsgForRides
         }
 

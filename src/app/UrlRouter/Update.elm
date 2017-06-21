@@ -1,13 +1,13 @@
-module UrlRouter.Update exposing (update, urlRouterUpdate, changePageTo)
+module UrlRouter.Update exposing (changePageTo, update, urlRouterUpdate)
 
 import Login.Model as Login
+import Login.Msg exposing (Msg(PasswordResetResponse, SignInResponse, SignOutResponse))
+import Msg as Root exposing (Msg(MsgForLogin, MsgForUrlRouter))
+import Navigation exposing (Location)
+import Testable.Cmd
 import UrlRouter.Model exposing (Model)
 import UrlRouter.Msg exposing (Msg(Go, UrlChange))
-import UrlRouter.Routes exposing (Page(NotFoundPage, RidesPage, LoginPage, PasswordResetPage), pathParser, toPath, redirectTo)
-import Testable.Cmd
-import Navigation exposing (Location)
-import Msg as Root exposing (Msg(MsgForUrlRouter, MsgForLogin))
-import Login.Msg exposing (Msg(SignInResponse, SignOutResponse, PasswordResetResponse))
+import UrlRouter.Routes exposing (Page(LoginPage, NotFoundPage, PasswordResetPage, RidesPage), pathParser, redirectTo, toPath)
 
 
 update : Root.Msg -> Model -> Login.Model -> ( Model, Testable.Cmd.Cmd UrlRouter.Msg.Msg )
@@ -56,7 +56,7 @@ changePageTo model login location =
         shouldChangeUrl =
             (model.page /= requestedPage) || (model.page /= pageAfterRedirect)
     in
-        if shouldChangeUrl then
-            Just pageAfterRedirect
-        else
-            Nothing
+    if shouldChangeUrl then
+        Just pageAfterRedirect
+    else
+        Nothing

@@ -1,13 +1,13 @@
 module Fuzz.UrlRouter.UpdateSpec exposing (..)
 
-import Test exposing (..)
+import Array exposing (Array, fromList, get, length)
 import Expect exposing (equal)
 import Fuzz exposing (Fuzzer)
-import UrlRouter.Update exposing (changePageTo)
-import UrlRouter.Routes exposing (Page(..), toPath, redirectTo, pathParser)
-import Array exposing (Array, fromList, get, length)
-import Navigation exposing (Location)
 import Login.Model as Login
+import Navigation exposing (Location)
+import Test exposing (..)
+import UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, toPath)
+import UrlRouter.Update exposing (changePageTo)
 
 
 tests : Test
@@ -23,17 +23,17 @@ tests =
                         pageToGo =
                             changePageTo { page = currentPage } login (toLocation requestedPage)
                     in
-                        if currentPage == pageToRedirect && currentPage == requestedPage then
-                            Expect.equal Nothing pageToGo
-                        else
-                            Expect.equal (Just pageToRedirect) pageToGo
+                    if currentPage == pageToRedirect && currentPage == requestedPage then
+                        Expect.equal Nothing pageToGo
+                    else
+                        Expect.equal (Just pageToRedirect) pageToGo
             , fuzz2 randomLogin randomPath "returns 404 for random paths" <|
                 \login randomPath ->
                     let
                         pageToGo =
                             changePageTo { page = SplashScreenPage } login (pathToLocation randomPath)
                     in
-                        Expect.equal (Just NotFoundPage) pageToGo
+                    Expect.equal (Just NotFoundPage) pageToGo
             ]
         ]
 

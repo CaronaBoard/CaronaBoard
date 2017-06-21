@@ -1,12 +1,12 @@
 module Update exposing (update)
 
-import Model exposing (Model)
-import UrlRouter.Update as UrlRouter
-import Login.Update as Login
-import Rides.Update as Rides
 import Layout.Update as Layout
+import Login.Update as Login
+import Model exposing (Model)
 import Msg exposing (Msg(..))
+import Rides.Update as Rides
 import Testable.Cmd
+import UrlRouter.Update as UrlRouter
 
 
 update : Msg -> Model -> ( Model, Testable.Cmd.Cmd Msg )
@@ -39,4 +39,4 @@ update msg model =
                 , Testable.Cmd.map MsgForLayout <| Tuple.second layout
                 ]
     in
-        ( updatedModel, cmds )
+    ( updatedModel, cmds )

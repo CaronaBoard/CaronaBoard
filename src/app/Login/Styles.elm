@@ -1,10 +1,10 @@
-module Login.Styles exposing (styles, Classes(..), class, namespace)
+module Login.Styles exposing (Classes(..), class, namespace, styles)
 
+import Common.Colors exposing (..)
+import Common.CssHelpers exposing (..)
 import Css exposing (..)
 import Css.Elements exposing (h1, input, label)
 import Css.Namespace
-import Common.Colors exposing (..)
-import Common.CssHelpers exposing (..)
 
 
 { class, namespace } =

@@ -1,9 +1,9 @@
 module Msg exposing (Msg(..))
 
+import Layout.Msg as Layout
 import Login.Msg as Login
 import Rides.Msg as Rides
 import UrlRouter.Msg as UrlRouter
-import Layout.Msg as Layout
 
 
 type Msg

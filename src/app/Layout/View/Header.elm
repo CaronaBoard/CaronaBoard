@@ -1,15 +1,15 @@
 module Layout.View.Header exposing (header)
 
-import Testable.Html exposing (Html, img, h1, h2, a, b, text, button, nav, div, ul, li, i)
-import Testable.Html.Attributes exposing (id, href, src, rel, alt, style)
-import Testable.Html.Events exposing (onClick)
-import Msg exposing (Msg(MsgForLogin, MsgForLayout))
-import Login.Msg exposing (Msg(SignOut))
+import Common.CssHelpers exposing (materializeClass)
 import Common.Icon exposing (icon)
 import Layout.Model exposing (Model)
-import Layout.Msg exposing (Msg(OpenDropdown, CloseDropdown))
-import Layout.Styles exposing (class, Classes(Navbar, BrandLogo, Menu, AnimatedDropdown, OpenMenuButton, SignOutButton))
-import Common.CssHelpers exposing (materializeClass)
+import Layout.Msg exposing (Msg(CloseDropdown, OpenDropdown))
+import Layout.Styles exposing (Classes(AnimatedDropdown, BrandLogo, Menu, Navbar, OpenMenuButton, SignOutButton), class)
+import Login.Msg exposing (Msg(SignOut))
+import Msg exposing (Msg(MsgForLayout, MsgForLogin))
+import Testable.Html exposing (Html, a, b, button, div, h1, h2, i, img, li, nav, text, ul)
+import Testable.Html.Attributes exposing (alt, href, id, rel, src, style)
+import Testable.Html.Events exposing (onClick)
 
 
 header : Model -> Html Msg.Msg

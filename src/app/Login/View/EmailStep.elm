@@ -1,14 +1,14 @@
 module Login.View.EmailStep exposing (emailStep)
 
-import Testable.Html exposing (Html, div, input, label, text, i)
-import Testable.Html.Attributes exposing (type_, placeholder, value, id, for)
-import Testable.Html.Events exposing (onInput, onSubmit)
-import Login.Msg exposing (Msg(UpdateEmail))
-import Login.Model exposing (Model)
+import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors)
 import Common.Icon exposing (icon)
-import Login.Styles exposing (class, Classes(SubmitButton))
-import Common.CssHelpers exposing (materializeClass)
+import Login.Model exposing (Model)
+import Login.Msg exposing (Msg(UpdateEmail))
+import Login.Styles exposing (Classes(SubmitButton), class)
+import Testable.Html exposing (Html, div, i, input, label, text)
+import Testable.Html.Attributes exposing (for, id, placeholder, type_, value)
+import Testable.Html.Events exposing (onInput, onSubmit)
 
 
 emailStep : Model -> Html Msg

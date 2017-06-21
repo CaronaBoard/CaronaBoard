@@ -1,9 +1,9 @@
 module Login.View.Layout exposing (loginLayout)
 
-import Testable.Html exposing (div)
-import Msg exposing (Msg)
-import Login.Styles exposing (class, Classes(Page))
 import Common.CssHelpers exposing (materializeClass)
+import Login.Styles exposing (Classes(Page), class)
+import Msg exposing (Msg)
+import Testable.Html exposing (div)
 
 
 loginLayout : Testable.Html.Html Msg -> Testable.Html.Html Msg

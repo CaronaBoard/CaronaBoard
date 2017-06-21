@@ -1,8 +1,8 @@
-module UrlRouter.Routes exposing (toPath, redirectTo, pathParser, Page(..))
+module UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, toPath)
 
-import UrlParser exposing (Parser, (</>), map, oneOf, string, parseHash)
-import Navigation
 import Login.Model as Login exposing (isLoggedIn)
+import Navigation
+import UrlParser exposing ((</>), Parser, map, oneOf, parseHash, string)
 
 
 type Page

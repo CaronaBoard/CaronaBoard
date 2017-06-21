@@ -1,19 +1,19 @@
-module View exposing (view, staticView)
+module View exposing (staticView, view)
 
-import Testable
-import Testable.Html exposing (div, h1, text)
 import Html
-import Model exposing (Model, init)
-import Msg exposing (Msg(MsgForLogin))
+import Layout.View.Header exposing (header)
 import Layout.View.SplashScreen exposing (splashScreen)
-import UrlRouter.Routes exposing (Page(SplashScreenPage, LoginPage, RidesPage, NotFoundPage, PasswordResetPage))
 import Login.View.Layout exposing (loginLayout)
 import Login.View.Login exposing (login)
 import Login.View.PasswordReset exposing (passwordReset)
-import Layout.View.Header exposing (header)
+import Model exposing (Model, init)
+import Msg exposing (Msg(MsgForLogin))
+import Rides.Styles exposing (Classes(Page), class)
 import Rides.View.Instructions exposing (instructions)
 import Rides.View.RoutesList exposing (routesList)
-import Rides.Styles exposing (class, Classes(Page))
+import Testable
+import Testable.Html exposing (div, h1, text)
+import UrlRouter.Routes exposing (Page(LoginPage, NotFoundPage, PasswordResetPage, RidesPage, SplashScreenPage))
 
 
 view : Model -> Testable.Html.Html Msg

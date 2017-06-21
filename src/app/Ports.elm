@@ -1,8 +1,8 @@
 port module Ports exposing (subscriptions)
 
+import Login.Ports as Login
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
-import Login.Ports as Login
 import Rides.Ports as Rides
 
 

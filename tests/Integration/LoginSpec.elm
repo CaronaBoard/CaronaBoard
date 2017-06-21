@@ -1,20 +1,20 @@
 module Integration.LoginSpec exposing (tests)
 
+import Css.Helpers exposing (identifierToString)
+import Expect exposing (equal)
+import Login.Model exposing (Model, init, loggedInUser)
+import Login.Msg exposing (Msg(..))
+import Login.Ports exposing (checkRegistration, passwordReset, signIn)
+import Login.Styles exposing (Classes(ResetPasswordButton))
+import Login.Update as Update
+import Login.View.Login as View
+import Msg as Root exposing (Msg(MsgForLogin))
 import Test exposing (..)
-import Testable.TestContext exposing (..)
+import Testable.Cmd
 import Testable.Html
 import Testable.Html.Selectors exposing (..)
 import Testable.Html.Types exposing (Selector)
-import Expect exposing (equal)
-import Login.Update as Update
-import Login.Model exposing (Model, loggedInUser, init)
-import Login.View.Login as View
-import Login.Msg exposing (Msg(..))
-import Login.Ports exposing (checkRegistration, signIn, passwordReset)
-import Login.Styles exposing (Classes(ResetPasswordButton))
-import Css.Helpers exposing (identifierToString)
-import Testable.Cmd
-import Msg as Root exposing (Msg(MsgForLogin))
+import Testable.TestContext exposing (..)
 
 
 tests : Test
@@ -108,7 +108,7 @@ loginContext : a -> TestContext Root.Msg Model
 loginContext _ =
     startForTest
         { init = ( init Nothing, Testable.Cmd.none )
-        , update = (\msg model -> Tuple.mapSecond (Testable.Cmd.map MsgForLogin) <| Update.update msg model)
+        , update = \msg model -> Tuple.mapSecond (Testable.Cmd.map MsgForLogin) <| Update.update msg model
         , view = View.login >> Testable.Html.map MsgForLogin
         }
 

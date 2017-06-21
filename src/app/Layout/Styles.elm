@@ -1,10 +1,10 @@
-module Layout.Styles exposing (styles, Classes(..), class, namespace)
+module Layout.Styles exposing (Classes(..), class, namespace, styles)
 
+import Common.Colors exposing (..)
+import Common.CssHelpers exposing (..)
 import Css exposing (..)
 import Css.Elements exposing (..)
 import Css.Namespace
-import Common.CssHelpers exposing (..)
-import Common.Colors exposing (..)
 
 
 { class, namespace } =
@@ -85,7 +85,8 @@ layoutStyles =
                 ]
             ]
         ]
-      -- TODO: This below is a very hacky way of adding keyframes, waiting for elm-css to add support for it
+
+    -- TODO: This below is a very hacky way of adding keyframes, waiting for elm-css to add support for it
     , selector "@keyframes slideDown {"
         [ descendants
             [ selector "from"

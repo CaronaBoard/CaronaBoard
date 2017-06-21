@@ -1,7 +1,7 @@
-port module Login.Ports exposing (subscriptions, checkRegistration, signIn, signOut, passwordReset, passwordResetResponse)
+port module Login.Ports exposing (checkRegistration, passwordReset, passwordResetResponse, signIn, signOut, subscriptions)
 
 import Login.Model exposing (User)
-import Login.Msg exposing (Msg(CheckRegistrationResponse, SignInResponse, SignOutResponse, PasswordResetResponse))
+import Login.Msg exposing (Msg(CheckRegistrationResponse, PasswordResetResponse, SignInResponse, SignOutResponse))
 
 
 subscriptions : Sub Msg

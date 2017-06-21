@@ -1,11 +1,11 @@
 module Common.Form exposing (loadingOrSubmitButton, renderErrors)
 
-import Testable.Html exposing (Html, Attribute, div, button, text, i)
-import Testable.Html.Attributes exposing (id, value, disabled)
-import Login.Msg exposing (Msg(..))
-import Common.Response exposing (Response(..))
-import Layout.Styles exposing (class, Classes(ButtonContainer))
 import Common.CssHelpers exposing (materializeClass)
+import Common.Response exposing (Response(..))
+import Layout.Styles exposing (Classes(ButtonContainer), class)
+import Login.Msg exposing (Msg(..))
+import Testable.Html exposing (Attribute, Html, button, div, i, text)
+import Testable.Html.Attributes exposing (disabled, id, value)
 
 
 loadingOrSubmitButton : Response a -> List (Attribute Msg) -> List (Html Msg) -> Html Msg

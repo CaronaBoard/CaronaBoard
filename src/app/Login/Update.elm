@@ -1,11 +1,11 @@
 module Login.Update exposing (update)
 
-import Msg as Root exposing (Msg(MsgForUrlRouter, MsgForLogin))
-import Login.Model exposing (Model, Step(..), User, step, init)
-import Login.Ports exposing (checkRegistration, signIn, signOut, passwordReset)
-import Login.Msg exposing (Msg(..))
-import Testable.Cmd
 import Common.Response exposing (Response(..))
+import Login.Model exposing (Model, Step(..), User, init, step)
+import Login.Msg exposing (Msg(..))
+import Login.Ports exposing (checkRegistration, passwordReset, signIn, signOut)
+import Msg as Root exposing (Msg(MsgForLogin, MsgForUrlRouter))
+import Testable.Cmd
 
 
 update : Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd Login.Msg.Msg )
@@ -53,7 +53,7 @@ loginUpdate msg model =
                         |> Maybe.map Error
                         |> Maybe.withDefault successResponse
             in
-                ( { model | loggedIn = loggedIn }, Testable.Cmd.none )
+            ( { model | loggedIn = loggedIn }, Testable.Cmd.none )
 
         SignOut ->
             ( model, Testable.Cmd.wrap <| signOut () )
@@ -70,4 +70,4 @@ loginUpdate msg model =
                     Maybe.map Error error
                         |> Maybe.withDefault (Success ())
             in
-                ( { model | passwordReset = response }, Testable.Cmd.none )
+            ( { model | passwordReset = response }, Testable.Cmd.none )

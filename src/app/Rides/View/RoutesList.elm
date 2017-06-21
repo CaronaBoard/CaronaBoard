@@ -1,11 +1,11 @@
 module Rides.View.RoutesList exposing (routesList)
 
-import Testable.Html exposing (Html, text, span, ol, li, a, div, strong, p, hr)
-import Testable.Html.Attributes exposing (id, href, target, rel)
-import Rides.Model exposing (Model, Ride)
-import Common.Icon exposing (icon)
-import Rides.Styles exposing (class, Classes(Card, CardTitle, OtherDetails, Path, PathIcon, PathIconDot))
 import Common.CssHelpers exposing (materializeClass)
+import Common.Icon exposing (icon)
+import Rides.Model exposing (Model, Ride)
+import Rides.Styles exposing (Classes(Card, CardTitle, OtherDetails, Path, PathIcon, PathIconDot), class)
+import Testable.Html exposing (Html, a, div, hr, li, ol, p, span, strong, text)
+import Testable.Html.Attributes exposing (href, id, rel, target)
 
 
 routesList : Model -> Html a
@@ -30,7 +30,7 @@ rideRoute ride =
                     ]
                 ]
              ]
-                ++ (flexibleRoute ride)
+                ++ flexibleRoute ride
             )
         , div [ class OtherDetails, materializeClass "card-action" ]
             [ p []

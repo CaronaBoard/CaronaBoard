@@ -1,24 +1,24 @@
 module Integration.UrlRouterSpec exposing (tests)
 
-import Test exposing (..)
-import Testable.TestContext exposing (..)
-import Testable.Html.Selectors exposing (..)
-import Testable.Html.Types exposing (Selector)
+import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
-import Model exposing (Model)
-import Update
-import Msg as Root exposing (Msg(MsgForUrlRouter, MsgForLogin))
-import View
+import Layout.Styles exposing (Classes(OpenMenuButton, SignOutButton))
+import Login.Model exposing (User)
 import Login.Msg exposing (Msg(..))
 import Login.Ports exposing (signOut)
-import Login.Model exposing (User)
 import Login.Styles
-import Layout.Styles exposing (Classes(OpenMenuButton, SignOutButton))
-import Rides.Styles
+import Model exposing (Model)
+import Msg as Root exposing (Msg(MsgForLogin, MsgForUrlRouter))
 import Navigation exposing (Location)
+import Rides.Styles
+import Test exposing (..)
+import Testable.Html.Selectors exposing (..)
+import Testable.Html.Types exposing (Selector)
+import Testable.TestContext exposing (..)
+import Update
 import UrlRouter.Msg exposing (Msg(UrlChange))
-import UrlRouter.Routes exposing (toPath, Page(SplashScreenPage, RidesPage, LoginPage))
-import Css.Helpers exposing (identifierToString)
+import UrlRouter.Routes exposing (Page(LoginPage, RidesPage, SplashScreenPage), toPath)
+import View
 
 
 tests : Test

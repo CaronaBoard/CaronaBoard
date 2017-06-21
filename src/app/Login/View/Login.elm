@@ -1,13 +1,13 @@
 module Login.View.Login exposing (login)
 
-import Testable.Html exposing (Html, div, h1, b, p, input, text, form)
-import Testable.Html.Events exposing (onInput, onSubmit)
-import Login.Msg exposing (Msg(..))
+import Common.Icon exposing (icon)
 import Login.Model exposing (Model, Step(..), step)
+import Login.Msg exposing (Msg(..))
+import Login.Styles exposing (Classes(Background, Container, Icon, StepForm, StepTitle), class)
 import Login.View.EmailStep exposing (emailStep)
 import Login.View.PasswordStep exposing (passwordStep)
-import Common.Icon exposing (icon)
-import Login.Styles exposing (class, Classes(Background, Container, StepTitle, StepForm, Icon))
+import Testable.Html exposing (Html, b, div, form, h1, input, p, text)
+import Testable.Html.Events exposing (onInput, onSubmit)
 
 
 login : Model -> Html Msg
