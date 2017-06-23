@@ -31,6 +31,12 @@ expectToContainText expected actual =
         (String.contains expected actual)
 
 
+expectToNotContainText : String -> String -> Expect.Expectation
+expectToNotContainText expected actual =
+    Expect.false ("Expected\n\t" ++ actual ++ "\nto NOT contain\n\t" ++ expected)
+        (String.contains expected actual)
+
+
 someUser : Maybe User
 someUser =
     Just { id = "foo-bar-bar", name = "Baz" }

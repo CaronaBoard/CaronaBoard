@@ -12,8 +12,7 @@ import Css.Namespace
 
 
 type Classes
-    = Page
-    | Card
+    = Card
     | CardTitle
     | OtherDetails
     | Path
