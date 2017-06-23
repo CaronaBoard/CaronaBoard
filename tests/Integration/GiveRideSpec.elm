@@ -34,9 +34,12 @@ tests =
                 >> find []
                 >> assertText (expectToContainText "not a function")
         , test "goes to the rides page on success" <|
-            submitNewRide
-                >> update (MsgForGiveRide <| GiveRideResponse ( Nothing, Just rideExample ))
+            successfullySubmitNewRide
                 >> assertCalled (Cmd.map MsgForUrlRouter <| Navigation.newUrl <| toPath RidesPage)
+        , test "shows notification on success" <|
+            successfullySubmitNewRide
+                >> find []
+                >> assertText (expectToContainText "Carona criada com sucesso!")
         ]
 
 
@@ -70,3 +73,9 @@ submitNewRide =
     fillNewRide
         >> find [ tag "form" ]
         >> trigger "submit" "{}"
+
+
+successfullySubmitNewRide : a -> TestContext Root.Msg Model
+successfullySubmitNewRide =
+    submitNewRide
+        >> update (MsgForGiveRide <| GiveRideResponse ( Nothing, Just rideExample ))

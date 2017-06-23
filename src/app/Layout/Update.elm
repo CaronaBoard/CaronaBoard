@@ -1,8 +1,9 @@
 module Layout.Update exposing (update)
 
+import GiveRide.Msg exposing (Msg(..))
 import Layout.Model exposing (Model)
-import Layout.Msg exposing (Msg(CloseDropdown, OpenDropdown))
-import Msg as Root exposing (Msg(MsgForLayout))
+import Layout.Msg exposing (Msg(..))
+import Msg as Root exposing (Msg(..))
 import Testable.Cmd
 
 
@@ -11,6 +12,9 @@ update msg model =
     case msg of
         MsgForLayout layoutMsg ->
             ( updateLayout layoutMsg model, Testable.Cmd.none )
+
+        MsgForGiveRide (GiveRideResponse ( Nothing, Just _ )) ->
+            ( updateLayout (ShowNotification "Carona criada com sucesso!") model, Testable.Cmd.none )
 
         _ ->
             ( model, Testable.Cmd.none )
@@ -24,3 +28,9 @@ updateLayout msg model =
 
         CloseDropdown ->
             { model | dropdownOpen = False }
+
+        ShowNotification notification ->
+            { model | notification = Just notification }
+
+        HideNotification ->
+            model
