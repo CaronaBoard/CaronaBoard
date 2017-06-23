@@ -1,6 +1,8 @@
 module Update exposing (update)
 
+import GiveRide.Update as GiveRide
 import Layout.Update as Layout
+import Login.Model exposing (loggedInUser)
 import Login.Update as Login
 import Model exposing (Model)
 import Msg exposing (Msg(..))
@@ -24,11 +26,15 @@ update msg model =
         layout =
             Layout.update msg model.layout
 
+        giveRide =
+            GiveRide.update (loggedInUser model.login) msg model.giveRide
+
         updatedModel =
             { urlRouter = Tuple.first urlRouter
             , login = Tuple.first login
             , rides = Tuple.first rides
             , layout = Tuple.first layout
+            , giveRide = Tuple.first giveRide
             }
 
         cmds =
@@ -37,6 +43,7 @@ update msg model =
                 , Testable.Cmd.map MsgForLogin <| Tuple.second login
                 , Testable.Cmd.map MsgForRides <| Tuple.second rides
                 , Testable.Cmd.map MsgForLayout <| Tuple.second layout
+                , Testable.Cmd.map MsgForGiveRide <| Tuple.second giveRide
                 ]
     in
     ( updatedModel, cmds )

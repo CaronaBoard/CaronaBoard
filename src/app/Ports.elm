@@ -1,5 +1,6 @@
 port module Ports exposing (subscriptions)
 
+import GiveRide.Ports as GiveRide
 import Login.Ports as Login
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
@@ -11,4 +12,5 @@ subscriptions _ =
     Sub.batch
         [ Sub.map MsgForRides Rides.subscriptions
         , Sub.map MsgForLogin Login.subscriptions
+        , Sub.map MsgForGiveRide GiveRide.subscriptions
         ]

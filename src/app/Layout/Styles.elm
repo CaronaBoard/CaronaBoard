@@ -1,4 +1,4 @@
-module Layout.Styles exposing (Classes(..), class, namespace, styles)
+module Layout.Styles exposing (Classes(..), button, class, namespace, styles)
 
 import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
@@ -12,13 +12,19 @@ import Css.Namespace
 
 
 type Classes
-    = Menu
+    = Page
+    | Menu
     | AnimatedDropdown
     | Navbar
     | BrandLogo
+    | SubmitButton
     | ButtonContainer
     | OpenMenuButton
     | SignOutButton
+    | AddRideLink
+    | PageTitle
+    | NotificationVisible
+    | NotificationHidden
 
 
 styles : Stylesheet
@@ -39,6 +45,12 @@ generalStyles =
         [ important <| borderRadius (px 54)
         , important <| property "text-transform" "none"
         ]
+    , cssClass PageTitle
+        [ darkTextColor
+        , fontSize (px 34)
+        ]
+    , cssClass SubmitButton
+        button
     , cssClass ButtonContainer
         [ displayFlex
         , justifyContent center
@@ -49,9 +61,21 @@ generalStyles =
                 [ important <| top (px -10)
                 , important <| fontSize (pct 80)
                 ]
+            , selector "input"
+                [ important <| fontSize (Css.rem 1.1)
+                ]
             , selector "input:placeholder-shown:not(:focus) + *"
-                [ important <| fontSize (pct 100)
+                [ important <| fontSize (Css.rem 1.1)
                 , important <| top (px 10)
+                ]
+            ]
+        ]
+    , cssClass AddRideLink
+        [ displayFlex
+        , alignItems center
+        , descendants
+            [ selector "i"
+                [ marginRight (px 10)
                 ]
             ]
         ]
@@ -60,12 +84,14 @@ generalStyles =
 
 layoutStyles : List Snippet
 layoutStyles =
-    [ cssClass Navbar
+    [ cssClass Page
+        []
+    , cssClass Navbar
         [ backgroundColor primaryBlue
         ]
     , cssClass BrandLogo
         [ fontSize (Css.rem 1.4)
-        , marginLeft (px 10)
+        , marginLeft (px 20)
         ]
     , cssClass Menu
         [ position fixed
@@ -85,6 +111,14 @@ layoutStyles =
                 ]
             ]
         ]
+    , cssClass NotificationVisible <|
+        notification
+            ++ [ bottom (px 0)
+               ]
+    , cssClass NotificationHidden <|
+        notification
+            ++ [ bottom (px -50)
+               ]
 
     -- TODO: This below is a very hacky way of adding keyframes, waiting for elm-css to add support for it
     , selector "@keyframes slideDown {"
@@ -101,4 +135,29 @@ layoutStyles =
                 ]
             ]
         ]
+    ]
+
+
+button : List Mixin
+button =
+    [ width (pct 100)
+    , important <| backgroundColor primaryBlue -- need to overwrite materialize css default color
+    , lightTextColor
+    , hover
+        [ backgroundColor lighterBlue
+        ]
+    ]
+
+
+notification : List Mixin
+notification =
+    [ width (pct 100)
+    , height (px 50)
+    , property "transition" "all 0.5s ease"
+    , lightTextColor
+    , backgroundColor (rgba 0 0 0 0.8)
+    , displayFlex
+    , alignItems center
+    , padding (px 20)
+    , position fixed
     ]

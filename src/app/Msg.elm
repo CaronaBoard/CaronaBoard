@@ -1,5 +1,6 @@
 module Msg exposing (Msg(..))
 
+import GiveRide.Msg as GiveRide
 import Layout.Msg as Layout
 import Login.Msg as Login
 import Rides.Msg as Rides
@@ -11,3 +12,4 @@ type Msg
     | MsgForLogin Login.Msg
     | MsgForRides Rides.Msg
     | MsgForLayout Layout.Msg
+    | MsgForGiveRide GiveRide.Msg

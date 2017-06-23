@@ -1,6 +1,6 @@
 module Rides.Update exposing (update)
 
-import Msg as Root exposing (Msg(MsgForRides))
+import Msg as Root exposing (Msg(..))
 import Rides.Model exposing (Model)
 import Rides.Msg exposing (Msg(UpdateRides))
 import Testable.Cmd

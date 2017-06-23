@@ -6,10 +6,8 @@ type alias Ride =
     , name : String
     , origin : String
     , destination : String
-    , area : String
     , days : String
     , hours : String
-    , flexible : Bool
     , formUrl : String
     }
 

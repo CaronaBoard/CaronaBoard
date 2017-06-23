@@ -12,7 +12,7 @@
         "elm-lang/html": "2.0.0 <= v < 3.0.0",
         "elm-lang/navigation": "2.1.0 <= v < 3.0.0",
         "evancz/url-parser": "2.0.1 <= v < 3.0.0",
-        "rogeriochaves/elm-testable": "4.0.0 <= v < 5.0.0",
+        "rogeriochaves/elm-testable": "4.1.0 <= v < 5.0.0",
         "rogeriochaves/elm-testable-css-helpers": "1.0.1 <= v < 2.0.0",
         "rtfeldman/elm-css": "8.1.0 <= v < 9.0.0"
     },

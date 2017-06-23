@@ -2,14 +2,16 @@ module Layout.View.Header exposing (header)
 
 import Common.CssHelpers exposing (materializeClass)
 import Common.Icon exposing (icon)
+import Common.Link exposing (linkTo)
 import Layout.Model exposing (Model)
 import Layout.Msg exposing (Msg(CloseDropdown, OpenDropdown))
-import Layout.Styles exposing (Classes(AnimatedDropdown, BrandLogo, Menu, Navbar, OpenMenuButton, SignOutButton), class)
+import Layout.Styles exposing (Classes(..), class)
 import Login.Msg exposing (Msg(SignOut))
-import Msg exposing (Msg(MsgForLayout, MsgForLogin))
+import Msg exposing (Msg(..))
 import Testable.Html exposing (Html, a, b, button, div, h1, h2, i, img, li, nav, text, ul)
 import Testable.Html.Attributes exposing (alt, href, id, rel, src, style)
 import Testable.Html.Events exposing (onClick)
+import UrlRouter.Routes exposing (Page(..))
 
 
 header : Model -> Html Msg.Msg
@@ -18,14 +20,18 @@ header model =
         menu model
             ++ [ nav [ class Navbar ]
                     [ div [ materializeClass "nav-wrapper" ]
-                        [ a [ class BrandLogo, materializeClass "left", href "/" ]
+                        [ linkTo RidesPage
+                            [ class BrandLogo, materializeClass "left" ]
                             [ b [] [ text "Carona" ]
                             , text "Board"
                             ]
                         , ul [ materializeClass "right" ]
                             [ li []
-                                [ a [ href "http://goo.gl/forms/ohEbgkMa9i" ]
-                                    [ icon "directions_car" ]
+                                [ linkTo GiveRidePage
+                                    [ class AddRideLink ]
+                                    [ icon "directions_car"
+                                    , text "Dou carona"
+                                    ]
                                 ]
                             , li []
                                 [ a [ class OpenMenuButton, onClick (MsgForLayout OpenDropdown) ]

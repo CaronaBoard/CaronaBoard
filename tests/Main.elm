@@ -1,6 +1,7 @@
 port module Main exposing (..)
 
 import Fuzz.UrlRouter.UpdateSpec
+import Integration.GiveRideSpec
 import Integration.LayoutSpec
 import Integration.LoginSpec
 import Integration.RidesSpec
@@ -18,6 +19,7 @@ tests =
         , Integration.LoginSpec.tests
         , Integration.UrlRouterSpec.tests
         , Integration.LayoutSpec.tests
+        , Integration.GiveRideSpec.tests
         ]
 
 
