@@ -6,23 +6,23 @@ jobs:
       - image: circleci/node:7
     steps:
       - checkout
-      - restore_cache:
-          key: dependencies-cache-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}-{{ checksum "elm-package.json" }}-{{ checksum "tests/elm-package.json" }}
-      - run:
-          name: install-dependencies
-          command: yarn install
-      - run:
-          name: test
-          command: yarn test
-      - run:
-          name: build
-          command: yarn build
-      - save_cache:
-          key: dependencies-cache-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}-{{ checksum "elm-package.json" }}-{{ checksum "tests/elm-package.json" }}
-          paths:
-            - node_modules
-            - elm-stuff
-            - tests/elm-stuff
+      # - restore_cache:
+      #     key: dependencies-cache-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}-{{ checksum "elm-package.json" }}-{{ checksum "tests/elm-package.json" }}
+      # - run:
+      #     name: install-dependencies
+      #     command: yarn install
+      # - run:
+      #     name: test
+      #     command: yarn test
+      # - run:
+      #     name: build
+      #     command: yarn build
+      # - save_cache:
+      #     key: dependencies-cache-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}-{{ checksum "elm-package.json" }}-{{ checksum "tests/elm-package.json" }}
+      #     paths:
+      #       - node_modules
+      #       - elm-stuff
+      #       - tests/elm-stuff
       - deploy:
           name: deploy
           command: yarn deploy
