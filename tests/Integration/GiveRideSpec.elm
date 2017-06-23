@@ -6,10 +6,12 @@ import GiveRide.Ports
 import Helpers exposing (expectToContainText, initialContext, someUser, toLocation)
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
+import Navigation
+import Rides.Model exposing (Ride)
 import Test exposing (..)
 import Testable.Html.Selectors exposing (..)
 import Testable.TestContext exposing (..)
-import UrlRouter.Routes exposing (Page(..))
+import UrlRouter.Routes exposing (Page(..), toPath)
 
 
 tests : Test
@@ -31,12 +33,23 @@ tests =
                 >> update (MsgForGiveRide <| GiveRideResponse ( Just "Scientists just proved that undefined is indeed not a function", Nothing ))
                 >> find []
                 >> assertText (expectToContainText "not a function")
+        , describe "on success"
+            [ test "goes to the rides page on success" <|
+                submitNewRide
+                    >> update (MsgForGiveRide <| GiveRideResponse ( Nothing, Just rideExample ))
+                    >> assertCalled (Cmd.map MsgForUrlRouter <| Navigation.newUrl <| toPath RidesPage)
+            ]
         ]
 
 
 ridesContext : a -> TestContext Root.Msg Model
 ridesContext =
     initialContext someUser GiveRidePage
+
+
+rideExample : Ride
+rideExample =
+    { id = "1", name = "foo", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", formUrl = "http://foo" }
 
 
 fillNewRide : a -> TestContext Root.Msg Model
