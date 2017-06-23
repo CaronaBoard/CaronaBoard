@@ -2,6 +2,7 @@ module Integration.RidesSpec exposing (tests)
 
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
+import GiveRide.Ports
 import Helpers exposing (toLocation)
 import Login.Model exposing (User)
 import Model exposing (Model)
@@ -39,6 +40,9 @@ tests =
                 submitNewRide
                     >> find [ id "submitNewRide" ]
                     >> assertText (Expect.equal "Carregando...")
+            , test "sends request via giveRide port" <|
+                submitNewRide
+                    >> assertCalled (Cmd.map MsgForGiveRide <| GiveRide.Ports.giveRide { name = "foo", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" })
             ]
         ]
 

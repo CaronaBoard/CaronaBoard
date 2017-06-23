@@ -3,6 +3,7 @@ module GiveRide.Update exposing (update)
 import Common.Response exposing (Response(..))
 import GiveRide.Model exposing (Model)
 import GiveRide.Msg exposing (Msg(..))
+import GiveRide.Ports exposing (giveRide)
 import Msg as Root exposing (Msg(..))
 import Testable.Cmd
 
@@ -36,4 +37,13 @@ updateGiveRide msg model =
             ( { model | hours = hours }, Testable.Cmd.none )
 
         Submit ->
-            ( { model | response = Loading }, Testable.Cmd.none )
+            ( { model | response = Loading }
+            , Testable.Cmd.wrap <|
+                giveRide
+                    { name = model.name
+                    , origin = model.origin
+                    , destination = model.destination
+                    , days = model.days
+                    , hours = model.hours
+                    }
+            )
