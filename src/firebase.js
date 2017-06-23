@@ -74,4 +74,15 @@ module.exports = function (app) {
       app.ports.passwordResetResponse.send(error.message);
     });
   });
+
+  app.ports.giveRide.subscribe(function (newRide) {
+    newRide.formUrl = newRide.formUrl || '';
+    firebase.database().ref('rides').push(newRide).then(function (rideRef) {
+      rideRef.once('value').then(function (ride) {
+        app.ports.giveRideResponse.send([null, Object.assign({id: ride.getKey()}, ride.val()) ]);
+      });
+    }).catch(function (error) {
+      app.ports.giveRideResponse.send([error.message, null]);
+    });
+  });
 }
