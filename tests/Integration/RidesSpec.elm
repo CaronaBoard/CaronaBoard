@@ -2,42 +2,55 @@ module Integration.RidesSpec exposing (tests)
 
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
-import Msg as Root exposing (Msg(MsgForRides))
-import Rides.Model exposing (Model, Ride, init)
+import Helpers exposing (toLocation)
+import Login.Model exposing (User)
+import Model exposing (Model)
+import Msg as Root exposing (Msg(..))
+import Rides.Model exposing (Ride, init)
 import Rides.Msg exposing (Msg(..))
 import Rides.Styles exposing (Classes(Card))
-import Rides.Update as Update
-import Rides.View.RoutesList exposing (routesList)
 import Test exposing (..)
-import Testable.Cmd
-import Testable.Html
 import Testable.Html.Selectors exposing (..)
 import Testable.Html.Types exposing (Selector)
 import Testable.TestContext exposing (..)
+import Update
+import UrlRouter.Routes exposing (Page(..))
+import View
 
 
 tests : Test
 tests =
     describe "Rides"
         [ test "renders no routes when there are no rides loaded yet" <|
-            ridesContext
+            ridesContext RidesPage
                 >> findAll [ class Card ]
                 >> assertNodeCount (Expect.equal 0)
         , test "renders routes when they load" <|
-            ridesContext
+            ridesContext RidesPage
                 >> update (MsgForRides <| UpdateRides ridesExample)
                 >> findAll [ class Card ]
                 >> assertNodeCount (Expect.equal 2)
+        , describe "gives a new ride" <|
+            [ test "fill the fields correctly" <|
+                fillNewRide
+                    >> find [ id "name" ]
+                    >> assertAttribute "value" (Expect.equal "foo")
+            ]
         ]
 
 
-ridesContext : a -> TestContext Root.Msg Model
-ridesContext _ =
+ridesContext : Page -> a -> TestContext Root.Msg Model
+ridesContext page _ =
     startForTest
-        { init = ( init, Testable.Cmd.none )
-        , update = \msg model -> Tuple.mapSecond (Testable.Cmd.map MsgForRides) <| Update.update msg model
-        , view = routesList >> Testable.Html.map MsgForRides
+        { init = Model.init { currentUser = someUser } (toLocation page)
+        , update = Update.update
+        , view = View.view
         }
+
+
+someUser : Maybe User
+someUser =
+    Just { id = "foo-bar-bar", name = "Baz" }
 
 
 ridesExample : List Ride
@@ -50,3 +63,18 @@ ridesExample =
 class : Classes -> Selector
 class =
     Testable.Html.Selectors.class << identifierToString Rides.Styles.namespace
+
+
+fillNewRide : a -> TestContext Root.Msg Model
+fillNewRide =
+    ridesContext GiveRidePage
+        >> find [ id "name" ]
+        >> trigger "input" "{\"target\": {\"value\": \"foo\"}}"
+        >> find [ id "origin" ]
+        >> trigger "input" "{\"target\": {\"value\": \"bar\"}}"
+        >> find [ id "destination" ]
+        >> trigger "input" "{\"target\": {\"value\": \"baz, near qux\"}}"
+        >> find [ id "days" ]
+        >> trigger "input" "{\"target\": {\"value\": \"Mon to Fri\"}}"
+        >> find [ id "hours" ]
+        >> trigger "input" "{\"target\": {\"value\": \"18:30\"}}"

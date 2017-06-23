@@ -2,6 +2,7 @@ module Integration.UrlRouterSpec exposing (tests)
 
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
+import Helpers exposing (toLocation)
 import Layout.Styles exposing (Classes(OpenMenuButton, SignOutButton))
 import Login.Model exposing (User)
 import Login.Msg exposing (Msg(..))
@@ -9,7 +10,6 @@ import Login.Ports exposing (signOut)
 import Login.Styles
 import Model exposing (Model)
 import Msg as Root exposing (Msg(MsgForLogin, MsgForUrlRouter))
-import Navigation exposing (Location)
 import Rides.Styles
 import Test exposing (..)
 import Testable.Html.Selectors exposing (..)
@@ -17,7 +17,7 @@ import Testable.Html.Types exposing (Selector)
 import Testable.TestContext exposing (..)
 import Update
 import UrlRouter.Msg exposing (Msg(UrlChange))
-import UrlRouter.Routes exposing (Page(LoginPage, RidesPage, SplashScreenPage), toPath)
+import UrlRouter.Routes exposing (Page(..), toPath)
 import View
 
 
@@ -62,11 +62,6 @@ tests =
                     >> expectToBeOnRidesPage
             ]
         ]
-
-
-toLocation : Page -> Location
-toLocation page =
-    { href = "", host = "", hostname = "", protocol = "", origin = "", port_ = "", pathname = "", search = "", hash = toPath page, username = "", password = "" }
 
 
 loginContext : a -> TestContext Root.Msg Model.Model

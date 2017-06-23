@@ -1,5 +1,6 @@
 module Model exposing (Flags, Model, init)
 
+import GiveRide.Model as GiveRide
 import Layout.Model as Layout
 import Login.Model as Login
 import Msg exposing (Msg(MsgForUrlRouter))
@@ -16,6 +17,7 @@ type alias Model =
     , login : Login.Model
     , rides : Rides.Model
     , layout : Layout.Model
+    , giveRide : GiveRide.Model
     }
 
 
@@ -32,6 +34,7 @@ init { currentUser } location =
             , login = Login.init currentUser
             , rides = Rides.init
             , layout = Layout.init
+            , giveRide = GiveRide.init
             }
     in
     updateUrlRouter location initialModel

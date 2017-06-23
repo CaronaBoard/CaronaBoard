@@ -3,6 +3,7 @@ module Fuzz.UrlRouter.UpdateSpec exposing (..)
 import Array exposing (Array, fromList, get, length)
 import Expect exposing (equal)
 import Fuzz exposing (Fuzzer)
+import Helpers exposing (toLocation)
 import Login.Model as Login
 import Navigation exposing (Location)
 import Test exposing (..)
@@ -53,11 +54,6 @@ randomPage =
 pathToLocation : String -> Location
 pathToLocation path =
     { href = "", host = "", hostname = "", protocol = "", origin = "", port_ = "", pathname = "", search = "", hash = path, username = "", password = "" }
-
-
-toLocation : Page -> Location
-toLocation =
-    toPath >> pathToLocation
 
 
 randomLogin : Fuzzer Login.Model
