@@ -11,6 +11,7 @@ import Rides.Model exposing (Ride)
 import Test exposing (..)
 import Testable.Html.Selectors exposing (..)
 import Testable.TestContext exposing (..)
+import UrlRouter.Msg exposing (Msg(..))
 import UrlRouter.Routes exposing (Page(..), toPath)
 
 
@@ -35,9 +36,13 @@ tests =
                 >> assertText (expectToContainText "not a function")
         , describe "on success"
             [ test "goes to the rides page on success" <|
-                submitNewRide
-                    >> update (MsgForGiveRide <| GiveRideResponse ( Nothing, Just rideExample ))
+                successfullySubmitNewRide
                     >> assertCalled (Cmd.map MsgForUrlRouter <| Navigation.newUrl <| toPath RidesPage)
+            , test "show new ride on the rides page" <|
+                successfullySubmitNewRide
+                    >> update (MsgForUrlRouter <| UrlChange (toLocation RidesPage))
+                    >> find []
+                    >> assertText (expectToContainText "baz, near qux")
             ]
         ]
 
@@ -49,22 +54,22 @@ ridesContext =
 
 rideExample : Ride
 rideExample =
-    { id = "1", name = "foo", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", formUrl = "http://foo" }
+    { id = "1", name = "foo", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", formUrl = "" }
 
 
 fillNewRide : a -> TestContext Root.Msg Model
 fillNewRide =
     ridesContext
         >> find [ id "name" ]
-        >> trigger "input" "{\"target\": {\"value\": \"foo\"}}"
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideExample.name ++ "\"}}")
         >> find [ id "origin" ]
-        >> trigger "input" "{\"target\": {\"value\": \"bar\"}}"
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideExample.origin ++ "\"}}")
         >> find [ id "destination" ]
-        >> trigger "input" "{\"target\": {\"value\": \"baz, near qux\"}}"
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideExample.destination ++ "\"}}")
         >> find [ id "days" ]
-        >> trigger "input" "{\"target\": {\"value\": \"Mon to Fri\"}}"
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideExample.days ++ "\"}}")
         >> find [ id "hours" ]
-        >> trigger "input" "{\"target\": {\"value\": \"18:30\"}}"
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideExample.hours ++ "\"}}")
 
 
 submitNewRide : a -> TestContext Root.Msg Model
@@ -72,3 +77,9 @@ submitNewRide =
     fillNewRide
         >> find [ tag "form" ]
         >> trigger "submit" "{}"
+
+
+successfullySubmitNewRide : a -> TestContext Root.Msg Model
+successfullySubmitNewRide =
+    submitNewRide
+        >> update (MsgForGiveRide <| GiveRideResponse ( Nothing, Just rideExample ))
