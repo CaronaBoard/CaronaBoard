@@ -24,7 +24,7 @@ renderErrors : Response a -> Html msg
 renderErrors response =
     case response of
         Error message ->
-            div [] [ text message ]
+            div [ materializeClass "chip red darken-2 white-text" ] [ text message ]
 
         _ ->
             div [] []
