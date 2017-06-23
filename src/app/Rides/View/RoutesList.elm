@@ -17,8 +17,8 @@ rideRoute : Ride -> Html a
 rideRoute ride =
     a [ href ride.formUrl, target "_blank", class Card, materializeClass "card" ]
         [ div [ materializeClass "card-content" ]
-            ([ span [ class CardTitle ] [ text ride.area ]
-             , div [ class Path ]
+            [ span [ class CardTitle ] [ text ride.destination ]
+            , div [ class Path ]
                 [ p []
                     [ div [ class PathIcon ] [ icon "more_vert" ]
                     , span [ class PathIconDot ] [ icon "radio_button_unchecked" ]
@@ -29,9 +29,7 @@ rideRoute ride =
                     , text <| "Destino: " ++ ride.destination
                     ]
                 ]
-             ]
-                ++ flexibleRoute ride
-            )
+            ]
         , div [ class OtherDetails, materializeClass "card-action" ]
             [ p []
                 [ icon "today"
@@ -47,15 +45,3 @@ rideRoute ride =
                 ]
             ]
         ]
-
-
-flexibleRoute : Ride -> List (Html a)
-flexibleRoute ride =
-    if ride.flexible then
-        [ p []
-            [ icon "call_split"
-            , text "Rota flexível"
-            ]
-        ]
-    else
-        []

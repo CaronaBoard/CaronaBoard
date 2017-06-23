@@ -1,24 +1,31 @@
-module GiveRide.Model exposing (Model, init)
+module GiveRide.Model exposing (Model, NewRide, init)
 
 import Common.Response exposing (Response(..))
 
 
 type alias Model =
+    { fields : NewRide
+    , response : Response ()
+    }
+
+
+type alias NewRide =
     { name : String
     , origin : String
     , destination : String
     , days : String
     , hours : String
-    , response : Response ()
     }
 
 
 init : Model
 init =
-    { name = ""
-    , origin = ""
-    , destination = ""
-    , days = ""
-    , hours = ""
+    { fields =
+        { name = ""
+        , origin = ""
+        , destination = ""
+        , days = ""
+        , hours = ""
+        }
     , response = Empty
     }

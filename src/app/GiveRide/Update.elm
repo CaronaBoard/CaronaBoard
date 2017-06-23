@@ -20,30 +20,31 @@ update msg model =
 
 updateGiveRide : GiveRide.Msg.Msg -> Model -> ( Model, Testable.Cmd.Cmd GiveRide.Msg.Msg )
 updateGiveRide msg model =
+    let
+        fields =
+            model.fields
+
+        updateFields fields =
+            { model | fields = fields }
+    in
     case msg of
         UpdateName name ->
-            ( { model | name = name }, Testable.Cmd.none )
+            ( updateFields { fields | name = name }, Testable.Cmd.none )
 
         UpdateOrigin origin ->
-            ( { model | origin = origin }, Testable.Cmd.none )
+            ( updateFields { fields | origin = origin }, Testable.Cmd.none )
 
         UpdateDestination destination ->
-            ( { model | destination = destination }, Testable.Cmd.none )
+            ( updateFields { fields | destination = destination }, Testable.Cmd.none )
 
         UpdateDays days ->
-            ( { model | days = days }, Testable.Cmd.none )
+            ( updateFields { fields | days = days }, Testable.Cmd.none )
 
         UpdateHours hours ->
-            ( { model | hours = hours }, Testable.Cmd.none )
+            ( updateFields { fields | hours = hours }, Testable.Cmd.none )
 
         Submit ->
             ( { model | response = Loading }
             , Testable.Cmd.wrap <|
-                giveRide
-                    { name = model.name
-                    , origin = model.origin
-                    , destination = model.destination
-                    , days = model.days
-                    , hours = model.hours
-                    }
+                giveRide model.fields
             )

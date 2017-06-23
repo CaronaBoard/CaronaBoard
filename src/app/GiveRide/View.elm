@@ -23,19 +23,19 @@ giveRide model =
 
 formFields : Model -> List (Html Msg)
 formFields model =
-    [ textInput model.name UpdateName "name" "Seu nome"
+    [ textInput model.fields.name UpdateName "name" "Seu nome"
     , div [ materializeClass "row" ]
         [ div [ materializeClass "col s12 m12 l6" ]
-            [ textInput model.origin UpdateOrigin "origin" "Origem da carona"
+            [ textInput model.fields.origin UpdateOrigin "origin" "Origem da carona"
             ]
         , div [ materializeClass "col s12 m12 l6" ]
-            [ textInput model.destination UpdateDestination "destination" "Destino da carona (bairro ou referência)"
+            [ textInput model.fields.destination UpdateDestination "destination" "Destino da carona (bairro ou referência)"
             ]
         , div [ materializeClass "col s12 m12 l6" ]
-            [ textInput model.days UpdateDays "days" "Dias que você pode dar carona"
+            [ textInput model.fields.days UpdateDays "days" "Dias que você pode dar carona"
             ]
         , div [ materializeClass "col s12 m12 l6" ]
-            [ textInput model.hours UpdateHours "hours" "Horário de saída"
+            [ textInput model.fields.hours UpdateHours "hours" "Horário de saída"
             ]
         ]
     , loadingOrSubmitButton model.response [ id "submitNewRide", class SubmitButton ] [ text "Cadastrar" ]

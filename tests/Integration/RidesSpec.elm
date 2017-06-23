@@ -63,8 +63,8 @@ someUser =
 
 ridesExample : List Ride
 ridesExample =
-    [ { id = "1", name = "foo", origin = "lorem", destination = "ipsum", area = "dolor", days = "sit", hours = "amet", flexible = True, formUrl = "http://foo" }
-    , { id = "2", name = "bar", origin = "lorem", destination = "ipsum", area = "dolor", days = "sit", hours = "amet", flexible = True, formUrl = "http://foo" }
+    [ { id = "1", name = "foo", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", formUrl = "http://foo" }
+    , { id = "2", name = "bar", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", formUrl = "http://foo" }
     ]
 
 

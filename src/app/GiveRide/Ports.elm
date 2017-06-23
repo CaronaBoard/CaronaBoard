@@ -1,11 +1,6 @@
 port module GiveRide.Ports exposing (giveRide)
 
+import GiveRide.Model exposing (NewRide)
 
-port giveRide :
-    { name : String
-    , origin : String
-    , destination : String
-    , days : String
-    , hours : String
-    }
-    -> Cmd msg
+
+port giveRide : NewRide -> Cmd msg
