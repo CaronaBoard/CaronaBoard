@@ -1,5 +1,6 @@
 module GiveRide.Update exposing (update)
 
+import Common.Response exposing (Response(..))
 import GiveRide.Model exposing (Model)
 import GiveRide.Msg exposing (Msg(..))
 import Msg as Root exposing (Msg(..))
@@ -33,3 +34,6 @@ updateGiveRide msg model =
 
         UpdateHours hours ->
             ( { model | hours = hours }, Testable.Cmd.none )
+
+        Submit ->
+            ( { model | response = Loading }, Testable.Cmd.none )

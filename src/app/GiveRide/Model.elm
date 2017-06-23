@@ -1,5 +1,7 @@
 module GiveRide.Model exposing (Model, init)
 
+import Common.Response exposing (Response(..))
+
 
 type alias Model =
     { name : String
@@ -7,6 +9,7 @@ type alias Model =
     , destination : String
     , days : String
     , hours : String
+    , response : Response ()
     }
 
 
@@ -17,4 +20,5 @@ init =
     , destination = ""
     , days = ""
     , hours = ""
+    , response = Empty
     }

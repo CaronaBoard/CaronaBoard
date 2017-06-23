@@ -2,20 +2,19 @@ module GiveRide.View exposing (giveRide)
 
 import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton)
-import Common.Response exposing (Response(..))
 import GiveRide.Model exposing (Model)
 import GiveRide.Msg exposing (Msg(..))
 import Layout.Styles exposing (Classes(..), class)
 import Testable.Html exposing (..)
 import Testable.Html.Attributes exposing (for, id, placeholder, value)
-import Testable.Html.Events exposing (onInput)
+import Testable.Html.Events exposing (onInput, onSubmit)
 
 
 giveRide : Model -> Html Msg
 giveRide model =
     div [ materializeClass "container" ]
         [ h1 [ class PageTitle ] [ text "Dar Carona" ]
-        , form [ materializeClass "card" ]
+        , form [ materializeClass "card", onSubmit Submit ]
             [ div [ materializeClass "card-content" ]
                 (formFields model)
             ]
@@ -39,7 +38,7 @@ formFields model =
             [ textInput model.hours UpdateHours "hours" "Horário de saída"
             ]
         ]
-    , loadingOrSubmitButton Empty [ id "submitNewRide", class SubmitButton ] [ text "Cadastrar" ]
+    , loadingOrSubmitButton model.response [ id "submitNewRide", class SubmitButton ] [ text "Cadastrar" ]
     ]
 
 

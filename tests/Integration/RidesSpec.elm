@@ -35,6 +35,10 @@ tests =
                 fillNewRide
                     >> find [ id "name" ]
                     >> assertAttribute "value" (Expect.equal "foo")
+            , test "shows loading on submit" <|
+                submitNewRide
+                    >> find [ id "submitNewRide" ]
+                    >> assertText (Expect.equal "Carregando...")
             ]
         ]
 
@@ -78,3 +82,10 @@ fillNewRide =
         >> trigger "input" "{\"target\": {\"value\": \"Mon to Fri\"}}"
         >> find [ id "hours" ]
         >> trigger "input" "{\"target\": {\"value\": \"18:30\"}}"
+
+
+submitNewRide : a -> TestContext Root.Msg Model
+submitNewRide =
+    fillNewRide
+        >> find [ tag "form" ]
+        >> trigger "submit" "{}"

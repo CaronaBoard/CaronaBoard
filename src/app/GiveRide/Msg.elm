@@ -7,3 +7,4 @@ type Msg
     | UpdateDestination String
     | UpdateDays String
     | UpdateHours String
+    | Submit
