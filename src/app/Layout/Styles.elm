@@ -1,4 +1,4 @@
-module Layout.Styles exposing (Classes(..), class, namespace, styles)
+module Layout.Styles exposing (Classes(..), button, class, namespace, styles)
 
 import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
@@ -16,10 +16,12 @@ type Classes
     | AnimatedDropdown
     | Navbar
     | BrandLogo
+    | SubmitButton
     | ButtonContainer
     | OpenMenuButton
     | SignOutButton
     | AddRideLink
+    | PageTitle
 
 
 styles : Stylesheet
@@ -40,6 +42,12 @@ generalStyles =
         [ important <| borderRadius (px 54)
         , important <| property "text-transform" "none"
         ]
+    , cssClass PageTitle
+        [ darkTextColor
+        , fontSize (px 34)
+        ]
+    , cssClass SubmitButton
+        button
     , cssClass ButtonContainer
         [ displayFlex
         , justifyContent center
@@ -50,8 +58,11 @@ generalStyles =
                 [ important <| top (px -10)
                 , important <| fontSize (pct 80)
                 ]
+            , selector "input"
+                [ important <| fontSize (Css.rem 1.1)
+                ]
             , selector "input:placeholder-shown:not(:focus) + *"
-                [ important <| fontSize (pct 100)
+                [ important <| fontSize (Css.rem 1.1)
                 , important <| top (px 10)
                 ]
             ]
@@ -75,7 +86,7 @@ layoutStyles =
         ]
     , cssClass BrandLogo
         [ fontSize (Css.rem 1.4)
-        , marginLeft (px 10)
+        , marginLeft (px 20)
         ]
     , cssClass Menu
         [ position fixed
@@ -110,5 +121,16 @@ layoutStyles =
                 , property "} /*" "*/"
                 ]
             ]
+        ]
+    ]
+
+
+button : List Mixin
+button =
+    [ width (pct 100)
+    , important <| backgroundColor primaryBlue -- need to overwrite materialize css default color
+    , lightTextColor
+    , hover
+        [ backgroundColor lighterBlue
         ]
     ]
