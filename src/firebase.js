@@ -18,7 +18,7 @@ var toArrayOfObjects = function (object) {
   return Object.keys(object).reduce(function (accumulated, itemId) {
     var item = Object.assign({id: itemId}, object[itemId]);
 
-    return accumulated.concat([item]);
+    return [item].concat(accumulated);
   }, []);
 };
 

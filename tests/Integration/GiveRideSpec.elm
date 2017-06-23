@@ -11,7 +11,6 @@ import Rides.Model exposing (Ride)
 import Test exposing (..)
 import Testable.Html.Selectors exposing (..)
 import Testable.TestContext exposing (..)
-import UrlRouter.Msg exposing (Msg(..))
 import UrlRouter.Routes exposing (Page(..), toPath)
 
 
@@ -34,16 +33,10 @@ tests =
                 >> update (MsgForGiveRide <| GiveRideResponse ( Just "Scientists just proved that undefined is indeed not a function", Nothing ))
                 >> find []
                 >> assertText (expectToContainText "not a function")
-        , describe "on success"
-            [ test "goes to the rides page on success" <|
-                successfullySubmitNewRide
-                    >> assertCalled (Cmd.map MsgForUrlRouter <| Navigation.newUrl <| toPath RidesPage)
-            , test "show new ride on the rides page" <|
-                successfullySubmitNewRide
-                    >> update (MsgForUrlRouter <| UrlChange (toLocation RidesPage))
-                    >> find []
-                    >> assertText (expectToContainText "baz, near qux")
-            ]
+        , test "goes to the rides page on success" <|
+            submitNewRide
+                >> update (MsgForGiveRide <| GiveRideResponse ( Nothing, Just rideExample ))
+                >> assertCalled (Cmd.map MsgForUrlRouter <| Navigation.newUrl <| toPath RidesPage)
         ]
 
 
@@ -77,9 +70,3 @@ submitNewRide =
     fillNewRide
         >> find [ tag "form" ]
         >> trigger "submit" "{}"
-
-
-successfullySubmitNewRide : a -> TestContext Root.Msg Model
-successfullySubmitNewRide =
-    submitNewRide
-        >> update (MsgForGiveRide <| GiveRideResponse ( Nothing, Just rideExample ))
