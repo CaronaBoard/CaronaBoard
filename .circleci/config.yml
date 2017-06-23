@@ -25,4 +25,7 @@ jobs:
             - tests/elm-stuff
       - deploy:
           name: deploy
-          command: yarn deploy
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              yarn deploy
+            fi

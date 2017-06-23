@@ -16,4 +16,5 @@ git config user.email "circle-ci@caronaboard.com"
 
 git add -A
 git commit -m "Deploy to GitHub Pages: ${SHA}" || echo "nothing to commit"
+git commit --amend --no-edit
 git push origin master

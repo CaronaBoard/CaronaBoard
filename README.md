@@ -1,4 +1,7 @@
-[![Build Status](https://travis-ci.org/CaronaBoard/caronaboard.svg?branch=master)](https://travis-ci.org/CaronaBoard/caronaboard)
+[![Build Status][ci-svg]][ci-url]
+
+[ci-svg]: https://circleci.com/gh/CaronaBoard/caronaboard.svg?style=shield
+[ci-url]: https://circleci.com/gh/CaronaBoard/caronaboard
 
 ## What is CaronaBoard?
 
