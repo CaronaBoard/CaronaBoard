@@ -2,6 +2,7 @@ module Layout.View.Header exposing (header)
 
 import Common.CssHelpers exposing (materializeClass)
 import Common.Icon exposing (icon)
+import Common.Link exposing (linkTo)
 import Layout.Model exposing (Model)
 import Layout.Msg exposing (Msg(CloseDropdown, OpenDropdown))
 import Layout.Styles exposing (Classes(..), class)
@@ -10,8 +11,7 @@ import Msg exposing (Msg(..))
 import Testable.Html exposing (Html, a, b, button, div, h1, h2, i, img, li, nav, text, ul)
 import Testable.Html.Attributes exposing (alt, href, id, rel, src, style)
 import Testable.Html.Events exposing (onClick)
-import UrlRouter.Msg exposing (Msg(Go))
-import UrlRouter.Routes exposing (Page(GiveRidePage))
+import UrlRouter.Routes exposing (Page(..))
 
 
 header : Model -> Html Msg.Msg
@@ -20,13 +20,15 @@ header model =
         menu model
             ++ [ nav [ class Navbar ]
                     [ div [ materializeClass "nav-wrapper" ]
-                        [ a [ class BrandLogo, materializeClass "left", href "/" ]
+                        [ linkTo RidesPage
+                            [ class BrandLogo, materializeClass "left" ]
                             [ b [] [ text "Carona" ]
                             , text "Board"
                             ]
                         , ul [ materializeClass "right" ]
                             [ li []
-                                [ a [ onClick (MsgForUrlRouter (Go GiveRidePage)), class AddRideLink ]
+                                [ linkTo GiveRidePage
+                                    [ class AddRideLink ]
                                     [ icon "directions_car"
                                     , text "Dou carona"
                                     ]
