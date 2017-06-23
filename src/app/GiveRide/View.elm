@@ -1,7 +1,7 @@
 module GiveRide.View exposing (giveRide)
 
 import Common.CssHelpers exposing (materializeClass)
-import Common.Form exposing (loadingOrSubmitButton)
+import Common.Form exposing (loadingOrSubmitButton, renderErrors)
 import GiveRide.Model exposing (Model)
 import GiveRide.Msg exposing (Msg(..))
 import Layout.Styles exposing (Classes(..), class)
@@ -23,7 +23,8 @@ giveRide model =
 
 formFields : Model -> List (Html Msg)
 formFields model =
-    [ textInput model.fields.name UpdateName "name" "Seu nome"
+    [ renderErrors model.response
+    , textInput model.fields.name UpdateName "name" "Seu nome"
     , div [ materializeClass "row" ]
         [ div [ materializeClass "col s12 m12 l6" ]
             [ textInput model.fields.origin UpdateOrigin "origin" "Origem da carona"

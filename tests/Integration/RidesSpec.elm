@@ -2,8 +2,9 @@ module Integration.RidesSpec exposing (tests)
 
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
+import GiveRide.Msg exposing (Msg(..))
 import GiveRide.Ports
-import Helpers exposing (toLocation)
+import Helpers exposing (expectToContainText, toLocation)
 import Login.Model exposing (User)
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
@@ -43,6 +44,11 @@ tests =
             , test "sends request via giveRide port" <|
                 submitNewRide
                     >> assertCalled (Cmd.map MsgForGiveRide <| GiveRide.Ports.giveRide { name = "foo", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" })
+            , test "shows error when giveRide port returns an error" <|
+                submitNewRide
+                    >> update (MsgForGiveRide <| GiveRideResponse ( Just "Scientists just proved that undefined is indeed not a function", Nothing ))
+                    >> find []
+                    >> assertText (expectToContainText "not a function")
             ]
         ]
 

@@ -1,11 +1,12 @@
 module GiveRide.Model exposing (Model, NewRide, init)
 
 import Common.Response exposing (Response(..))
+import Rides.Model exposing (Ride)
 
 
 type alias Model =
     { fields : NewRide
-    , response : Response ()
+    , response : Response Ride
     }
 
 

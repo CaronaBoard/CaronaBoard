@@ -1,6 +1,6 @@
 module GiveRide.Update exposing (update)
 
-import Common.Response exposing (Response(..))
+import Common.Response exposing (Response(..), fromFirebase)
 import GiveRide.Model exposing (Model)
 import GiveRide.Msg exposing (Msg(..))
 import GiveRide.Ports exposing (giveRide)
@@ -48,3 +48,6 @@ updateGiveRide msg model =
             , Testable.Cmd.wrap <|
                 giveRide model.fields
             )
+
+        GiveRideResponse response ->
+            ( { model | response = fromFirebase response }, Testable.Cmd.none )

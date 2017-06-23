@@ -2,6 +2,7 @@ module Integration.LoginSpec exposing (tests)
 
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
+import Helpers exposing (expectToContainText)
 import Login.Model exposing (Model, init, loggedInUser)
 import Login.Msg exposing (Msg(..))
 import Login.Ports exposing (checkRegistration, passwordReset, signIn)
@@ -138,9 +139,3 @@ submitEmailThenForgotPassword =
         >> update (MsgForLogin <| CheckRegistrationResponse True)
         >> find [ class ResetPasswordButton ]
         >> trigger "click" "{}"
-
-
-expectToContainText : String -> String -> Expect.Expectation
-expectToContainText expected actual =
-    Expect.true ("Expected\n\t" ++ actual ++ "\nto contain\n\t" ++ expected)
-        (String.contains expected actual)
