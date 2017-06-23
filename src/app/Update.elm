@@ -2,6 +2,7 @@ module Update exposing (update)
 
 import GiveRide.Update as GiveRide
 import Layout.Update as Layout
+import Login.Model exposing (loggedInUser)
 import Login.Update as Login
 import Model exposing (Model)
 import Msg exposing (Msg(..))
@@ -26,7 +27,7 @@ update msg model =
             Layout.update msg model.layout
 
         giveRide =
-            GiveRide.update msg model.giveRide
+            GiveRide.update (loggedInUser model.login) msg model.giveRide
 
         updatedModel =
             { urlRouter = Tuple.first urlRouter

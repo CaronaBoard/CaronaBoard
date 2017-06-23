@@ -27,7 +27,7 @@ tests =
                 >> assertText (Expect.equal "Carregando...")
         , test "sends request via giveRide port" <|
             submitNewRide
-                >> assertCalled (Cmd.map MsgForGiveRide <| GiveRide.Ports.giveRide { name = "foo", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" })
+                >> assertCalled (Cmd.map MsgForGiveRide <| GiveRide.Ports.giveRide { userId = "foo-bar-bar", name = "foo", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" })
         , test "shows error when giveRide port returns an error" <|
             submitNewRide
                 >> update (MsgForGiveRide <| GiveRideResponse ( Just "Scientists just proved that undefined is indeed not a function", Nothing ))

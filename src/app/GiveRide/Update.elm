@@ -4,22 +4,23 @@ import Common.Response exposing (Response(..), fromFirebase)
 import GiveRide.Model exposing (Model)
 import GiveRide.Msg exposing (Msg(..))
 import GiveRide.Ports exposing (giveRide)
+import Login.Model exposing (User)
 import Msg as Root exposing (Msg(..))
 import Testable.Cmd
 
 
-update : Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd GiveRide.Msg.Msg )
-update msg model =
+update : Maybe User -> Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd GiveRide.Msg.Msg )
+update user msg model =
     case msg of
         MsgForGiveRide msg_ ->
-            updateGiveRide msg_ model
+            updateGiveRide user msg_ model
 
         _ ->
             ( model, Testable.Cmd.none )
 
 
-updateGiveRide : GiveRide.Msg.Msg -> Model -> ( Model, Testable.Cmd.Cmd GiveRide.Msg.Msg )
-updateGiveRide msg model =
+updateGiveRide : Maybe User -> GiveRide.Msg.Msg -> Model -> ( Model, Testable.Cmd.Cmd GiveRide.Msg.Msg )
+updateGiveRide user msg model =
     let
         fields =
             model.fields
@@ -44,10 +45,22 @@ updateGiveRide msg model =
             ( updateFields { fields | hours = hours }, Testable.Cmd.none )
 
         Submit ->
-            ( { model | response = Loading }
-            , Testable.Cmd.wrap <|
-                giveRide model.fields
-            )
+            case user of
+                Just user_ ->
+                    ( { model | response = Loading }
+                    , Testable.Cmd.wrap <|
+                        giveRide
+                            { userId = user_.id
+                            , name = fields.name
+                            , origin = fields.origin
+                            , destination = fields.destination
+                            , days = fields.days
+                            , hours = fields.hours
+                            }
+                    )
+
+                Nothing ->
+                    ( model, Testable.Cmd.none )
 
         GiveRideResponse response ->
             ( { model | response = fromFirebase response }, Testable.Cmd.none )
