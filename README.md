@@ -33,29 +33,28 @@ Below some ideas about the concept of CaronaBoard:
 
 ### Prerequesites
 
-- Node.js 7.4.0 (We recommend using [nvm](https://github.com/creationix/nvm) to manage your Node version)
-- Yarn (https://yarnpkg.com/)
+- Node.js 8+ (We recommend using [nvm](https://github.com/creationix/nvm) to manage your Node version)
 
 ### Installing
 
 1. `nvm use` (optional if you use nvm)
-2. `yarn`
-3. `yarn start`
+2. `npm`
+3. `npm start`
 4. http://localhost:8080/
 
 ### Running tests
 
 We are using [elm-test](https://github.com/elm-community/elm-test) for writing tests for elm. Since elm type system is already so safe and ease refactoring by a lot, we are attempting a new idea: to not write unit tests, instead, we just write fuzz tests, which checks for the edge cases, and integration tests, using [elm-testable](https://github.com/rogeriochaves/elm-testable), which ensure things are working well together and provide much more safety when refactoring.
 
-To run tests, simply run `yarn test`.
+To run tests, simply run `npm test`.
 
-### Deployment - Travis CI
+### Deployment - Circle CI
 
-Travis builds the app and run the Elm tests. Then, when in master branch, it deploys to github pages by creating a new commit on the repo [caronaboard.github.io](https://github.com/CaronaBoard/caronaboard.github.io).
+Cicle builds the app and run the Elm tests. Then, when in master branch, it deploys to github pages by creating a new commit on the repo [caronaboard.github.io](https://github.com/CaronaBoard/caronaboard.github.io).
 
-You can see Travis CI config on `.travis.yml`, and the pipeline [here](https://travis-ci.org/CaronaBoard/caronaboard).
+You can see Cicle CI config on `.circleci/config.yml`, and the pipeline [here](https://circleci.com/gh/CaronaBoard/caronaboard).
 
-But if you want to deploy your changes to a temporary url and see how they look like, simply run `yarn deploy:now`
+But if you want to deploy your changes to a temporary url and see how they look like, simply run `npm run deploy:now`
 
 ### Kanban Wall
 

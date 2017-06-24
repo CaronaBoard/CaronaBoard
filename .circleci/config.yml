@@ -3,22 +3,22 @@ jobs:
   build:
     working_directory: ~/caronaboard
     docker:
-      - image: circleci/node:7
+      - image: circleci/node:8
     steps:
       - checkout
       - restore_cache:
-          key: dependencies-cache-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}-{{ checksum "elm-package.json" }}-{{ checksum "tests/elm-package.json" }}
+          key: dependencies-cache-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}-{{ checksum "elm-package.json" }}-{{ checksum "tests/elm-package.json" }}
       - run:
           name: install-dependencies
-          command: yarn install
+          command: npm install
       - run:
           name: test
-          command: yarn test
+          command: npm test
       - run:
           name: build
-          command: yarn build
+          command: npm run build
       - save_cache:
-          key: dependencies-cache-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}-{{ checksum "elm-package.json" }}-{{ checksum "tests/elm-package.json" }}
+          key: dependencies-cache-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}-{{ checksum "elm-package.json" }}-{{ checksum "tests/elm-package.json" }}
           paths:
             - node_modules
             - elm-stuff
@@ -27,5 +27,5 @@ jobs:
           name: deploy
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              yarn deploy
+              npm run deploy
             fi

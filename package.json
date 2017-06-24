@@ -4,14 +4,14 @@
   "description": "Social ride network",
   "main": "index.js",
   "scripts": {
-    "start": "yarn generate-html && DEBUG=true webpack-dev-server --hot",
+    "start": "npm run generate-html && DEBUG=true webpack-dev-server --hot",
     "start:dist": "http-server build",
-    "build": "rm -r ./build; yarn generate-html && webpack -p --progress && sw-precache --config=sw-precache-config.js",
-    "build:analyze": "yarn build && open build/stats.html",
+    "build": "rm -r ./build; npm run generate-html && webpack -p --progress && sw-precache --config=sw-precache-config.js",
+    "build:analyze": "npm run build && open build/stats.html",
     "generate-html": "mkdir -p build && elm-static-html -c elm-static-html.json",
     "test": "elm-test",
     "deploy": "./deploy.sh",
-    "deploy:now": "yarn build && now build",
+    "deploy:now": "npm run build && now build",
     "install": "elm package install -y && cd tests && elm package install -y"
   },
   "repository": {
