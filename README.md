@@ -48,11 +48,11 @@ We are using [elm-test](https://github.com/elm-community/elm-test) for writing t
 
 To run tests, simply run `npm test`.
 
-### Deployment - Travis CI
+### Deployment - Circle CI
 
-Travis builds the app and run the Elm tests. Then, when in master branch, it deploys to github pages by creating a new commit on the repo [caronaboard.github.io](https://github.com/CaronaBoard/caronaboard.github.io).
+Cicle builds the app and run the Elm tests. Then, when in master branch, it deploys to github pages by creating a new commit on the repo [caronaboard.github.io](https://github.com/CaronaBoard/caronaboard.github.io).
 
-You can see Travis CI config on `.travis.yml`, and the pipeline [here](https://travis-ci.org/CaronaBoard/caronaboard).
+You can see Cicle CI config on `.circleci/config.yml`, and the pipeline [here](https://circleci.com/gh/CaronaBoard/caronaboard).
 
 But if you want to deploy your changes to a temporary url and see how they look like, simply run `npm run deploy:now`
 
