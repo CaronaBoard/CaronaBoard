@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependencies-cache-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}-{{ checksum "elm-package.json" }}-{{ checksum "tests/elm-package.json" }}
+          key: dependencies-cache-node-8-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}-{{ checksum "elm-package.json" }}-{{ checksum "tests/elm-package.json" }}
       - run:
           name: install-dependencies
           command: npm install
@@ -18,7 +18,7 @@ jobs:
           name: build
           command: npm run build
       - save_cache:
-          key: dependencies-cache-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}-{{ checksum "elm-package.json" }}-{{ checksum "tests/elm-package.json" }}
+          key: dependencies-cache-node-8-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}-{{ checksum "elm-package.json" }}-{{ checksum "tests/elm-package.json" }}
           paths:
             - node_modules
             - elm-stuff
