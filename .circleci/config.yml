@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/caronaboard
     docker:
-      - image: circleci/node:7
+      - image: circleci/node:8
     steps:
       - checkout
       - restore_cache:
