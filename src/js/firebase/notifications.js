@@ -25,7 +25,7 @@ module.exports = function(firebase, database, app) {
   });
 
   messaging.onMessage(function(payload) {
-    console.log("Message received. ", payload);
-    alert("awe");
+    alert(payload.notification.body);
+    window.location = payload.notification.click_action;
   });
 };
