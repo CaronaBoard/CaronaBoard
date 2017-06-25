@@ -27,10 +27,10 @@ tests =
             enableNotifications
                 >> update (MsgForNotifications <| NotificationsResponse ( Just "I don't like notifications", Nothing ))
                 >> find []
-                >> assertText (expectToContainText "I don't like notifications")
+                >> assertText (expectToContainText "As notificações não foram ativadas")
         , test "goes to the rides page on success" <|
             enableNotifications
-                >> update (MsgForNotifications <| NotificationsResponse ( Nothing, Just () ))
+                >> update (MsgForNotifications <| NotificationsResponse ( Nothing, Just True ))
                 >> assertCalled (Cmd.map MsgForUrlRouter <| Navigation.newUrl <| toPath RidesPage)
         ]
 

@@ -2,6 +2,7 @@ module Notifications.View exposing (enableNotifications)
 
 import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors)
+import Common.Response exposing (Response(..))
 import Layout.Styles exposing (Classes(..), class)
 import Notifications.Model exposing (Model)
 import Notifications.Msg exposing (Msg(..))
@@ -16,7 +17,12 @@ enableNotifications model =
         [ h1 [ class PageTitle ] [ text "Ativar Notificações" ]
         , form [ materializeClass "card", onSubmit EnableNotifications ]
             [ div [ materializeClass "card-content" ]
-                [ renderErrors model.response
+                [ case model.response of
+                    Error _ ->
+                        renderErrors (Error "As notificações não foram ativadas")
+
+                    _ ->
+                        div [] []
                 , p [] [ text "Sua oferta de carona foi cadastrada!" ]
                 , br [] []
                 , p [] [ text "Agora você precisa ativar as notificações para ficar sabendo quando alguém te pedir uma carona" ]
