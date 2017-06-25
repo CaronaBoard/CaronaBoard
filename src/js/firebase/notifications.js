@@ -13,4 +13,9 @@ module.exports = function(firebase, database, app) {
     .catch(function(err) {
       console.log("Unable to get permission to notify.", err);
     });
+
+  messaging.onMessage(function(payload) {
+    console.log("Message received. ", payload);
+    alert("awe");
+  });
 };
