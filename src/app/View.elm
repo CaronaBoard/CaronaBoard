@@ -44,7 +44,7 @@ view model =
             layout model (Testable.Html.map MsgForGiveRide <| giveRide model.giveRide)
 
         EnableNotificationsPage ->
-            layout model enableNotifications
+            layout model (Testable.Html.map MsgForNotifications <| enableNotifications model.notifications)
 
 
 staticView : Html.Html Root.Msg

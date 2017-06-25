@@ -5,6 +5,7 @@ import Layout.Model as Layout
 import Login.Model as Login
 import Msg exposing (Msg(MsgForUrlRouter))
 import Navigation exposing (Location)
+import Notifications.Model as Notifications
 import Rides.Model as Rides
 import Testable.Cmd
 import UrlRouter.Model as UrlRouter
@@ -18,6 +19,7 @@ type alias Model =
     , rides : Rides.Model
     , layout : Layout.Model
     , giveRide : GiveRide.Model
+    , notifications : Notifications.Model
     }
 
 
@@ -35,6 +37,7 @@ init { currentUser } location =
             , rides = Rides.init
             , layout = Layout.init
             , giveRide = GiveRide.init
+            , notifications = Notifications.init
             }
     in
     updateUrlRouter location initialModel
