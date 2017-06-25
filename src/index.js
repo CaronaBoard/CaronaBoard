@@ -12,7 +12,7 @@ window.addEventListener("load", function() {
   require("./js/elm.js");
 
   // Load serviceWorkers
-  if ("serviceWorker" in navigator) {
+  if (!process.env.DEBUG && "serviceWorker" in navigator) {
     navigator.serviceWorker.register("/service-worker.js");
   }
 });
