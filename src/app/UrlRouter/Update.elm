@@ -5,7 +5,6 @@ import Login.Model as Login
 import Login.Msg exposing (Msg(..))
 import Msg as Root exposing (Msg(..))
 import Navigation exposing (Location)
-import Notifications.Msg exposing (Msg(..))
 import Testable.Cmd
 import UrlRouter.Model exposing (Model)
 import UrlRouter.Msg exposing (Msg(Go, UrlChange))
@@ -28,9 +27,6 @@ update msg model login =
             urlRouterUpdate (Go PasswordResetPage) model login
 
         MsgForGiveRide (GiveRideResponse ( Nothing, Just _ )) ->
-            urlRouterUpdate (Go RidesPage) model login
-
-        MsgForNotifications (NotificationsResponse ( Nothing, Just _ )) ->
             urlRouterUpdate (Go RidesPage) model login
 
         _ ->

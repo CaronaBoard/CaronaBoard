@@ -2,12 +2,13 @@ module Notifications.View exposing (enableNotifications)
 
 import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors)
+import Common.Icon exposing (icon)
 import Common.Response exposing (Response(..))
 import Layout.Styles exposing (Classes(..), class)
 import Notifications.Model exposing (Model)
 import Notifications.Msg exposing (Msg(..))
 import Testable.Html exposing (..)
-import Testable.Html.Attributes exposing (id)
+import Testable.Html.Attributes exposing (disabled, id)
 import Testable.Html.Events exposing (onSubmit)
 
 
@@ -27,7 +28,13 @@ enableNotifications model =
                 , br [] []
                 , p [] [ text "Agora você precisa ativar as notificações para ficar sabendo quando alguém te pedir uma carona" ]
                 , br [] []
-                , loadingOrSubmitButton model.response [ id "enableNotifications", class SubmitButton ] [ text "Ativar Notificações" ]
+                , case model.response of
+                    Success _ ->
+                        button [ disabled True, class SubmitButton, materializeClass "waves-effect waves-light btn-large" ]
+                            [ div [ class ButtonContainer ] [ icon "done", text "Notificações ativadas" ] ]
+
+                    _ ->
+                        loadingOrSubmitButton model.response [ id "enableNotifications", class SubmitButton ] [ text "Ativar Notificações" ]
                 ]
             ]
         ]

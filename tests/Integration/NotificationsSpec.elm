@@ -4,7 +4,6 @@ import Expect exposing (equal)
 import Helpers exposing (expectToContainText, initialContext, someUser, toLocation)
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
-import Navigation
 import Notifications.Msg exposing (..)
 import Notifications.Ports
 import Test exposing (..)
@@ -28,10 +27,11 @@ tests =
                 >> update (MsgForNotifications <| NotificationsResponse ( Just "I don't like notifications", Nothing ))
                 >> find []
                 >> assertText (expectToContainText "As notificações não foram ativadas")
-        , test "goes to the rides page on success" <|
+        , test "shows success message when notifications are enabled" <|
             enableNotifications
                 >> update (MsgForNotifications <| NotificationsResponse ( Nothing, Just True ))
-                >> assertCalled (Cmd.map MsgForUrlRouter <| Navigation.newUrl <| toPath RidesPage)
+                >> find []
+                >> assertText (expectToContainText "Notificações ativadas")
         ]
 
 
