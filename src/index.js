@@ -9,7 +9,7 @@ window.addEventListener("load", function() {
   loadCSS("https://fonts.googleapis.com/css?family=Lato:400,700");
 
   // Load Elm and connect it with Firebase
-  require("./elm.js");
+  require("./js/elm.js");
 
   // Load serviceWorkers
   if ("serviceWorker" in navigator) {

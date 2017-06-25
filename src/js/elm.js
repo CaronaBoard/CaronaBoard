@@ -1,9 +1,9 @@
 var app;
 var connectFirebase;
 
-require(["./app/Stylesheets.elm"], function(Stylesheet) {});
+require(["../app/Stylesheets.elm"], function(Stylesheet) {});
 
-require(["./app/Main.elm"], function(Elm) {
+require(["../app/Main.elm"], function(Elm) {
   var currentUser =
     Object.keys(localStorage)
       .filter(function(key) {
