@@ -1,4 +1,5 @@
 var firebase = require('firebase');
+var fetchRides = require('./rides').fetchRides;
 
 module.exports = function (firebase, database, app) {
   app.ports.checkRegistration.subscribe(function (email) {
@@ -23,7 +24,7 @@ module.exports = function (firebase, database, app) {
 
   var signInUser = function (user) {
     app.ports.signInResponse.send([null, {id: user.uid, name: user.displayName || ""}]);
-    fetchRides();
+    fetchRides(firebase, database, app);
   };
 
   var signOutUser = function () {

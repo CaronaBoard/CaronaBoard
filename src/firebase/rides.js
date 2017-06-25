@@ -7,14 +7,6 @@ var toArrayOfObjects = function (object) {
 };
 
 module.exports = function (firebase, database, app) {
-  var ridesRef = firebase.database().ref('rides');
-
-  var fetchRides = function () {
-    firebase.database().ref('rides').on('value', function (rides) {
-      app.ports.rides.send(toArrayOfObjects(rides.val()));
-    });
-  };
-
   app.ports.giveRide.subscribe(function (newRide) {
     newRide.formUrl = newRide.formUrl || '';
     firebase.database().ref('rides').push(newRide).then(function (rideRef) {
@@ -26,3 +18,9 @@ module.exports = function (firebase, database, app) {
     });
   });
 }
+
+module.exports.fetchRides = function (firebase, database, app) {
+  firebase.database().ref('rides').on('value', function (rides) {
+    app.ports.rides.send(toArrayOfObjects(rides.val()));
+  });
+};

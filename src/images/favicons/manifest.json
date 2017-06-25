@@ -1,6 +1,7 @@
 {
   "name": "Carona Board",
   "short_name": "Carona",
+  "gcm_sender_id": "617045704123",
   "icons": [
     {
       "src": "android-chrome-192x192.png",

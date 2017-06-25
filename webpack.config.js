@@ -36,6 +36,10 @@ const config = {
       from: 'src/images',
       to: 'images'
     }]),
+    new CopyWebpackPlugin([{
+      from: 'src/firebase-messaging-sw.js',
+      to: ''
+    }]),
     new StatsVisualizerPlugin()
   ]
 };
