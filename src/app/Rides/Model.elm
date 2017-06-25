@@ -1,4 +1,4 @@
-module Rides.Model exposing (Model, Ride, init)
+module Rides.Model exposing (Contact(..), Model, Ride, contactName, contactValue, init)
 
 
 type alias Ride =
@@ -9,7 +9,13 @@ type alias Ride =
     , days : String
     , hours : String
     , formUrl : String
+    , contact : Maybe Contact
     }
+
+
+type Contact
+    = Whatsapp String
+    | Telegram String
 
 
 type alias Model =
@@ -19,3 +25,23 @@ type alias Model =
 init : Model
 init =
     []
+
+
+contactName : Contact -> String
+contactName contact =
+    case contact of
+        Whatsapp value ->
+            "Whatsapp"
+
+        Telegram value ->
+            "Telegram"
+
+
+contactValue : Contact -> String
+contactValue contact =
+    case contact of
+        Whatsapp value ->
+            value
+
+        Telegram value ->
+            value

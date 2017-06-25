@@ -10,6 +10,8 @@ type Msg
     | UpdateDestination String
     | UpdateDays String
     | UpdateHours String
+    | UpdateContactType String
+    | UpdateContactValue String
     | Submit
     | GiveRideResponse (FirebaseResponse Ride)
 

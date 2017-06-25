@@ -5,6 +5,7 @@ import Common.Form exposing (loadingOrSubmitButton, renderErrors)
 import GiveRide.Model exposing (Model)
 import GiveRide.Msg exposing (Msg(..))
 import Layout.Styles exposing (Classes(..), class)
+import Rides.Model exposing (contactName, contactValue)
 import Testable.Html exposing (..)
 import Testable.Html.Attributes exposing (for, id, placeholder, value)
 import Testable.Html.Events exposing (onInput, onSubmit)
@@ -37,6 +38,12 @@ formFields model =
             ]
         , div [ materializeClass "col s12 m12 l6" ]
             [ textInput model.fields.hours UpdateHours "hours" "Horário de saída"
+            ]
+        , div [ materializeClass "col s12 m12 l6" ]
+            [ textInput model.fields.contactType UpdateContactType "contactType" "Contato"
+            ]
+        , div [ materializeClass "col s12 m12 l6" ]
+            [ textInput model.fields.contactValue UpdateContactValue "contactValue" "Nick/Numero"
             ]
         ]
     , loadingOrSubmitButton model.response [ id "submitNewRide", class SubmitButton ] [ text "Cadastrar" ]

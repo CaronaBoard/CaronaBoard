@@ -8,7 +8,7 @@ import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
 import Navigation
 import Notifications.Msg exposing (Msg(..))
-import Rides.Model exposing (Ride)
+import Rides.Model exposing (Contact(..), Ride)
 import Test exposing (..)
 import Testable.Html.Selectors exposing (..)
 import Testable.TestContext exposing (..)
@@ -28,7 +28,7 @@ tests =
                 >> assertText (Expect.equal "Carregando...")
         , test "sends request via giveRide port" <|
             submitNewRide
-                >> assertCalled (Cmd.map MsgForGiveRide <| GiveRide.Ports.giveRide { userId = "foo-bar-bar", name = "foo", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" })
+                >> assertCalled (Cmd.map MsgForGiveRide <| GiveRide.Ports.giveRide { userId = "foo-bar-bar", name = "foo", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", contactType = "Whatsapp", contactValue = "+5551" })
         , test "shows error when giveRide port returns an error" <|
             submitNewRide
                 >> update (MsgForGiveRide <| GiveRideResponse ( Just "Scientists just proved that undefined is indeed not a function", Nothing ))
@@ -58,7 +58,7 @@ ridesContext =
 
 rideExample : Ride
 rideExample =
-    { id = "1", name = "foo", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", formUrl = "" }
+    { id = "1", name = "foo", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", formUrl = "", contact = Just <| Whatsapp "+5551" }
 
 
 fillNewRide : a -> TestContext Root.Msg Model
@@ -74,6 +74,10 @@ fillNewRide =
         >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideExample.days ++ "\"}}")
         >> find [ id "hours" ]
         >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideExample.hours ++ "\"}}")
+        >> find [ id "contactType" ]
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ "Whatsapp" ++ "\"}}")
+        >> find [ id "contactValue" ]
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ "+5551" ++ "\"}}")
 
 
 submitNewRide : a -> TestContext Root.Msg Model

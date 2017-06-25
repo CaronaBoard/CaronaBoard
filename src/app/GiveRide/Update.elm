@@ -3,7 +3,7 @@ module GiveRide.Update exposing (update)
 import Common.Response exposing (Response(..), fromFirebase)
 import GiveRide.Model exposing (Model)
 import GiveRide.Msg exposing (Msg(..))
-import GiveRide.Ports exposing (giveRide)
+import GiveRide.Ports exposing (encodeNewRide, giveRide)
 import Login.Model exposing (User)
 import Msg as Root exposing (Msg(..))
 import Testable.Cmd
@@ -44,19 +44,17 @@ updateGiveRide user msg model =
         UpdateHours hours ->
             ( updateFields { fields | hours = hours }, Testable.Cmd.none )
 
+        UpdateContactType type_ ->
+            ( updateFields { fields | contactType = type_ }, Testable.Cmd.none )
+
+        UpdateContactValue value ->
+            ( updateFields { fields | contactValue = value }, Testable.Cmd.none )
+
         Submit ->
             case user of
                 Just user_ ->
                     ( { model | response = Loading }
-                    , Testable.Cmd.wrap <|
-                        giveRide
-                            { userId = user_.id
-                            , name = fields.name
-                            , origin = fields.origin
-                            , destination = fields.destination
-                            , days = fields.days
-                            , hours = fields.hours
-                            }
+                    , Testable.Cmd.wrap (giveRide (encodeNewRide user_ fields))
                     )
 
                 Nothing ->

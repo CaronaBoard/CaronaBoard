@@ -5,7 +5,7 @@ import Expect exposing (equal)
 import Helpers exposing (expectToContainText, initialContext, someUser, toLocation)
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
-import Rides.Model exposing (Ride, init)
+import Rides.Model exposing (Contact(..), Ride, init)
 import Rides.Msg exposing (Msg(..))
 import Rides.Styles exposing (Classes(Card))
 import Test exposing (..)
@@ -37,8 +37,8 @@ ridesContext =
 
 ridesExample : List Ride
 ridesExample =
-    [ { id = "1", name = "foo", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", formUrl = "http://foo" }
-    , { id = "2", name = "bar", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", formUrl = "http://foo" }
+    [ { id = "1", name = "foo", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", formUrl = "http://foo", contact = Just <| Whatsapp "" }
+    , { id = "2", name = "bar", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", formUrl = "http://foo", contact = Just <| Whatsapp "" }
     ]
 
 
