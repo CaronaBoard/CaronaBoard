@@ -4,6 +4,7 @@ import Layout.Styles exposing (Classes(..), class)
 import Layout.View.Header exposing (header)
 import Model exposing (Model)
 import Msg exposing (Msg)
+import Notifications.View.Notice exposing (notice)
 import Testable.Html exposing (Html, div, text)
 
 
@@ -12,15 +13,5 @@ layout model html =
     div [ class Page ]
         [ header model.layout
         , html
-        , notification model
+        , notice model
         ]
-
-
-notification : Model -> Html Msg
-notification model =
-    case model.layout.notification of
-        Just notification ->
-            div [ class NotificationVisible ] [ text notification ]
-
-        Nothing ->
-            div [ class NotificationHidden ] []

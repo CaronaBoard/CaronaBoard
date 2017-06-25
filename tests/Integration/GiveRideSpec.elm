@@ -7,6 +7,7 @@ import Helpers exposing (expectToContainText, initialContext, someUser, toLocati
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
 import Navigation
+import Notifications.Msg exposing (Msg(..))
 import Rides.Model exposing (Ride)
 import Test exposing (..)
 import Testable.Html.Selectors exposing (..)
@@ -33,11 +34,18 @@ tests =
                 >> update (MsgForGiveRide <| GiveRideResponse ( Just "Scientists just proved that undefined is indeed not a function", Nothing ))
                 >> find []
                 >> assertText (expectToContainText "not a function")
-        , test "goes to the rides page on success" <|
-            successfullySubmitNewRide
+        , test "goes to enable notifications page on success" <|
+            submitNewRide
+                >> successResponse
+                >> assertCalled (Cmd.map MsgForUrlRouter <| Navigation.newUrl <| toPath EnableNotificationsPage)
+        , test "goes to the rides page on success if notifications are already enabled" <|
+            submitNewRide
+                >> update (MsgForNotifications <| NotificationsResponse ( Nothing, Just True ))
+                >> successResponse
                 >> assertCalled (Cmd.map MsgForUrlRouter <| Navigation.newUrl <| toPath RidesPage)
         , test "shows notification on success" <|
-            successfullySubmitNewRide
+            submitNewRide
+                >> successResponse
                 >> find []
                 >> assertText (expectToContainText "Carona criada com sucesso!")
         ]
@@ -75,7 +83,6 @@ submitNewRide =
         >> trigger "submit" "{}"
 
 
-successfullySubmitNewRide : a -> TestContext Root.Msg Model
-successfullySubmitNewRide =
-    submitNewRide
-        >> update (MsgForGiveRide <| GiveRideResponse ( Nothing, Just rideExample ))
+successResponse : TestContext Root.Msg Model -> TestContext Root.Msg Model
+successResponse =
+    update (MsgForGiveRide <| GiveRideResponse ( Nothing, Just rideExample ))

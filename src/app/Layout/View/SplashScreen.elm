@@ -20,7 +20,7 @@ splashScreenStyle =
         , top (px 0)
         , left (px 0)
         , position fixed
-        , backgroundImage (url "images/logo.svg")
+        , backgroundImage (url "static/images/logo.svg")
         , backgroundColor primaryBlue
         , backgroundRepeat noRepeat
         , backgroundPosition center

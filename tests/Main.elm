@@ -4,6 +4,7 @@ import Fuzz.UrlRouter.UpdateSpec
 import Integration.GiveRideSpec
 import Integration.LayoutSpec
 import Integration.LoginSpec
+import Integration.NotificationsSpec
 import Integration.RidesSpec
 import Integration.UrlRouterSpec
 import Json.Encode exposing (Value)
@@ -20,6 +21,7 @@ tests =
         , Integration.UrlRouterSpec.tests
         , Integration.LayoutSpec.tests
         , Integration.GiveRideSpec.tests
+        , Integration.NotificationsSpec.tests
         ]
 
 

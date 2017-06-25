@@ -3,6 +3,7 @@ port module Stylesheets exposing (..)
 import Css.File exposing (CssCompilerProgram, CssFileStructure)
 import Layout.Styles
 import Login.Styles
+import Notifications.Styles
 import Rides.Styles
 
 
@@ -17,6 +18,7 @@ fileStructure =
                 [ Layout.Styles.styles
                 , Login.Styles.styles
                 , Rides.Styles.styles
+                , Notifications.Styles.styles
                 ]
           )
         ]

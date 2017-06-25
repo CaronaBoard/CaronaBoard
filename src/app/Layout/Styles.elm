@@ -23,8 +23,6 @@ type Classes
     | SignOutButton
     | AddRideLink
     | PageTitle
-    | NotificationVisible
-    | NotificationHidden
 
 
 styles : Stylesheet
@@ -111,14 +109,6 @@ layoutStyles =
                 ]
             ]
         ]
-    , cssClass NotificationVisible <|
-        notification
-            ++ [ bottom (px 0)
-               ]
-    , cssClass NotificationHidden <|
-        notification
-            ++ [ bottom (px -50)
-               ]
 
     -- TODO: This below is a very hacky way of adding keyframes, waiting for elm-css to add support for it
     , selector "@keyframes slideDown {"
@@ -146,18 +136,4 @@ button =
     , hover
         [ backgroundColor lighterBlue
         ]
-    ]
-
-
-notification : List Mixin
-notification =
-    [ width (pct 100)
-    , height (px 50)
-    , property "transition" "all 0.5s ease"
-    , lightTextColor
-    , backgroundColor (rgba 0 0 0 0.8)
-    , displayFlex
-    , alignItems center
-    , padding (px 20)
-    , position fixed
     ]

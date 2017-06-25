@@ -4,6 +4,7 @@ import GiveRide.Ports as GiveRide
 import Login.Ports as Login
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
+import Notifications.Ports as Notifications
 import Rides.Ports as Rides
 
 
@@ -13,4 +14,5 @@ subscriptions _ =
         [ Sub.map MsgForRides Rides.subscriptions
         , Sub.map MsgForLogin Login.subscriptions
         , Sub.map MsgForGiveRide GiveRide.subscriptions
+        , Sub.map MsgForNotifications Notifications.subscriptions
         ]

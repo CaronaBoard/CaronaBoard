@@ -9,6 +9,7 @@ import Login.View.Login exposing (login)
 import Login.View.PasswordReset exposing (passwordReset)
 import Model exposing (Model, init)
 import Msg as Root exposing (Msg(..))
+import Notifications.View.EnableNotifications exposing (enableNotifications)
 import Rides.View.Instructions exposing (instructions)
 import Rides.View.RoutesList exposing (routesList)
 import Testable
@@ -41,6 +42,9 @@ view model =
 
         GiveRidePage ->
             layout model (Testable.Html.map MsgForGiveRide <| giveRide model.giveRide)
+
+        EnableNotificationsPage ->
+            layout model (Testable.Html.map MsgForNotifications <| enableNotifications model.notifications)
 
 
 staticView : Html.Html Root.Msg

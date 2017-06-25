@@ -34,7 +34,7 @@ styles =
             , margin2 (pct 0) auto
             ]
         , cssClass Background
-            [ backgroundImage (url "images/streets.svg")
+            [ backgroundImage (url "static/images/streets.svg")
             , backgroundColor primaryBlue
             , backgroundSize cover
             , textAlign center
