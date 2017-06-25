@@ -5,4 +5,4 @@ import Common.Response exposing (FirebaseResponse)
 
 type Msg
     = EnableNotifications
-    | NotificationsResponse (FirebaseResponse ())
+    | NotificationsResponse (FirebaseResponse Bool)

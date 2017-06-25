@@ -4,7 +4,7 @@ import Common.Response exposing (Response(..))
 
 
 type alias Model =
-    { response : Response ()
+    { response : Response Bool
     }
 
 

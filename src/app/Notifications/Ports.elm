@@ -14,4 +14,4 @@ subscriptions =
 port enableNotifications : () -> Cmd msg
 
 
-port notificationsResponse : (FirebaseResponse () -> msg) -> Sub msg
+port notificationsResponse : (FirebaseResponse Bool -> msg) -> Sub msg

@@ -1,18 +1,20 @@
 module.exports = function(firebase, database, app) {
   var messaging = firebase.messaging();
 
-  messaging
-    .requestPermission()
-    .then(function() {
-      console.log("Notification permission granted.");
-      return messaging.getToken();
-    })
-    .then(function(token) {
-      console.log("Messaging token", token);
-    })
-    .catch(function(err) {
-      console.log("Unable to get permission to notify.", err);
-    });
+  app.ports.enableNotifications.subscribe(function() {
+    messaging
+      .requestPermission()
+      .then(function() {
+        return messaging.getToken();
+      })
+      .then(function(token) {
+        console.log("Messaging token", token);
+        app.ports.notificationsResponse.send([null, true]);
+      })
+      .catch(function(err) {
+        app.ports.notificationsResponse.send([err.message, null]);
+      });
+  });
 
   messaging.onMessage(function(payload) {
     console.log("Message received. ", payload);
