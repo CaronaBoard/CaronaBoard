@@ -2,9 +2,20 @@ module.exports = function(firebase, database, app) {
   var messaging = firebase.messaging();
 
   var successEnabledNotifications = function(token) {
-    if (token) {
-      console.log("TODO: update messaging token on database", token);
-      app.ports.notificationsResponse.send([null, true]);
+    var currentUser = firebase.auth().currentUser;
+    if (token && currentUser) {
+      firebase
+        .database()
+        .ref("users/" + currentUser.uid)
+        .set({
+          notificationToken: token
+        })
+        .then(function() {
+          app.ports.notificationsResponse.send([null, true]);
+        })
+        .catch(function(err) {
+          app.ports.notificationsResponse.send([err.message, null]);
+        });
     }
   };
 
