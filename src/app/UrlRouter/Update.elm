@@ -5,14 +5,15 @@ import Login.Model as Login
 import Login.Msg exposing (Msg(..))
 import Msg as Root exposing (Msg(..))
 import Navigation exposing (Location)
+import Notifications.Model as Notifications exposing (isEnabled)
 import Testable.Cmd
 import UrlRouter.Model exposing (Model)
 import UrlRouter.Msg exposing (Msg(Go, UrlChange))
 import UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, toPath)
 
 
-update : Root.Msg -> Model -> Login.Model -> ( Model, Testable.Cmd.Cmd UrlRouter.Msg.Msg )
-update msg model login =
+update : Notifications.Model -> Login.Model -> Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd UrlRouter.Msg.Msg )
+update notifications login msg model =
     case msg of
         MsgForUrlRouter urlMsg ->
             urlRouterUpdate urlMsg model login
@@ -27,7 +28,10 @@ update msg model login =
             urlRouterUpdate (Go PasswordResetPage) model login
 
         MsgForGiveRide (GiveRideResponse ( Nothing, Just _ )) ->
-            urlRouterUpdate (Go RidesPage) model login
+            if isEnabled notifications then
+                urlRouterUpdate (Go RidesPage) model login
+            else
+                urlRouterUpdate (Go EnableNotificationsPage) model login
 
         _ ->
             ( model, Testable.Cmd.none )

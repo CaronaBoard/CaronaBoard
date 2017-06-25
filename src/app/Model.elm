@@ -47,7 +47,7 @@ updateUrlRouter : Location -> Model -> ( Model, Testable.Cmd.Cmd Msg.Msg )
 updateUrlRouter location model =
     let
         updatedUrlRouter =
-            UrlRouterUpdate.update (MsgForUrlRouter <| UrlChange location) model.urlRouter model.login
+            UrlRouterUpdate.update model.notifications model.login (MsgForUrlRouter <| UrlChange location) model.urlRouter
     in
     ( { model | urlRouter = Tuple.first updatedUrlRouter }
     , Testable.Cmd.map MsgForUrlRouter <| Tuple.second updatedUrlRouter
