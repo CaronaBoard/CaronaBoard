@@ -1,4 +1,4 @@
-module Notifications.View exposing (enableNotifications)
+module Notifications.View.EnableNotifications exposing (enableNotifications)
 
 import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors)

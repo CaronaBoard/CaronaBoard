@@ -9,7 +9,7 @@ import Login.View.Login exposing (login)
 import Login.View.PasswordReset exposing (passwordReset)
 import Model exposing (Model, init)
 import Msg as Root exposing (Msg(..))
-import Notifications.View exposing (enableNotifications)
+import Notifications.View.EnableNotifications exposing (enableNotifications)
 import Rides.View.Instructions exposing (instructions)
 import Rides.View.RoutesList exposing (routesList)
 import Testable

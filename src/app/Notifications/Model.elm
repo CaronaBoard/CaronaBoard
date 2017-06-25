@@ -5,12 +5,14 @@ import Common.Response exposing (Response(..))
 
 type alias Model =
     { response : Response Bool
+    , notice : Maybe String
     }
 
 
 init : Model
 init =
     { response = Empty
+    , notice = Nothing
     }
 
 
