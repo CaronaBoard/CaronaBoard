@@ -4,7 +4,7 @@ module.exports = {
     'build/*.{html,js,css}',
     'build/*.js',
     'build/manifest.json',
-    'build/images/**/*'
+    'build/static/**/*'
   ],
   runtimeCaching: [{
     urlPattern: /cdnjs|fonts\.googleapis/,

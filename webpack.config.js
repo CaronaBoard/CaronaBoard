@@ -33,8 +33,8 @@ const config = {
       template: 'src/index.ejs'
     }),
     new CopyWebpackPlugin([{
-      from: 'src/images',
-      to: 'images'
+      from: 'src/static',
+      to: 'static'
     }]),
     new CopyWebpackPlugin([{
       from: 'src/firebase-messaging-sw.js',
