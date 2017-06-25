@@ -4,6 +4,7 @@ import Common.Response exposing (Response(..), fromFirebase)
 import Msg as Root exposing (Msg(..))
 import Notifications.Model exposing (Model)
 import Notifications.Msg exposing (Msg(..))
+import Notifications.Ports exposing (enableNotifications)
 import Testable.Cmd
 
 
@@ -21,7 +22,7 @@ updateNotifications : Notifications.Msg.Msg -> Model -> ( Model, Testable.Cmd.Cm
 updateNotifications msg model =
     case msg of
         EnableNotifications ->
-            ( { model | response = Loading }, Testable.Cmd.none )
+            ( { model | response = Loading }, Testable.Cmd.wrap <| enableNotifications () )
 
         NotificationsResponse response ->
             ( { model | response = fromFirebase response }, Testable.Cmd.none )

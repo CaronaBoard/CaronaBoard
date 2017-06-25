@@ -4,6 +4,7 @@ import Expect exposing (equal)
 import Helpers exposing (expectToContainText, initialContext, someUser, toLocation)
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
+import Notifications.Ports
 import Test exposing (..)
 import Testable.Html.Selectors exposing (..)
 import Testable.TestContext exposing (..)
@@ -17,6 +18,9 @@ tests =
             enableNotifications
                 >> find [ id "enableNotifications" ]
                 >> assertText (Expect.equal "Carregando...")
+        , test "sends request to enable notifications via port" <|
+            enableNotifications
+                >> assertCalled (Cmd.map MsgForNotifications <| Notifications.Ports.enableNotifications ())
         ]
 
 
