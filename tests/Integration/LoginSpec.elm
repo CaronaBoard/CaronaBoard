@@ -6,7 +6,7 @@ import Helpers exposing (expectToContainText)
 import Login.Model exposing (Model, init, loggedInUser)
 import Login.Msg exposing (Msg(..))
 import Login.Ports exposing (checkRegistration, passwordReset, signIn)
-import Login.Styles exposing (Classes(ResetPasswordButton))
+import Login.Styles exposing (Classes(..))
 import Login.Update as Update
 import Login.View.Login as View
 import Msg as Root exposing (Msg(MsgForLogin))
@@ -97,6 +97,12 @@ tests =
                             >> assertText (expectToContainText "Esqueci a Senha")
                         ]
             ]
+        , describe "registration"
+            [ test "shows loading on submit" <|
+                submitEmailThenRegistration
+                    >> find [ class SubmitButton ]
+                    >> assertText (Expect.equal "Carregando...")
+            ]
         ]
 
 
@@ -139,3 +145,13 @@ submitEmailThenForgotPassword =
         >> update (MsgForLogin <| CheckRegistrationResponse True)
         >> find [ class ResetPasswordButton ]
         >> trigger "click" "{}"
+
+
+submitEmailThenRegistration : a -> TestContext Root.Msg Model
+submitEmailThenRegistration =
+    submitEmail
+        >> update (MsgForLogin <| CheckRegistrationResponse False)
+        >> find [ id "password" ]
+        >> trigger "input" "{\"target\": {\"value\": \"baz\"}}"
+        >> find [ tag "form" ]
+        >> trigger "submit" "{}"

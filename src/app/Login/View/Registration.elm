@@ -35,5 +35,5 @@ registration model =
                 []
             , label [ for "password" ] [ text "Nova Senha" ]
             ]
-        , loadingOrSubmitButton model.registered [ class SubmitButton ] [ text "Cadastrar" ]
+        , loadingOrSubmitButton model.signUp [ class SubmitButton ] [ text "Cadastrar" ]
         ]
