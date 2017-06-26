@@ -29,11 +29,11 @@ tests =
             , test "sends request via checkRegistration port" <|
                 submitEmail
                     >> assertCalled (Cmd.map MsgForLogin <| checkRegistration "foo@bar.com")
-            , test "shows beta message when user is not registered yet" <|
+            , test "goes to registration if not registered yet" <|
                 submitEmail
                     >> update (MsgForLogin <| CheckRegistrationResponse False)
                     >> find []
-                    >> assertText (expectToContainText "em fase beta")
+                    >> assertText (expectToContainText "Cadastro")
             ]
         , describe "password check"
             [ test "shows loading button on submit" <|

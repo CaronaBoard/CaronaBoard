@@ -40,6 +40,7 @@ styles =
             , textAlign center
             , lightTextColor
             , height (pct 100)
+            , width (pct 100)
             ]
         , cssClass Container
             [ displayFlex
