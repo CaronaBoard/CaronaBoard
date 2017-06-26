@@ -3,7 +3,7 @@ module Profile.Update exposing (update)
 import Common.Response exposing (Response(..), fromFirebase)
 import Login.Msg exposing (Msg(SignInResponse))
 import Msg as Root exposing (Msg(..))
-import Profile.Model exposing (Model)
+import Profile.Model exposing (Model, init)
 import Profile.Msg exposing (Msg(..))
 import Profile.Ports exposing (saveProfile)
 import Testable.Cmd
@@ -18,10 +18,10 @@ update msg model =
         MsgForLogin (SignInResponse ( Nothing, Just response )) ->
             case response.profile of
                 Just profile ->
-                    ( { model | fields = profile }, Testable.Cmd.none )
+                    ( { model | fields = profile, response = Success profile }, Testable.Cmd.none )
 
                 Nothing ->
-                    ( model, Testable.Cmd.none )
+                    ( init Nothing, Testable.Cmd.none )
 
         _ ->
             ( model, Testable.Cmd.none )

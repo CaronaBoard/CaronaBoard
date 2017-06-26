@@ -34,6 +34,7 @@ module.exports = function(firebase, database, app) {
       .database()
       .ref("profiles/" + user.uid)
       .once("value", function(profile) {
+        localStorage.setItem("profile", JSON.stringify(profile.val()));
         app.ports.signInResponse.send(
           tuple(null, {
             user: { id: user.uid, name: user.displayName || "" },
@@ -45,6 +46,7 @@ module.exports = function(firebase, database, app) {
   };
 
   var signOutUser = function() {
+    localStorage.removeItem("profile");
     app.ports.signOutResponse.send(null);
   };
 

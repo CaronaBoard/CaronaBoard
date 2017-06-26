@@ -6,7 +6,7 @@ import Login.Model as Login
 import Msg exposing (Msg(MsgForUrlRouter))
 import Navigation exposing (Location)
 import Notifications.Model as Notifications
-import Profile.Model as Profile
+import Profile.Model as Profile exposing (Profile)
 import RideRequest.Model as RideRequest
 import Rides.Model as Rides
 import Testable.Cmd
@@ -29,11 +29,12 @@ type alias Model =
 
 type alias Flags =
     { currentUser : Maybe Login.User
+    , profile : Maybe Profile
     }
 
 
 init : Flags -> Location -> ( Model, Testable.Cmd.Cmd Msg.Msg )
-init { currentUser } location =
+init { currentUser, profile } location =
     let
         initialModel =
             { urlRouter = UrlRouter.init location
@@ -43,7 +44,7 @@ init { currentUser } location =
             , giveRide = GiveRide.init
             , notifications = Notifications.init
             , rideRequest = RideRequest.init
-            , profile = Profile.init
+            , profile = Profile.init profile
             }
     in
     updateUrlRouter location initialModel
@@ -53,7 +54,7 @@ updateUrlRouter : Location -> Model -> ( Model, Testable.Cmd.Cmd Msg.Msg )
 updateUrlRouter location model =
     let
         updatedUrlRouter =
-            UrlRouterUpdate.update model.notifications model.login (MsgForUrlRouter <| UrlChange location) model.urlRouter
+            UrlRouterUpdate.update model.notifications model.profile model.login (MsgForUrlRouter <| UrlChange location) model.urlRouter
     in
     ( { model | urlRouter = Tuple.first updatedUrlRouter }
     , Testable.Cmd.map MsgForUrlRouter <| Tuple.second updatedUrlRouter

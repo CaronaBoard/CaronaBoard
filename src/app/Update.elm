@@ -18,7 +18,7 @@ update : Msg -> Model -> ( Model, Testable.Cmd.Cmd Msg )
 update msg model =
     let
         urlRouter =
-            UrlRouter.update model.notifications model.login msg model.urlRouter
+            UrlRouter.update model.notifications model.profile model.login msg model.urlRouter
 
         login =
             Login.update msg model.login
