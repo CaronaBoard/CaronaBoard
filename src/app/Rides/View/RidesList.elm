@@ -1,4 +1,4 @@
-module Rides.View.RoutesList exposing (routesList)
+module Rides.View.RidesList exposing (ridesList)
 
 import Common.CssHelpers exposing (materializeClass)
 import Common.Icon exposing (icon)
@@ -8,13 +8,13 @@ import Testable.Html exposing (Html, a, div, hr, li, ol, p, span, strong, text)
 import Testable.Html.Attributes exposing (href, id, rel, target)
 
 
-routesList : Model -> Html a
-routesList rides =
-    div [ materializeClass "container" ] (List.map rideRoute rides)
+ridesList : Model -> Html a
+ridesList rides =
+    div [ materializeClass "container" ] (List.map rideItem rides)
 
 
-rideRoute : Ride -> Html a
-rideRoute ride =
+rideItem : Ride -> Html a
+rideItem ride =
     a [ href ride.formUrl, target "_blank", class Card, materializeClass "card" ]
         [ div [ materializeClass "card-content" ]
             [ span [ class CardTitle ] [ text ride.destination ]
