@@ -6,7 +6,7 @@ import Login.Msg exposing (Msg(..))
 import Login.Styles exposing (Classes(..), class)
 import Login.View.EmailStep exposing (emailStep)
 import Login.View.PasswordStep exposing (passwordStep)
-import Login.View.Registration exposing (registration)
+import Login.View.Registration exposing (registrationStep)
 import Testable.Html exposing (Html, b, div, form, h1, input, p, text)
 import Testable.Html.Events exposing (onInput, onSubmit)
 
@@ -21,7 +21,7 @@ login model =
             formStep (passwordStep model)
 
         NotRegisteredStep ->
-            registrationStep (registration model)
+            registrationStep model
 
 
 formStep : Html Msg -> Html Msg
@@ -44,24 +44,6 @@ formStep step =
                     , text "Entre com sua conta"
                     ]
                 , form [ onSubmit Submit ] [ step ]
-                ]
-            ]
-        ]
-
-
-registrationStep : Html Msg -> Html Msg
-registrationStep step =
-    div [ class Background ]
-        [ div
-            [ class Container ]
-            [ div [ class StepTitle ]
-                [ h1 [] [ text "Cadastro" ]
-                , p []
-                    [ text "Parece que esse email ainda não está cadastrado, faça seu cadastro para continuar"
-                    ]
-                ]
-            , div [ class StepForm ]
-                [ form [ onSubmit Submit ] [ step ]
                 ]
             ]
         ]

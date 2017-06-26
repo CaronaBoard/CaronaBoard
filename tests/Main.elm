@@ -5,6 +5,7 @@ import Integration.GiveRideSpec
 import Integration.LayoutSpec
 import Integration.LoginSpec
 import Integration.NotificationsSpec
+import Integration.ProfileSpec
 import Integration.RideRequestSpec
 import Integration.RidesSpec
 import Integration.UrlRouterSpec
@@ -24,6 +25,7 @@ tests =
         , Integration.GiveRideSpec.tests
         , Integration.NotificationsSpec.tests
         , Integration.RideRequestSpec.tests
+        , Integration.ProfileSpec.tests
         ]
 
 
