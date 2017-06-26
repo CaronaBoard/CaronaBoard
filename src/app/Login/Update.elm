@@ -36,7 +36,7 @@ loginUpdate msg model =
                     ( { model | loggedIn = Loading }, Testable.Cmd.wrap <| signIn { email = model.email, password = model.password } )
 
                 NotRegisteredStep ->
-                    ( model, Testable.Cmd.none )
+                    ( { model | signUp = Loading }, Testable.Cmd.none )
 
         CheckRegistrationResponse isRegistered ->
             ( { model | registered = Success isRegistered }, Testable.Cmd.none )
