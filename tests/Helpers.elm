@@ -64,7 +64,7 @@ fixtures =
     , ride =
         { id = "ride-1", name = "foo", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", contact = { kind = "Whatsapp", value = "+5551" } }
     , user =
-        { id = "foo-bar-bar", name = "Baz" }
+        { id = "foo-bar-bar" }
     , profile =
         { name = "foo", contact = { kind = "Whatsapp", value = "passenger-wpp" } }
     }

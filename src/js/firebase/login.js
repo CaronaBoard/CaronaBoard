@@ -37,7 +37,7 @@ module.exports = function(firebase, database, app) {
         localStorage.setItem("profile", JSON.stringify(profile.val()));
         app.ports.signInResponse.send(
           tuple(null, {
-            user: { id: user.uid, name: user.displayName || "" },
+            user: { id: user.uid },
             profile: profile.val()
           })
         );
