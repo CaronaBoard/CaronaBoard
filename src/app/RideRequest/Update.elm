@@ -25,6 +25,9 @@ updateRideRequest user msg model =
         fields =
             model.fields
 
+        contact =
+            model.fields.contact
+
         updateFields fields =
             { model | fields = fields }
     in
@@ -32,11 +35,11 @@ updateRideRequest user msg model =
         UpdateName name ->
             ( updateFields { fields | name = name }, Testable.Cmd.none )
 
-        UpdateContactType type_ ->
-            ( updateFields { fields | contactType = type_ }, Testable.Cmd.none )
+        UpdateContactType kind ->
+            ( updateFields { fields | contact = { contact | kind = kind } }, Testable.Cmd.none )
 
         UpdateContactValue value ->
-            ( updateFields { fields | contactValue = value }, Testable.Cmd.none )
+            ( updateFields { fields | contact = { contact | value = value } }, Testable.Cmd.none )
 
         Submit ride ->
             case user of

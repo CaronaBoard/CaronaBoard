@@ -1,6 +1,6 @@
 port module Rides.Ports exposing (RawRide, decodeRide, subscriptions)
 
-import Rides.Model exposing (Contact(..), Ride)
+import Rides.Model exposing (Contact, Ride)
 import Rides.Msg exposing (Msg(..))
 
 
@@ -20,8 +20,7 @@ type alias RawRide =
     , days : String
     , hours : String
     , formUrl : String
-    , contactType : String
-    , contactValue : String
+    , contact : Contact
     }
 
 
@@ -38,18 +37,5 @@ decodeRide rawRide =
     , destination = rawRide.destination
     , days = rawRide.days
     , hours = rawRide.hours
-    , contact = decodeContact rawRide.contactType rawRide.contactValue
+    , contact = rawRide.contact
     }
-
-
-decodeContact : String -> String -> Maybe Contact
-decodeContact type_ value =
-    case type_ of
-        "Whatsapp" ->
-            Just <| Whatsapp value
-
-        "Telegram" ->
-            Just <| Telegram value
-
-        _ ->
-            Nothing

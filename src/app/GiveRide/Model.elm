@@ -1,7 +1,7 @@
 module GiveRide.Model exposing (Model, NewRide, init)
 
 import Common.Response exposing (Response(..))
-import Rides.Model exposing (Contact(..), Ride)
+import Rides.Model exposing (Contact, Ride)
 
 
 type alias Model =
@@ -16,8 +16,7 @@ type alias NewRide =
     , destination : String
     , days : String
     , hours : String
-    , contactType : String
-    , contactValue : String
+    , contact : Contact
     }
 
 
@@ -29,8 +28,7 @@ init =
         , destination = ""
         , days = ""
         , hours = ""
-        , contactType = "Whatsapp"
-        , contactValue = ""
+        , contact = { kind = "Whatsapp", value = "" }
         }
     , response = Empty
     }

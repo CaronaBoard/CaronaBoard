@@ -9,7 +9,7 @@ import Model as RootModel
 import RideRequest.Model exposing (Model)
 import RideRequest.Msg exposing (Msg(..))
 import RideRequest.Styles exposing (Classes(..), class)
-import Rides.Model exposing (Contact(Telegram, Whatsapp))
+import Rides.Model exposing (contactDeepLink, contactIdentifier)
 import Testable.Html exposing (..)
 import Testable.Html.Attributes exposing (for, href, id, placeholder, selected, target, value)
 import Testable.Html.Events exposing (onInput, onSubmit)
@@ -33,20 +33,9 @@ rideRequest rideId model =
                         , p [] [ text "Para combinar melhor com o motorista, use o contato abaixo:" ]
                         , br [] []
                         , p [ class Contact ]
-                            (case ride.contact of
-                                Just (Whatsapp value) ->
-                                    [ text "Whatsapp "
-                                    , a [ href <| "whatsapp://send?phone=" ++ value, target "_blank" ] [ text value ]
-                                    ]
-
-                                Just (Telegram value) ->
-                                    [ text "Telegram "
-                                    , a [ href <| "tg://resolve?domain=" ++ value, target "_blank" ] [ text value ]
-                                    ]
-
-                                Nothing ->
-                                    []
-                            )
+                            [ text <| ride.contact.kind ++ " "
+                            , a [ href <| contactDeepLink ride.contact, target "_blank" ] [ text ride.contact.value ]
+                            ]
                         ]
                     ]
 
@@ -77,7 +66,7 @@ formFields model =
                 ]
             ]
         , div [ materializeClass "col s7" ]
-            [ textInput model.fields.contactValue UpdateContactValue "contactValue" (contactIdentifier model.fields.contactType)
+            [ textInput model.fields.contact.value UpdateContactValue "contactValue" (contactIdentifier model.fields.contact.kind)
             ]
         ]
     , loadingOrSubmitButton model.response [ id "submitRideRequest", layoutClass SubmitButton ] [ text "Pedir carona" ]
@@ -100,12 +89,4 @@ textInput value_ msg id_ label_ =
 
 contactTypeOption : Model -> String -> Html msg
 contactTypeOption model value_ =
-    option [ value value_, selected (model.fields.contactType == value_) ] [ text value_ ]
-
-
-contactIdentifier : String -> String
-contactIdentifier contactType =
-    if contactType == "Telegram" then
-        "Nick"
-    else
-        "Número"
+    option [ value value_, selected (model.fields.contact.value == value_) ] [ text value_ ]

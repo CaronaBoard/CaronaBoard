@@ -1,4 +1,4 @@
-module Rides.Model exposing (Contact(..), Model, Ride, contactName, contactValue, init)
+module Rides.Model exposing (Contact, Model, Ride, contactDeepLink, contactIdentifier, init)
 
 
 type alias Ride =
@@ -8,13 +8,14 @@ type alias Ride =
     , destination : String
     , days : String
     , hours : String
-    , contact : Maybe Contact
+    , contact : Contact
     }
 
 
-type Contact
-    = Whatsapp String
-    | Telegram String
+type alias Contact =
+    { kind : String
+    , value : String
+    }
 
 
 type alias Model =
@@ -26,21 +27,22 @@ init =
     []
 
 
-contactName : Contact -> String
-contactName contact =
-    case contact of
-        Whatsapp value ->
-            "Whatsapp"
+contactDeepLink : Contact -> String
+contactDeepLink contact =
+    case contact.kind of
+        "Whatsapp" ->
+            "whatsapp://send?phone=" ++ contact.value
 
-        Telegram value ->
-            "Telegram"
+        "Telegram" ->
+            "tg://resolve?domain=" ++ contact.value
+
+        _ ->
+            ""
 
 
-contactValue : Contact -> String
-contactValue contact =
-    case contact of
-        Whatsapp value ->
-            value
-
-        Telegram value ->
-            value
+contactIdentifier : String -> String
+contactIdentifier contactType =
+    if contactType == "Telegram" then
+        "Nick"
+    else
+        "Número"

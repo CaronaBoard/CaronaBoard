@@ -4,7 +4,7 @@ import Common.Response exposing (FirebaseResponse, firebaseMap)
 import Login.Model exposing (User)
 import RideRequest.Model exposing (RideRequest)
 import RideRequest.Msg exposing (Msg(..))
-import Rides.Model exposing (Ride)
+import Rides.Model exposing (Contact, Ride)
 
 
 subscriptions : Sub Msg
@@ -24,16 +24,14 @@ type alias RawRideRequest =
     { rideId : String
     , userId : String
     , name : String
-    , contactType : String
-    , contactValue : String
+    , contact : Contact
     }
 
 
 encodeRideRequest : Ride -> User -> RideRequest -> RawRideRequest
-encodeRideRequest ride user newRide =
+encodeRideRequest ride user rideRequest =
     { rideId = ride.id
     , userId = user.id
-    , name = newRide.name
-    , contactType = newRide.contactType
-    , contactValue = newRide.contactValue
+    , name = rideRequest.name
+    , contact = rideRequest.contact
     }

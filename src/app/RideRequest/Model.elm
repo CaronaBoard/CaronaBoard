@@ -1,6 +1,7 @@
 module RideRequest.Model exposing (Model, RideRequest, init)
 
 import Common.Response exposing (Response(..))
+import Rides.Model exposing (Contact)
 
 
 type alias Model =
@@ -11,8 +12,7 @@ type alias Model =
 
 type alias RideRequest =
     { name : String
-    , contactType : String
-    , contactValue : String
+    , contact : Contact
     }
 
 
@@ -20,8 +20,7 @@ init : Model
 init =
     { fields =
         { name = ""
-        , contactType = "Whatsapp"
-        , contactValue = ""
+        , contact = { kind = "Whatsapp", value = "" }
         }
     , response = Empty
     }

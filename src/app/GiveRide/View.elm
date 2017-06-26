@@ -5,6 +5,7 @@ import Common.Form exposing (loadingOrSubmitButton, renderErrors)
 import GiveRide.Model exposing (Model)
 import GiveRide.Msg exposing (Msg(..))
 import Layout.Styles exposing (Classes(..), class)
+import Rides.Model exposing (contactIdentifier)
 import Testable.Html exposing (..)
 import Testable.Html.Attributes exposing (for, id, placeholder, selected, value)
 import Testable.Html.Events exposing (onInput, onSubmit)
@@ -48,7 +49,7 @@ formFields model =
                 ]
             ]
         , div [ materializeClass "col s7" ]
-            [ textInput model.fields.contactValue UpdateContactValue "contactValue" (contactIdentifier model.fields.contactType)
+            [ textInput model.fields.contact.value UpdateContactValue "contactValue" (contactIdentifier model.fields.contact.kind)
             ]
         ]
     , loadingOrSubmitButton model.response [ id "submitNewRide", class SubmitButton ] [ text "Cadastrar" ]
@@ -71,12 +72,4 @@ textInput value_ msg id_ label_ =
 
 contactTypeOption : Model -> String -> Html msg
 contactTypeOption model value_ =
-    option [ value value_, selected (model.fields.contactType == value_) ] [ text value_ ]
-
-
-contactIdentifier : String -> String
-contactIdentifier contactType =
-    if contactType == "Telegram" then
-        "Nick"
-    else
-        "Número"
+    option [ value value_, selected (model.fields.contact.value == value_) ] [ text value_ ]

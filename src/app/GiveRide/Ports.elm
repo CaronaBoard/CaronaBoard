@@ -4,6 +4,7 @@ import Common.Response exposing (FirebaseResponse, firebaseMap)
 import GiveRide.Model exposing (NewRide)
 import GiveRide.Msg exposing (Msg(..))
 import Login.Model exposing (User)
+import Rides.Model exposing (Contact)
 import Rides.Ports exposing (RawRide, decodeRide)
 
 
@@ -27,8 +28,7 @@ type alias RawNewRide =
     , destination : String
     , days : String
     , hours : String
-    , contactType : String
-    , contactValue : String
+    , contact : Contact
     }
 
 
@@ -40,6 +40,5 @@ encodeNewRide user newRide =
     , destination = newRide.destination
     , days = newRide.days
     , hours = newRide.hours
-    , contactType = newRide.contactType
-    , contactValue = newRide.contactValue
+    , contact = newRide.contact
     }

@@ -53,7 +53,7 @@ ridesContext =
 
 rideRequestExample : RawRideRequest
 rideRequestExample =
-    { rideId = "ride-2", userId = "foo-bar-bar", name = "foo", contactType = "Whatsapp", contactValue = "passenger-wpp" }
+    { rideId = "ride-2", userId = "foo-bar-bar", name = "foo", contact = { kind = "Whatsapp", value = "passenger-wpp" } }
 
 
 fillRideRequest : a -> TestContext Root.Msg Model
@@ -62,9 +62,9 @@ fillRideRequest =
         >> find [ id "name" ]
         >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideRequestExample.name ++ "\"}}")
         >> find [ id "contactType" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideRequestExample.contactType ++ "\"}}")
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideRequestExample.contact.kind ++ "\"}}")
         >> find [ id "contactValue" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideRequestExample.contactValue ++ "\"}}")
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideRequestExample.contact.value ++ "\"}}")
 
 
 submitRideRequest : a -> TestContext Root.Msg Model
