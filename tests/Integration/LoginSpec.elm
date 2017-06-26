@@ -2,7 +2,7 @@ module Integration.LoginSpec exposing (tests)
 
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
-import Helpers exposing (expectToContainText)
+import Helpers exposing (expectToContainText, fixtures)
 import Login.Model exposing (Model, init, loggedInUser)
 import Login.Msg exposing (Msg(..))
 import Login.Ports exposing (..)
@@ -53,12 +53,12 @@ tests =
                         ]
             , test "returns the logged in user from the model" <|
                 submitEmailThenPassword
-                    >> update (MsgForLogin <| SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
+                    >> update (MsgForLogin <| SignInResponse ( Nothing, Just fixtures.user ))
                     >> currentModel
                     >> (\result ->
                             case result of
                                 Ok model ->
-                                    Expect.equal (Just { id = "foo-bar-baz", name = "Baz" }) (loggedInUser model)
+                                    Expect.equal (Just fixtures.user) (loggedInUser model)
 
                                 Err err ->
                                     Expect.fail (toString err)
@@ -67,7 +67,7 @@ tests =
         , describe "logout"
             [ test "removes the logged in user" <|
                 loginContext
-                    >> update (MsgForLogin <| SignInResponse ( Nothing, Just { id = "foo-bar-baz", name = "Baz" } ))
+                    >> update (MsgForLogin <| SignInResponse ( Nothing, Just fixtures.user ))
                     >> update (MsgForLogin SignOutResponse)
                     >> currentModel
                     >> (\result ->

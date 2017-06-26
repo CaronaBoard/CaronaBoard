@@ -43,7 +43,7 @@ someUser =
     Just { id = "foo-bar-bar", name = "Baz" }
 
 
-fixtures : { rides : List Ride, ride : Ride }
+fixtures : { rides : List Ride, ride : Ride, user : User }
 fixtures =
     { rides =
         [ { id = "ride-1", name = "foo", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", contact = { kind = "Whatsapp", value = "+5551" } }
@@ -51,4 +51,6 @@ fixtures =
         ]
     , ride =
         { id = "ride-1", name = "foo", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", contact = { kind = "Whatsapp", value = "+5551" } }
+    , user =
+        { id = "foo-bar-baz", name = "Baz" }
     }
