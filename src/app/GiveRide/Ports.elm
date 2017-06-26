@@ -1,8 +1,10 @@
-port module GiveRide.Ports exposing (giveRide, subscriptions)
+port module GiveRide.Ports exposing (encodeNewRide, giveRide, subscriptions)
 
-import Common.Response exposing (FirebaseResponse)
+import Common.Response exposing (FirebaseResponse, firebaseMap)
+import GiveRide.Model exposing (NewRide)
 import GiveRide.Msg exposing (Msg(..))
-import Rides.Model exposing (Ride)
+import Login.Model exposing (User)
+import Rides.Model exposing (Contact, Ride)
 
 
 subscriptions : Sub Msg
@@ -12,15 +14,30 @@ subscriptions =
         ]
 
 
-port giveRide :
+port giveRide : RawNewRide -> Cmd msg
+
+
+port giveRideResponse : (FirebaseResponse Bool -> msg) -> Sub msg
+
+
+type alias RawNewRide =
     { userId : String
     , name : String
     , origin : String
     , destination : String
     , days : String
     , hours : String
+    , contact : Contact
     }
-    -> Cmd msg
 
 
-port giveRideResponse : (FirebaseResponse Ride -> msg) -> Sub msg
+encodeNewRide : User -> NewRide -> RawNewRide
+encodeNewRide user newRide =
+    { userId = user.id
+    , name = newRide.name
+    , origin = newRide.origin
+    , destination = newRide.destination
+    , days = newRide.days
+    , hours = newRide.hours
+    , contact = newRide.contact
+    }

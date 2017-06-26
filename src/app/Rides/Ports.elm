@@ -1,6 +1,6 @@
 port module Rides.Ports exposing (subscriptions)
 
-import Rides.Model exposing (Ride)
+import Rides.Model exposing (Contact, Ride)
 import Rides.Msg exposing (Msg(..))
 
 

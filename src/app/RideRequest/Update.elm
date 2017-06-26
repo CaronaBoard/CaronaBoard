@@ -1,26 +1,26 @@
-module GiveRide.Update exposing (update)
+module RideRequest.Update exposing (update)
 
 import Common.Response exposing (Response(..), fromFirebase)
-import GiveRide.Model exposing (Model)
-import GiveRide.Msg exposing (Msg(..))
-import GiveRide.Ports exposing (encodeNewRide, giveRide)
 import Login.Model exposing (User)
 import Msg as Root exposing (Msg(..))
+import RideRequest.Model exposing (Model)
+import RideRequest.Msg exposing (Msg(..))
+import RideRequest.Ports exposing (encodeRideRequest, rideRequest)
 import Testable.Cmd
 
 
-update : Maybe User -> Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd GiveRide.Msg.Msg )
+update : Maybe User -> Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd RideRequest.Msg.Msg )
 update user msg model =
     case msg of
-        MsgForGiveRide msg_ ->
-            updateGiveRide user msg_ model
+        MsgForRideRequest msg_ ->
+            updateRideRequest user msg_ model
 
         _ ->
             ( model, Testable.Cmd.none )
 
 
-updateGiveRide : Maybe User -> GiveRide.Msg.Msg -> Model -> ( Model, Testable.Cmd.Cmd GiveRide.Msg.Msg )
-updateGiveRide user msg model =
+updateRideRequest : Maybe User -> RideRequest.Msg.Msg -> Model -> ( Model, Testable.Cmd.Cmd RideRequest.Msg.Msg )
+updateRideRequest user msg model =
     let
         fields =
             model.fields
@@ -35,33 +35,21 @@ updateGiveRide user msg model =
         UpdateName name ->
             ( updateFields { fields | name = name }, Testable.Cmd.none )
 
-        UpdateOrigin origin ->
-            ( updateFields { fields | origin = origin }, Testable.Cmd.none )
-
-        UpdateDestination destination ->
-            ( updateFields { fields | destination = destination }, Testable.Cmd.none )
-
-        UpdateDays days ->
-            ( updateFields { fields | days = days }, Testable.Cmd.none )
-
-        UpdateHours hours ->
-            ( updateFields { fields | hours = hours }, Testable.Cmd.none )
-
         UpdateContactType kind ->
             ( updateFields { fields | contact = { contact | kind = kind } }, Testable.Cmd.none )
 
         UpdateContactValue value ->
             ( updateFields { fields | contact = { contact | value = value } }, Testable.Cmd.none )
 
-        Submit ->
+        Submit ride ->
             case user of
                 Just user_ ->
                     ( { model | response = Loading }
-                    , Testable.Cmd.wrap (giveRide (encodeNewRide user_ fields))
+                    , Testable.Cmd.wrap (rideRequest (encodeRideRequest ride user_ fields))
                     )
 
                 Nothing ->
                     ( model, Testable.Cmd.none )
 
-        GiveRideResponse response ->
+        RideRequestResponse response ->
             ( { model | response = fromFirebase response }, Testable.Cmd.none )

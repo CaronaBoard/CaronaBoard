@@ -1,7 +1,6 @@
 module GiveRide.Msg exposing (Msg(..))
 
 import Common.Response exposing (FirebaseResponse)
-import Rides.Model exposing (Ride)
 
 
 type Msg
@@ -10,9 +9,7 @@ type Msg
     | UpdateDestination String
     | UpdateDays String
     | UpdateHours String
+    | UpdateContactType String
+    | UpdateContactValue String
     | Submit
-    | GiveRideResponse (FirebaseResponse Ride)
-
-
-type alias Error =
-    String
+    | GiveRideResponse (FirebaseResponse Bool)

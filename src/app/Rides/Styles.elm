@@ -15,6 +15,7 @@ type Classes
     = Card
     | CardTitle
     | OtherDetails
+    | ActionButton
     | Path
     | PathIcon
     | PathIconDot
@@ -43,10 +44,23 @@ cardStyles =
         , fontWeight bold
         ]
     , cssClass OtherDetails
-        [ descendants
+        [ displayFlex
+        , justifyContent spaceBetween
+        , alignItems flexEnd
+        , descendants
             [ p
                 [ margin (px 0)
                 ]
+            ]
+        ]
+    , cssClass ActionButton <|
+        [ important <| darkTextColor
+        , important <| margin (px 0)
+        , backgroundColor (hex "#EEE")
+        , borderStyle none
+        , padding2 (px 10) (px 15)
+        , hover
+            [ backgroundColor (hex "#DDD")
             ]
         ]
     , cssClass Path

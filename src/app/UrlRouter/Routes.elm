@@ -13,6 +13,7 @@ type Page
     | PasswordResetPage
     | GiveRidePage
     | EnableNotificationsPage
+    | RideRequestPage String
 
 
 pageParser : Parser (Page -> a) a
@@ -24,6 +25,7 @@ pageParser =
         , map PasswordResetPage (static "password-reset")
         , map GiveRidePage (static "give-ride")
         , map EnableNotificationsPage (static "enable-notifications")
+        , map RideRequestPage (static "request-ride" </> string)
         ]
 
 
@@ -50,6 +52,9 @@ toPath page =
 
         EnableNotificationsPage ->
             "#/enable-notifications"
+
+        RideRequestPage rideId ->
+            "#/request-ride/" ++ rideId
 
 
 redirectTo : Login.Model -> Page -> Page
@@ -86,6 +91,12 @@ redirectTo login page =
                 LoginPage
 
         EnableNotificationsPage ->
+            if isLoggedIn login then
+                page
+            else
+                LoginPage
+
+        RideRequestPage _ ->
             if isLoggedIn login then
                 page
             else

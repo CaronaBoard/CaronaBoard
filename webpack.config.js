@@ -28,6 +28,10 @@ const config = {
       }
     ]
   },
+  devServer: {
+    host: "0.0.0.0",
+    disableHostCheck: true
+  },
   plugins: [
     new webpack.EnvironmentPlugin(["DEBUG"]),
     new HtmlWebpackPlugin({
