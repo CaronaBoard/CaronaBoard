@@ -5,7 +5,7 @@ import Helpers exposing (expectToContainText, fixtures, initialContext, someUser
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
 import RideRequest.Msg exposing (Msg(..))
-import RideRequest.Ports exposing (RawRideRequest)
+import RideRequest.Ports exposing (RideRequest)
 import Rides.Msg exposing (Msg(..))
 import Test exposing (..)
 import Testable.Html.Selectors exposing (..)
@@ -16,11 +16,7 @@ import UrlRouter.Routes exposing (Page(..), toPath)
 tests : Test
 tests =
     describe "requests a ride" <|
-        [ test "fill the fields correctly" <|
-            fillRideRequest
-                >> find [ id "name" ]
-                >> assertAttribute "value" (Expect.equal "foo")
-        , test "shows loading on submit" <|
+        [ test "shows loading on submit" <|
             submitRideRequest
                 >> find [ id "submitRideRequest" ]
                 >> assertText (Expect.equal "Carregando...")
@@ -45,31 +41,20 @@ tests =
         ]
 
 
-ridesContext : a -> TestContext Root.Msg Model
-ridesContext =
+ridesContextContext : a -> TestContext Root.Msg Model
+ridesContextContext =
     initialContext someUser (RideRequestPage "ride-2")
         >> update (MsgForRides <| UpdateRides fixtures.rides)
 
 
-rideRequestExample : RawRideRequest
+rideRequestExample : RideRequest
 rideRequestExample =
-    { rideId = "ride-2", userId = "foo-bar-bar", name = "foo", contact = { kind = "Whatsapp", value = "passenger-wpp" } }
-
-
-fillRideRequest : a -> TestContext Root.Msg Model
-fillRideRequest =
-    ridesContext
-        >> find [ id "name" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideRequestExample.name ++ "\"}}")
-        >> find [ id "contactType" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideRequestExample.contact.kind ++ "\"}}")
-        >> find [ id "contactValue" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideRequestExample.contact.value ++ "\"}}")
+    { rideId = "ride-2", userId = "foo-bar-bar" }
 
 
 submitRideRequest : a -> TestContext Root.Msg Model
 submitRideRequest =
-    fillRideRequest
+    ridesContextContext
         >> find [ tag "form" ]
         >> trigger "submit" "{}"
 

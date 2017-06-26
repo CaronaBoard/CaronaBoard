@@ -5,8 +5,5 @@ import Rides.Model exposing (Ride)
 
 
 type Msg
-    = UpdateName String
-    | UpdateContactType String
-    | UpdateContactValue String
-    | Submit Ride
+    = Submit Ride
     | RideRequestResponse (FirebaseResponse Bool)

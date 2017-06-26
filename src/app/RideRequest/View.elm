@@ -9,7 +9,9 @@ import Model as RootModel
 import RideRequest.Model exposing (Model)
 import RideRequest.Msg exposing (Msg(..))
 import RideRequest.Styles exposing (Classes(..), class)
-import Rides.Model exposing (contactDeepLink, contactIdentifier)
+import Rides.Model exposing (Ride, contactDeepLink, contactIdentifier)
+import Rides.Styles exposing (Classes(Card))
+import Rides.View.RidesList exposing (rideInfo, rideRoute)
 import Testable.Html exposing (..)
 import Testable.Html.Attributes exposing (for, href, id, placeholder, selected, target, value)
 import Testable.Html.Events exposing (onInput, onSubmit)
@@ -18,6 +20,11 @@ import Testable.Html.Events exposing (onInput, onSubmit)
 layoutClass : class -> Attribute msg
 layoutClass =
     Layout.Styles.class
+
+
+ridesClass : class -> Attribute msg
+ridesClass =
+    Rides.Styles.class
 
 
 rideRequest : String -> RootModel.Model -> Html Msg
@@ -40,9 +47,9 @@ rideRequest rideId model =
                     ]
 
             ( Just ride, _ ) ->
-                form [ materializeClass "card", onSubmit (Submit ride) ]
+                form [ materializeClass "card", ridesClass Card, onSubmit (Submit ride) ]
                     [ div [ materializeClass "card-content" ]
-                        (formFields model.rideRequest)
+                        (formFields ride model.rideRequest)
                     ]
 
             ( Nothing, _ ) ->
@@ -50,29 +57,13 @@ rideRequest rideId model =
         ]
 
 
-formFields : Model -> List (Html Msg)
-formFields model =
+formFields : Ride -> Model -> List (Html Msg)
+formFields ride model =
     [ renderErrors model.response
-    , text "Confirme seus dados para pedir carona"
-    , textInput model.fields.name UpdateName "name" "Seu nome"
-    , div [ materializeClass "row" ]
-        [ div [ materializeClass "col s5" ]
-            [ div [ materializeClass "input-field" ]
-                [ select [ materializeClass "browser-default", onInput UpdateContactType, id "contactType" ]
-                    [ contactTypeOption model "Whatsapp"
-                    , contactTypeOption model "Telegram"
-                    ]
-                , label [ for "contactType" ] [ text "Contato" ]
-                ]
-            ]
-        , div [ materializeClass "col s7" ]
-            [ textInput model.fields.contact.value UpdateContactValue "contactValue" (contactIdentifier model.fields.contact.kind)
-            ]
-        ]
+    , p [] [ text "Confirme os detalhes da carona antes de confirmar" ]
+    , br [] []
+    , rideRoute ride
+    , rideInfo ride
+    , br [] []
     , loadingOrSubmitButton model.response [ id "submitRideRequest", layoutClass SubmitButton ] [ text "Pedir carona" ]
     ]
-
-
-contactTypeOption : Model -> String -> Html msg
-contactTypeOption model value_ =
-    option [ value value_, selected (model.fields.contact.value == value_) ] [ text value_ ]
