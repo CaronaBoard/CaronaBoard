@@ -58,7 +58,7 @@ ridesContext =
 
 rideExample : Ride
 rideExample =
-    { id = "1", name = "foo", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", formUrl = "", contact = Just <| Whatsapp "+5551" }
+    { id = "1", name = "foo", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", contact = Just <| Whatsapp "+5551" }
 
 
 fillNewRide : a -> TestContext Root.Msg Model

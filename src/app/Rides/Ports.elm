@@ -38,7 +38,6 @@ decodeRide rawRide =
     , destination = rawRide.destination
     , days = rawRide.days
     , hours = rawRide.hours
-    , formUrl = rawRide.formUrl
     , contact = decodeContact rawRide.contactType rawRide.contactValue
     }
 

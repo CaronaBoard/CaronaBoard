@@ -37,8 +37,8 @@ ridesContext =
 
 ridesExample : List Ride
 ridesExample =
-    [ { id = "1", name = "foo", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", formUrl = "http://foo", contact = Just <| Whatsapp "" }
-    , { id = "2", name = "bar", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", formUrl = "http://foo", contact = Just <| Whatsapp "" }
+    [ { id = "1", name = "foo", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", contact = Just <| Whatsapp "" }
+    , { id = "2", name = "bar", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", contact = Just <| Whatsapp "" }
     ]
 
 

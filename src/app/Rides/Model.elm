@@ -8,7 +8,6 @@ type alias Ride =
     , destination : String
     , days : String
     , hours : String
-    , formUrl : String
     , contact : Maybe Contact
     }
 
