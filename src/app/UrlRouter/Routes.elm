@@ -64,54 +64,51 @@ toPath page =
 
 redirectTo : Login.Model -> Page -> Page
 redirectTo login page =
+    if isLoggedIn login then
+        case page of
+            SplashScreenPage ->
+                RidesPage
+
+            LoginPage ->
+                RidesPage
+
+            _ ->
+                page
+    else if requiresAuthentication page then
+        LoginPage
+    else
+        page
+
+
+requiresAuthentication : Page -> Bool
+requiresAuthentication page =
     case page of
         SplashScreenPage ->
-            if isLoggedIn login then
-                RidesPage
-            else
-                LoginPage
+            True
 
         RidesPage ->
-            if isLoggedIn login then
-                page
-            else
-                LoginPage
+            True
 
         LoginPage ->
-            if isLoggedIn login then
-                RidesPage
-            else
-                page
+            False
 
         NotFoundPage ->
-            NotFoundPage
+            False
 
         PasswordResetPage ->
-            PasswordResetPage
+            False
 
         GiveRidePage ->
-            if isLoggedIn login then
-                page
-            else
-                LoginPage
+            True
 
         EnableNotificationsPage ->
-            if isLoggedIn login then
-                page
-            else
-                LoginPage
+            True
 
         RideRequestPage _ ->
-            if isLoggedIn login then
-                page
-            else
-                LoginPage
+            True
 
         ProfilePage ->
-            if isLoggedIn login then
-                page
-            else
-                LoginPage
+            True
 
 
 pathParser : Navigation.Location -> Maybe Page
