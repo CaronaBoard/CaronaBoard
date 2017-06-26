@@ -37,7 +37,7 @@ contactDeepLink contact =
             "tg://resolve?domain=" ++ contact.value
 
         _ ->
-            ""
+            contact.value
 
 
 contactIdentifier : String -> String

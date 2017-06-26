@@ -4,21 +4,20 @@ import Common.Response exposing (FirebaseResponse, firebaseMap)
 import GiveRide.Model exposing (NewRide)
 import GiveRide.Msg exposing (Msg(..))
 import Login.Model exposing (User)
-import Rides.Model exposing (Contact)
-import Rides.Ports exposing (RawRide, decodeRide)
+import Rides.Model exposing (Contact, Ride)
 
 
 subscriptions : Sub Msg
 subscriptions =
     Sub.batch
-        [ giveRideResponse (firebaseMap decodeRide >> GiveRideResponse)
+        [ giveRideResponse GiveRideResponse
         ]
 
 
 port giveRide : RawNewRide -> Cmd msg
 
 
-port giveRideResponse : (FirebaseResponse RawRide -> msg) -> Sub msg
+port giveRideResponse : (FirebaseResponse Ride -> msg) -> Sub msg
 
 
 type alias RawNewRide =
