@@ -8,7 +8,6 @@ var toArrayOfObjects = function(object) {
 
 module.exports = function(firebase, database, app) {
   app.ports.giveRide.subscribe(function(newRide) {
-    newRide.formUrl = newRide.formUrl || "";
     firebase
       .database()
       .ref("rides")
@@ -23,6 +22,19 @@ module.exports = function(firebase, database, app) {
       })
       .catch(function(error) {
         app.ports.giveRideResponse.send([error.message, null]);
+      });
+  });
+
+  app.ports.rideRequest.subscribe(function(rideRequest) {
+    firebase
+      .database()
+      .ref("ridesRequests")
+      .push(rideRequest)
+      .then(function() {
+        app.ports.rideRequestResponse.send([null, true]);
+      })
+      .catch(function(error) {
+        app.ports.rideRequestResponse.send([error.message, null]);
       });
   });
 };
