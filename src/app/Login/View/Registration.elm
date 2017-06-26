@@ -13,7 +13,8 @@ import Testable.Html.Events exposing (onInput, onSubmit)
 registration : Model -> Html Msg
 registration model =
     div []
-        [ div [ materializeClass "input-field" ]
+        [ renderErrors model.signUp
+        , div [ materializeClass "input-field" ]
             [ input
                 [ type_ "email"
                 , id "email"
