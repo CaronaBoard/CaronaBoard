@@ -1,7 +1,8 @@
-port module Login.Ports exposing (checkRegistration, passwordReset, passwordResetResponse, signIn, signOut, subscriptions)
+port module Login.Ports exposing (checkRegistration, passwordReset, passwordResetResponse, signIn, signOut, signUp, subscriptions)
 
+import Common.Response exposing (FirebaseResponse)
 import Login.Model exposing (User)
-import Login.Msg exposing (Msg(CheckRegistrationResponse, PasswordResetResponse, SignInResponse, SignOutResponse))
+import Login.Msg exposing (Msg(..))
 
 
 subscriptions : Sub Msg
@@ -11,6 +12,7 @@ subscriptions =
         , signInResponse SignInResponse
         , signOutResponse (always SignOutResponse)
         , passwordResetResponse PasswordResetResponse
+        , signUpResponse SignUpResponse
         ]
 
 
@@ -31,11 +33,7 @@ port checkRegistrationResponse : (Bool -> msg) -> Sub msg
 port signIn : { email : String, password : String } -> Cmd msg
 
 
-type alias Error =
-    String
-
-
-port signInResponse : (( Maybe Error, Maybe User ) -> msg) -> Sub msg
+port signInResponse : (FirebaseResponse User -> msg) -> Sub msg
 
 
 
@@ -55,4 +53,18 @@ port signOutResponse : (() -> msg) -> Sub msg
 port passwordReset : String -> Cmd msg
 
 
+type alias Error =
+    String
+
+
 port passwordResetResponse : (Maybe Error -> msg) -> Sub msg
+
+
+
+-- signUp
+
+
+port signUp : { email : String, password : String } -> Cmd msg
+
+
+port signUpResponse : (FirebaseResponse User -> msg) -> Sub msg

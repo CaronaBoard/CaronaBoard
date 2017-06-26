@@ -5,7 +5,7 @@ import Expect exposing (equal)
 import Helpers exposing (expectToContainText)
 import Login.Model exposing (Model, init, loggedInUser)
 import Login.Msg exposing (Msg(..))
-import Login.Ports exposing (checkRegistration, passwordReset, signIn)
+import Login.Ports exposing (..)
 import Login.Styles exposing (Classes(..))
 import Login.Update as Update
 import Login.View.Login as View
@@ -102,6 +102,14 @@ tests =
                 submitEmailThenRegistration
                     >> find [ class SubmitButton ]
                     >> assertText (Expect.equal "Carregando...")
+            , test "sends request via signUp port" <|
+                submitEmailThenRegistration
+                    >> assertCalled (Cmd.map MsgForLogin <| signUp { email = "foo@bar.com", password = "baz" })
+            , test "shows error when signUp port returns an error" <|
+                submitEmailThenRegistration
+                    >> update (MsgForLogin <| SignUpResponse ( Just "undefined is not a function", Nothing ))
+                    >> find []
+                    >> assertText (expectToContainText "not a function")
             ]
         ]
 

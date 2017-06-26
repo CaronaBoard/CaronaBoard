@@ -1,9 +1,9 @@
 module Login.Update exposing (update)
 
-import Common.Response exposing (Response(..))
+import Common.Response exposing (Response(..), fromFirebase)
 import Login.Model exposing (Model, Step(..), User, init, step)
 import Login.Msg exposing (Msg(..))
-import Login.Ports exposing (checkRegistration, passwordReset, signIn, signOut)
+import Login.Ports exposing (checkRegistration, passwordReset, signIn, signOut, signUp)
 import Msg as Root exposing (Msg(MsgForLogin, MsgForUrlRouter))
 import Testable.Cmd
 
@@ -36,24 +36,13 @@ loginUpdate msg model =
                     ( { model | loggedIn = Loading }, Testable.Cmd.wrap <| signIn { email = model.email, password = model.password } )
 
                 NotRegisteredStep ->
-                    ( { model | signUp = Loading }, Testable.Cmd.none )
+                    ( { model | signUp = Loading }, Testable.Cmd.wrap <| signUp { email = model.email, password = model.password } )
 
         CheckRegistrationResponse isRegistered ->
             ( { model | registered = Success isRegistered }, Testable.Cmd.none )
 
-        SignInResponse ( error, success ) ->
-            let
-                successResponse =
-                    success
-                        |> Maybe.map Success
-                        |> Maybe.withDefault Empty
-
-                loggedIn =
-                    error
-                        |> Maybe.map Error
-                        |> Maybe.withDefault successResponse
-            in
-            ( { model | loggedIn = loggedIn }, Testable.Cmd.none )
+        SignInResponse response ->
+            ( { model | loggedIn = fromFirebase response }, Testable.Cmd.none )
 
         SignOut ->
             ( model, Testable.Cmd.wrap <| signOut () )
@@ -71,3 +60,6 @@ loginUpdate msg model =
                         |> Maybe.withDefault (Success ())
             in
             ( { model | passwordReset = response }, Testable.Cmd.none )
+
+        SignUpResponse response ->
+            ( { model | signUp = fromFirebase response }, Testable.Cmd.none )
