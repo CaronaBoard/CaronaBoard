@@ -19,15 +19,15 @@ tests =
     describe "gives a new ride" <|
         [ test "fill the fields correctly" <|
             fillNewRide
-                >> find [ id "name" ]
-                >> assertAttribute "value" (Expect.equal "foo")
+                >> find [ id "origin" ]
+                >> assertAttribute "value" (Expect.equal "bar")
         , test "shows loading on submit" <|
             submitNewRide
                 >> find [ id "submitNewRide" ]
                 >> assertText (Expect.equal "Carregando...")
         , test "sends request via giveRide port" <|
             submitNewRide
-                >> assertCalled (Cmd.map MsgForGiveRide <| GiveRide.Ports.giveRide { userId = "foo-bar-bar", name = "foo", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", contact = { kind = "Whatsapp", value = "+5551" } })
+                >> assertCalled (Cmd.map MsgForGiveRide <| GiveRide.Ports.giveRide { userId = "foo-bar-bar", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" })
         , test "shows error when giveRide port returns an error" <|
             submitNewRide
                 >> update (MsgForGiveRide <| GiveRideResponse ( Just "Scientists just proved that undefined is indeed not a function", Nothing ))
@@ -58,8 +58,6 @@ ridesContext =
 fillNewRide : a -> TestContext Root.Msg Model
 fillNewRide =
     ridesContext
-        >> find [ id "name" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.ride.name ++ "\"}}")
         >> find [ id "origin" ]
         >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.ride.origin ++ "\"}}")
         >> find [ id "destination" ]
@@ -68,10 +66,6 @@ fillNewRide =
         >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.ride.days ++ "\"}}")
         >> find [ id "hours" ]
         >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.ride.hours ++ "\"}}")
-        >> find [ id "contactType" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ "Whatsapp" ++ "\"}}")
-        >> find [ id "contactValue" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ "+5551" ++ "\"}}")
 
 
 submitNewRide : a -> TestContext Root.Msg Model

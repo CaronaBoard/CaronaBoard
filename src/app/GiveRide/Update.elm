@@ -25,16 +25,10 @@ updateGiveRide user msg model =
         fields =
             model.fields
 
-        contact =
-            model.fields.contact
-
         updateFields fields =
             { model | fields = fields }
     in
     case msg of
-        UpdateName name ->
-            ( updateFields { fields | name = name }, Testable.Cmd.none )
-
         UpdateOrigin origin ->
             ( updateFields { fields | origin = origin }, Testable.Cmd.none )
 
@@ -46,12 +40,6 @@ updateGiveRide user msg model =
 
         UpdateHours hours ->
             ( updateFields { fields | hours = hours }, Testable.Cmd.none )
-
-        UpdateContactType kind ->
-            ( updateFields { fields | contact = { contact | kind = kind } }, Testable.Cmd.none )
-
-        UpdateContactValue value ->
-            ( updateFields { fields | contact = { contact | value = value } }, Testable.Cmd.none )
 
         Submit ->
             case user of
