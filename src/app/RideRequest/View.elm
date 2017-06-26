@@ -3,27 +3,60 @@ module RideRequest.View exposing (rideRequest)
 import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors)
 import Common.IdentifiedList exposing (findById)
-import Layout.Styles exposing (Classes(..), class)
+import Common.Response exposing (Response(..))
+import Layout.Styles exposing (Classes(..))
 import Model as RootModel
 import RideRequest.Model exposing (Model)
 import RideRequest.Msg exposing (Msg(..))
+import RideRequest.Styles exposing (Classes(..), class)
+import Rides.Model exposing (Contact(Telegram, Whatsapp))
 import Testable.Html exposing (..)
-import Testable.Html.Attributes exposing (for, id, placeholder, selected, value)
+import Testable.Html.Attributes exposing (for, href, id, placeholder, selected, target, value)
 import Testable.Html.Events exposing (onInput, onSubmit)
+
+
+layoutClass : class -> Attribute msg
+layoutClass =
+    Layout.Styles.class
 
 
 rideRequest : String -> RootModel.Model -> Html Msg
 rideRequest rideId model =
     div [ materializeClass "container" ]
-        [ h1 [ class PageTitle ] [ text "Pedir Carona" ]
-        , case findById rideId model.rides of
-            Just ride ->
+        [ h1 [ layoutClass PageTitle ] [ text "Pedir Carona" ]
+        , case ( findById rideId model.rides, model.rideRequest.response ) of
+            ( Just ride, Success _ ) ->
+                div [ materializeClass "card" ]
+                    [ div [ materializeClass "card-content" ]
+                        [ p [] [ text "O pedido de carona foi enviado com sucesso!" ]
+                        , br [] []
+                        , p [] [ text "Para combinar melhor com o motorista, use o contato abaixo:" ]
+                        , br [] []
+                        , p [ class Contact ]
+                            (case ride.contact of
+                                Just (Whatsapp value) ->
+                                    [ text "Whatsapp "
+                                    , a [ href <| "whatsapp://send?phone=" ++ value, target "_blank" ] [ text value ]
+                                    ]
+
+                                Just (Telegram value) ->
+                                    [ text "Telegram "
+                                    , a [ href <| "tg://resolve?domain=" ++ value, target "_blank" ] [ text value ]
+                                    ]
+
+                                Nothing ->
+                                    []
+                            )
+                        ]
+                    ]
+
+            ( Just ride, _ ) ->
                 form [ materializeClass "card", onSubmit (Submit ride) ]
                     [ div [ materializeClass "card-content" ]
                         (formFields model.rideRequest)
                     ]
 
-            Nothing ->
+            ( Nothing, _ ) ->
                 text "Carona não encontrada"
         ]
 
@@ -47,7 +80,7 @@ formFields model =
             [ textInput model.fields.contactValue UpdateContactValue "contactValue" (contactIdentifier model.fields.contactType)
             ]
         ]
-    , loadingOrSubmitButton model.response [ id "submitRideRequest", class SubmitButton ] [ text "Pedir carona" ]
+    , loadingOrSubmitButton model.response [ id "submitRideRequest", layoutClass SubmitButton ] [ text "Pedir carona" ]
     ]
 
 

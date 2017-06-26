@@ -1,14 +1,11 @@
-module Integration.RequestRideSpec exposing (tests)
+module Integration.RideRequestSpec exposing (tests)
 
 import Expect exposing (equal)
 import Helpers exposing (expectToContainText, fixtures, initialContext, someUser, toLocation)
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
-import Navigation
-import Notifications.Msg exposing (Msg(..))
 import RideRequest.Msg exposing (Msg(..))
-import RideRequest.Ports
-import Rides.Model exposing (Contact(..), Ride)
+import RideRequest.Ports exposing (RawRideRequest)
 import Rides.Msg exposing (Msg(..))
 import Test exposing (..)
 import Testable.Html.Selectors exposing (..)
@@ -54,6 +51,7 @@ ridesContext =
         >> update (MsgForRides <| UpdateRides fixtures.rides)
 
 
+rideRequestExample : RawRideRequest
 rideRequestExample =
     { rideId = "ride-2", userId = "foo-bar-bar", name = "foo", contactType = "Whatsapp", contactValue = "passenger-wpp" }
 

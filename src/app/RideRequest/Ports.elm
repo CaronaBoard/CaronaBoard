@@ -1,4 +1,4 @@
-port module RideRequest.Ports exposing (encodeRideRequest, rideRequest, subscriptions)
+port module RideRequest.Ports exposing (RawRideRequest, encodeRideRequest, rideRequest, subscriptions)
 
 import Common.Response exposing (FirebaseResponse, firebaseMap)
 import Login.Model exposing (User)
