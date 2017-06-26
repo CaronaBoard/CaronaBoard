@@ -76,7 +76,7 @@ module.exports = function(firebase, database, app) {
       .auth()
       .createUserWithEmailAndPassword(credentials.email, credentials.password)
       .then(function(user) {
-        app.ports.signUpResponse.send(tuple(null, user));
+        app.ports.signUpResponse.send(tuple(null, true));
       })
       .catch(function(error) {
         app.ports.signUpResponse.send(tuple(error.message, null));

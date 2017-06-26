@@ -9,7 +9,7 @@ type alias Model =
     , registered : Response Bool
     , loggedIn : Response User
     , passwordReset : Response ()
-    , signUp : Response User
+    , signUp : Response Bool
     }
 
 
