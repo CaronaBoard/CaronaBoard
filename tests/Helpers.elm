@@ -7,7 +7,7 @@ import Model
 import Msg
 import Navigation exposing (Location)
 import Profile.Model exposing (Profile)
-import Rides.Model exposing (Contact, Ride, init)
+import Rides.Model exposing (Ride, init)
 import Testable.TestContext exposing (..)
 import Update
 import UrlRouter.Routes exposing (Page(..), toPath)

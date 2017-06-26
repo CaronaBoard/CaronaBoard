@@ -1,7 +1,6 @@
-module Profile.Model exposing (Model, Profile, init, savedProfile)
+module Profile.Model exposing (Contact, Model, Profile, contactDeepLink, contactIdentifier, init, savedProfile)
 
 import Common.Response exposing (Response(..))
-import Rides.Model exposing (Contact)
 
 
 type alias Model =
@@ -13,6 +12,12 @@ type alias Model =
 type alias Profile =
     { name : String
     , contact : Contact
+    }
+
+
+type alias Contact =
+    { kind : String
+    , value : String
     }
 
 
@@ -37,3 +42,24 @@ savedProfile model =
 
         _ ->
             Nothing
+
+
+contactDeepLink : Contact -> String
+contactDeepLink contact =
+    case contact.kind of
+        "Whatsapp" ->
+            "whatsapp://send?phone=" ++ contact.value
+
+        "Telegram" ->
+            "tg://resolve?domain=" ++ contact.value
+
+        _ ->
+            contact.value
+
+
+contactIdentifier : String -> String
+contactIdentifier contactKind =
+    if contactKind == "Telegram" then
+        "Nick"
+    else
+        "Número"
