@@ -6,7 +6,7 @@ import Profile.Model exposing (Profile)
 
 type Msg
     = UpdateName String
-    | UpdateContactType String
+    | UpdateContactKind String
     | UpdateContactValue String
     | Submit
     | ProfileResponse (FirebaseResponse Profile)

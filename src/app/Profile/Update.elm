@@ -43,7 +43,7 @@ updateProfile msg model =
         UpdateName name ->
             ( updateFields { fields | name = name }, Testable.Cmd.none )
 
-        UpdateContactType kind ->
+        UpdateContactKind kind ->
             ( updateFields { fields | contact = { contact | kind = kind } }, Testable.Cmd.none )
 
         UpdateContactValue value ->

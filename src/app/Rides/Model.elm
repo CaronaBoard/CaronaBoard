@@ -41,8 +41,8 @@ contactDeepLink contact =
 
 
 contactIdentifier : String -> String
-contactIdentifier contactType =
-    if contactType == "Telegram" then
+contactIdentifier contactKind =
+    if contactKind == "Telegram" then
         "Nick"
     else
         "Número"
