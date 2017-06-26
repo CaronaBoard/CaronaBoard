@@ -1,7 +1,7 @@
 module RideRequest.View exposing (rideRequest)
 
 import Common.CssHelpers exposing (materializeClass)
-import Common.Form exposing (loadingOrSubmitButton, renderErrors)
+import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
 import Common.IdentifiedList exposing (findById)
 import Common.Response exposing (Response(..))
 import Layout.Styles exposing (Classes(..))
@@ -71,20 +71,6 @@ formFields model =
         ]
     , loadingOrSubmitButton model.response [ id "submitRideRequest", layoutClass SubmitButton ] [ text "Pedir carona" ]
     ]
-
-
-textInput : String -> (String -> Msg) -> String -> String -> Html Msg
-textInput value_ msg id_ label_ =
-    div [ materializeClass "input-field" ]
-        [ input
-            [ id id_
-            , value value_
-            , placeholder " "
-            , onInput msg
-            ]
-            []
-        , label [ for id_ ] [ text label_ ]
-        ]
 
 
 contactTypeOption : Model -> String -> Html msg

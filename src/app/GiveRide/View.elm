@@ -1,7 +1,7 @@
 module GiveRide.View exposing (giveRide)
 
 import Common.CssHelpers exposing (materializeClass)
-import Common.Form exposing (loadingOrSubmitButton, renderErrors)
+import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
 import GiveRide.Model exposing (Model)
 import GiveRide.Msg exposing (Msg(..))
 import Layout.Styles exposing (Classes(..), class)
@@ -54,20 +54,6 @@ formFields model =
         ]
     , loadingOrSubmitButton model.response [ id "submitNewRide", class SubmitButton ] [ text "Cadastrar" ]
     ]
-
-
-textInput : String -> (String -> Msg) -> String -> String -> Html Msg
-textInput value_ msg id_ label_ =
-    div [ materializeClass "input-field" ]
-        [ input
-            [ id id_
-            , value value_
-            , placeholder " "
-            , onInput msg
-            ]
-            []
-        , label [ for id_ ] [ text label_ ]
-        ]
 
 
 contactTypeOption : Model -> String -> Html msg
