@@ -125,7 +125,7 @@ layoutStyles =
                 , property "} /*" ""
                 ]
             , selector "*/ to"
-                [ maxHeight (px 100)
+                [ maxHeight (px 150)
                 , opacity (int 1)
                 , property "} /*" "*/"
                 ]
