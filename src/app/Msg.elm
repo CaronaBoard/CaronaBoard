@@ -4,6 +4,7 @@ import GiveRide.Msg as GiveRide
 import Layout.Msg as Layout
 import Login.Msg as Login
 import Notifications.Msg as Notifications
+import Profile.Msg as Profile
 import RideRequest.Msg as RideRequest
 import Rides.Msg as Rides
 import UrlRouter.Msg as UrlRouter
@@ -17,3 +18,4 @@ type Msg
     | MsgForGiveRide GiveRide.Msg
     | MsgForNotifications Notifications.Msg
     | MsgForRideRequest RideRequest.Msg
+    | MsgForProfile Profile.Msg

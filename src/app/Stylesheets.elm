@@ -4,6 +4,7 @@ import Css.File exposing (CssCompilerProgram, CssFileStructure)
 import Layout.Styles
 import Login.Styles
 import Notifications.Styles
+import Profile.Styles
 import RideRequest.Styles
 import Rides.Styles
 
@@ -21,6 +22,7 @@ fileStructure =
                 , Rides.Styles.styles
                 , Notifications.Styles.styles
                 , RideRequest.Styles.styles
+                , Profile.Styles.styles
                 ]
           )
         ]

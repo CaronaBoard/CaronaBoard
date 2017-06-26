@@ -6,6 +6,7 @@ import Login.Msg exposing (Msg(..))
 import Msg as Root exposing (Msg(..))
 import Navigation exposing (Location)
 import Notifications.Model as Notifications exposing (isEnabled)
+import Profile.Msg exposing (Msg(..))
 import Testable.Cmd
 import UrlRouter.Model exposing (Model)
 import UrlRouter.Msg exposing (Msg(Go, UrlChange))
@@ -32,6 +33,9 @@ update notifications login msg model =
                 urlRouterUpdate (Go RidesPage) model login
             else
                 urlRouterUpdate (Go EnableNotificationsPage) model login
+
+        MsgForProfile (ProfileResponse ( Nothing, Just _ )) ->
+            urlRouterUpdate (Go RidesPage) model login
 
         _ ->
             ( model, Testable.Cmd.none )

@@ -14,6 +14,7 @@ type Page
     | GiveRidePage
     | EnableNotificationsPage
     | RideRequestPage String
+    | ProfilePage
 
 
 pageParser : Parser (Page -> a) a
@@ -26,6 +27,7 @@ pageParser =
         , map GiveRidePage (static "give-ride")
         , map EnableNotificationsPage (static "enable-notifications")
         , map RideRequestPage (static "request-ride" </> string)
+        , map ProfilePage (static "profile")
         ]
 
 
@@ -55,6 +57,9 @@ toPath page =
 
         RideRequestPage rideId ->
             "#/request-ride/" ++ rideId
+
+        ProfilePage ->
+            "#/profile"
 
 
 redirectTo : Login.Model -> Page -> Page
@@ -97,6 +102,12 @@ redirectTo login page =
                 LoginPage
 
         RideRequestPage _ ->
+            if isLoggedIn login then
+                page
+            else
+                LoginPage
+
+        ProfilePage ->
             if isLoggedIn login then
                 page
             else

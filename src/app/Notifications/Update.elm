@@ -6,6 +6,7 @@ import Msg as Root exposing (Msg(..))
 import Notifications.Model exposing (Model)
 import Notifications.Msg exposing (Msg(..))
 import Notifications.Ports exposing (enableNotifications)
+import Profile.Msg exposing (Msg(..))
 import RideRequest.Msg exposing (Msg(..))
 import Testable.Cmd
 import Testable.Process as Process
@@ -24,6 +25,9 @@ update msg model =
 
         MsgForRideRequest (RideRequestResponse ( Nothing, Just _ )) ->
             updateNotifications (ShowNotice "Pedido de carona enviado com sucesso!") model
+
+        MsgForProfile (ProfileResponse ( Nothing, Just _ )) ->
+            updateNotifications (ShowNotice "Perfil atualizado com sucesso") model
 
         _ ->
             ( model, Testable.Cmd.none )

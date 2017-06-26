@@ -6,6 +6,7 @@ import Login.Model as Login
 import Msg exposing (Msg(MsgForUrlRouter))
 import Navigation exposing (Location)
 import Notifications.Model as Notifications
+import Profile.Model as Profile
 import RideRequest.Model as RideRequest
 import Rides.Model as Rides
 import Testable.Cmd
@@ -22,6 +23,7 @@ type alias Model =
     , giveRide : GiveRide.Model
     , notifications : Notifications.Model
     , rideRequest : RideRequest.Model
+    , profile : Profile.Model
     }
 
 
@@ -41,6 +43,7 @@ init { currentUser } location =
             , giveRide = GiveRide.init
             , notifications = Notifications.init
             , rideRequest = RideRequest.init
+            , profile = Profile.init
             }
     in
     updateUrlRouter location initialModel
