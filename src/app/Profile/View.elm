@@ -43,9 +43,9 @@ formFields model =
         [ div [ materializeClass "input-field", class ContactKind ]
             [ div [ materializeClass "select-wrapper" ]
                 [ span [ materializeClass "caret" ] [ text "▼" ]
-                , select [ class Select, onInput UpdateContactType, id "contactType" ]
-                    [ contactTypeOption model "Whatsapp"
-                    , contactTypeOption model "Telegram"
+                , select [ class Select, onInput UpdateContactKind, id "contactKind" ]
+                    [ contactKindOption model "Whatsapp"
+                    , contactKindOption model "Telegram"
                     ]
                 ]
             ]
@@ -56,6 +56,6 @@ formFields model =
     ]
 
 
-contactTypeOption : Model -> String -> Html msg
-contactTypeOption model value_ =
+contactKindOption : Model -> String -> Html msg
+contactKindOption model value_ =
     option [ value value_, selected (model.fields.contact.value == value_) ] [ text value_ ]

@@ -65,7 +65,7 @@ fillProfile =
     profileContext
         >> find [ id "name" ]
         >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.profile.name ++ "\"}}")
-        >> find [ id "contactType" ]
+        >> find [ id "contactKind" ]
         >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.profile.contact.kind ++ "\"}}")
         >> find [ id "contactValue" ]
         >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.profile.contact.value ++ "\"}}")
