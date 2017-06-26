@@ -20,7 +20,7 @@ layoutClass =
 profile : Model -> Html Msg
 profile model =
     div [ materializeClass "container" ]
-        [ h1 [ layoutClass PageTitle ] [ text "Pedir Carona" ]
+        [ h1 [ layoutClass PageTitle ] [ text "Editar Perfil" ]
         , form [ materializeClass "card", onSubmit Submit ]
             [ div [ materializeClass "card-content" ]
                 (formFields model)
@@ -31,7 +31,8 @@ profile model =
 formFields : Model -> List (Html Msg)
 formFields model =
     [ renderErrors model.response
-    , text "Confirme seus dados para pedir carona"
+    , p [] [ text "Você precisa preencher seus dados de contato para poder dar ou pedir carona. Essa é a forma que os outros entrarão em contato com você." ]
+    , br [] []
     , textInput model.fields.name UpdateName "name" "Seu nome"
     , div [ class ContactField ]
         [ div [ materializeClass "input-field" ]
@@ -45,7 +46,7 @@ formFields model =
             ]
         , textInput model.fields.contact.value UpdateContactValue "contactValue" (contactIdentifier model.fields.contact.kind)
         ]
-    , loadingOrSubmitButton model.response [ id "submitProfile", layoutClass SubmitButton ] [ text "Pedir carona" ]
+    , loadingOrSubmitButton model.response [ id "submitProfile", layoutClass SubmitButton ] [ text "Salvar" ]
     ]
 
 

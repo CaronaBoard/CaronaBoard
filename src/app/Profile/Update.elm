@@ -1,6 +1,7 @@
 module Profile.Update exposing (update)
 
 import Common.Response exposing (Response(..), fromFirebase)
+import Login.Msg exposing (Msg(SignInResponse))
 import Msg as Root exposing (Msg(..))
 import Profile.Model exposing (Model)
 import Profile.Msg exposing (Msg(..))
@@ -13,6 +14,14 @@ update msg model =
     case msg of
         MsgForProfile msg_ ->
             updateProfile msg_ model
+
+        MsgForLogin (SignInResponse ( Nothing, Just response )) ->
+            case response.profile of
+                Just profile ->
+                    ( { model | fields = profile }, Testable.Cmd.none )
+
+                Nothing ->
+                    ( model, Testable.Cmd.none )
 
         _ ->
             ( model, Testable.Cmd.none )

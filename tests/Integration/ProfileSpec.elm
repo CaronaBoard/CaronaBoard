@@ -1,11 +1,10 @@
 module Integration.ProfileSpec exposing (tests)
 
 import Expect exposing (equal)
-import Helpers exposing (expectToContainText, fixtures, initialContext, someUser, toLocation)
+import Helpers exposing (expectToContainText, fixtures, initialContext, someUser, successSignIn, toLocation)
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
 import Navigation
-import Profile.Model exposing (Profile)
 import Profile.Msg exposing (Msg(..))
 import Profile.Ports
 import Rides.Msg exposing (Msg(..))
@@ -28,7 +27,7 @@ tests =
                 >> assertText (Expect.equal "Carregando...")
         , test "sends request via saveProfile port" <|
             submitProfile
-                >> assertCalled (Cmd.map MsgForProfile <| Profile.Ports.saveProfile profileExample)
+                >> assertCalled (Cmd.map MsgForProfile <| Profile.Ports.saveProfile fixtures.profile)
         , test "shows error when profile port returns an error" <|
             submitProfile
                 >> update (MsgForProfile <| ProfileResponse ( Just "undefined is not a function", Nothing ))
@@ -43,29 +42,33 @@ tests =
             submitProfile
                 >> successResponse
                 >> assertCalled (Cmd.map MsgForUrlRouter <| Navigation.newUrl <| toPath RidesPage)
+        , test "set profile on login response" <|
+            profileContext
+                >> successSignIn
+                >> Expect.all
+                    [ find [ id "name" ]
+                        >> assertAttribute "value" (Expect.equal fixtures.profile.name)
+                    , find [ id "contactValue" ]
+                        >> assertAttribute "value" (Expect.equal fixtures.profile.contact.value)
+                    ]
         ]
 
 
-ridesContext : a -> TestContext Root.Msg Model
-ridesContext =
+profileContext : a -> TestContext Root.Msg Model
+profileContext =
     initialContext someUser ProfilePage
         >> update (MsgForRides <| UpdateRides fixtures.rides)
 
 
-profileExample : Profile
-profileExample =
-    { name = "foo", contact = { kind = "Whatsapp", value = "passenger-wpp" } }
-
-
 fillProfile : a -> TestContext Root.Msg Model
 fillProfile =
-    ridesContext
+    profileContext
         >> find [ id "name" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ profileExample.name ++ "\"}}")
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.profile.name ++ "\"}}")
         >> find [ id "contactType" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ profileExample.contact.kind ++ "\"}}")
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.profile.contact.kind ++ "\"}}")
         >> find [ id "contactValue" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ profileExample.contact.value ++ "\"}}")
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.profile.contact.value ++ "\"}}")
 
 
 submitProfile : a -> TestContext Root.Msg Model
@@ -77,4 +80,4 @@ submitProfile =
 
 successResponse : TestContext Root.Msg Model -> TestContext Root.Msg Model
 successResponse =
-    update (MsgForProfile <| ProfileResponse ( Nothing, Just profileExample ))
+    update (MsgForProfile <| ProfileResponse ( Nothing, Just fixtures.profile ))

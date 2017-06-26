@@ -30,10 +30,17 @@ module.exports = function(firebase, database, app) {
   });
 
   var signInUser = function(user) {
-    app.ports.signInResponse.send([
-      null,
-      { id: user.uid, name: user.displayName || "" }
-    ]);
+    firebase
+      .database()
+      .ref("profiles/" + user.uid)
+      .once("value", function(profile) {
+        app.ports.signInResponse.send(
+          tuple(null, {
+            user: { id: user.uid, name: user.displayName || "" },
+            profile: profile.val()
+          })
+        );
+      });
     fetchRides(firebase, database, app);
   };
 
@@ -71,6 +78,21 @@ module.exports = function(firebase, database, app) {
       })
       .catch(function(error) {
         app.ports.signUpResponse.send(tuple(error.message, null));
+      });
+  });
+
+  app.ports.saveProfile.subscribe(function(profile) {
+    var currentUser = firebase.auth().currentUser;
+
+    firebase
+      .database()
+      .ref("profiles/" + currentUser.uid)
+      .set(profile)
+      .then(function(profileRef) {
+        app.ports.profileResponse.send(tuple(null, profile));
+      })
+      .catch(function(error) {
+        app.ports.profileResponse.send(tuple(error.message, null));
       });
   });
 };

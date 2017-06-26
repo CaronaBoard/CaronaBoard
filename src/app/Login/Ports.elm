@@ -3,6 +3,7 @@ port module Login.Ports exposing (checkRegistration, passwordReset, passwordRese
 import Common.Response exposing (FirebaseResponse)
 import Login.Model exposing (User)
 import Login.Msg exposing (Msg(..))
+import Profile.Model exposing (Profile)
 
 
 subscriptions : Sub Msg
@@ -33,7 +34,7 @@ port checkRegistrationResponse : (Bool -> msg) -> Sub msg
 port signIn : { email : String, password : String } -> Cmd msg
 
 
-port signInResponse : (FirebaseResponse User -> msg) -> Sub msg
+port signInResponse : (FirebaseResponse { user : User, profile : Maybe Profile } -> msg) -> Sub msg
 
 
 
