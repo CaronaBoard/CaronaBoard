@@ -2,6 +2,7 @@ module Login.Msg exposing (Msg(..))
 
 import Common.Response exposing (FirebaseResponse)
 import Login.Model exposing (Model, Step(..), User, step)
+import Profile.Model exposing (Profile)
 
 
 type Msg
@@ -9,7 +10,7 @@ type Msg
     | UpdatePassword String
     | Submit
     | CheckRegistrationResponse Bool
-    | SignInResponse (FirebaseResponse User)
+    | SignInResponse (FirebaseResponse { user : User, profile : Maybe Profile })
     | SignOut
     | SignOutResponse
     | PasswordReset

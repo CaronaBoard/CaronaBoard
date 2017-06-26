@@ -1,6 +1,6 @@
 module Login.Update exposing (update)
 
-import Common.Response exposing (Response(..), fromFirebase)
+import Common.Response exposing (Response(..), firebaseMap, fromFirebase)
 import Login.Model exposing (Model, Step(..), User, init, step)
 import Login.Msg exposing (Msg(..))
 import Login.Ports exposing (checkRegistration, passwordReset, signIn, signOut, signUp)
@@ -42,7 +42,7 @@ loginUpdate msg model =
             ( { model | registered = Success isRegistered }, Testable.Cmd.none )
 
         SignInResponse response ->
-            ( { model | loggedIn = fromFirebase response }, Testable.Cmd.none )
+            ( { model | loggedIn = fromFirebase (firebaseMap (\res -> res.user) response) }, Testable.Cmd.none )
 
         SignOut ->
             ( model, Testable.Cmd.wrap <| signOut () )

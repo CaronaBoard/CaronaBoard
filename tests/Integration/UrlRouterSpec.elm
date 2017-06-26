@@ -2,9 +2,8 @@ module Integration.UrlRouterSpec exposing (tests)
 
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
-import Helpers exposing (initialContext, someUser, toLocation)
+import Helpers exposing (fixtures, initialContext, someUser, successSignIn, toLocation)
 import Layout.Styles exposing (Classes(OpenMenuButton, SignOutButton))
-import Login.Msg exposing (Msg(..))
 import Login.Ports exposing (signOut)
 import Login.Styles
 import Model exposing (Model)
@@ -40,12 +39,12 @@ tests =
                     ]
         , test "renders rides and hides login when user is logged in and on rides route" <|
             loginContext
-                >> update (MsgForLogin <| SignInResponse ( Nothing, someUser ))
+                >> successSignIn
                 >> update (MsgForUrlRouter <| UrlChange (toLocation RidesPage))
                 >> expectToBeOnRidesPage
         , test "redirects user to rides page if it is already logged in and goes to login page or home page" <|
             loginContext
-                >> update (MsgForLogin <| SignInResponse ( Nothing, someUser ))
+                >> successSignIn
                 >> Expect.all
                     [ update (MsgForUrlRouter <| UrlChange (toLocation LoginPage)) >> expectToBeOnRidesPage
                     , update (MsgForUrlRouter <| UrlChange (toLocation SplashScreenPage)) >> expectToBeOnRidesPage
@@ -84,7 +83,7 @@ ridesClass =
 loginThenLogout : a -> TestContext Root.Msg Model
 loginThenLogout =
     loginContext
-        >> update (MsgForLogin <| SignInResponse ( Nothing, someUser ))
+        >> successSignIn
         >> update (MsgForUrlRouter <| UrlChange (toLocation RidesPage))
         >> find [ layoutClass OpenMenuButton ]
         >> trigger "click" "{}"

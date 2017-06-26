@@ -2,7 +2,7 @@ module Integration.LoginSpec exposing (tests)
 
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
-import Helpers exposing (expectToContainText, fixtures)
+import Helpers exposing (expectToContainText, fixtures, successSignIn)
 import Login.Model exposing (Model, init, loggedInUser)
 import Login.Msg exposing (Msg(..))
 import Login.Ports exposing (..)
@@ -53,7 +53,7 @@ tests =
                         ]
             , test "returns the logged in user from the model" <|
                 submitEmailThenPassword
-                    >> update (MsgForLogin <| SignInResponse ( Nothing, Just fixtures.user ))
+                    >> successSignIn
                     >> currentModel
                     >> (\result ->
                             case result of
@@ -67,7 +67,7 @@ tests =
         , describe "logout"
             [ test "removes the logged in user" <|
                 loginContext
-                    >> update (MsgForLogin <| SignInResponse ( Nothing, Just fixtures.user ))
+                    >> successSignIn
                     >> update (MsgForLogin SignOutResponse)
                     >> currentModel
                     >> (\result ->
