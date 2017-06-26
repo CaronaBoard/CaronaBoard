@@ -21,31 +21,12 @@ update user msg model =
 
 updateRideRequest : Maybe User -> RideRequest.Msg.Msg -> Model -> ( Model, Testable.Cmd.Cmd RideRequest.Msg.Msg )
 updateRideRequest user msg model =
-    let
-        fields =
-            model.fields
-
-        contact =
-            model.fields.contact
-
-        updateFields fields =
-            { model | fields = fields }
-    in
     case msg of
-        UpdateName name ->
-            ( updateFields { fields | name = name }, Testable.Cmd.none )
-
-        UpdateContactType kind ->
-            ( updateFields { fields | contact = { contact | kind = kind } }, Testable.Cmd.none )
-
-        UpdateContactValue value ->
-            ( updateFields { fields | contact = { contact | value = value } }, Testable.Cmd.none )
-
         Submit ride ->
             case user of
                 Just user_ ->
                     ( { model | response = Loading }
-                    , Testable.Cmd.wrap (rideRequest (encodeRideRequest ride user_ fields))
+                    , Testable.Cmd.wrap (rideRequest (encodeRideRequest ride user_))
                     )
 
                 Nothing ->

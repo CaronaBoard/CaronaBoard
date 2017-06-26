@@ -1,8 +1,7 @@
-port module RideRequest.Ports exposing (RawRideRequest, encodeRideRequest, rideRequest, subscriptions)
+port module RideRequest.Ports exposing (RideRequest, encodeRideRequest, rideRequest, subscriptions)
 
 import Common.Response exposing (FirebaseResponse, firebaseMap)
 import Login.Model exposing (User)
-import RideRequest.Model exposing (RideRequest)
 import RideRequest.Msg exposing (Msg(..))
 import Rides.Model exposing (Contact, Ride)
 
@@ -14,24 +13,20 @@ subscriptions =
         ]
 
 
-port rideRequest : RawRideRequest -> Cmd msg
+port rideRequest : RideRequest -> Cmd msg
 
 
 port rideRequestResponse : (FirebaseResponse Bool -> msg) -> Sub msg
 
 
-type alias RawRideRequest =
+type alias RideRequest =
     { rideId : String
     , userId : String
-    , name : String
-    , contact : Contact
     }
 
 
-encodeRideRequest : Ride -> User -> RideRequest -> RawRideRequest
-encodeRideRequest ride user rideRequest =
+encodeRideRequest : Ride -> User -> RideRequest
+encodeRideRequest ride user =
     { rideId = ride.id
     , userId = user.id
-    , name = rideRequest.name
-    , contact = rideRequest.contact
     }
