@@ -61,4 +61,16 @@ module.exports = function(firebase, database, app) {
         app.ports.passwordResetResponse.send(error.message);
       });
   });
+
+  app.ports.signUp.subscribe(function(credentials) {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(credentials.email, credentials.password)
+      .then(function(user) {
+        app.ports.signUpResponse.send(tuple(null, user));
+      })
+      .catch(function(error) {
+        app.ports.signUpResponse.send(tuple(error.message, null));
+      });
+  });
 };
