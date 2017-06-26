@@ -3,9 +3,10 @@ module Fuzz.UrlRouter.UpdateSpec exposing (..)
 import Array exposing (Array, fromList, get, length)
 import Expect exposing (equal)
 import Fuzz exposing (Fuzzer)
-import Helpers exposing (toLocation)
+import Helpers exposing (fixtures, toLocation)
 import Login.Model as Login
 import Navigation exposing (Location)
+import Profile.Model
 import Test exposing (..)
 import UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, toPath)
 import UrlRouter.Update exposing (changePageTo)
@@ -19,10 +20,10 @@ tests =
                 \currentPage login requestedPage ->
                     let
                         pageToRedirect =
-                            redirectTo login requestedPage
+                            redirectTo profileSample login requestedPage
 
                         pageToGo =
-                            changePageTo { page = currentPage } login (toLocation requestedPage)
+                            changePageTo profileSample login { page = currentPage } (toLocation requestedPage)
                     in
                     if currentPage == pageToRedirect && currentPage == requestedPage then
                         Expect.equal Nothing pageToGo
@@ -32,11 +33,16 @@ tests =
                 \login randomPath ->
                     let
                         pageToGo =
-                            changePageTo { page = SplashScreenPage } login (pathToLocation randomPath)
+                            changePageTo profileSample login { page = SplashScreenPage } (pathToLocation randomPath)
                     in
                     Expect.equal (Just NotFoundPage) pageToGo
             ]
         ]
+
+
+profileSample : Profile.Model.Model
+profileSample =
+    Profile.Model.init (Just fixtures.profile)
 
 
 pages : Array Page

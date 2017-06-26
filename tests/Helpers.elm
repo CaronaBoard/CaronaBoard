@@ -17,7 +17,7 @@ import View
 initialContext : Maybe User -> Page -> a -> TestContext Msg.Msg Model.Model
 initialContext currentUser page _ =
     startForTest
-        { init = Model.init { currentUser = currentUser } (toLocation page)
+        { init = Model.init { currentUser = currentUser, profile = Just fixtures.profile } (toLocation page)
         , update = Update.update
         , view = View.view
         }
@@ -48,6 +48,11 @@ someUser =
 successSignIn : TestContext Msg.Msg model -> TestContext Msg.Msg model
 successSignIn =
     update (Msg.MsgForLogin <| SignInResponse ( Nothing, Maybe.map (\user -> { user = user, profile = Just fixtures.profile }) someUser ))
+
+
+successSignInWithoutProfile : TestContext Msg.Msg model -> TestContext Msg.Msg model
+successSignInWithoutProfile =
+    update (Msg.MsgForLogin <| SignInResponse ( Nothing, Maybe.map (\user -> { user = user, profile = Nothing }) someUser ))
 
 
 fixtures : { rides : List Ride, ride : Ride, user : User, profile : Profile }

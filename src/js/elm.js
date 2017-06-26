@@ -4,6 +4,19 @@ var connectFirebase;
 require(["../app/Stylesheets.elm"], function(Stylesheet) {});
 
 require(["../app/Main.elm"], function(Elm) {
+  var rootNode = document.getElementById("app");
+  rootNode.innerHTML = "";
+  app = Elm.Main.embed(rootNode, getFlags());
+
+  if (connectFirebase) connectFirebase(app);
+});
+
+require(["./firebase"], function(connect) {
+  connectFirebase = connect;
+  if (app) connectFirebase(app);
+});
+
+var getFlags = function() {
   var currentUser =
     Object.keys(localStorage)
       .filter(function(key) {
@@ -16,14 +29,11 @@ require(["../app/Main.elm"], function(Elm) {
         return { id: user.uid, name: user.displayName || "" };
       })[0] || null;
 
-  var rootNode = document.getElementById("app");
-  rootNode.innerHTML = "";
-  app = Elm.Main.embed(rootNode, { currentUser: currentUser });
+  var profile = null;
+  profile = JSON.parse(localStorage.getItem("profile"));
 
-  if (connectFirebase) connectFirebase(app);
-});
-
-require(["./firebase"], function(connect) {
-  connectFirebase = connect;
-  if (app) connectFirebase(app);
-});
+  return {
+    currentUser: currentUser,
+    profile: profile
+  };
+};

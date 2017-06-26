@@ -2,7 +2,7 @@ module Integration.UrlRouterSpec exposing (tests)
 
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
-import Helpers exposing (fixtures, initialContext, someUser, successSignIn, toLocation)
+import Helpers exposing (fixtures, initialContext, someUser, successSignIn, successSignInWithoutProfile, toLocation)
 import Layout.Styles exposing (Classes(OpenMenuButton, SignOutButton))
 import Login.Ports exposing (signOut)
 import Login.Styles
@@ -57,6 +57,13 @@ tests =
                 loginThenLogout
                     >> expectToBeOnRidesPage
             ]
+        , test "redirect to profile page if user does not have a profile yet" <|
+            loginContext
+                >> successSignInWithoutProfile
+                >> Expect.all
+                    [ update (MsgForUrlRouter <| UrlChange (toLocation LoginPage)) >> expectToBeOnProfilePage
+                    , update (MsgForUrlRouter <| UrlChange (toLocation RidesPage)) >> expectToBeOnProfilePage
+                    ]
         ]
 
 
@@ -109,3 +116,10 @@ expectToBeOnRidesPage =
         , find [ loginClass Login.Styles.Page ]
             >> assertNodeCount (Expect.equal 0)
         ]
+
+
+expectToBeOnProfilePage : TestContext msg Model -> Expect.Expectation
+expectToBeOnProfilePage =
+    currentModel
+        >> Result.map (\model -> model.urlRouter.page)
+        >> Expect.equal (Ok ProfilePage)
