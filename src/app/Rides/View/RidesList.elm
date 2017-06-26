@@ -2,17 +2,20 @@ module Rides.View.RidesList exposing (ridesList)
 
 import Common.CssHelpers exposing (materializeClass)
 import Common.Icon exposing (icon)
+import Common.Link exposing (linkTo)
+import Msg exposing (Msg(..))
 import Rides.Model exposing (Model, Ride)
 import Rides.Styles exposing (Classes(..), class)
 import Testable.Html exposing (..)
+import UrlRouter.Routes exposing (Page(..))
 
 
-ridesList : Model -> Html a
+ridesList : Model -> Html Msg
 ridesList rides =
     div [ materializeClass "container" ] (List.map rideItem rides)
 
 
-rideItem : Ride -> Html a
+rideItem : Ride -> Html Msg
 rideItem ride =
     div [ class Card, materializeClass "card" ]
         [ div [ materializeClass "card-content" ]
@@ -44,6 +47,6 @@ rideItem ride =
                     , text ride.name
                     ]
                 ]
-            , button [ class ActionButton ] [ text "Quero carona" ]
+            , linkTo (RideRequestPage ride.id) [ class ActionButton ] [ text "Quero carona" ]
             ]
         ]

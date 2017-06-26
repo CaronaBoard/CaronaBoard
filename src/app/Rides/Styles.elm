@@ -54,7 +54,8 @@ cardStyles =
             ]
         ]
     , cssClass ActionButton <|
-        [ darkTextColor
+        [ important <| darkTextColor
+        , important <| margin (px 0)
         , backgroundColor (hex "#EEE")
         , borderStyle none
         , padding2 (px 10) (px 15)

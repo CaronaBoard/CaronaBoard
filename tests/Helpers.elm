@@ -5,6 +5,7 @@ import Login.Model exposing (User)
 import Model
 import Msg
 import Navigation exposing (Location)
+import Rides.Model exposing (Contact(..), Ride, init)
 import Testable.TestContext exposing (TestContext, startForTest)
 import Update
 import UrlRouter.Routes exposing (Page(..), toPath)
@@ -40,3 +41,14 @@ expectToNotContainText expected actual =
 someUser : Maybe User
 someUser =
     Just { id = "foo-bar-bar", name = "Baz" }
+
+
+fixtures : { rides : List Ride, ride : Ride }
+fixtures =
+    { rides =
+        [ { id = "ride-1", name = "foo", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", contact = Just <| Whatsapp "+5551" }
+        , { id = "ride-2", name = "bar", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", contact = Just <| Whatsapp "wpp-for-ride-2" }
+        ]
+    , ride =
+        { id = "ride-1", name = "foo", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", contact = Just <| Whatsapp "+5551" }
+    }

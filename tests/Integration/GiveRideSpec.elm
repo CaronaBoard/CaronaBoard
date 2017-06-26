@@ -3,12 +3,11 @@ module Integration.GiveRideSpec exposing (tests)
 import Expect exposing (equal)
 import GiveRide.Msg exposing (Msg(..))
 import GiveRide.Ports
-import Helpers exposing (expectToContainText, initialContext, someUser, toLocation)
+import Helpers exposing (expectToContainText, fixtures, initialContext, someUser, toLocation)
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
 import Navigation
 import Notifications.Msg exposing (Msg(..))
-import Rides.Model exposing (Contact(..), Ride)
 import Test exposing (..)
 import Testable.Html.Selectors exposing (..)
 import Testable.TestContext exposing (..)
@@ -56,24 +55,19 @@ ridesContext =
     initialContext someUser GiveRidePage
 
 
-rideExample : Ride
-rideExample =
-    { id = "1", name = "foo", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", contact = Just <| Whatsapp "+5551" }
-
-
 fillNewRide : a -> TestContext Root.Msg Model
 fillNewRide =
     ridesContext
         >> find [ id "name" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideExample.name ++ "\"}}")
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.ride.name ++ "\"}}")
         >> find [ id "origin" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideExample.origin ++ "\"}}")
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.ride.origin ++ "\"}}")
         >> find [ id "destination" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideExample.destination ++ "\"}}")
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.ride.destination ++ "\"}}")
         >> find [ id "days" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideExample.days ++ "\"}}")
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.ride.days ++ "\"}}")
         >> find [ id "hours" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ rideExample.hours ++ "\"}}")
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.ride.hours ++ "\"}}")
         >> find [ id "contactType" ]
         >> trigger "input" ("{\"target\": {\"value\": \"" ++ "Whatsapp" ++ "\"}}")
         >> find [ id "contactValue" ]
@@ -89,4 +83,4 @@ submitNewRide =
 
 successResponse : TestContext Root.Msg Model -> TestContext Root.Msg Model
 successResponse =
-    update (MsgForGiveRide <| GiveRideResponse ( Nothing, Just rideExample ))
+    update (MsgForGiveRide <| GiveRideResponse ( Nothing, Just fixtures.ride ))

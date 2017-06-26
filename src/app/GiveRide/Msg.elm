@@ -14,7 +14,3 @@ type Msg
     | UpdateContactValue String
     | Submit
     | GiveRideResponse (FirebaseResponse Ride)
-
-
-type alias Error =
-    String
