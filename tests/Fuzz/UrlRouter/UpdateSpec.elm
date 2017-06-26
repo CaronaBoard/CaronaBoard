@@ -3,7 +3,7 @@ module Fuzz.UrlRouter.UpdateSpec exposing (..)
 import Array exposing (Array, fromList, get, length)
 import Expect exposing (equal)
 import Fuzz exposing (Fuzzer)
-import Helpers exposing (fixtures, toLocation)
+import Helpers exposing (fixtures, someUser, toLocation)
 import Login.Model as Login
 import Navigation exposing (Location)
 import Profile.Model
@@ -67,7 +67,7 @@ randomLogin =
     Fuzz.map
         (\bool ->
             if bool then
-                Login.init (Just { id = "foo", name = "bar" })
+                Login.init someUser
             else
                 Login.init Nothing
         )

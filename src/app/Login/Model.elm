@@ -14,7 +14,7 @@ type alias Model =
 
 
 type alias User =
-    { id : String, name : String }
+    { id : String }
 
 
 type Step

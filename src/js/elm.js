@@ -26,7 +26,7 @@ var getFlags = function() {
         return JSON.parse(localStorage.getItem(key));
       })
       .map(function(user) {
-        return { id: user.uid, name: user.displayName || "" };
+        return { id: user.uid };
       })[0] || null;
 
   var profile = null;
