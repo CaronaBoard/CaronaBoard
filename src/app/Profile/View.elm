@@ -3,7 +3,7 @@ module Profile.View exposing (profile)
 import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
 import Layout.Styles exposing (Classes(..))
-import Profile.Model exposing (Model)
+import Profile.Model exposing (Model, savedProfile)
 import Profile.Msg exposing (Msg(..))
 import Profile.Styles exposing (Classes(..), class)
 import Rides.Model exposing (contactDeepLink, contactIdentifier)
@@ -20,7 +20,12 @@ layoutClass =
 profile : Model -> Html Msg
 profile model =
     div [ materializeClass "container" ]
-        [ h1 [ layoutClass PageTitle ] [ text "Editar Perfil" ]
+        [ h1 [ layoutClass PageTitle ]
+            [ if savedProfile model == Nothing then
+                text "Criar Perfil"
+              else
+                text "Editar Perfil"
+            ]
         , form [ materializeClass "card", onSubmit Submit ]
             [ div [ materializeClass "card-content" ]
                 (formFields model)
@@ -35,16 +40,17 @@ formFields model =
     , br [] []
     , textInput model.fields.name UpdateName "name" "Seu nome"
     , div [ class ContactField ]
-        [ div [ materializeClass "input-field" ]
+        [ div [ materializeClass "input-field", class ContactKind ]
             [ div [ materializeClass "select-wrapper" ]
                 [ span [ materializeClass "caret" ] [ text "▼" ]
-                , select [ materializeClass "browser-default", onInput UpdateContactType, id "contactType" ]
+                , select [ class Select, onInput UpdateContactType, id "contactType" ]
                     [ contactTypeOption model "Whatsapp"
                     , contactTypeOption model "Telegram"
                     ]
                 ]
             ]
-        , textInput model.fields.contact.value UpdateContactValue "contactValue" (contactIdentifier model.fields.contact.kind)
+        , div [ class ContactValue ]
+            [ textInput model.fields.contact.value UpdateContactValue "contactValue" (contactIdentifier model.fields.contact.kind) ]
         ]
     , loadingOrSubmitButton model.response [ id "submitProfile", layoutClass SubmitButton ] [ text "Salvar" ]
     ]

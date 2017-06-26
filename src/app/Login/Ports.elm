@@ -68,4 +68,4 @@ port passwordResetResponse : (Maybe Error -> msg) -> Sub msg
 port signUp : { email : String, password : String } -> Cmd msg
 
 
-port signUpResponse : (FirebaseResponse User -> msg) -> Sub msg
+port signUpResponse : (FirebaseResponse Bool -> msg) -> Sub msg

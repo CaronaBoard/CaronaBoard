@@ -15,7 +15,7 @@ type Msg
     | SignOutResponse
     | PasswordReset
     | PasswordResetResponse (Maybe Error)
-    | SignUpResponse (FirebaseResponse User)
+    | SignUpResponse (FirebaseResponse Bool)
 
 
 type alias Error =

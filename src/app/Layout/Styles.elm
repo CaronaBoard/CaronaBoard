@@ -43,12 +43,6 @@ generalStyles =
         [ important <| borderRadius (px 54)
         , important <| property "text-transform" "none"
         ]
-    , selector ".browser-default"
-        [ backgroundColor transparent
-        , borderStyle none
-        , borderBottom3 (px 1) solid (hex "#FFF")
-        , marginTop (px 1)
-        ]
     , cssClass PageTitle
         [ darkTextColor
         , fontSize (px 34)

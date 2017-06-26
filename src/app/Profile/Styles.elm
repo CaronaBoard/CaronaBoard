@@ -11,6 +11,9 @@ import Css.Namespace
 
 type Classes
     = ContactField
+    | ContactKind
+    | ContactValue
+    | Select
 
 
 styles : Stylesheet
@@ -19,5 +22,19 @@ styles =
         [ cssClass ContactField
             [ displayFlex
             , justifyContent spaceBetween
+            ]
+        , cssClass ContactKind
+            [ width (pct 30)
+            ]
+        , cssClass ContactValue
+            [ width (pct 68)
+            ]
+        , cssClass Select
+            [ backgroundColor transparent
+            , borderStyle none
+            , borderBottom3 (px 1) solid (hex "#FFF")
+            , marginTop (px 1)
+            , display block
+            , property "-webkit-appearance" "none"
             ]
         ]
