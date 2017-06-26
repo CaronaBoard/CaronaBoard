@@ -83,4 +83,4 @@ submitNewRide =
 
 successResponse : TestContext Root.Msg Model -> TestContext Root.Msg Model
 successResponse =
-    update (MsgForGiveRide <| GiveRideResponse ( Nothing, Just fixtures.ride ))
+    update (MsgForGiveRide <| GiveRideResponse ( Nothing, Just True ))

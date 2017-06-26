@@ -17,7 +17,7 @@ subscriptions =
 port giveRide : RawNewRide -> Cmd msg
 
 
-port giveRideResponse : (FirebaseResponse Ride -> msg) -> Sub msg
+port giveRideResponse : (FirebaseResponse Bool -> msg) -> Sub msg
 
 
 type alias RawNewRide =

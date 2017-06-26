@@ -6,7 +6,7 @@ import Rides.Model exposing (Contact, Ride)
 
 type alias Model =
     { fields : NewRide
-    , response : Response Ride
+    , response : Response Bool
     }
 
 

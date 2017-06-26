@@ -1,5 +1,6 @@
 var firebase = require("firebase");
 var fetchRides = require("./rides").fetchRides;
+var tuple = require("./helpers").tuple;
 
 module.exports = function(firebase, database, app) {
   app.ports.checkRegistration.subscribe(function(email) {
@@ -20,7 +21,7 @@ module.exports = function(firebase, database, app) {
       .signInWithEmailAndPassword(credentials.email, credentials.password)
       .then(signInUser)
       .catch(function(error) {
-        app.ports.signInResponse.send([error.message, null]);
+        app.ports.signInResponse.send(tuple(error.message, null));
       });
   });
 
