@@ -27,7 +27,7 @@ tests =
                 >> assertText (Expect.equal "Carregando...")
         , test "sends request via giveRide port" <|
             submitNewRide
-                >> assertCalled (Cmd.map MsgForGiveRide <| GiveRide.Ports.giveRide { userId = "foo-bar-bar", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" })
+                >> assertCalled (Cmd.map MsgForGiveRide <| GiveRide.Ports.giveRide fixtures.newRide)
         , test "shows error when giveRide port returns an error" <|
             submitNewRide
                 >> update (MsgForGiveRide <| GiveRideResponse ( Just "Scientists just proved that undefined is indeed not a function", Nothing ))
@@ -59,13 +59,13 @@ fillNewRide : a -> TestContext Root.Msg Model
 fillNewRide =
     ridesContext
         >> find [ id "origin" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.ride.origin ++ "\"}}")
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.newRide.origin ++ "\"}}")
         >> find [ id "destination" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.ride.destination ++ "\"}}")
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.newRide.destination ++ "\"}}")
         >> find [ id "days" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.ride.days ++ "\"}}")
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.newRide.days ++ "\"}}")
         >> find [ id "hours" ]
-        >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.ride.hours ++ "\"}}")
+        >> trigger "input" ("{\"target\": {\"value\": \"" ++ fixtures.newRide.hours ++ "\"}}")
 
 
 submitNewRide : a -> TestContext Root.Msg Model

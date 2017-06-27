@@ -41,8 +41,8 @@ rideRequest rideId model =
                         , p [] [ text "Para combinar melhor com o motorista, use o contato abaixo:" ]
                         , br [] []
                         , p [ class Contact ]
-                            [ text <| ride.contact.kind ++ " "
-                            , a [ href <| contactDeepLink ride.contact, target "_blank" ] [ text ride.contact.value ]
+                            [ text <| ride.profile.contact.kind ++ " "
+                            , a [ href <| contactDeepLink ride.profile.contact, target "_blank" ] [ text ride.profile.contact.value ]
                             ]
                         ]
                     ]

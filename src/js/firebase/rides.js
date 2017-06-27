@@ -1,19 +1,32 @@
 var tuple = require("./helpers").tuple;
 
-var toArrayOfObjects = function(object) {
-  return Object.keys(object).reduce(function(accumulated, itemId) {
-    var item = Object.assign({ id: itemId }, object[itemId]);
+var toArrayOfObjects = function(deepness, object) {
+  return Object.keys(object || {}).reduce(function(accumulated, itemId) {
+    var item;
+    if (deepness == 1) {
+      item = [Object.assign({ id: itemId }, object[itemId])];
+    } else {
+      item = toArrayOfObjects(deepness - 1, object[itemId]);
+    }
 
-    return [item].concat(accumulated);
+    return item.concat(accumulated);
   }, []);
 };
 
 module.exports = function(firebase, database, app) {
   app.ports.giveRide.subscribe(function(newRide) {
+    var currentUser = firebase.auth().currentUser;
+
     firebase
       .database()
-      .ref("rides")
-      .push(newRide)
+      .ref("profiles/" + currentUser.uid)
+      .once("value")
+      .then(function(profile) {
+        return firebase
+          .database()
+          .ref("rides/" + currentUser.uid)
+          .push(Object.assign({ profile: profile.val() }, newRide));
+      })
       .then(function(rideRef) {
         app.ports.giveRideResponse.send(tuple(null, true));
       })
@@ -38,6 +51,6 @@ module.exports = function(firebase, database, app) {
 
 module.exports.fetchRides = function(firebase, database, app) {
   firebase.database().ref("rides").on("value", function(rides) {
-    app.ports.rides.send(toArrayOfObjects(rides.val()));
+    app.ports.rides.send(toArrayOfObjects(2, rides.val()));
   });
 };
