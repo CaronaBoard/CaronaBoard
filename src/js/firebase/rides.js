@@ -1,4 +1,5 @@
-var tuple = require("./helpers").tuple;
+var success = require("./helpers").success;
+var error = require("./helpers").error;
 
 var toArrayOfObjects = function(deepness, object) {
   return Object.keys(object || {}).reduce(function(accumulated, itemId) {
@@ -25,10 +26,10 @@ module.exports = function(firebase, app) {
           .push(Object.assign({ profile: profile.val() }, newRide));
       })
       .then(function() {
-        app.ports.giveRideResponse.send(tuple(null, true));
+        app.ports.giveRideResponse.send(success(true));
       })
       .catch(function(error) {
-        app.ports.giveRideResponse.send(tuple(error.message, null));
+        app.ports.giveRideResponse.send(error(error.message));
       });
   });
 
@@ -48,13 +49,13 @@ module.exports = function(firebase, app) {
       .then(function() {
         app.ports.rideRequestResponse.send({
           rideId: rideRequest.rideId,
-          response: tuple(null, true)
+          response: success(true)
         });
       })
       .catch(function(error) {
         app.ports.rideRequestResponse.send({
           rideId: rideRequest.rideId,
-          response: tuple(error.message, null)
+          response: error(error.message)
         });
       });
   });
