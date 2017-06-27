@@ -2,12 +2,13 @@ module Integration.UrlRouterSpec exposing (tests)
 
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
-import Helpers exposing (fixtures, initialContext, someUser, successSignIn, successSignInWithoutProfile, toLocation)
+import Helpers exposing (fixtures, initialContext, signedInContext, someUser, successSignIn, successSignInWithoutProfile, toLocation)
 import Layout.Styles exposing (Classes(OpenMenuButton, SignOutButton))
 import Login.Ports exposing (signOut)
 import Login.Styles
 import Model exposing (Model)
-import Msg as Root exposing (Msg(MsgForLogin, MsgForUrlRouter))
+import Msg as Root exposing (Msg(..))
+import Profile.Msg exposing (Msg(..))
 import Rides.Styles
 import Test exposing (..)
 import Testable.Html.Selectors exposing (..)
@@ -22,10 +23,10 @@ tests =
     describe "UrlRouter"
         [ describe "initial routing"
             [ test "renders rides page if app starts on login page but user is already logged in" <|
-                initialContext someUser LoginPage
+                signedInContext LoginPage
                     >> expectToBeOnRidesPage
             , test "renders login page if app starts on rides page but user is not logged in" <|
-                initialContext Nothing RidesPage
+                initialContext Nothing Nothing RidesPage
                     >> expectToBeOnLoginPage
             ]
         , test "renders login and hides rides when user is not logged in and is on login route" <|
@@ -64,12 +65,18 @@ tests =
                     [ update (MsgForUrlRouter <| UrlChange (toLocation LoginPage)) >> expectToBeOnProfilePage
                     , update (MsgForUrlRouter <| UrlChange (toLocation RidesPage)) >> expectToBeOnProfilePage
                     ]
+        , test "do not redirect to profile page after creating on" <|
+            loginContext
+                >> successSignInWithoutProfile
+                >> update (MsgForProfile <| ProfileResponse ( Nothing, Just fixtures.profile ))
+                >> update (MsgForUrlRouter <| UrlChange (toLocation RidesPage))
+                >> expectToBeOnRidesPage
         ]
 
 
 loginContext : a -> TestContext Root.Msg Model.Model
 loginContext =
-    initialContext Nothing LoginPage
+    initialContext Nothing Nothing LoginPage
 
 
 layoutClass : Layout.Styles.Classes -> Selector
@@ -108,14 +115,11 @@ expectToBeOnLoginPage =
         ]
 
 
-expectToBeOnRidesPage : TestContext msg model -> Expect.Expectation
+expectToBeOnRidesPage : TestContext msg Model -> Expect.Expectation
 expectToBeOnRidesPage =
-    Expect.all
-        [ find [ layoutClass Layout.Styles.Page ]
-            >> assertPresent
-        , find [ loginClass Login.Styles.Page ]
-            >> assertNodeCount (Expect.equal 0)
-        ]
+    currentModel
+        >> Result.map (\model -> model.urlRouter.page)
+        >> Expect.equal (Ok RidesPage)
 
 
 expectToBeOnProfilePage : TestContext msg Model -> Expect.Expectation

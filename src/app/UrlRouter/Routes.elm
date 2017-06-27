@@ -2,7 +2,7 @@ module UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, toPath)
 
 import Login.Model as Login exposing (isLoggedIn)
 import Navigation
-import Profile.Model as Profile exposing (savedProfile)
+import Profile.Model as Profile
 import UrlParser exposing ((</>), Parser, map, oneOf, parseHash, string)
 
 
@@ -66,7 +66,7 @@ toPath page =
 redirectTo : Profile.Model -> Login.Model -> Page -> Page
 redirectTo profile login page =
     if isLoggedIn login then
-        if savedProfile profile == Nothing then
+        if profile.savedProfile == Nothing then
             ProfilePage
         else
             case page of

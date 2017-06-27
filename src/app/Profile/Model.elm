@@ -1,10 +1,11 @@
-module Profile.Model exposing (Contact, Model, Profile, contactDeepLink, contactIdentifier, init, savedProfile)
+module Profile.Model exposing (Contact, Model, Profile, contactDeepLink, contactIdentifier, init)
 
 import Common.Response exposing (Response(..))
 
 
 type alias Model =
     { fields : Profile
+    , savedProfile : Maybe Profile
     , response : Response Profile
     }
 
@@ -27,21 +28,9 @@ init profile =
         { name = ""
         , contact = { kind = "Whatsapp", value = "" }
         }
-    , response =
-        profile
-            |> Maybe.map Success
-            |> Maybe.withDefault Empty
+    , savedProfile = profile
+    , response = Empty
     }
-
-
-savedProfile : Model -> Maybe Profile
-savedProfile model =
-    case model.response of
-        Success profile ->
-            Just profile
-
-        _ ->
-            Nothing
 
 
 contactDeepLink : Contact -> String

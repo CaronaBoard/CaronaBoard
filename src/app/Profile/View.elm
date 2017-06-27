@@ -3,7 +3,7 @@ module Profile.View exposing (profile)
 import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
 import Layout.Styles exposing (Classes(..))
-import Profile.Model exposing (Model, contactIdentifier, savedProfile)
+import Profile.Model exposing (Model, contactIdentifier)
 import Profile.Msg exposing (Msg(..))
 import Profile.Styles exposing (Classes(..), class)
 import Testable.Html exposing (..)
@@ -20,7 +20,7 @@ profile : Model -> Html Msg
 profile model =
     div [ materializeClass "container" ]
         [ h1 [ layoutClass PageTitle ]
-            [ if savedProfile model == Nothing then
+            [ if model.savedProfile == Nothing then
                 text "Criar Perfil"
               else
                 text "Editar Perfil"

@@ -1,7 +1,7 @@
 module Integration.RideRequestSpec exposing (tests)
 
 import Expect exposing (equal)
-import Helpers exposing (expectToContainText, fixtures, initialContext, someUser, toLocation)
+import Helpers exposing (expectToContainText, fixtures, initialContext, signedInContext, someUser, toLocation)
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
 import RideRequest.Msg exposing (Msg(..))
@@ -43,7 +43,7 @@ tests =
 
 ridesContextContext : a -> TestContext Root.Msg Model
 ridesContextContext =
-    initialContext someUser (RideRequestPage "ride-2")
+    signedInContext (RideRequestPage "ride-2")
         >> update (MsgForRides <| UpdateRides fixtures.rides)
 
 

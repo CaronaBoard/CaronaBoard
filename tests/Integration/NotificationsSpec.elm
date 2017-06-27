@@ -1,7 +1,7 @@
 module Integration.NotificationsSpec exposing (tests)
 
 import Expect exposing (equal)
-import Helpers exposing (expectToContainText, expectToNotContainText, initialContext, someUser, toLocation)
+import Helpers exposing (expectToContainText, expectToNotContainText, initialContext, signedInContext, someUser, toLocation)
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
 import Notifications.Msg exposing (..)
@@ -35,12 +35,12 @@ tests =
                 >> assertText (expectToContainText "Notificações ativadas")
         , describe "notices"
             [ test "shows notice" <|
-                initialContext someUser RidesPage
+                signedInContext RidesPage
                     >> update (MsgForNotifications <| ShowNotice "banana!")
                     >> find []
                     >> assertText (expectToContainText "banana!")
             , test "hides notice after 3 seconds" <|
-                initialContext someUser RidesPage
+                signedInContext RidesPage
                     >> update (MsgForNotifications <| ShowNotice "banana!")
                     >> advanceTime (3 * Time.second)
                     >> find []
@@ -51,6 +51,6 @@ tests =
 
 enableNotifications : a -> TestContext Root.Msg Model
 enableNotifications =
-    initialContext someUser EnableNotificationsPage
+    signedInContext EnableNotificationsPage
         >> find [ tag "form" ]
         >> trigger "submit" "{}"
