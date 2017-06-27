@@ -1,5 +1,6 @@
 var firebase = require("firebase");
 var fetchRides = require("./rides").fetchRides;
+var checkNotificationToken = require("./notifications").checkNotificationToken;
 var tuple = require("./helpers").tuple;
 
 module.exports = function(firebase, app) {
@@ -42,6 +43,7 @@ module.exports = function(firebase, app) {
       );
     });
     fetchRides(firebase, app);
+    checkNotificationToken(firebase, app);
   };
 
   var signOutUser = function() {
