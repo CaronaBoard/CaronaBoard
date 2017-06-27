@@ -1,7 +1,8 @@
 var firebase = require("firebase");
 var fetchRides = require("./rides").fetchRides;
 var checkNotificationToken = require("./notifications").checkNotificationToken;
-var tuple = require("./helpers").tuple;
+var success = require("./helpers").success;
+var error = require("./helpers").error;
 
 module.exports = function(firebase, app) {
   var getProfile = require("./profile").getProfile(firebase, app);
@@ -24,7 +25,7 @@ module.exports = function(firebase, app) {
       .signInWithEmailAndPassword(credentials.email, credentials.password)
       .then(signInUser)
       .catch(function(error) {
-        app.ports.signInResponse.send(tuple(error.message, null));
+        app.ports.signInResponse.send(error(error.message));
       });
   });
 
@@ -36,7 +37,7 @@ module.exports = function(firebase, app) {
     getProfile().then(function(profile) {
       localStorage.setItem("profile", JSON.stringify(profile.val()));
       app.ports.signInResponse.send(
-        tuple(null, {
+        success({
           user: { id: user.uid },
           profile: profile.val()
         })
@@ -77,10 +78,10 @@ module.exports = function(firebase, app) {
       .auth()
       .createUserWithEmailAndPassword(credentials.email, credentials.password)
       .then(function(user) {
-        app.ports.signUpResponse.send(tuple(null, true));
+        app.ports.signUpResponse.send(success(true));
       })
       .catch(function(error) {
-        app.ports.signUpResponse.send(tuple(error.message, null));
+        app.ports.signUpResponse.send(error(error.message));
       });
   });
 };

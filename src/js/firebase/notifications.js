@@ -1,4 +1,5 @@
-var tuple = require("./helpers").tuple;
+var success = require("./helpers").success;
+var error = require("./helpers").error;
 
 var successEnabledNotifications = function(firebase, app) {
   return function(token) {
@@ -11,10 +12,10 @@ var successEnabledNotifications = function(firebase, app) {
           notificationToken: token
         })
         .then(function() {
-          app.ports.notificationsResponse.send(tuple(null, true));
+          app.ports.notificationsResponse.send(success(true));
         })
         .catch(function(err) {
-          app.ports.notificationsResponse.send(tuple(err.message, null));
+          app.ports.notificationsResponse.send(error(err.message));
         });
     }
   };
@@ -42,7 +43,7 @@ module.exports = function(firebase, app) {
       })
       .then(successEnabledNotifications(firebase, app))
       .catch(function(err) {
-        app.ports.notificationsResponse.send(tuple(err.message, null));
+        app.ports.notificationsResponse.send(error(err.message));
       });
   });
 

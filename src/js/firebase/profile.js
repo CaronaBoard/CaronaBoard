@@ -1,6 +1,7 @@
 var firebase = require("firebase");
 var fetchRides = require("./rides").fetchRides;
-var tuple = require("./helpers").tuple;
+var success = require("./helpers").success;
+var error = require("./helpers").error;
 
 var getProfile = function(firebase, app) {
   return function() {
@@ -33,10 +34,10 @@ module.exports = function(firebase, app) {
           .ref()
           .update(pathsToUpdate)
           .then(function(profileRef) {
-            app.ports.profileResponse.send(tuple(null, profile));
+            app.ports.profileResponse.send(success(profile));
           })
           .catch(function(error) {
-            app.ports.profileResponse.send(tuple(error.message, null));
+            app.ports.profileResponse.send(error(error.message));
           });
       });
   });
