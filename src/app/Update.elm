@@ -8,7 +8,6 @@ import Model exposing (Model)
 import Msg exposing (Msg(..))
 import Notifications.Update as Notifications
 import Profile.Update as Profile
-import RideRequest.Update as RideRequest
 import Rides.Update as Rides
 import Testable.Cmd
 import UrlRouter.Update as UrlRouter
@@ -35,9 +34,6 @@ update msg model =
         notifications =
             Notifications.update msg model.notifications
 
-        rideRequest =
-            RideRequest.update (loggedInUser model.login) msg model.rideRequest
-
         profile =
             Profile.update msg model.profile
 
@@ -48,7 +44,6 @@ update msg model =
             , layout = Tuple.first layout
             , giveRide = Tuple.first giveRide
             , notifications = Tuple.first notifications
-            , rideRequest = Tuple.first rideRequest
             , profile = Tuple.first profile
             }
 
@@ -60,7 +55,6 @@ update msg model =
                 , Testable.Cmd.map MsgForLayout <| Tuple.second layout
                 , Testable.Cmd.map MsgForGiveRide <| Tuple.second giveRide
                 , Testable.Cmd.map MsgForNotifications <| Tuple.second notifications
-                , Testable.Cmd.map MsgForRideRequest <| Tuple.second rideRequest
                 , Testable.Cmd.map MsgForProfile <| Tuple.second profile
                 ]
     in

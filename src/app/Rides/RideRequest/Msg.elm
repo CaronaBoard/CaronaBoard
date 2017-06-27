@@ -1,4 +1,4 @@
-module RideRequest.Msg exposing (Msg(..))
+module Rides.RideRequest.Msg exposing (Msg(..))
 
 import Common.Response exposing (FirebaseResponse)
 import Rides.Model exposing (Ride)

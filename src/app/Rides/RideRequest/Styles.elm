@@ -1,4 +1,4 @@
-module RideRequest.Styles exposing (Classes(..), class, namespace, styles)
+module Rides.RideRequest.Styles exposing (Classes(..), class, namespace, styles)
 
 import Common.CssHelpers exposing (..)
 import Css exposing (..)

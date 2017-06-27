@@ -46,10 +46,16 @@ module.exports = function(firebase, app) {
           .push({ profile: profile.val() });
       })
       .then(function() {
-        app.ports.rideRequestResponse.send(tuple(null, true));
+        app.ports.rideRequestResponse.send({
+          rideId: rideRequest.rideId,
+          response: tuple(null, true)
+        });
       })
       .catch(function(error) {
-        app.ports.rideRequestResponse.send(tuple(error.message, null));
+        app.ports.rideRequestResponse.send({
+          rideId: rideRequest.rideId,
+          response: tuple(error.message, null)
+        });
       });
   });
 };

@@ -5,7 +5,7 @@ import Layout.Styles
 import Login.Styles
 import Notifications.Styles
 import Profile.Styles
-import RideRequest.Styles
+import Rides.RideRequest.Styles
 import Rides.Styles
 
 
@@ -21,7 +21,7 @@ fileStructure =
                 , Login.Styles.styles
                 , Rides.Styles.styles
                 , Notifications.Styles.styles
-                , RideRequest.Styles.styles
+                , Rides.RideRequest.Styles.styles
                 , Profile.Styles.styles
                 ]
           )
