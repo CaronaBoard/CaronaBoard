@@ -47,6 +47,11 @@ tests =
                 >> successResponse
                 >> find []
                 >> assertText (expectToContainText "Carona criada com sucesso!")
+        , test "clear fields on success" <|
+            submitNewRide
+                >> successResponse
+                >> find [ id "origin" ]
+                >> assertAttribute "value" (Expect.equal "")
         ]
 
 
