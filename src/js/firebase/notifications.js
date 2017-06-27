@@ -1,9 +1,7 @@
 var tuple = require("./helpers").tuple;
 
-module.exports = function(firebase, app) {
-  var messaging = firebase.messaging();
-
-  var successEnabledNotifications = function(token) {
+var successEnabledNotifications = function(firebase, app) {
+  return function(token) {
     var currentUser = firebase.auth().currentUser;
     if (token && currentUser) {
       firebase
@@ -20,6 +18,21 @@ module.exports = function(firebase, app) {
         });
     }
   };
+};
+
+var checkNotificationToken = function(firebase, app) {
+  var messaging = firebase.messaging();
+
+  messaging
+    .getToken()
+    .then(successEnabledNotifications(firebase, app))
+    .catch(function() {
+      // ignore
+    });
+};
+
+module.exports = function(firebase, app) {
+  var messaging = firebase.messaging();
 
   app.ports.enableNotifications.subscribe(function() {
     messaging
@@ -27,14 +40,10 @@ module.exports = function(firebase, app) {
       .then(function() {
         return messaging.getToken();
       })
-      .then(successEnabledNotifications)
+      .then(successEnabledNotifications(firebase, app))
       .catch(function(err) {
         app.ports.notificationsResponse.send(tuple(err.message, null));
       });
-  });
-
-  messaging.getToken().then(successEnabledNotifications).catch(function() {
-    // ignore
   });
 
   messaging.onMessage(function(payload) {
@@ -42,3 +51,4 @@ module.exports = function(firebase, app) {
     window.location = payload.notification.click_action;
   });
 };
+module.exports.checkNotificationToken = checkNotificationToken;
