@@ -2,7 +2,9 @@ var firebase = require("firebase");
 var fetchRides = require("./rides").fetchRides;
 var tuple = require("./helpers").tuple;
 
-module.exports = function(firebase, database, app) {
+module.exports = function(firebase, app) {
+  var getProfile = require("./profile").getProfile(firebase, app);
+
   app.ports.checkRegistration.subscribe(function(email) {
     firebase
       .auth()
@@ -30,19 +32,16 @@ module.exports = function(firebase, database, app) {
   });
 
   var signInUser = function(user) {
-    firebase
-      .database()
-      .ref("profiles/" + user.uid)
-      .once("value", function(profile) {
-        localStorage.setItem("profile", JSON.stringify(profile.val()));
-        app.ports.signInResponse.send(
-          tuple(null, {
-            user: { id: user.uid },
-            profile: profile.val()
-          })
-        );
-      });
-    fetchRides(firebase, database, app);
+    getProfile().then(function(profile) {
+      localStorage.setItem("profile", JSON.stringify(profile.val()));
+      app.ports.signInResponse.send(
+        tuple(null, {
+          user: { id: user.uid },
+          profile: profile.val()
+        })
+      );
+    });
+    fetchRides(firebase, app);
   };
 
   var signOutUser = function() {
@@ -80,21 +79,6 @@ module.exports = function(firebase, database, app) {
       })
       .catch(function(error) {
         app.ports.signUpResponse.send(tuple(error.message, null));
-      });
-  });
-
-  app.ports.saveProfile.subscribe(function(profile) {
-    var currentUser = firebase.auth().currentUser;
-
-    firebase
-      .database()
-      .ref("profiles/" + currentUser.uid)
-      .set(profile)
-      .then(function(profileRef) {
-        app.ports.profileResponse.send(tuple(null, profile));
-      })
-      .catch(function(error) {
-        app.ports.profileResponse.send(tuple(error.message, null));
       });
   });
 };

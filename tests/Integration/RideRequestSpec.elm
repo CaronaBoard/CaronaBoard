@@ -49,7 +49,7 @@ ridesContextContext =
 
 rideRequestExample : RideRequest
 rideRequestExample =
-    { rideId = "ride-2", userId = "foo-bar-bar" }
+    { rideId = "ride-2" }
 
 
 submitRideRequest : a -> TestContext Root.Msg Model
