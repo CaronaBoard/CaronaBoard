@@ -1,4 +1,4 @@
-module RideRequest.Model exposing (Model, init)
+module Rides.RideRequest.Model exposing (Model, init)
 
 import Common.Response exposing (Response(..))
 

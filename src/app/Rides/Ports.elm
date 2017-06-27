@@ -1,12 +1,40 @@
-port module Rides.Ports exposing (subscriptions)
+port module Rides.Ports exposing (RawRide, decodeRide, subscriptions)
 
-import Rides.Model exposing (Ride)
+import Profile.Model exposing (Profile)
+import Rides.Model exposing (Model, Ride)
 import Rides.Msg exposing (Msg(..))
+import Rides.RideRequest.Model as RideRequest
+import Rides.RideRequest.Ports
 
 
-subscriptions : Sub Msg
-subscriptions =
-    rides UpdateRides
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    Sub.batch
+        [ rides (List.map decodeRide >> UpdateRides)
+        , Rides.RideRequest.Ports.subscriptions
+        ]
 
 
-port rides : (List Ride -> msg) -> Sub msg
+type alias RawRide =
+    { id : String
+    , origin : String
+    , destination : String
+    , days : String
+    , hours : String
+    , profile : Profile
+    }
+
+
+decodeRide : RawRide -> Ride
+decodeRide rawRide =
+    { id = rawRide.id
+    , origin = rawRide.origin
+    , destination = rawRide.destination
+    , days = rawRide.days
+    , hours = rawRide.hours
+    , profile = rawRide.profile
+    , rideRequest = RideRequest.init
+    }
+
+
+port rides : (List RawRide -> msg) -> Sub msg
