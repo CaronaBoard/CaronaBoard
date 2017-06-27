@@ -13,7 +13,8 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 module.exports = function(app) {
-  require("./firebase/login")(firebase, database, app);
-  require("./firebase/rides")(firebase, database, app);
-  require("./firebase/notifications")(firebase, database, app);
+  require("./firebase/login")(firebase, app);
+  require("./firebase/rides")(firebase, app);
+  require("./firebase/notifications")(firebase, app);
+  require("./firebase/profile")(firebase, app);
 };

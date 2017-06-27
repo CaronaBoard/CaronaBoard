@@ -1,6 +1,6 @@
 var tuple = require("./helpers").tuple;
 
-module.exports = function(firebase, database, app) {
+module.exports = function(firebase, app) {
   var messaging = firebase.messaging();
 
   var successEnabledNotifications = function(token) {

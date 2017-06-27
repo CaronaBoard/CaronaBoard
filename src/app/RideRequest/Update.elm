@@ -26,7 +26,7 @@ updateRideRequest user msg model =
             case user of
                 Just user_ ->
                     ( { model | response = Loading }
-                    , Testable.Cmd.wrap (rideRequest (encodeRideRequest ride user_))
+                    , Testable.Cmd.wrap (rideRequest (encodeRideRequest ride))
                     )
 
                 Nothing ->

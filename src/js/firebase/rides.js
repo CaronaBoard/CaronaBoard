@@ -13,21 +13,18 @@ var toArrayOfObjects = function(deepness, object) {
   }, []);
 };
 
-module.exports = function(firebase, database, app) {
-  app.ports.giveRide.subscribe(function(newRide) {
-    var currentUser = firebase.auth().currentUser;
+module.exports = function(firebase, app) {
+  var getProfile = require("./profile").getProfile(firebase, app);
 
-    firebase
-      .database()
-      .ref("profiles/" + currentUser.uid)
-      .once("value")
+  app.ports.giveRide.subscribe(function(newRide) {
+    getProfile()
       .then(function(profile) {
         return firebase
           .database()
-          .ref("rides/" + currentUser.uid)
+          .ref("rides/" + firebase.auth().currentUser.uid)
           .push(Object.assign({ profile: profile.val() }, newRide));
       })
-      .then(function(rideRef) {
+      .then(function() {
         app.ports.giveRideResponse.send(tuple(null, true));
       })
       .catch(function(error) {
@@ -36,10 +33,18 @@ module.exports = function(firebase, database, app) {
   });
 
   app.ports.rideRequest.subscribe(function(rideRequest) {
-    firebase
-      .database()
-      .ref("ridesRequests")
-      .push(rideRequest)
+    getProfile()
+      .then(function(profile) {
+        return firebase
+          .database()
+          .ref(
+            "ridesRequests/" +
+              rideRequest.rideId +
+              "/" +
+              firebase.auth().currentUser.uid
+          )
+          .push({ profile: profile.val() });
+      })
       .then(function() {
         app.ports.rideRequestResponse.send(tuple(null, true));
       })
@@ -49,7 +54,7 @@ module.exports = function(firebase, database, app) {
   });
 };
 
-module.exports.fetchRides = function(firebase, database, app) {
+module.exports.fetchRides = function(firebase, app) {
   firebase.database().ref("rides").on("value", function(rides) {
     app.ports.rides.send(toArrayOfObjects(2, rides.val()));
   });
