@@ -3,7 +3,7 @@ module GiveRide.Update exposing (update)
 import Common.Response exposing (Response(..), fromFirebase)
 import GiveRide.Model exposing (Model)
 import GiveRide.Msg exposing (Msg(..))
-import GiveRide.Ports exposing (encodeNewRide, giveRide)
+import GiveRide.Ports exposing (giveRide)
 import Login.Model exposing (User)
 import Msg as Root exposing (Msg(..))
 import Testable.Cmd
@@ -45,7 +45,7 @@ updateGiveRide user msg model =
             case user of
                 Just user_ ->
                     ( { model | response = Loading }
-                    , Testable.Cmd.wrap (giveRide (encodeNewRide user_ fields))
+                    , Testable.Cmd.wrap (giveRide fields)
                     )
 
                 Nothing ->

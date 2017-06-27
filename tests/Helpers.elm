@@ -1,6 +1,7 @@
 module Helpers exposing (..)
 
 import Expect
+import GiveRide.Model exposing (NewRide)
 import Login.Model exposing (User)
 import Login.Msg exposing (Msg(..))
 import Model
@@ -55,16 +56,27 @@ successSignInWithoutProfile =
     update (Msg.MsgForLogin <| SignInResponse ( Nothing, Maybe.map (\user -> { user = user, profile = Nothing }) someUser ))
 
 
-fixtures : { rides : List Ride, ride : Ride, user : User, profile : Profile }
+fixtures : { rides : List Ride, ride : Ride, user : User, profile : Profile, newRide : NewRide }
 fixtures =
-    { rides =
-        [ { id = "ride-1", name = "foo", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", contact = { kind = "Whatsapp", value = "+5551" } }
-        , { id = "ride-2", name = "bar", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", contact = { kind = "Whatsapp", value = "wpp-for-ride-2" } }
-        ]
-    , ride =
-        { id = "ride-1", name = "foo", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", contact = { kind = "Whatsapp", value = "+5551" } }
-    , user =
-        { id = "foo-bar-bar" }
-    , profile =
-        { name = "foo", contact = { kind = "Whatsapp", value = "passenger-wpp" } }
+    let
+        user =
+            { id = "foo-bar-bar" }
+
+        profile =
+            { name = "foo", contact = { kind = "Whatsapp", value = "passenger-wpp" } }
+
+        ride1 =
+            { id = "ride-1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", profile = { name = "foo", contact = { kind = "Whatsapp", value = "+5551" } } }
+
+        ride2 =
+            { id = "ride-2", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", profile = { name = "bar", contact = { kind = "Whatsapp", value = "wpp-for-ride-2" } } }
+
+        newRide =
+            { origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" }
+    in
+    { rides = [ ride1, ride2 ]
+    , ride = ride1
+    , user = user
+    , profile = profile
+    , newRide = newRide
     }

@@ -57,6 +57,6 @@ rideInfo ride =
             ]
         , p []
             [ icon "directions_car"
-            , text ride.name
+            , text ride.profile.name
             ]
         ]
