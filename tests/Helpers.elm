@@ -15,13 +15,18 @@ import UrlRouter.Routes exposing (Page(..), toPath)
 import View
 
 
-initialContext : Maybe User -> Page -> a -> TestContext Msg.Msg Model.Model
-initialContext currentUser page _ =
+initialContext : Maybe User -> Maybe Profile -> Page -> a -> TestContext Msg.Msg Model.Model
+initialContext currentUser profile page _ =
     startForTest
-        { init = Model.init { currentUser = currentUser, profile = Just fixtures.profile } (toLocation page)
+        { init = Model.init { currentUser = currentUser, profile = profile } (toLocation page)
         , update = Update.update
         , view = View.view
         }
+
+
+signedInContext : Page -> a -> TestContext Msg.Msg Model.Model
+signedInContext =
+    initialContext someUser (Just fixtures.profile)
 
 
 toLocation : Page -> Location

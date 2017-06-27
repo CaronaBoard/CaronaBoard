@@ -2,7 +2,7 @@ module Integration.RidesSpec exposing (tests)
 
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
-import Helpers exposing (expectToContainText, fixtures, initialContext, someUser, toLocation)
+import Helpers exposing (expectToContainText, fixtures, initialContext, signedInContext, someUser, toLocation)
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
 import Rides.Msg exposing (Msg(..))
@@ -31,7 +31,7 @@ tests =
 
 ridesContext : a -> TestContext Root.Msg Model
 ridesContext =
-    initialContext someUser RidesPage
+    signedInContext RidesPage
 
 
 class : Classes -> Selector

@@ -3,7 +3,7 @@ module Integration.GiveRideSpec exposing (tests)
 import Expect exposing (equal)
 import GiveRide.Msg exposing (Msg(..))
 import GiveRide.Ports
-import Helpers exposing (expectToContainText, fixtures, initialContext, someUser, toLocation)
+import Helpers exposing (expectToContainText, fixtures, initialContext, signedInContext, someUser, toLocation)
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
 import Navigation
@@ -52,7 +52,7 @@ tests =
 
 ridesContext : a -> TestContext Root.Msg Model
 ridesContext =
-    initialContext someUser GiveRidePage
+    signedInContext GiveRidePage
 
 
 fillNewRide : a -> TestContext Root.Msg Model

@@ -18,7 +18,7 @@ update msg model =
         MsgForLogin (SignInResponse ( Nothing, Just response )) ->
             case response.profile of
                 Just profile ->
-                    ( { model | fields = profile, response = Success profile }, Testable.Cmd.none )
+                    ( { model | fields = profile, savedProfile = Just profile }, Testable.Cmd.none )
 
                 Nothing ->
                     ( init Nothing, Testable.Cmd.none )
@@ -53,4 +53,9 @@ updateProfile msg model =
             ( { model | response = Loading }, Testable.Cmd.wrap (saveProfile fields) )
 
         ProfileResponse response ->
-            ( { model | response = fromFirebase response }, Testable.Cmd.none )
+            case fromFirebase response of
+                Success profile ->
+                    ( { model | savedProfile = Just profile, response = fromFirebase response }, Testable.Cmd.none )
+
+                _ ->
+                    ( { model | response = fromFirebase response }, Testable.Cmd.none )

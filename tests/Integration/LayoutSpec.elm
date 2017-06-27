@@ -2,7 +2,7 @@ module Integration.LayoutSpec exposing (tests)
 
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
-import Helpers exposing (expectToContainText, expectToNotContainText, initialContext, someUser)
+import Helpers exposing (expectToContainText, expectToNotContainText, initialContext, signedInContext, someUser)
 import Layout.Styles exposing (Classes(Menu, OpenMenuButton))
 import Model exposing (Model)
 import Msg as Root exposing (Msg(MsgForLayout))
@@ -39,7 +39,7 @@ tests =
 
 layoutContext : a -> TestContext Root.Msg Model
 layoutContext =
-    initialContext someUser RidesPage
+    signedInContext RidesPage
 
 
 class : Classes -> Selector
