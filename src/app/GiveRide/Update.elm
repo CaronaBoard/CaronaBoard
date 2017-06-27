@@ -1,7 +1,7 @@
 module GiveRide.Update exposing (update)
 
 import Common.Response exposing (Response(..), fromFirebase)
-import GiveRide.Model exposing (Model)
+import GiveRide.Model exposing (Model, init)
 import GiveRide.Msg exposing (Msg(..))
 import GiveRide.Ports exposing (giveRide)
 import Login.Model exposing (User)
@@ -52,4 +52,9 @@ updateGiveRide user msg model =
                     ( model, Testable.Cmd.none )
 
         GiveRideResponse response ->
-            ( { model | response = fromFirebase response }, Testable.Cmd.none )
+            case fromFirebase response of
+                Success _ ->
+                    ( init, Testable.Cmd.none )
+
+                _ ->
+                    ( { model | response = fromFirebase response }, Testable.Cmd.none )
