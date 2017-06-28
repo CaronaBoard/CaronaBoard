@@ -22,10 +22,12 @@ port rideRequestResponse : ({ rideId : String, response : FirebaseResponse Bool 
 
 type alias RideRequest =
     { rideId : String
+    , driverId : String
     }
 
 
 encodeRideRequest : Ride -> RideRequest
 encodeRideRequest ride =
     { rideId = ride.id
+    , driverId = ride.userId
     }

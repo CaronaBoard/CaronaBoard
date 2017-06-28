@@ -6,6 +6,7 @@ import Rides.RideRequest.Model as RideRequest
 
 type alias Ride =
     { id : String
+    , userId : String
     , origin : String
     , destination : String
     , days : String

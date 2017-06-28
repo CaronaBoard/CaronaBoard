@@ -9,7 +9,8 @@ import Msg
 import Navigation exposing (Location)
 import Profile.Model exposing (Profile)
 import Rides.Model exposing (Ride)
-import Rides.Ports exposing (decodeRide)
+import Rides.RideRequest.Model as RideRequest
+import String.Extra
 import Testable.TestContext exposing (..)
 import Update
 import UrlRouter.Routes exposing (Page(..), toPath)
@@ -62,6 +63,11 @@ successSignInWithoutProfile =
     update (Msg.MsgForLogin <| SignInResponse ( Nothing, Maybe.map (\user -> { user = user, profile = Nothing }) someUser ))
 
 
+jsonQuotes : String -> String
+jsonQuotes =
+    String.Extra.replace "'" "\""
+
+
 fixtures : { rides : List Ride, ride : Ride, user : User, profile : Profile, newRide : NewRide }
 fixtures =
     let
@@ -72,10 +78,10 @@ fixtures =
             { name = "foo", contact = { kind = "Whatsapp", value = "passenger-wpp" } }
 
         ride1 =
-            decodeRide { id = "ride-1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", profile = { name = "foo", contact = { kind = "Whatsapp", value = "+5551" } } }
+            { id = "ride-1", userId = "user-1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", profile = { name = "foo", contact = { kind = "Whatsapp", value = "+5551" } }, rideRequest = RideRequest.init }
 
         ride2 =
-            decodeRide { id = "ride-2", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", profile = { name = "bar", contact = { kind = "Whatsapp", value = "wpp-for-ride-2" } } }
+            { id = "ride-2", userId = "user-2", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", profile = { name = "bar", contact = { kind = "Whatsapp", value = "wpp-for-ride-2" } }, rideRequest = RideRequest.init }
 
         newRide =
             { origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" }

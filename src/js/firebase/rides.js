@@ -1,19 +1,6 @@
 var success = require("./helpers").success;
 var error = require("./helpers").error;
 
-var toArrayOfObjects = function(deepness, object) {
-  return Object.keys(object || {}).reduce(function(accumulated, itemId) {
-    var item;
-    if (deepness == 1) {
-      item = [Object.assign({ id: itemId }, object[itemId])];
-    } else {
-      item = toArrayOfObjects(deepness - 1, object[itemId]);
-    }
-
-    return item.concat(accumulated);
-  }, []);
-};
-
 module.exports = function(firebase, app) {
   var getProfile = require("./profile").getProfile(firebase, app);
 
@@ -42,6 +29,8 @@ module.exports = function(firebase, app) {
             "ridesRequests/" +
               rideRequest.rideId +
               "/" +
+              rideRequest.driverId +
+              "/" +
               firebase.auth().currentUser.uid
           )
           .push({ profile: profile.val() });
@@ -63,6 +52,6 @@ module.exports = function(firebase, app) {
 
 module.exports.fetchRides = function(firebase, app) {
   firebase.database().ref("rides").on("value", function(rides) {
-    app.ports.rides.send(toArrayOfObjects(2, rides.val()));
+    app.ports.rides.send(rides.val());
   });
 };

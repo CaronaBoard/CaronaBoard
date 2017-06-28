@@ -1,6 +1,9 @@
-port module Rides.Ports exposing (RawRide, decodeRide, subscriptions)
+port module Rides.Ports exposing (decodeRide, subscriptions)
 
-import Profile.Model exposing (Profile)
+import Common.Decoder exposing (normalizeId2)
+import Json.Decode as Json exposing (..)
+import Json.Decode.Pipeline exposing (..)
+import Profile.Model exposing (Contact, Profile)
 import Rides.Model exposing (Model, Ride)
 import Rides.Msg exposing (Msg(..))
 import Rides.RideRequest.Model as RideRequest
@@ -10,31 +13,33 @@ import Rides.RideRequest.Ports
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch
-        [ rides (List.map decodeRide >> UpdateRides)
+        [ rides (decodeValue decodeRide >> Result.withDefault [] >> UpdateRides)
         , Rides.RideRequest.Ports.subscriptions
         ]
 
 
-type alias RawRide =
-    { id : String
-    , origin : String
-    , destination : String
-    , days : String
-    , hours : String
-    , profile : Profile
-    }
+decodeRide : Decoder (List Ride)
+decodeRide =
+    normalizeId2
+        (\userId id ride -> { ride | userId = userId, id = id })
+        (decode Ride
+            |> hardcoded "id"
+            |> hardcoded "userId"
+            |> required "origin" string
+            |> required "destination" string
+            |> required "days" string
+            |> required "hours" string
+            |> required "profile"
+                (decode Profile
+                    |> required "name" string
+                    |> required "contact"
+                        (decode Contact
+                            |> required "kind" string
+                            |> required "value" string
+                        )
+                )
+            |> hardcoded RideRequest.init
+        )
 
 
-decodeRide : RawRide -> Ride
-decodeRide rawRide =
-    { id = rawRide.id
-    , origin = rawRide.origin
-    , destination = rawRide.destination
-    , days = rawRide.days
-    , hours = rawRide.hours
-    , profile = rawRide.profile
-    , rideRequest = RideRequest.init
-    }
-
-
-port rides : (List RawRide -> msg) -> Sub msg
+port rides : (Json.Value -> msg) -> Sub msg

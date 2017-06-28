@@ -12,6 +12,8 @@ import Integration.UrlRouterSpec
 import Json.Encode exposing (Value)
 import Test exposing (..)
 import Test.Runner.Node exposing (run)
+import Unit.Common.DecoderSpec
+import Unit.Rides.PortsSpec
 
 
 tests : Test
@@ -26,6 +28,8 @@ tests =
         , Integration.NotificationsSpec.tests
         , Integration.RideRequestSpec.tests
         , Integration.ProfileSpec.tests
+        , Unit.Rides.PortsSpec.tests
+        , Unit.Common.DecoderSpec.tests
         ]
 
 
