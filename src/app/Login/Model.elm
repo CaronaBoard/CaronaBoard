@@ -1,4 +1,4 @@
-module Login.Model exposing (Model, Msg(..), Step(..), User, isLoggedIn, loggedInUser, step)
+module Login.Model exposing (Model, Msg(..), Step(..), User, isSignedIn, signedInUser, step)
 
 import Common.Response exposing (Response(..))
 import Profile.Model exposing (Profile)
@@ -8,7 +8,7 @@ type alias Model =
     { email : String
     , password : String
     , registered : Response Bool
-    , loggedIn : Response User
+    , signedIn : Response User
     , passwordReset : Response Bool
     , signUp : Response Bool
     }
@@ -54,9 +54,9 @@ step model =
             EmailStep
 
 
-loggedInUser : Model -> Maybe User
-loggedInUser model =
-    case model.loggedIn of
+signedInUser : Model -> Maybe User
+signedInUser model =
+    case model.signedIn of
         Success user ->
             Just user
 
@@ -64,9 +64,9 @@ loggedInUser model =
             Nothing
 
 
-isLoggedIn : Model -> Bool
-isLoggedIn model =
-    case loggedInUser model of
+isSignedIn : Model -> Bool
+isSignedIn model =
+    case signedInUser model of
         Just _ ->
             True
 

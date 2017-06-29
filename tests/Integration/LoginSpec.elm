@@ -4,7 +4,7 @@ import Common.Response exposing (Response(..))
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (expectToContainText, fixtures, successSignIn)
-import Login.Model exposing (Model, Msg(..), loggedInUser)
+import Login.Model exposing (Model, Msg(..), signedInUser)
 import Login.Ports exposing (..)
 import Login.Styles exposing (Classes(..))
 import Login.Update as Update exposing (init)
@@ -51,21 +51,21 @@ tests =
                         , find [ tag "button" ]
                             >> assertText (expectToContainText "Entrar")
                         ]
-            , test "returns the logged in user from the model" <|
+            , test "returns the signed in user from the model" <|
                 submitEmailThenPassword
                     >> successSignIn
                     >> currentModel
                     >> (\result ->
                             case result of
                                 Ok model ->
-                                    Expect.equal (Just fixtures.user) (loggedInUser model)
+                                    Expect.equal (Just fixtures.user) (signedInUser model)
 
                                 Err err ->
                                     Expect.fail (toString err)
                        )
             ]
         , describe "logout"
-            [ test "removes the logged in user" <|
+            [ test "removes the signed in user" <|
                 loginContext
                     >> successSignIn
                     >> update (MsgForLogin (SignOutResponse (Success True)))
@@ -73,7 +73,7 @@ tests =
                     >> (\result ->
                             case result of
                                 Ok model ->
-                                    Expect.equal Nothing (loggedInUser model)
+                                    Expect.equal Nothing (signedInUser model)
 
                                 Err err ->
                                     Expect.fail (toString err)

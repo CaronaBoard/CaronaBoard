@@ -2,7 +2,7 @@ module Update exposing (init, update)
 
 import GiveRide.Update as GiveRide
 import Layout.Update as Layout
-import Login.Model exposing (loggedInUser)
+import Login.Model exposing (signedInUser)
 import Login.Update as Login
 import Model exposing (Flags, Model, Msg(..))
 import Navigation exposing (Location)
@@ -46,7 +46,7 @@ update msg model =
             Layout.update msg model.layout
 
         giveRide =
-            GiveRide.update (loggedInUser model.login) msg model.giveRide
+            GiveRide.update (signedInUser model.login) msg model.giveRide
 
         notifications =
             Notifications.update msg model.notifications
