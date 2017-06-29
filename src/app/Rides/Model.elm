@@ -1,4 +1,4 @@
-module Rides.Model exposing (Model, Ride, init)
+module Rides.Model exposing (Model, Msg(..), Ride, init)
 
 import Profile.Model exposing (Contact, Profile)
 import Rides.RideRequest.Model as RideRequest
@@ -18,6 +18,11 @@ type alias Ride =
 
 type alias Model =
     List Ride
+
+
+type Msg
+    = UpdateRides (List Ride)
+    | MsgForRideRequest String RideRequest.Msg
 
 
 init : Model

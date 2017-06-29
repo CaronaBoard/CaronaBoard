@@ -3,12 +3,11 @@ module Notifications.Update exposing (update)
 import Common.Response exposing (Response(..), fromFirebase)
 import GiveRide.Model exposing (Msg(..))
 import Msg as Root exposing (Msg(..))
-import Notifications.Model exposing (Model)
-import Notifications.Model exposing (Msg(..))
+import Notifications.Model exposing (Model, Msg(..))
 import Notifications.Ports exposing (enableNotifications)
 import Profile.Model exposing (Msg(..))
-import Rides.Msg exposing (..)
-import Rides.RideRequest.Msg exposing (Msg(..))
+import Rides.Model exposing (Msg(..))
+import Rides.RideRequest.Model exposing (Msg(..))
 import Testable.Cmd
 import Testable.Process as Process
 import Testable.Task as Task
