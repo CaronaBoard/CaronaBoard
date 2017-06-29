@@ -14,6 +14,6 @@ tests =
             \_ ->
                 "{'user-1': {'ride-1': {'origin': 'bar', 'destination': 'baz, near qux', 'days': 'Mon to Fri', 'hours': '18:30', 'profile': {'name': 'foo', 'contact': {'kind': 'Whatsapp', 'value': '+5551'}}}}}"
                     |> jsonQuotes
-                    |> decodeString decodeRide
+                    |> decodeString decodeRides
                     |> Expect.equal (Ok [ fixtures.ride ])
         ]

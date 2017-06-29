@@ -7,8 +7,8 @@ import Login.Model exposing (Msg(..), User)
 import Model
 import Navigation exposing (Location)
 import Profile.Model exposing (Profile)
-import Rides.Model exposing (Ride)
-import Rides.RideRequest.Update as RideRequest
+import Rides.Model as Rides
+import Rides.Ride.Model as Ride
 import String.Extra
 import Testable.TestContext exposing (..)
 import Update
@@ -67,7 +67,7 @@ jsonQuotes =
     String.Extra.replace "'" "\""
 
 
-fixtures : { rides : List Ride, ride : Ride, user : User, profile : Profile, newRide : NewRide }
+fixtures : { rides : Rides.Model, ride : Ride.Model, user : User, profile : Profile, newRide : NewRide }
 fixtures =
     let
         user =
@@ -77,10 +77,10 @@ fixtures =
             { name = "foo", contact = { kind = "Whatsapp", value = "passenger-wpp" } }
 
         ride1 =
-            { id = "ride-1", userId = "user-1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", profile = { name = "foo", contact = { kind = "Whatsapp", value = "+5551" } }, rideRequest = RideRequest.init }
+            { id = "ride-1", userId = "user-1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", profile = { name = "foo", contact = { kind = "Whatsapp", value = "+5551" } }, rideRequest = Empty }
 
         ride2 =
-            { id = "ride-2", userId = "user-2", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", profile = { name = "bar", contact = { kind = "Whatsapp", value = "wpp-for-ride-2" } }, rideRequest = RideRequest.init }
+            { id = "ride-2", userId = "user-2", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", profile = { name = "bar", contact = { kind = "Whatsapp", value = "wpp-for-ride-2" } }, rideRequest = Empty }
 
         newRide =
             { origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" }

@@ -4,18 +4,19 @@ import Common.CssHelpers exposing (materializeClass)
 import Common.Icon exposing (icon)
 import Common.Link exposing (linkTo)
 import Model exposing (Msg(..))
-import Rides.Model exposing (Model, Ride)
+import Rides.Model as Rides
+import Rides.Ride.Model as Ride
 import Rides.Styles exposing (Classes(..), className)
 import Testable.Html exposing (..)
 import UrlRouter.Routes exposing (Page(..))
 
 
-ridesList : Model -> Html Msg
+ridesList : Rides.Model -> Html Msg
 ridesList rides =
     div [ materializeClass "container" ] (List.map rideItem rides)
 
 
-rideItem : Ride -> Html Msg
+rideItem : Ride.Model -> Html Msg
 rideItem ride =
     div [ className Card, materializeClass "card" ]
         [ div [ materializeClass "card-content" ]
@@ -24,12 +25,12 @@ rideItem ride =
             ]
         , div [ className OtherDetails, materializeClass "card-action" ]
             [ rideInfo ride
-            , linkTo (RideRequestPage ride.id) [ className ActionButton ] [ text "Quero carona" ]
+            , linkTo (RidePage ride.id) [ className ActionButton ] [ text "Quero carona" ]
             ]
         ]
 
 
-rideRoute : Ride -> Html msg
+rideRoute : Ride.Model -> Html msg
 rideRoute ride =
     div [ className Path ]
         [ p []
@@ -44,7 +45,7 @@ rideRoute ride =
         ]
 
 
-rideInfo : Ride -> Html msg
+rideInfo : Ride.Model -> Html msg
 rideInfo ride =
     div []
         [ p []
