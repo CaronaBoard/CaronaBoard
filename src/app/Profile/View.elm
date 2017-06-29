@@ -2,18 +2,13 @@ module Profile.View exposing (profile)
 
 import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
-import Layout.Styles exposing (Classes(..))
+import Layout.Styles exposing (Classes(..), layoutClass)
 import Profile.Model exposing (Model, contactIdentifier)
 import Profile.Msg exposing (Msg(..))
 import Profile.Styles exposing (Classes(..), className)
 import Testable.Html exposing (..)
 import Testable.Html.Attributes exposing (for, href, id, placeholder, selected, target, value)
 import Testable.Html.Events exposing (onInput, onSubmit)
-
-
-layoutClass : Layout.Styles.Classes -> Attribute msg
-layoutClass =
-    Layout.Styles.className
 
 
 profile : Model -> Html Msg

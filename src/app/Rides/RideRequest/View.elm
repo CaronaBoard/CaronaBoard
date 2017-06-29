@@ -4,7 +4,7 @@ import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
 import Common.IdentifiedList exposing (findById)
 import Common.Response exposing (Response(..))
-import Layout.Styles exposing (Classes(..))
+import Layout.Styles exposing (Classes(..), layoutClass)
 import Model as RootModel
 import Profile.Model exposing (contactDeepLink)
 import Rides.Model exposing (Ride)
@@ -17,11 +17,6 @@ import Rides.View.RidesList exposing (rideInfo, rideRoute)
 import Testable.Html exposing (..)
 import Testable.Html.Attributes exposing (for, href, id, placeholder, selected, target, value)
 import Testable.Html.Events exposing (onInput, onSubmit)
-
-
-layoutClass : Layout.Styles.Classes -> Attribute msg
-layoutClass =
-    Layout.Styles.className
 
 
 ridesClass : Rides.Styles.Classes -> Attribute msg

@@ -1,4 +1,4 @@
-module Layout.Styles exposing (Classes(..), button, className, namespace, styles)
+module Layout.Styles exposing (Classes(..), button, layoutClass, namespace, styles)
 
 import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
@@ -13,8 +13,8 @@ namespace =
     "layout"
 
 
-className : Classes -> Attribute msg
-className =
+layoutClass : Classes -> Attribute msg
+layoutClass =
     namespacedClass namespace
 
 
