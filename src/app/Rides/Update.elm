@@ -15,10 +15,20 @@ init =
 update : Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd Rides.Model.Msg )
 update msg model =
     case msg of
-        MsgForRides (UpdateRides rides) ->
+        MsgForRides msg_ ->
+            updateRides msg_ model
+
+        _ ->
+            ( model, Testable.Cmd.none )
+
+
+updateRides : Rides.Model.Msg -> Model -> ( Model, Testable.Cmd.Cmd Rides.Model.Msg )
+updateRides msg model =
+    case msg of
+        UpdateRides rides ->
             ( rides, Testable.Cmd.none )
 
-        MsgForRides (MsgForRideRequest rideId msg_) ->
+        MsgForRideRequest rideId msg_ ->
             let
                 updateRideModel ride =
                     { ride | rideRequest = Tuple.first <| RideRequest.update ride msg_ ride.rideRequest }
@@ -35,6 +45,3 @@ update msg model =
                         |> Maybe.withDefault Testable.Cmd.none
             in
             ( rides, cmd )
-
-        _ ->
-            ( model, Testable.Cmd.none )
