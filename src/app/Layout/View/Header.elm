@@ -5,7 +5,7 @@ import Common.Icon exposing (icon)
 import Common.Link exposing (linkTo)
 import Layout.Model exposing (Model)
 import Layout.Msg exposing (Msg(CloseDropdown, OpenDropdown))
-import Layout.Styles exposing (Classes(..), className)
+import Layout.Styles exposing (Classes(..), layoutClass)
 import Login.Msg exposing (Msg(SignOut))
 import Msg exposing (Msg(..))
 import Testable.Html exposing (Html, a, b, button, div, h1, h2, i, img, li, nav, text, ul)
@@ -18,23 +18,23 @@ header : Model -> Html Msg.Msg
 header model =
     Testable.Html.header [ materializeClass "navbar-fixed" ] <|
         menu model
-            ++ [ nav [ className Navbar ]
+            ++ [ nav [ layoutClass Navbar ]
                     [ div [ materializeClass "nav-wrapper" ]
                         [ linkTo RidesPage
-                            [ className BrandLogo, materializeClass "left" ]
+                            [ layoutClass BrandLogo, materializeClass "left" ]
                             [ b [] [ text "Carona" ]
                             , text "Board"
                             ]
                         , ul [ materializeClass "right" ]
                             [ li []
                                 [ linkTo GiveRidePage
-                                    [ className AddRideLink ]
+                                    [ layoutClass AddRideLink ]
                                     [ icon "directions_car"
                                     , text "Dou carona"
                                     ]
                                 ]
                             , li []
-                                [ a [ className OpenMenuButton, onClick (MsgForLayout OpenDropdown) ]
+                                [ a [ layoutClass OpenMenuButton, onClick (MsgForLayout OpenDropdown) ]
                                     [ icon "more_vert"
                                     ]
                                 ]
@@ -47,8 +47,8 @@ header model =
 menu : Model -> List (Html Msg.Msg)
 menu model =
     if model.dropdownOpen then
-        [ div [ className Menu, onClick (MsgForLayout CloseDropdown) ]
-            [ ul [ className AnimatedDropdown, materializeClass "dropdown-content" ]
+        [ div [ layoutClass Menu, onClick (MsgForLayout CloseDropdown) ]
+            [ ul [ layoutClass AnimatedDropdown, materializeClass "dropdown-content" ]
                 [ li []
                     [ a [ href "http://goo.gl/forms/GYVDfZuhWg" ] [ text "Dar Feedback" ]
                     ]
@@ -56,7 +56,7 @@ menu model =
                     [ linkTo ProfilePage [] [ text "Editar Perfil" ]
                     ]
                 , li []
-                    [ a [ onClick (MsgForLogin SignOut), className SignOutButton ] [ text "Sair" ]
+                    [ a [ onClick (MsgForLogin SignOut), layoutClass SignOutButton ] [ text "Sair" ]
                     ]
                 ]
             ]

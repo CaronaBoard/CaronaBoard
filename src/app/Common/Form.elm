@@ -2,7 +2,7 @@ module Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
 
 import Common.CssHelpers exposing (materializeClass)
 import Common.Response exposing (Response(..))
-import Layout.Styles exposing (Classes(ButtonContainer), className)
+import Layout.Styles exposing (Classes(ButtonContainer), layoutClass)
 import Testable.Html exposing (Attribute, Html, button, div, i, input, label, text)
 import Testable.Html.Attributes exposing (disabled, for, id, placeholder, value)
 import Testable.Html.Events exposing (onInput)
@@ -13,11 +13,11 @@ loadingOrSubmitButton response extraAttributes children =
     case response of
         Loading ->
             button ([ disabled True, materializeClass "waves-effect waves-light btn-large" ] ++ extraAttributes)
-                [ div [ className ButtonContainer ] [ text "Carregando...", i [] [] ] ]
+                [ div [ layoutClass ButtonContainer ] [ text "Carregando...", i [] [] ] ]
 
         _ ->
             button ([ materializeClass "waves-effect waves-light btn-large" ] ++ extraAttributes)
-                [ div [ className ButtonContainer ] children
+                [ div [ layoutClass ButtonContainer ] children
                 ]
 
 
