@@ -1,12 +1,19 @@
-module Profile.Styles exposing (Classes(..), class, namespace, styles)
+module Profile.Styles exposing (Classes(..), className, namespace, styles)
 
 import Common.CssHelpers exposing (..)
 import Css exposing (..)
 import Css.Namespace
+import Testable.Html exposing (Attribute)
 
 
-{ class, namespace } =
-    withNamespace "profile"
+namespace : String
+namespace =
+    "profile"
+
+
+className : Classes -> Attribute msg
+className =
+    namespacedClass namespace
 
 
 type Classes
@@ -19,17 +26,17 @@ type Classes
 styles : Stylesheet
 styles =
     (stylesheet << Css.Namespace.namespace namespace)
-        [ cssClass ContactField
+        [ class ContactField
             [ displayFlex
             , justifyContent spaceBetween
             ]
-        , cssClass ContactKind
+        , class ContactKind
             [ width (pct 30)
             ]
-        , cssClass ContactValue
+        , class ContactValue
             [ width (pct 68)
             ]
-        , cssClass Select
+        , class Select
             [ backgroundColor transparent
             , borderStyle none
             , borderBottom3 (px 1) solid (hex "#FFF")

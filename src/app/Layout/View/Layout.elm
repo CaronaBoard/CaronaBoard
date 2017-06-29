@@ -1,6 +1,6 @@
 module Layout.View.Layout exposing (layout)
 
-import Layout.Styles exposing (Classes(..), class)
+import Layout.Styles exposing (Classes(..), className)
 import Layout.View.Header exposing (header)
 import Model exposing (Model)
 import Msg exposing (Msg)
@@ -10,7 +10,7 @@ import Testable.Html exposing (Html, div, text)
 
 layout : Model -> Html Msg -> Html Msg
 layout model html =
-    div [ class Page ]
+    div [ className Page ]
         [ header model.layout
         , html
         , notice model

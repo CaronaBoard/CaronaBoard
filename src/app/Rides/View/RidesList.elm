@@ -5,7 +5,7 @@ import Common.Icon exposing (icon)
 import Common.Link exposing (linkTo)
 import Msg exposing (Msg(..))
 import Rides.Model exposing (Model, Ride)
-import Rides.Styles exposing (Classes(..), class)
+import Rides.Styles exposing (Classes(..), className)
 import Testable.Html exposing (..)
 import UrlRouter.Routes exposing (Page(..))
 
@@ -17,28 +17,28 @@ ridesList rides =
 
 rideItem : Ride -> Html Msg
 rideItem ride =
-    div [ class Card, materializeClass "card" ]
+    div [ className Card, materializeClass "card" ]
         [ div [ materializeClass "card-content" ]
-            [ span [ class CardTitle ] [ text ride.destination ]
+            [ span [ className CardTitle ] [ text ride.destination ]
             , rideRoute ride
             ]
-        , div [ class OtherDetails, materializeClass "card-action" ]
+        , div [ className OtherDetails, materializeClass "card-action" ]
             [ rideInfo ride
-            , linkTo (RideRequestPage ride.id) [ class ActionButton ] [ text "Quero carona" ]
+            , linkTo (RideRequestPage ride.id) [ className ActionButton ] [ text "Quero carona" ]
             ]
         ]
 
 
 rideRoute : Ride -> Html msg
 rideRoute ride =
-    div [ class Path ]
+    div [ className Path ]
         [ p []
-            [ div [ class PathIcon ] [ icon "more_vert" ]
-            , span [ class PathIconDot ] [ icon "radio_button_unchecked" ]
+            [ div [ className PathIcon ] [ icon "more_vert" ]
+            , span [ className PathIconDot ] [ icon "radio_button_unchecked" ]
             , text <| "Origem: " ++ ride.origin
             ]
         , p []
-            [ span [ class PathIconDot ] [ icon "radio_button_unchecked" ]
+            [ span [ className PathIconDot ] [ icon "radio_button_unchecked" ]
             , text <| "Destino: " ++ ride.destination
             ]
         ]

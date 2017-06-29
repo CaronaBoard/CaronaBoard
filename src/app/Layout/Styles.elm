@@ -1,14 +1,21 @@
-module Layout.Styles exposing (Classes(..), button, class, namespace, styles)
+module Layout.Styles exposing (Classes(..), button, className, namespace, styles)
 
 import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
 import Css exposing (..)
 import Css.Elements exposing (..)
 import Css.Namespace
+import Testable.Html exposing (Attribute)
 
 
-{ class, namespace } =
-    withNamespace "layout"
+namespace : String
+namespace =
+    "layout"
+
+
+className : Classes -> Attribute msg
+className =
+    namespacedClass namespace
 
 
 type Classes
@@ -43,13 +50,13 @@ generalStyles =
         [ important <| borderRadius (px 54)
         , important <| property "text-transform" "none"
         ]
-    , cssClass PageTitle
+    , class PageTitle
         [ darkTextColor
         , fontSize (px 34)
         ]
-    , cssClass SubmitButton
+    , class SubmitButton
         button
-    , cssClass ButtonContainer
+    , class ButtonContainer
         [ displayFlex
         , justifyContent center
         ]
@@ -68,7 +75,7 @@ generalStyles =
                 ]
             ]
         ]
-    , cssClass AddRideLink
+    , class AddRideLink
         [ displayFlex
         , alignItems center
         , descendants
@@ -82,22 +89,22 @@ generalStyles =
 
 layoutStyles : List Snippet
 layoutStyles =
-    [ cssClass Page
+    [ class Page
         []
-    , cssClass Navbar
+    , class Navbar
         [ backgroundColor primaryBlue
         ]
-    , cssClass BrandLogo
+    , class BrandLogo
         [ fontSize (Css.rem 1.4)
         , marginLeft (px 20)
         ]
-    , cssClass Menu
+    , class Menu
         [ position fixed
         , width (pct 100)
         , height (pct 100)
         , zIndex (int 998)
         , children
-            [ cssClass AnimatedDropdown
+            [ class AnimatedDropdown
                 [ margin (px 10)
                 , display block
                 , top (px 0)

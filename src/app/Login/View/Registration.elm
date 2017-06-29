@@ -4,7 +4,7 @@ import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
 import Login.Model exposing (Model)
 import Login.Msg exposing (Msg(..))
-import Login.Styles exposing (Classes(..), class)
+import Login.Styles exposing (Classes(..), className)
 import Testable.Html exposing (..)
 import Testable.Html.Attributes exposing (autofocus, for, id, placeholder, selected, type_, value)
 import Testable.Html.Events exposing (onInput, onSubmit)
@@ -12,15 +12,15 @@ import Testable.Html.Events exposing (onInput, onSubmit)
 
 registrationStep : Model -> Html Msg
 registrationStep model =
-    div [ class Background ]
-        [ div [ class Container ]
-            [ div [ class StepTitle ]
+    div [ className Background ]
+        [ div [ className Container ]
+            [ div [ className StepTitle ]
                 [ h1 [] [ text "Cadastro" ]
                 , p []
                     [ text "Parece que esse email ainda não está cadastrado, faça seu cadastro para continuar"
                     ]
                 ]
-            , div [ class StepForm ]
+            , div [ className StepForm ]
                 [ form [ onSubmit Submit ] [ registration model ]
                 ]
             ]
@@ -53,5 +53,5 @@ registration model =
                 []
             , label [ for "password" ] [ text "Nova Senha" ]
             ]
-        , loadingOrSubmitButton model.signUp [ class SubmitButton ] [ text "Cadastrar" ]
+        , loadingOrSubmitButton model.signUp [ className SubmitButton ] [ text "Cadastrar" ]
         ]

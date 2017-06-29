@@ -1,14 +1,21 @@
-module Rides.Styles exposing (Classes(..), class, namespace, styles)
+module Rides.Styles exposing (Classes(..), className, namespace, styles)
 
 import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
 import Css exposing (..)
 import Css.Elements exposing (p)
 import Css.Namespace
+import Testable.Html exposing (Attribute)
 
 
-{ class, namespace } =
-    withNamespace "rides"
+namespace : String
+namespace =
+    "rides"
+
+
+className : Classes -> Attribute msg
+className =
+    namespacedClass namespace
 
 
 type Classes
@@ -24,7 +31,7 @@ type Classes
 styles : Stylesheet
 styles =
     (stylesheet << Css.Namespace.namespace namespace)
-        [ cssClass Card
+        [ class Card
             [ display block
             , darkTextColor
             , descendants cardStyles
@@ -39,11 +46,11 @@ cardStyles =
         , marginRight (px 5)
         , verticalAlign middle
         ]
-    , cssClass CardTitle
+    , class CardTitle
         [ fontSize (px 16)
         , fontWeight bold
         ]
-    , cssClass OtherDetails
+    , class OtherDetails
         [ displayFlex
         , justifyContent spaceBetween
         , alignItems flexEnd
@@ -53,7 +60,7 @@ cardStyles =
                 ]
             ]
         ]
-    , cssClass ActionButton <|
+    , class ActionButton <|
         [ important <| darkTextColor
         , important <| margin (px 0)
         , backgroundColor (hex "#EEE")
@@ -63,10 +70,10 @@ cardStyles =
             [ backgroundColor (hex "#DDD")
             ]
         ]
-    , cssClass Path
+    , class Path
         [ marginBottom (px 10)
         ]
-    , cssClass PathIcon
+    , class PathIcon
         [ descendants
             [ selector ".material-icons"
                 [ position absolute
@@ -76,7 +83,7 @@ cardStyles =
                 ]
             ]
         ]
-    , cssClass PathIconDot
+    , class PathIconDot
         [ descendants
             [ selector ".material-icons"
                 [ fontSize (px 10)

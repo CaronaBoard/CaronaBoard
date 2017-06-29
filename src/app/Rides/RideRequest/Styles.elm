@@ -1,12 +1,19 @@
-module Rides.RideRequest.Styles exposing (Classes(..), class, namespace, styles)
+module Rides.RideRequest.Styles exposing (Classes(..), className, namespace, styles)
 
 import Common.CssHelpers exposing (..)
 import Css exposing (..)
 import Css.Namespace
+import Testable.Html exposing (Attribute)
 
 
-{ class, namespace } =
-    withNamespace "rideRequest"
+namespace : String
+namespace =
+    "rideRequest"
+
+
+className : Classes -> Attribute msg
+className =
+    namespacedClass namespace
 
 
 type Classes
@@ -16,7 +23,7 @@ type Classes
 styles : Stylesheet
 styles =
     (stylesheet << Css.Namespace.namespace namespace)
-        [ cssClass Contact
+        [ class Contact
             [ fontSize (px 24)
             ]
         ]
