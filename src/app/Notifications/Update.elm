@@ -1,12 +1,12 @@
 module Notifications.Update exposing (update)
 
 import Common.Response exposing (Response(..), fromFirebase)
-import GiveRide.Msg exposing (Msg(..))
+import GiveRide.Model exposing (Msg(..))
 import Msg as Root exposing (Msg(..))
 import Notifications.Model exposing (Model)
-import Notifications.Msg exposing (Msg(..))
+import Notifications.Model exposing (Msg(..))
 import Notifications.Ports exposing (enableNotifications)
-import Profile.Msg exposing (Msg(..))
+import Profile.Model exposing (Msg(..))
 import Rides.Msg exposing (..)
 import Rides.RideRequest.Msg exposing (Msg(..))
 import Testable.Cmd
@@ -15,7 +15,7 @@ import Testable.Task as Task
 import Time
 
 
-update : Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd Notifications.Msg.Msg )
+update : Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd Notifications.Model.Msg )
 update msg model =
     case msg of
         MsgForNotifications msg_ ->
@@ -34,7 +34,7 @@ update msg model =
             ( model, Testable.Cmd.none )
 
 
-updateNotifications : Notifications.Msg.Msg -> Model -> ( Model, Testable.Cmd.Cmd Notifications.Msg.Msg )
+updateNotifications : Notifications.Model.Msg -> Model -> ( Model, Testable.Cmd.Cmd Notifications.Model.Msg )
 updateNotifications msg model =
     case msg of
         EnableNotifications ->

@@ -1,8 +1,7 @@
 port module GiveRide.Ports exposing (giveRide, subscriptions)
 
 import Common.Response exposing (FirebaseResponse, firebaseMap)
-import GiveRide.Model exposing (NewRide)
-import GiveRide.Msg exposing (Msg(..))
+import GiveRide.Model exposing (Msg(..), NewRide)
 
 
 subscriptions : Sub Msg

@@ -3,7 +3,7 @@ module Helpers exposing (..)
 import Expect
 import GiveRide.Model exposing (NewRide)
 import Login.Model exposing (User)
-import Login.Msg exposing (Msg(..))
+import Login.Model exposing (Msg(..))
 import Model
 import Msg
 import Navigation exposing (Location)

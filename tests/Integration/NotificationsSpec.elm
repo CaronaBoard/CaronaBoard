@@ -4,7 +4,7 @@ import Expect exposing (equal)
 import Helpers exposing (expectToContainText, expectToNotContainText, initialContext, signedInContext, someUser, toLocation)
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
-import Notifications.Msg exposing (..)
+import Notifications.Model exposing (..)
 import Notifications.Ports
 import Test exposing (..)
 import Testable.Html.Selectors exposing (..)
@@ -49,7 +49,7 @@ tests =
         ]
 
 
-enableNotifications : a -> TestContext Root.Msg Model
+enableNotifications : a -> TestContext Root.Msg Model.Model
 enableNotifications =
     signedInContext EnableNotificationsPage
         >> find [ tag "form" ]

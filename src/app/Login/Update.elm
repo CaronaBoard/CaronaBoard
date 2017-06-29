@@ -2,13 +2,13 @@ module Login.Update exposing (update)
 
 import Common.Response exposing (Response(..), firebaseMap, fromFirebase)
 import Login.Model exposing (Model, Step(..), User, init, step)
-import Login.Msg exposing (Msg(..))
+import Login.Model exposing (Msg(..))
 import Login.Ports exposing (checkRegistration, passwordReset, signIn, signOut, signUp)
 import Msg as Root exposing (Msg(MsgForLogin, MsgForUrlRouter))
 import Testable.Cmd
 
 
-update : Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd Login.Msg.Msg )
+update : Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd Login.Model.Msg )
 update msg model =
     case msg of
         MsgForLogin loginMsg ->
@@ -18,7 +18,7 @@ update msg model =
             ( model, Testable.Cmd.none )
 
 
-loginUpdate : Login.Msg.Msg -> Model -> ( Model, Testable.Cmd.Cmd Login.Msg.Msg )
+loginUpdate : Login.Model.Msg -> Model -> ( Model, Testable.Cmd.Cmd Login.Model.Msg )
 loginUpdate msg model =
     case msg of
         UpdateEmail email ->

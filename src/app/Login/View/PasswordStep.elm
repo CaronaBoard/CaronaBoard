@@ -5,7 +5,7 @@ import Common.Form exposing (loadingOrSubmitButton, renderErrors)
 import Common.Icon exposing (icon)
 import Json.Decode as Json
 import Login.Model exposing (Model)
-import Login.Msg exposing (Msg(PasswordReset, UpdatePassword))
+import Login.Model exposing (Msg(PasswordReset, UpdatePassword))
 import Login.Styles exposing (Classes(FilledEmail, PasswordStep, ResetPasswordButton, SubmitButton), className)
 import Testable.Html exposing (Html, div, i, input, label, text)
 import Testable.Html.Attributes exposing (autofocus, for, id, placeholder, type_, value)

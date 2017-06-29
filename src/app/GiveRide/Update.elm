@@ -1,15 +1,14 @@
 module GiveRide.Update exposing (update)
 
 import Common.Response exposing (Response(..), fromFirebase)
-import GiveRide.Model exposing (Model, init)
-import GiveRide.Msg exposing (Msg(..))
+import GiveRide.Model exposing (Model, Msg(..), init)
 import GiveRide.Ports exposing (giveRide)
 import Login.Model exposing (User)
 import Msg as Root exposing (Msg(..))
 import Testable.Cmd
 
 
-update : Maybe User -> Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd GiveRide.Msg.Msg )
+update : Maybe User -> Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd GiveRide.Model.Msg )
 update user msg model =
     case msg of
         MsgForGiveRide msg_ ->
@@ -19,7 +18,7 @@ update user msg model =
             ( model, Testable.Cmd.none )
 
 
-updateGiveRide : Maybe User -> GiveRide.Msg.Msg -> Model -> ( Model, Testable.Cmd.Cmd GiveRide.Msg.Msg )
+updateGiveRide : Maybe User -> GiveRide.Model.Msg -> Model -> ( Model, Testable.Cmd.Cmd GiveRide.Model.Msg )
 updateGiveRide user msg model =
     let
         fields =

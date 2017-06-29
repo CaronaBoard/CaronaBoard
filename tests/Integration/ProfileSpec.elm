@@ -5,7 +5,7 @@ import Helpers exposing (expectToContainText, fixtures, initialContext, someUser
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
 import Navigation
-import Profile.Msg exposing (Msg(..))
+import Profile.Model exposing (Msg(..))
 import Profile.Ports
 import Rides.Msg exposing (Msg(..))
 import Test exposing (..)

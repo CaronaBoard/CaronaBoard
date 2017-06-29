@@ -8,13 +8,13 @@ import Login.Ports exposing (signOut)
 import Login.Styles
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
-import Profile.Msg exposing (Msg(..))
+import Profile.Model exposing (Msg(..))
 import Rides.Styles
 import Test exposing (..)
 import Testable.Html.Selectors exposing (..)
 import Testable.Html.Types exposing (Selector)
 import Testable.TestContext exposing (..)
-import UrlRouter.Msg exposing (Msg(UrlChange))
+import UrlRouter.Model exposing (Msg(UrlChange))
 import UrlRouter.Routes exposing (Page(..), toPath)
 
 

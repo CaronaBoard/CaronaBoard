@@ -3,14 +3,13 @@ module Model exposing (Flags, Model, init)
 import GiveRide.Model as GiveRide
 import Layout.Model as Layout
 import Login.Model as Login
-import Msg exposing (Msg(MsgForUrlRouter))
+import Msg exposing (Msg(..))
 import Navigation exposing (Location)
 import Notifications.Model as Notifications
 import Profile.Model as Profile exposing (Profile)
 import Rides.Model as Rides
 import Testable.Cmd
-import UrlRouter.Model as UrlRouter
-import UrlRouter.Msg exposing (Msg(UrlChange))
+import UrlRouter.Model as UrlRouter exposing (Msg(UrlChange))
 import UrlRouter.Update as UrlRouterUpdate
 
 

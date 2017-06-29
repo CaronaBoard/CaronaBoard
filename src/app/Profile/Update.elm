@@ -1,15 +1,15 @@
 module Profile.Update exposing (update)
 
 import Common.Response exposing (Response(..), fromFirebase)
-import Login.Msg exposing (Msg(SignInResponse))
+import Login.Model exposing (Msg(SignInResponse))
 import Msg as Root exposing (Msg(..))
 import Profile.Model exposing (Model, init)
-import Profile.Msg exposing (Msg(..))
+import Profile.Model exposing (Msg(..))
 import Profile.Ports exposing (saveProfile)
 import Testable.Cmd
 
 
-update : Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd Profile.Msg.Msg )
+update : Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd Profile.Model.Msg )
 update msg model =
     case msg of
         MsgForProfile msg_ ->
@@ -27,7 +27,7 @@ update msg model =
             ( model, Testable.Cmd.none )
 
 
-updateProfile : Profile.Msg.Msg -> Model -> ( Model, Testable.Cmd.Cmd Profile.Msg.Msg )
+updateProfile : Profile.Model.Msg -> Model -> ( Model, Testable.Cmd.Cmd Profile.Model.Msg )
 updateProfile msg model =
     let
         fields =
