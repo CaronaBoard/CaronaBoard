@@ -12,7 +12,7 @@ init user =
     { email = ""
     , password = ""
     , registered = Empty
-    , loggedIn =
+    , signedIn =
         user
             |> Maybe.map Success
             |> Maybe.withDefault Empty
@@ -46,7 +46,7 @@ loginUpdate msg model =
                     ( { model | registered = Loading }, Testable.Cmd.wrap <| checkRegistration model.email )
 
                 PasswordStep ->
-                    ( { model | loggedIn = Loading }, Testable.Cmd.wrap <| signIn { email = model.email, password = model.password } )
+                    ( { model | signedIn = Loading }, Testable.Cmd.wrap <| signIn { email = model.email, password = model.password } )
 
                 NotRegisteredStep ->
                     ( { model | signUp = Loading }, Testable.Cmd.wrap <| signUp { email = model.email, password = model.password } )
@@ -55,7 +55,7 @@ loginUpdate msg model =
             ( { model | registered = response }, Testable.Cmd.none )
 
         SignInResponse response ->
-            ( { model | loggedIn = Common.Response.map (\res -> res.user) response }, Testable.Cmd.none )
+            ( { model | signedIn = Common.Response.map (\res -> res.user) response }, Testable.Cmd.none )
 
         SignOut ->
             ( model, Testable.Cmd.wrap <| signOut () )

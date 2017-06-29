@@ -14,7 +14,7 @@ import Testable.Html.Events exposing (onInput, onSubmit, onWithOptions)
 passwordStep : Model -> Html Msg
 passwordStep model =
     div [ className PasswordStep ]
-        [ renderErrors model.loggedIn
+        [ renderErrors model.signedIn
         , renderErrors model.passwordReset
         , div [ className FilledEmail ] [ text model.email ]
         , div [ materializeClass "input-field" ]
@@ -29,7 +29,7 @@ passwordStep model =
                 []
             , label [ for "password" ] [ text "Senha" ]
             ]
-        , loadingOrSubmitButton model.loggedIn [ className SubmitButton ] [ text "Entrar", icon "done" ]
+        , loadingOrSubmitButton model.signedIn [ className SubmitButton ] [ text "Entrar", icon "done" ]
         , loadingOrSubmitButton model.passwordReset
             [ className ResetPasswordButton
             , materializeClass "btn-flat"

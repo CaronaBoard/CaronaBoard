@@ -22,28 +22,28 @@ tests : Test
 tests =
     describe "UrlRouter"
         [ describe "initial routing"
-            [ test "renders rides page if app starts on login page but user is already logged in" <|
+            [ test "renders rides page if app starts on login page but user is already signed in" <|
                 signedInContext LoginPage
                     >> expectToBeOnRidesPage
-            , test "renders login page if app starts on rides page but user is not logged in" <|
+            , test "renders login page if app starts on rides page but user is not signed in" <|
                 initialContext Nothing Nothing RidesPage
                     >> expectToBeOnLoginPage
             ]
-        , test "renders login and hides rides when user is not logged in and is on login route" <|
+        , test "renders login and hides rides when user is not signed in and is on login route" <|
             loginContext
                 >> expectToBeOnLoginPage
-        , test "redirects user to login page if it is not logged in and goes to home or page" <|
+        , test "redirects user to login page if it is not signed in and goes to home or page" <|
             loginContext
                 >> Expect.all
                     [ update (MsgForUrlRouter <| UrlChange (toLocation RidesPage)) >> expectToBeOnLoginPage
                     , update (MsgForUrlRouter <| UrlChange (toLocation SplashScreenPage)) >> expectToBeOnLoginPage
                     ]
-        , test "renders rides and hides login when user is logged in and on rides route" <|
+        , test "renders rides and hides login when user is signed in and on rides route" <|
             loginContext
                 >> successSignIn
                 >> update (MsgForUrlRouter <| UrlChange (toLocation RidesPage))
                 >> expectToBeOnRidesPage
-        , test "redirects user to rides page if it is already logged in and goes to login page or home page" <|
+        , test "redirects user to rides page if it is already signed in and goes to login page or home page" <|
             loginContext
                 >> successSignIn
                 >> Expect.all

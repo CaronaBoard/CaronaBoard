@@ -13,7 +13,7 @@ import Testable.Html.Events exposing (onInput, onSubmit)
 emailStep : Model -> Html Msg
 emailStep model =
     div []
-        [ renderErrors model.loggedIn
+        [ renderErrors model.signedIn
         , div [ materializeClass "input-field" ]
             [ input
                 [ type_ "email"
