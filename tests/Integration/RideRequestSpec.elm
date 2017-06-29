@@ -51,7 +51,7 @@ ridesContextContext =
 
 rideRequestExample : RideRequest
 rideRequestExample =
-    { rideId = "ride-2", driverId = "user-2" }
+    { rideId = "ride-2", toUserId = "user-2" }
 
 
 submitRideRequest : a -> TestContext Root.Msg Model
