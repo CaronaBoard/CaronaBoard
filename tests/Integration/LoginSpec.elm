@@ -4,7 +4,7 @@ import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (expectToContainText, fixtures, successSignIn)
 import Login.Model exposing (Model, init, loggedInUser)
-import Login.Msg exposing (Msg(..))
+import Login.Model exposing (Msg(..))
 import Login.Ports exposing (..)
 import Login.Styles exposing (Classes(..))
 import Login.Update as Update

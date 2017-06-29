@@ -6,7 +6,7 @@ import Navigation
 import Ports exposing (subscriptions)
 import Testable
 import Update exposing (update)
-import UrlRouter.Msg exposing (Msg(UrlChange))
+import UrlRouter.Model exposing (Msg(UrlChange))
 import View exposing (view)
 
 

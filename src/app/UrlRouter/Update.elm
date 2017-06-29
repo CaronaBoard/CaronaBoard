@@ -1,20 +1,17 @@
 module UrlRouter.Update exposing (changePageTo, update, urlRouterUpdate)
 
-import GiveRide.Msg exposing (Msg(..))
-import Login.Model as Login
-import Login.Msg exposing (Msg(..))
+import GiveRide.Model exposing (Msg(..))
+import Login.Model as Login exposing (Msg(..))
 import Msg as Root exposing (Msg(..))
 import Navigation exposing (Location)
 import Notifications.Model as Notifications exposing (isEnabled)
-import Profile.Model as Profile
-import Profile.Msg exposing (Msg(..))
+import Profile.Model as Profile exposing (Msg(..))
 import Testable.Cmd
-import UrlRouter.Model exposing (Model)
-import UrlRouter.Msg exposing (Msg(Go, UrlChange))
+import UrlRouter.Model exposing (Model, Msg(Go, UrlChange))
 import UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, toPath)
 
 
-update : Notifications.Model -> Profile.Model -> Login.Model -> Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd UrlRouter.Msg.Msg )
+update : Notifications.Model -> Profile.Model -> Login.Model -> Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd UrlRouter.Model.Msg )
 update notifications profile login msg model =
     case msg of
         MsgForUrlRouter urlMsg ->
@@ -42,7 +39,7 @@ update notifications profile login msg model =
             ( model, Testable.Cmd.none )
 
 
-urlRouterUpdate : Profile.Model -> Login.Model -> UrlRouter.Msg.Msg -> Model -> ( Model, Testable.Cmd.Cmd UrlRouter.Msg.Msg )
+urlRouterUpdate : Profile.Model -> Login.Model -> UrlRouter.Model.Msg -> Model -> ( Model, Testable.Cmd.Cmd UrlRouter.Model.Msg )
 urlRouterUpdate profile login msg model =
     case msg of
         Go route ->

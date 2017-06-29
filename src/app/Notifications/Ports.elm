@@ -1,7 +1,7 @@
 port module Notifications.Ports exposing (enableNotifications, subscriptions)
 
 import Common.Response exposing (FirebaseResponse)
-import Notifications.Msg exposing (Msg(..))
+import Notifications.Model exposing (Msg(..))
 
 
 subscriptions : Sub Msg

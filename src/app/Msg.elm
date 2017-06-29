@@ -1,12 +1,12 @@
 module Msg exposing (Msg(..))
 
-import GiveRide.Msg as GiveRide
-import Layout.Msg as Layout
-import Login.Msg as Login
-import Notifications.Msg as Notifications
-import Profile.Msg as Profile
+import GiveRide.Model as GiveRide
+import Layout.Model as Layout
+import Login.Model as Login
+import Notifications.Model as Notifications
+import Profile.Model as Profile
 import Rides.Msg as Rides
-import UrlRouter.Msg as UrlRouter
+import UrlRouter.Model as UrlRouter
 
 
 type Msg

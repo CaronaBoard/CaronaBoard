@@ -2,7 +2,7 @@ port module Login.Ports exposing (checkRegistration, passwordReset, passwordRese
 
 import Common.Response exposing (FirebaseResponse)
 import Login.Model exposing (User)
-import Login.Msg exposing (Msg(..))
+import Login.Model exposing (Msg(..))
 import Profile.Model exposing (Profile)
 
 

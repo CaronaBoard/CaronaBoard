@@ -1,12 +1,19 @@
-module Notifications.Model exposing (Model, init, isEnabled)
+module Notifications.Model exposing (Model, Msg(..), init, isEnabled)
 
-import Common.Response exposing (Response(..))
+import Common.Response exposing (FirebaseResponse, Response(..))
 
 
 type alias Model =
     { response : Response Bool
     , notice : Maybe String
     }
+
+
+type Msg
+    = EnableNotifications
+    | NotificationsResponse (FirebaseResponse Bool)
+    | ShowNotice String
+    | HideNotice
 
 
 init : Model

@@ -1,12 +1,11 @@
 module Layout.Update exposing (update)
 
-import Layout.Model exposing (Model)
-import Layout.Msg exposing (Msg(..))
+import Layout.Model exposing (Model, Msg(..))
 import Msg as Root exposing (Msg(..))
 import Testable.Cmd
 
 
-update : Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd Layout.Msg.Msg )
+update : Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd Layout.Model.Msg )
 update msg model =
     case msg of
         MsgForLayout layoutMsg ->
@@ -16,7 +15,7 @@ update msg model =
             ( model, Testable.Cmd.none )
 
 
-updateLayout : Layout.Msg.Msg -> Model -> ( Model, Testable.Cmd.Cmd Layout.Msg.Msg )
+updateLayout : Layout.Model.Msg -> Model -> ( Model, Testable.Cmd.Cmd Layout.Model.Msg )
 updateLayout msg model =
     case msg of
         OpenDropdown ->

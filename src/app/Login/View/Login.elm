@@ -2,7 +2,7 @@ module Login.View.Login exposing (login)
 
 import Common.Icon exposing (icon)
 import Login.Model exposing (Model, Step(..), step)
-import Login.Msg exposing (Msg(..))
+import Login.Model exposing (Msg(..))
 import Login.Styles exposing (Classes(..), className)
 import Login.View.EmailStep exposing (emailStep)
 import Login.View.PasswordStep exposing (passwordStep)

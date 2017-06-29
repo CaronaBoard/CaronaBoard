@@ -1,13 +1,13 @@
 module Integration.GiveRideSpec exposing (tests)
 
 import Expect exposing (equal)
-import GiveRide.Msg exposing (Msg(..))
+import GiveRide.Model exposing (Msg(..))
 import GiveRide.Ports
 import Helpers exposing (expectToContainText, fixtures, initialContext, signedInContext, someUser, toLocation)
 import Model exposing (Model)
 import Msg as Root exposing (Msg(..))
 import Navigation
-import Notifications.Msg exposing (Msg(..))
+import Notifications.Model exposing (Msg(..))
 import Test exposing (..)
 import Testable.Html.Selectors exposing (..)
 import Testable.TestContext exposing (..)

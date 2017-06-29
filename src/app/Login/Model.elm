@@ -1,6 +1,7 @@
-module Login.Model exposing (Model, Step(..), User, init, isLoggedIn, loggedInUser, step)
+module Login.Model exposing (Model, Msg(..), Step(..), User, init, isLoggedIn, loggedInUser, step)
 
-import Common.Response exposing (Response(..))
+import Common.Response exposing (FirebaseResponse, Response(..))
+import Profile.Model exposing (Profile)
 
 
 type alias Model =
@@ -21,6 +22,23 @@ type Step
     = EmailStep
     | NotRegisteredStep
     | PasswordStep
+
+
+type Msg
+    = UpdateEmail String
+    | UpdatePassword String
+    | Submit
+    | CheckRegistrationResponse Bool
+    | SignInResponse (FirebaseResponse { user : User, profile : Maybe Profile })
+    | SignOut
+    | SignOutResponse
+    | PasswordReset
+    | PasswordResetResponse (Maybe Error)
+    | SignUpResponse (FirebaseResponse Bool)
+
+
+type alias Error =
+    String
 
 
 step : Model -> Step
