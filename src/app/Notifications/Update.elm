@@ -1,8 +1,8 @@
-module Notifications.Update exposing (update)
+module Notifications.Update exposing (init, update)
 
 import Common.Response exposing (Response(..), fromFirebase)
 import GiveRide.Model exposing (Msg(..))
-import Msg as Root exposing (Msg(..))
+import Model as Root exposing (Msg(..))
 import Notifications.Model exposing (Model, Msg(..))
 import Notifications.Ports exposing (enableNotifications)
 import Profile.Model exposing (Msg(..))
@@ -12,6 +12,13 @@ import Testable.Cmd
 import Testable.Process as Process
 import Testable.Task as Task
 import Time
+
+
+init : Model
+init =
+    { response = Empty
+    , notice = Nothing
+    }
 
 
 update : Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd Notifications.Model.Msg )

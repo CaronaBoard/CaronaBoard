@@ -6,14 +6,14 @@ import Common.Link exposing (linkTo)
 import Layout.Model exposing (Model, Msg(CloseDropdown, OpenDropdown))
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Login.Model exposing (Msg(SignOut))
-import Msg exposing (Msg(..))
+import Model exposing (Msg(..))
 import Testable.Html exposing (Html, a, b, button, div, h1, h2, i, img, li, nav, text, ul)
 import Testable.Html.Attributes exposing (alt, href, id, rel, src, style)
 import Testable.Html.Events exposing (onClick)
 import UrlRouter.Routes exposing (Page(..))
 
 
-header : Model -> Html Msg.Msg
+header : Model -> Html Model.Msg
 header model =
     Testable.Html.header [ materializeClass "navbar-fixed" ] <|
         menu model
@@ -43,7 +43,7 @@ header model =
                ]
 
 
-menu : Model -> List (Html Msg.Msg)
+menu : Model -> List (Html Model.Msg)
 menu model =
     if model.dropdownOpen then
         [ div [ layoutClass Menu, onClick (MsgForLayout CloseDropdown) ]

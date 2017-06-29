@@ -1,16 +1,12 @@
-module Model exposing (Flags, Model, init)
+module Model exposing (Flags, Model, Msg(..))
 
 import GiveRide.Model as GiveRide
 import Layout.Model as Layout
 import Login.Model as Login
-import Msg exposing (Msg(..))
-import Navigation exposing (Location)
 import Notifications.Model as Notifications
 import Profile.Model as Profile exposing (Profile)
 import Rides.Model as Rides
-import Testable.Cmd
 import UrlRouter.Model as UrlRouter exposing (Msg(UrlChange))
-import UrlRouter.Update as UrlRouterUpdate
 
 
 type alias Model =
@@ -30,28 +26,11 @@ type alias Flags =
     }
 
 
-init : Flags -> Location -> ( Model, Testable.Cmd.Cmd Msg.Msg )
-init { currentUser, profile } location =
-    let
-        initialModel =
-            { urlRouter = UrlRouter.init location
-            , login = Login.init currentUser
-            , rides = Rides.init
-            , layout = Layout.init
-            , giveRide = GiveRide.init
-            , notifications = Notifications.init
-            , profile = Profile.init profile
-            }
-    in
-    updateUrlRouter location initialModel
-
-
-updateUrlRouter : Location -> Model -> ( Model, Testable.Cmd.Cmd Msg.Msg )
-updateUrlRouter location model =
-    let
-        updatedUrlRouter =
-            UrlRouterUpdate.update model.notifications model.profile model.login (MsgForUrlRouter <| UrlChange location) model.urlRouter
-    in
-    ( { model | urlRouter = Tuple.first updatedUrlRouter }
-    , Testable.Cmd.map MsgForUrlRouter <| Tuple.second updatedUrlRouter
-    )
+type Msg
+    = MsgForUrlRouter UrlRouter.Msg
+    | MsgForLogin Login.Msg
+    | MsgForRides Rides.Msg
+    | MsgForLayout Layout.Msg
+    | MsgForGiveRide GiveRide.Msg
+    | MsgForNotifications Notifications.Msg
+    | MsgForProfile Profile.Msg

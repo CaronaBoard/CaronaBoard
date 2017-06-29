@@ -1,8 +1,14 @@
-module Layout.Update exposing (update)
+module Layout.Update exposing (init, update)
 
 import Layout.Model exposing (Model, Msg(..))
-import Msg as Root exposing (Msg(..))
+import Model as Root exposing (Msg(..))
 import Testable.Cmd
+
+
+init : Model
+init =
+    { dropdownOpen = False
+    }
 
 
 update : Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd Layout.Model.Msg )

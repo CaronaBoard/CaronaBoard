@@ -1,11 +1,23 @@
-module GiveRide.Update exposing (update)
+module GiveRide.Update exposing (init, update)
 
 import Common.Response exposing (Response(..), fromFirebase)
-import GiveRide.Model exposing (Model, Msg(..), init)
+import GiveRide.Model exposing (Model, Msg(..))
 import GiveRide.Ports exposing (giveRide)
 import Login.Model exposing (User)
-import Msg as Root exposing (Msg(..))
+import Model as Root exposing (Msg(..))
 import Testable.Cmd
+
+
+init : Model
+init =
+    { fields =
+        { origin = ""
+        , destination = ""
+        , days = ""
+        , hours = ""
+        }
+    , response = Empty
+    }
 
 
 update : Maybe User -> Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd GiveRide.Model.Msg )

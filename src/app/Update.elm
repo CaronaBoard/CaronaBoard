@@ -1,16 +1,33 @@
-module Update exposing (update)
+module Update exposing (init, update)
 
 import GiveRide.Update as GiveRide
 import Layout.Update as Layout
 import Login.Model exposing (loggedInUser)
 import Login.Update as Login
-import Model exposing (Model)
-import Msg exposing (Msg(..))
+import Model exposing (Flags, Model, Msg(..))
+import Navigation exposing (Location)
 import Notifications.Update as Notifications
 import Profile.Update as Profile
 import Rides.Update as Rides
 import Testable.Cmd
+import UrlRouter.Model
 import UrlRouter.Update as UrlRouter
+
+
+init : Flags -> Location -> ( Model, Testable.Cmd.Cmd Msg )
+init { currentUser, profile } location =
+    let
+        initialModel =
+            { urlRouter = UrlRouter.init location
+            , login = Login.init currentUser
+            , rides = Rides.init
+            , layout = Layout.init
+            , giveRide = GiveRide.init
+            , notifications = Notifications.init
+            , profile = Profile.init profile
+            }
+    in
+    updateUrlRouter location initialModel
 
 
 update : Msg -> Model -> ( Model, Testable.Cmd.Cmd Msg )
@@ -59,3 +76,14 @@ update msg model =
                 ]
     in
     ( updatedModel, cmds )
+
+
+updateUrlRouter : Location -> Model -> ( Model, Testable.Cmd.Cmd Msg )
+updateUrlRouter location model =
+    let
+        updatedUrlRouter =
+            UrlRouter.update model.notifications model.profile model.login (MsgForUrlRouter <| UrlRouter.Model.UrlChange location) model.urlRouter
+    in
+    ( { model | urlRouter = Tuple.first updatedUrlRouter }
+    , Testable.Cmd.map MsgForUrlRouter <| Tuple.second updatedUrlRouter
+    )

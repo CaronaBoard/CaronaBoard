@@ -1,10 +1,15 @@
-module Rides.Update exposing (update)
+module Rides.Update exposing (init, update)
 
 import Common.IdentifiedList exposing (findById, mapIfId)
-import Msg as Root exposing (Msg(..))
+import Model as Root exposing (Msg(..))
 import Rides.Model exposing (..)
 import Rides.RideRequest.Update as RideRequest
 import Testable.Cmd
+
+
+init : Model
+init =
+    []
 
 
 update : Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd Rides.Model.Msg )

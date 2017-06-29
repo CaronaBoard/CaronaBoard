@@ -1,12 +1,22 @@
-module Profile.Update exposing (update)
+module Profile.Update exposing (init, update)
 
 import Common.Response exposing (Response(..), fromFirebase)
 import Login.Model exposing (Msg(SignInResponse))
-import Msg as Root exposing (Msg(..))
-import Profile.Model exposing (Model, init)
-import Profile.Model exposing (Msg(..))
+import Model as Root exposing (Msg(..))
+import Profile.Model exposing (Model, Msg(..), Profile)
 import Profile.Ports exposing (saveProfile)
 import Testable.Cmd
+
+
+init : Maybe Profile -> Model
+init profile =
+    { fields =
+        { name = ""
+        , contact = { kind = "Whatsapp", value = "" }
+        }
+    , savedProfile = profile
+    , response = Empty
+    }
 
 
 update : Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd Profile.Model.Msg )

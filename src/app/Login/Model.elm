@@ -1,4 +1,4 @@
-module Login.Model exposing (Model, Msg(..), Step(..), User, init, isLoggedIn, loggedInUser, step)
+module Login.Model exposing (Model, Msg(..), Step(..), User, isLoggedIn, loggedInUser, step)
 
 import Common.Response exposing (FirebaseResponse, Response(..))
 import Profile.Model exposing (Profile)
@@ -72,17 +72,3 @@ isLoggedIn model =
 
         Nothing ->
             False
-
-
-init : Maybe User -> Model
-init user =
-    { email = ""
-    , password = ""
-    , registered = Empty
-    , loggedIn =
-        user
-            |> Maybe.map Success
-            |> Maybe.withDefault Empty
-    , passwordReset = Empty
-    , signUp = Empty
-    }

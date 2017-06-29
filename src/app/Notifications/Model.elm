@@ -1,4 +1,4 @@
-module Notifications.Model exposing (Model, Msg(..), init, isEnabled)
+module Notifications.Model exposing (Model, Msg(..), isEnabled)
 
 import Common.Response exposing (FirebaseResponse, Response(..))
 
@@ -14,13 +14,6 @@ type Msg
     | NotificationsResponse (FirebaseResponse Bool)
     | ShowNotice String
     | HideNotice
-
-
-init : Model
-init =
-    { response = Empty
-    , notice = Nothing
-    }
 
 
 isEnabled : Model -> Bool

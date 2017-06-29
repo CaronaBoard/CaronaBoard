@@ -2,7 +2,7 @@ module Login.View.Layout exposing (loginLayout)
 
 import Common.CssHelpers exposing (materializeClass)
 import Login.Styles exposing (Classes(Page), className)
-import Msg exposing (Msg)
+import Model exposing (Msg)
 import Testable.Html exposing (div)
 
 

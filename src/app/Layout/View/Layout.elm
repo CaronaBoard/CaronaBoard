@@ -3,7 +3,7 @@ module Layout.View.Layout exposing (layout)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Layout.View.Header exposing (header)
 import Model exposing (Model)
-import Msg exposing (Msg)
+import Model exposing (Msg)
 import Notifications.View.Notice exposing (notice)
 import Testable.Html exposing (Html, div, text)
 

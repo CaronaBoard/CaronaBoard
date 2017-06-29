@@ -1,4 +1,4 @@
-module Rides.Model exposing (Model, Msg(..), Ride, init)
+module Rides.Model exposing (Model, Msg(..), Ride)
 
 import Profile.Model exposing (Contact, Profile)
 import Rides.RideRequest.Model as RideRequest
@@ -23,8 +23,3 @@ type alias Model =
 type Msg
     = UpdateRides (List Ride)
     | MsgForRideRequest String RideRequest.Msg
-
-
-init : Model
-init =
-    []
