@@ -1,6 +1,6 @@
 port module Rides.RideRequest.Ports exposing (RideRequest, encodeRideRequest, rideRequest, subscriptions)
 
-import Common.Response exposing (FirebaseResponse, firebaseMap)
+import Common.Response exposing (FirebaseResponse, fromFirebase)
 import Rides.Model exposing (Msg(..), Ride)
 import Rides.RideRequest.Model exposing (Msg(..))
 
@@ -9,7 +9,7 @@ subscriptions : Sub Rides.Model.Msg
 subscriptions =
     rideRequestResponse
         (\response ->
-            MsgForRideRequest response.rideId <| RideRequestResponse response.response
+            MsgForRideRequest response.rideId <| RideRequestResponse (fromFirebase response.response)
         )
 
 

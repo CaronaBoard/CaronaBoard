@@ -1,6 +1,6 @@
 port module Login.Ports exposing (checkRegistration, passwordReset, passwordResetResponse, signIn, signOut, signUp, subscriptions)
 
-import Common.Response exposing (FirebaseResponse)
+import Common.Response exposing (FirebaseResponse, fromFirebase)
 import Login.Model exposing (Msg(..), User)
 import Profile.Model exposing (Profile)
 
@@ -8,11 +8,11 @@ import Profile.Model exposing (Profile)
 subscriptions : Sub Msg
 subscriptions =
     Sub.batch
-        [ checkRegistrationResponse CheckRegistrationResponse
-        , signInResponse SignInResponse
-        , signOutResponse SignOutResponse
-        , passwordResetResponse PasswordResetResponse
-        , signUpResponse SignUpResponse
+        [ checkRegistrationResponse (fromFirebase >> CheckRegistrationResponse)
+        , signInResponse (fromFirebase >> SignInResponse)
+        , signOutResponse (fromFirebase >> SignOutResponse)
+        , passwordResetResponse (fromFirebase >> PasswordResetResponse)
+        , signUpResponse (fromFirebase >> SignUpResponse)
         ]
 
 

@@ -1,5 +1,6 @@
 module Integration.RideRequestSpec exposing (tests)
 
+import Common.Response exposing (Response(..))
 import Expect exposing (equal)
 import Helpers exposing (expectToContainText, fixtures, initialContext, signedInContext, someUser, toLocation)
 import Model as Root exposing (Model, Msg(..))
@@ -26,7 +27,7 @@ tests =
         --         >> assertCalled (Cmd.map (MsgForRides << MsgForRideRequest "ride-2") <| Rides.RideRequest.Ports.rideRequest rideRequestExample)
         , test "shows error when rideRequest port returns an error" <|
             submitRideRequest
-                >> update (MsgForRides <| MsgForRideRequest "ride-2" <| RideRequestResponse ( Just "undefined is not a function", Nothing ))
+                >> update (MsgForRides <| MsgForRideRequest "ride-2" <| RideRequestResponse (Error "undefined is not a function"))
                 >> find []
                 >> assertText (expectToContainText "not a function")
         , test "shows notification on success" <|
@@ -62,4 +63,4 @@ submitRideRequest =
 
 successResponse : TestContext Root.Msg Model -> TestContext Root.Msg Model
 successResponse =
-    update (MsgForRides <| MsgForRideRequest "ride-2" <| RideRequestResponse ( Nothing, Just True ))
+    update (MsgForRides <| MsgForRideRequest "ride-2" <| RideRequestResponse (Success True))

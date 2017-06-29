@@ -1,5 +1,6 @@
 module Helpers exposing (..)
 
+import Common.Response exposing (Response(..))
 import Expect
 import GiveRide.Model exposing (NewRide)
 import Login.Model exposing (Msg(..), User)
@@ -53,12 +54,12 @@ someUser =
 
 successSignIn : TestContext Model.Msg model -> TestContext Model.Msg model
 successSignIn =
-    update (Model.MsgForLogin <| SignInResponse ( Nothing, Maybe.map (\user -> { user = user, profile = Just fixtures.profile }) someUser ))
+    update (Model.MsgForLogin <| SignInResponse (Success { user = fixtures.user, profile = Just fixtures.profile }))
 
 
 successSignInWithoutProfile : TestContext Model.Msg model -> TestContext Model.Msg model
 successSignInWithoutProfile =
-    update (Model.MsgForLogin <| SignInResponse ( Nothing, Maybe.map (\user -> { user = user, profile = Nothing }) someUser ))
+    update (Model.MsgForLogin <| SignInResponse (Success { user = fixtures.user, profile = Nothing }))
 
 
 jsonQuotes : String -> String

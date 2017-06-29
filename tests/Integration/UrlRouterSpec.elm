@@ -1,5 +1,6 @@
 module Integration.UrlRouterSpec exposing (tests)
 
+import Common.Response exposing (Response(..))
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (fixtures, initialContext, signedInContext, someUser, successSignIn, successSignInWithoutProfile, toLocation)
@@ -67,7 +68,7 @@ tests =
         , test "do not redirect to profile page after creating on" <|
             loginContext
                 >> successSignInWithoutProfile
-                >> update (MsgForProfile <| ProfileResponse ( Nothing, Just fixtures.profile ))
+                >> update (MsgForProfile <| ProfileResponse (Success fixtures.profile))
                 >> update (MsgForUrlRouter <| UrlChange (toLocation RidesPage))
                 >> expectToBeOnRidesPage
         ]

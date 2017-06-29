@@ -1,6 +1,6 @@
 module Profile.Model exposing (Contact, Model, Msg(..), Profile, contactDeepLink, contactIdentifier)
 
-import Common.Response exposing (FirebaseResponse, Response(..))
+import Common.Response exposing (Response(..))
 
 
 type alias Model =
@@ -27,7 +27,7 @@ type Msg
     | UpdateContactKind String
     | UpdateContactValue String
     | Submit
-    | ProfileResponse (FirebaseResponse Profile)
+    | ProfileResponse (Response Profile)
 
 
 contactDeepLink : Contact -> String

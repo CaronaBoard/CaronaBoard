@@ -1,5 +1,6 @@
 module Integration.ProfileSpec exposing (tests)
 
+import Common.Response exposing (Response(..))
 import Expect exposing (equal)
 import Helpers exposing (expectToContainText, fixtures, initialContext, someUser, successSignIn, toLocation)
 import Model as Root exposing (Model, Msg(..))
@@ -29,7 +30,7 @@ tests =
                 >> assertCalled (Cmd.map MsgForProfile <| Profile.Ports.saveProfile fixtures.profile)
         , test "shows error when profile port returns an error" <|
             submitProfile
-                >> update (MsgForProfile <| ProfileResponse ( Just "undefined is not a function", Nothing ))
+                >> update (MsgForProfile <| ProfileResponse (Error "undefined is not a function"))
                 >> find []
                 >> assertText (expectToContainText "not a function")
         , test "shows notification on success" <|
@@ -79,4 +80,4 @@ submitProfile =
 
 successResponse : TestContext Root.Msg Model -> TestContext Root.Msg Model
 successResponse =
-    update (MsgForProfile <| ProfileResponse ( Nothing, Just fixtures.profile ))
+    update (MsgForProfile <| ProfileResponse (Success fixtures.profile))

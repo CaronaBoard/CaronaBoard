@@ -1,6 +1,6 @@
 module GiveRide.Model exposing (Model, Msg(..), NewRide)
 
-import Common.Response exposing (FirebaseResponse, Response(..))
+import Common.Response exposing (Response(..))
 
 
 type alias Model =
@@ -23,4 +23,4 @@ type Msg
     | UpdateDays String
     | UpdateHours String
     | Submit
-    | GiveRideResponse (FirebaseResponse Bool)
+    | GiveRideResponse (Response Bool)

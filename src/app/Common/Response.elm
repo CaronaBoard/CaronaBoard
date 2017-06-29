@@ -1,4 +1,4 @@
-module Common.Response exposing (FirebaseResponse, Response(..), firebaseMap, fromFirebase)
+module Common.Response exposing (FirebaseResponse, Response(..), fromFirebase, map)
 
 
 type Response a
@@ -12,6 +12,22 @@ type alias FirebaseResponse a =
     ( Maybe String, Maybe a )
 
 
+map : (a -> b) -> Response a -> Response b
+map f response =
+    case response of
+        Success a ->
+            Success (f a)
+
+        Empty ->
+            Empty
+
+        Loading ->
+            Loading
+
+        Error err ->
+            Error err
+
+
 fromFirebase : FirebaseResponse a -> Response a
 fromFirebase response =
     case response of
@@ -23,13 +39,3 @@ fromFirebase response =
 
         ( Nothing, Nothing ) ->
             Error "Invalid FirebaseResponse"
-
-
-firebaseMap : (a -> b) -> FirebaseResponse a -> FirebaseResponse b
-firebaseMap f response =
-    case response of
-        ( err, Just data ) ->
-            ( err, Just (f data) )
-
-        ( err, Nothing ) ->
-            ( err, Nothing )

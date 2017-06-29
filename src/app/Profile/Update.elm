@@ -1,6 +1,6 @@
 module Profile.Update exposing (init, update)
 
-import Common.Response exposing (Response(..), fromFirebase)
+import Common.Response exposing (Response(..))
 import Login.Model exposing (Msg(SignInResponse))
 import Model as Root exposing (Msg(..))
 import Profile.Model exposing (Model, Msg(..), Profile)
@@ -25,7 +25,7 @@ update msg model =
         MsgForProfile msg_ ->
             updateProfile msg_ model
 
-        MsgForLogin (SignInResponse ( Nothing, Just response )) ->
+        MsgForLogin (SignInResponse (Success response)) ->
             case response.profile of
                 Just profile ->
                     ( { model | fields = profile, savedProfile = Just profile }, Testable.Cmd.none )
@@ -63,9 +63,9 @@ updateProfile msg model =
             ( { model | response = Loading }, Testable.Cmd.wrap (saveProfile fields) )
 
         ProfileResponse response ->
-            case fromFirebase response of
+            case response of
                 Success profile ->
-                    ( { model | savedProfile = Just profile, response = fromFirebase response }, Testable.Cmd.none )
+                    ( { model | savedProfile = Just profile, response = response }, Testable.Cmd.none )
 
                 _ ->
-                    ( { model | response = fromFirebase response }, Testable.Cmd.none )
+                    ( { model | response = response }, Testable.Cmd.none )

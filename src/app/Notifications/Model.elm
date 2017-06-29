@@ -1,6 +1,6 @@
 module Notifications.Model exposing (Model, Msg(..), isEnabled)
 
-import Common.Response exposing (FirebaseResponse, Response(..))
+import Common.Response exposing (Response(..))
 
 
 type alias Model =
@@ -11,7 +11,7 @@ type alias Model =
 
 type Msg
     = EnableNotifications
-    | NotificationsResponse (FirebaseResponse Bool)
+    | NotificationsResponse (Response Bool)
     | ShowNotice String
     | HideNotice
 

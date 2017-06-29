@@ -1,6 +1,6 @@
 module Login.Model exposing (Model, Msg(..), Step(..), User, isLoggedIn, loggedInUser, step)
 
-import Common.Response exposing (FirebaseResponse, Response(..))
+import Common.Response exposing (Response(..))
 import Profile.Model exposing (Profile)
 
 
@@ -28,13 +28,13 @@ type Msg
     = UpdateEmail String
     | UpdatePassword String
     | Submit
-    | CheckRegistrationResponse (FirebaseResponse Bool)
-    | SignInResponse (FirebaseResponse { user : User, profile : Maybe Profile })
+    | CheckRegistrationResponse (Response Bool)
+    | SignInResponse (Response { user : User, profile : Maybe Profile })
     | SignOut
-    | SignOutResponse (FirebaseResponse Bool)
+    | SignOutResponse (Response Bool)
     | PasswordReset
-    | PasswordResetResponse (FirebaseResponse Bool)
-    | SignUpResponse (FirebaseResponse Bool)
+    | PasswordResetResponse (Response Bool)
+    | SignUpResponse (Response Bool)
 
 
 type alias Error =
