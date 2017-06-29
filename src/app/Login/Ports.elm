@@ -10,7 +10,7 @@ subscriptions =
     Sub.batch
         [ checkRegistrationResponse CheckRegistrationResponse
         , signInResponse SignInResponse
-        , signOutResponse (always SignOutResponse)
+        , signOutResponse SignOutResponse
         , passwordResetResponse PasswordResetResponse
         , signUpResponse SignUpResponse
         ]
@@ -23,7 +23,7 @@ subscriptions =
 port checkRegistration : String -> Cmd msg
 
 
-port checkRegistrationResponse : (Bool -> msg) -> Sub msg
+port checkRegistrationResponse : (FirebaseResponse Bool -> msg) -> Sub msg
 
 
 
@@ -43,7 +43,7 @@ port signInResponse : (FirebaseResponse { user : User, profile : Maybe Profile }
 port signOut : () -> Cmd msg
 
 
-port signOutResponse : (() -> msg) -> Sub msg
+port signOutResponse : (FirebaseResponse Bool -> msg) -> Sub msg
 
 
 
@@ -53,11 +53,7 @@ port signOutResponse : (() -> msg) -> Sub msg
 port passwordReset : String -> Cmd msg
 
 
-type alias Error =
-    String
-
-
-port passwordResetResponse : (Maybe Error -> msg) -> Sub msg
+port passwordResetResponse : (FirebaseResponse Bool -> msg) -> Sub msg
 
 
 

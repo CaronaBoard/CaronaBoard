@@ -51,8 +51,8 @@ loginUpdate msg model =
                 NotRegisteredStep ->
                     ( { model | signUp = Loading }, Testable.Cmd.wrap <| signUp { email = model.email, password = model.password } )
 
-        CheckRegistrationResponse isRegistered ->
-            ( { model | registered = Success isRegistered }, Testable.Cmd.none )
+        CheckRegistrationResponse response ->
+            ( { model | registered = fromFirebase response }, Testable.Cmd.none )
 
         SignInResponse response ->
             ( { model | loggedIn = fromFirebase (firebaseMap (\res -> res.user) response) }, Testable.Cmd.none )
@@ -60,19 +60,19 @@ loginUpdate msg model =
         SignOut ->
             ( model, Testable.Cmd.wrap <| signOut () )
 
-        SignOutResponse ->
-            ( init Nothing, Testable.Cmd.none )
+        SignOutResponse response ->
+            case fromFirebase response of
+                Success _ ->
+                    ( init Nothing, Testable.Cmd.none )
+
+                _ ->
+                    ( model, Testable.Cmd.none )
 
         PasswordReset ->
             ( { model | passwordReset = Loading }, Testable.Cmd.wrap <| passwordReset model.email )
 
-        PasswordResetResponse error ->
-            let
-                response =
-                    Maybe.map Error error
-                        |> Maybe.withDefault (Success ())
-            in
-            ( { model | passwordReset = response }, Testable.Cmd.none )
+        PasswordResetResponse response ->
+            ( { model | passwordReset = fromFirebase response }, Testable.Cmd.none )
 
         SignUpResponse response ->
             ( { model | signUp = fromFirebase response }, Testable.Cmd.none )

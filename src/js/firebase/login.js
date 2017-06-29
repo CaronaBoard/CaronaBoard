@@ -12,10 +12,10 @@ module.exports = function(firebase, app) {
       .auth()
       .fetchProvidersForEmail(email)
       .then(function(providers) {
-        app.ports.checkRegistrationResponse.send(providers.length > 0);
+        app.ports.checkRegistrationResponse.send(success(providers.length > 0));
       })
       .catch(function() {
-        app.ports.checkRegistrationResponse.send(false);
+        app.ports.checkRegistrationResponse.send(error(error.message));
       });
   });
 
@@ -30,7 +30,9 @@ module.exports = function(firebase, app) {
   });
 
   app.ports.signOut.subscribe(function() {
-    firebase.auth().signOut().then(signOutUser);
+    firebase.auth().signOut().then(signOutUser).catch(function(error) {
+      app.ports.signOutResponse.send(error(error.message));
+    });
   });
 
   var signInUser = function(user) {
@@ -49,7 +51,7 @@ module.exports = function(firebase, app) {
 
   var signOutUser = function() {
     localStorage.removeItem("profile");
-    app.ports.signOutResponse.send(null);
+    app.ports.signOutResponse.send(success(true));
   };
 
   firebase.auth().onAuthStateChanged(function() {
