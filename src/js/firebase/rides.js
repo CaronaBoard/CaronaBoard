@@ -29,7 +29,7 @@ module.exports = function(firebase, app) {
             "ridesRequests/" +
               rideRequest.rideId +
               "/" +
-              rideRequest.driverId +
+              rideRequest.toUserId +
               "/" +
               firebase.auth().currentUser.uid
           )
