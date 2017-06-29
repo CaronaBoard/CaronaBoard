@@ -14,7 +14,7 @@ type Page
     | PasswordResetPage
     | GiveRidePage
     | EnableNotificationsPage
-    | RideRequestPage String
+    | RidePage String
     | ProfilePage
 
 
@@ -27,7 +27,7 @@ pageParser =
         , map PasswordResetPage (static "password-reset")
         , map GiveRidePage (static "give-ride")
         , map EnableNotificationsPage (static "enable-notifications")
-        , map RideRequestPage (static "request-ride" </> string)
+        , map RidePage (static "request-ride" </> string)
         , map ProfilePage (static "profile")
         ]
 
@@ -56,7 +56,7 @@ toPath page =
         EnableNotificationsPage ->
             "#/enable-notifications"
 
-        RideRequestPage rideId ->
+        RidePage rideId ->
             "#/request-ride/" ++ rideId
 
         ProfilePage ->
@@ -108,7 +108,7 @@ requiresAuthentication page =
         EnableNotificationsPage ->
             True
 
-        RideRequestPage _ ->
+        RidePage _ ->
             True
 
         ProfilePage ->

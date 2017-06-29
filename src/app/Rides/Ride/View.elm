@@ -1,4 +1,4 @@
-module Rides.RideRequest.View exposing (rideRequest)
+module Rides.Ride.View exposing (ride)
 
 import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
@@ -7,9 +7,9 @@ import Common.Response exposing (Response(..))
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Model as RootModel
 import Profile.Model exposing (contactDeepLink)
-import Rides.Model exposing (Msg(..), Ride)
-import Rides.RideRequest.Model exposing (Model, Msg(..))
-import Rides.RideRequest.Styles exposing (Classes(..), className)
+import Rides.Model exposing (Msg(..))
+import Rides.Ride.Model exposing (Model, Msg(..))
+import Rides.Ride.Styles exposing (Classes(..), className)
 import Rides.Styles exposing (Classes(Card))
 import Rides.View.RidesList exposing (rideInfo, rideRoute)
 import Testable.Html exposing (..)
@@ -22,22 +22,22 @@ ridesClass =
     Rides.Styles.className
 
 
-rideRequest : String -> RootModel.Model -> Html Rides.Model.Msg
-rideRequest rideId model =
+ride : String -> RootModel.Model -> Html Rides.Model.Msg
+ride rideId model =
     div [ materializeClass "container" ]
         [ h1 [ layoutClass PageTitle ] [ text "Pedir Carona" ]
         , case findById rideId model.rides of
             Just ride ->
-                Testable.Html.map (MsgForRideRequest ride.id) <| rideRequestDetails ride
+                Testable.Html.map (MsgForRide ride.id) <| rideDetails ride
 
             Nothing ->
                 text "Carona não encontrada"
         ]
 
 
-rideRequestDetails : Ride -> Html Rides.RideRequest.Model.Msg
-rideRequestDetails ride =
-    case ride.rideRequest.response of
+rideDetails : Model -> Html Rides.Ride.Model.Msg
+rideDetails model =
+    case model.rideRequest of
         Success _ ->
             div [ materializeClass "card" ]
                 [ div [ materializeClass "card-content" ]
@@ -46,8 +46,8 @@ rideRequestDetails ride =
                     , p [] [ text "Para combinar melhor com o motorista, use o contato abaixo:" ]
                     , br [] []
                     , p [ className Contact ]
-                        [ text <| ride.profile.contact.kind ++ " "
-                        , a [ href <| contactDeepLink ride.profile.contact, target "_blank" ] [ text ride.profile.contact.value ]
+                        [ text <| model.profile.contact.kind ++ " "
+                        , a [ href <| contactDeepLink model.profile.contact, target "_blank" ] [ text model.profile.contact.value ]
                         ]
                     ]
                 ]
@@ -55,17 +55,17 @@ rideRequestDetails ride =
         _ ->
             form [ materializeClass "card", ridesClass Card, onSubmit Submit ]
                 [ div [ materializeClass "card-content" ]
-                    (formFields ride ride.rideRequest)
+                    (formFields model)
                 ]
 
 
-formFields : Ride -> Model -> List (Html Rides.RideRequest.Model.Msg)
-formFields ride model =
-    [ renderErrors model.response
+formFields : Model -> List (Html Rides.Ride.Model.Msg)
+formFields model =
+    [ renderErrors model.rideRequest
     , p [] [ text "Confirme os detalhes da carona antes de confirmar" ]
     , br [] []
-    , rideRoute ride
-    , rideInfo ride
+    , rideRoute model
+    , rideInfo model
     , br [] []
-    , loadingOrSubmitButton model.response [ id "submitRideRequest", layoutClass SubmitButton ] [ text "Pedir carona" ]
+    , loadingOrSubmitButton model.rideRequest [ id "submitRide", layoutClass SubmitButton ] [ text "Pedir carona" ]
     ]

@@ -1,4 +1,4 @@
-module Rides.RideRequest.Styles exposing (Classes(..), className, namespace, styles)
+module Rides.Ride.Styles exposing (Classes(..), className, namespace, styles)
 
 import Common.CssHelpers exposing (..)
 import Css exposing (..)
@@ -8,7 +8,7 @@ import Testable.Html exposing (Attribute)
 
 namespace : String
 namespace =
-    "rideRequest"
+    "ride"
 
 
 className : Classes -> Attribute msg

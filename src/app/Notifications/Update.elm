@@ -7,7 +7,7 @@ import Notifications.Model exposing (Model, Msg(..))
 import Notifications.Ports exposing (enableNotifications)
 import Profile.Model exposing (Msg(..))
 import Rides.Model exposing (Msg(..))
-import Rides.RideRequest.Model exposing (Msg(..))
+import Rides.Ride.Model exposing (Msg(..))
 import Testable.Cmd
 import Testable.Process as Process
 import Testable.Task as Task
@@ -30,7 +30,7 @@ update msg model =
         MsgForGiveRide (GiveRideResponse (Success _)) ->
             updateNotifications (ShowNotice "Carona criada com sucesso!") model
 
-        MsgForRides (MsgForRideRequest _ (RideRequestResponse (Success _))) ->
+        MsgForRides (MsgForRide _ (RideRequestResponse (Success _))) ->
             updateNotifications (ShowNotice "Pedido de carona enviado com sucesso!") model
 
         MsgForProfile (ProfileResponse (Success _)) ->

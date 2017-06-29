@@ -10,7 +10,7 @@ import Login.View.PasswordReset exposing (passwordReset)
 import Model as Root exposing (Model, Msg(..))
 import Notifications.View.EnableNotifications exposing (enableNotifications)
 import Profile.View exposing (profile)
-import Rides.RideRequest.View exposing (rideRequest)
+import Rides.Ride.View exposing (ride)
 import Rides.View.Instructions exposing (instructions)
 import Rides.View.RidesList exposing (ridesList)
 import Testable
@@ -47,8 +47,8 @@ view model =
         EnableNotificationsPage ->
             layout model (Testable.Html.map MsgForNotifications <| enableNotifications model.notifications)
 
-        RideRequestPage rideId ->
-            layout model (Testable.Html.map MsgForRides <| rideRequest rideId model)
+        RidePage rideId ->
+            layout model (Testable.Html.map MsgForRides <| ride rideId model)
 
         ProfilePage ->
             layout model (Testable.Html.map MsgForProfile <| profile model.profile)

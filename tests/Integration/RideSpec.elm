@@ -1,12 +1,12 @@
-module Integration.RideRequestSpec exposing (tests)
+module Integration.RideSpec exposing (tests)
 
 import Common.Response exposing (Response(..))
 import Expect exposing (equal)
 import Helpers exposing (expectToContainText, fixtures, initialContext, signedInContext, someUser, toLocation)
 import Model as Root exposing (Model, Msg(..))
 import Rides.Model exposing (Msg(..))
-import Rides.RideRequest.Model exposing (Msg(..))
-import Rides.RideRequest.Ports exposing (RideRequest)
+import Rides.Ride.Model exposing (Msg(..))
+import Rides.Ride.Ports exposing (RideRequest)
 import Test exposing (..)
 import Testable.Html.Selectors exposing (..)
 import Testable.TestContext exposing (..)
@@ -17,26 +17,26 @@ tests : Test
 tests =
     describe "requests a ride" <|
         [ test "shows loading on submit" <|
-            submitRideRequest
-                >> find [ id "submitRideRequest" ]
+            submitRide
+                >> find [ id "submitRide" ]
                 >> assertText (Expect.equal "Carregando...")
 
         -- TODO: Comparing nested Cmds like this is not working right now
-        -- , test "sends request via rideRequest port" <|
-        --     submitRideRequest
-        --         >> assertCalled (Cmd.map (MsgForRides << MsgForRideRequest "ride-2") <| Rides.RideRequest.Ports.rideRequest rideRequestExample)
-        , test "shows error when rideRequest port returns an error" <|
-            submitRideRequest
-                >> update (MsgForRides <| MsgForRideRequest "ride-2" <| RideRequestResponse (Error "undefined is not a function"))
+        -- , test "sends request via ride port" <|
+        --     submitRide
+        --         >> assertCalled (Cmd.map (MsgForRides << MsgForRide "ride-2") <| Rides.Ride.Ports.ride rideRequestExample)
+        , test "shows error when ride port returns an error" <|
+            submitRide
+                >> update (MsgForRides <| MsgForRide "ride-2" <| RideRequestResponse (Error "undefined is not a function"))
                 >> find []
                 >> assertText (expectToContainText "not a function")
         , test "shows notification on success" <|
-            submitRideRequest
+            submitRide
                 >> successResponse
                 >> find []
                 >> assertText (expectToContainText "Pedido de carona enviado com sucesso!")
         , test "reveals ride contact" <|
-            submitRideRequest
+            submitRide
                 >> successResponse
                 >> find []
                 >> assertText (expectToContainText "wpp-for-ride-2")
@@ -45,7 +45,7 @@ tests =
 
 ridesContextContext : a -> TestContext Root.Msg Model
 ridesContextContext =
-    signedInContext (RideRequestPage "ride-2")
+    signedInContext (RidePage "ride-2")
         >> update (MsgForRides <| UpdateRides fixtures.rides)
 
 
@@ -54,8 +54,8 @@ rideRequestExample =
     { rideId = "ride-2", toUserId = "user-2" }
 
 
-submitRideRequest : a -> TestContext Root.Msg Model
-submitRideRequest =
+submitRide : a -> TestContext Root.Msg Model
+submitRide =
     ridesContextContext
         >> find [ tag "form" ]
         >> trigger "submit" "{}"
@@ -63,4 +63,4 @@ submitRideRequest =
 
 successResponse : TestContext Root.Msg Model -> TestContext Root.Msg Model
 successResponse =
-    update (MsgForRides <| MsgForRideRequest "ride-2" <| RideRequestResponse (Success True))
+    update (MsgForRides <| MsgForRide "ride-2" <| RideRequestResponse (Success True))

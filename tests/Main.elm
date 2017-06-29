@@ -6,7 +6,7 @@ import Integration.LayoutSpec
 import Integration.LoginSpec
 import Integration.NotificationsSpec
 import Integration.ProfileSpec
-import Integration.RideRequestSpec
+import Integration.RideSpec
 import Integration.RidesSpec
 import Integration.UrlRouterSpec
 import Json.Encode exposing (Value)
@@ -26,7 +26,7 @@ tests =
         , Integration.LayoutSpec.tests
         , Integration.GiveRideSpec.tests
         , Integration.NotificationsSpec.tests
-        , Integration.RideRequestSpec.tests
+        , Integration.RideSpec.tests
         , Integration.ProfileSpec.tests
         , Unit.Rides.PortsSpec.tests
         , Unit.Common.DecoderSpec.tests

@@ -3,7 +3,7 @@ module Rides.Update exposing (init, update)
 import Common.IdentifiedList exposing (findById, mapIfId)
 import Model as Root exposing (Msg(..))
 import Rides.Model exposing (..)
-import Rides.RideRequest.Update as RideRequest
+import Rides.Ride.Update as Ride
 import Testable.Cmd
 
 
@@ -28,13 +28,13 @@ updateRides msg model =
         UpdateRides rides ->
             ( rides, Testable.Cmd.none )
 
-        MsgForRideRequest rideId msg_ ->
+        MsgForRide rideId msg_ ->
             let
                 updateRideModel ride =
-                    { ride | rideRequest = Tuple.first <| RideRequest.update ride msg_ ride.rideRequest }
+                    Tuple.first <| Ride.update msg_ ride
 
                 updateRideCmd ride =
-                    Testable.Cmd.map (MsgForRideRequest ride.id) <| Tuple.second <| RideRequest.update ride msg_ ride.rideRequest
+                    Testable.Cmd.map (MsgForRide ride.id) <| Tuple.second <| Ride.update msg_ ride
 
                 rides =
                     mapIfId rideId updateRideModel identity model
