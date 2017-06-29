@@ -1,7 +1,6 @@
 module Notifications.View.Notice exposing (notice)
 
-import Model exposing (Model)
-import Model exposing (Msg)
+import Model exposing (Model, Msg)
 import Notifications.Styles exposing (Classes(..), className)
 import Testable.Html exposing (Html, div, text)
 

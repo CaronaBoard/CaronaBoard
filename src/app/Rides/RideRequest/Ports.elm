@@ -1,8 +1,7 @@
 port module Rides.RideRequest.Ports exposing (RideRequest, encodeRideRequest, rideRequest, subscriptions)
 
 import Common.Response exposing (FirebaseResponse, firebaseMap)
-import Rides.Model exposing (Ride)
-import Rides.Model exposing (Msg(..))
+import Rides.Model exposing (Msg(..), Ride)
 import Rides.RideRequest.Model exposing (Msg(..))
 
 

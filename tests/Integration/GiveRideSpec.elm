@@ -4,8 +4,7 @@ import Expect exposing (equal)
 import GiveRide.Model exposing (Msg(..))
 import GiveRide.Ports
 import Helpers exposing (expectToContainText, fixtures, initialContext, signedInContext, someUser, toLocation)
-import Model exposing (Model)
-import Model as Root exposing (Msg(..))
+import Model as Root exposing (Model, Msg(..))
 import Navigation
 import Notifications.Model exposing (Msg(..))
 import Test exposing (..)
