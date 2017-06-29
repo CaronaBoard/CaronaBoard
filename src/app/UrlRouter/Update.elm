@@ -31,10 +31,10 @@ update notifications profile login msg model =
         MsgForLogin (SignInResponse ( Nothing, Just _ )) ->
             urlRouterUpdate profile login (Go RidesPage) model
 
-        MsgForLogin SignOutResponse ->
+        MsgForLogin (SignOutResponse ( Nothing, Just _ )) ->
             urlRouterUpdate profile login (Go LoginPage) model
 
-        MsgForLogin (PasswordResetResponse Nothing) ->
+        MsgForLogin (PasswordResetResponse ( Nothing, Just _ )) ->
             urlRouterUpdate profile login (Go PasswordResetPage) model
 
         MsgForGiveRide (GiveRideResponse ( Nothing, Just _ )) ->

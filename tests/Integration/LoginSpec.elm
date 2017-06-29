@@ -30,7 +30,7 @@ tests =
                     >> assertCalled (Cmd.map MsgForLogin <| checkRegistration "foo@bar.com")
             , test "goes to registration if not registered yet" <|
                 submitEmail
-                    >> update (MsgForLogin <| CheckRegistrationResponse False)
+                    >> update (MsgForLogin <| CheckRegistrationResponse ( Nothing, Just False ))
                     >> find []
                     >> assertText (expectToContainText "Cadastro")
             ]
@@ -67,7 +67,7 @@ tests =
             [ test "removes the logged in user" <|
                 loginContext
                     >> successSignIn
-                    >> update (MsgForLogin SignOutResponse)
+                    >> update (MsgForLogin (SignOutResponse ( Nothing, Just True )))
                     >> currentModel
                     >> (\result ->
                             case result of
@@ -88,7 +88,7 @@ tests =
                     >> assertCalled (Cmd.map MsgForLogin <| passwordReset "foo@bar.com")
             , test "shows error when reseting password and renable button" <|
                 submitEmailThenForgotPassword
-                    >> update (MsgForLogin <| PasswordResetResponse (Just "Could not send email"))
+                    >> update (MsgForLogin <| PasswordResetResponse ( Just "Could not send email", Nothing ))
                     >> Expect.all
                         [ find []
                             >> assertText (expectToContainText "Could not send email")
@@ -139,7 +139,7 @@ submitEmail =
 submitEmailThenPassword : a -> TestContext Root.Msg Model
 submitEmailThenPassword =
     submitEmail
-        >> update (MsgForLogin <| CheckRegistrationResponse True)
+        >> update (MsgForLogin <| CheckRegistrationResponse ( Nothing, Just True ))
         >> find [ tag "input", attribute "type" "password" ]
         >> trigger "input" "{\"target\": {\"value\": \"baz\"}}"
         >> find [ tag "form" ]
@@ -149,7 +149,7 @@ submitEmailThenPassword =
 submitEmailThenForgotPassword : a -> TestContext Root.Msg Model
 submitEmailThenForgotPassword =
     submitEmail
-        >> update (MsgForLogin <| CheckRegistrationResponse True)
+        >> update (MsgForLogin <| CheckRegistrationResponse ( Nothing, Just True ))
         >> find [ class ResetPasswordButton ]
         >> trigger "click" "{}"
 
@@ -157,7 +157,7 @@ submitEmailThenForgotPassword =
 submitEmailThenRegistration : a -> TestContext Root.Msg Model
 submitEmailThenRegistration =
     submitEmail
-        >> update (MsgForLogin <| CheckRegistrationResponse False)
+        >> update (MsgForLogin <| CheckRegistrationResponse ( Nothing, Just False ))
         >> find [ id "password" ]
         >> trigger "input" "{\"target\": {\"value\": \"baz\"}}"
         >> find [ tag "form" ]

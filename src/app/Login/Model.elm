@@ -9,7 +9,7 @@ type alias Model =
     , password : String
     , registered : Response Bool
     , loggedIn : Response User
-    , passwordReset : Response ()
+    , passwordReset : Response Bool
     , signUp : Response Bool
     }
 
@@ -28,12 +28,12 @@ type Msg
     = UpdateEmail String
     | UpdatePassword String
     | Submit
-    | CheckRegistrationResponse Bool
+    | CheckRegistrationResponse (FirebaseResponse Bool)
     | SignInResponse (FirebaseResponse { user : User, profile : Maybe Profile })
     | SignOut
-    | SignOutResponse
+    | SignOutResponse (FirebaseResponse Bool)
     | PasswordReset
-    | PasswordResetResponse (Maybe Error)
+    | PasswordResetResponse (FirebaseResponse Bool)
     | SignUpResponse (FirebaseResponse Bool)
 
 
