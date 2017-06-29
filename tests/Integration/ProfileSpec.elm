@@ -2,8 +2,7 @@ module Integration.ProfileSpec exposing (tests)
 
 import Expect exposing (equal)
 import Helpers exposing (expectToContainText, fixtures, initialContext, someUser, successSignIn, toLocation)
-import Model exposing (Model)
-import Model as Root exposing (Msg(..))
+import Model as Root exposing (Model, Msg(..))
 import Navigation
 import Profile.Model exposing (Msg(..))
 import Profile.Ports

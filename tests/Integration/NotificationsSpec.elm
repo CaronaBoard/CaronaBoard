@@ -2,8 +2,7 @@ module Integration.NotificationsSpec exposing (tests)
 
 import Expect exposing (equal)
 import Helpers exposing (expectToContainText, expectToNotContainText, initialContext, signedInContext, someUser, toLocation)
-import Model exposing (Model)
-import Model as Root exposing (Msg(..))
+import Model as Root exposing (Model, Msg(..))
 import Notifications.Model exposing (..)
 import Notifications.Ports
 import Test exposing (..)
@@ -49,7 +48,7 @@ tests =
         ]
 
 
-enableNotifications : a -> TestContext Root.Msg Model.Model
+enableNotifications : a -> TestContext Root.Msg Root.Model
 enableNotifications =
     signedInContext EnableNotificationsPage
         >> find [ tag "form" ]

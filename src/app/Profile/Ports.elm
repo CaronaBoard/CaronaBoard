@@ -1,8 +1,7 @@
 port module Profile.Ports exposing (saveProfile, subscriptions)
 
 import Common.Response exposing (FirebaseResponse, firebaseMap)
-import Profile.Model exposing (Profile)
-import Profile.Model exposing (Msg(..))
+import Profile.Model exposing (Msg(..), Profile)
 
 
 subscriptions : Sub Msg
