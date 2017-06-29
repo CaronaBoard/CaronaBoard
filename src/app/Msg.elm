@@ -5,7 +5,7 @@ import Layout.Model as Layout
 import Login.Model as Login
 import Notifications.Model as Notifications
 import Profile.Model as Profile
-import Rides.Msg as Rides
+import Rides.Model as Rides
 import UrlRouter.Model as UrlRouter
 
 

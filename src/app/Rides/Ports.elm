@@ -5,7 +5,7 @@ import Json.Decode as Json exposing (..)
 import Json.Decode.Pipeline exposing (..)
 import Profile.Model exposing (Contact, Profile)
 import Rides.Model exposing (Model, Ride)
-import Rides.Msg exposing (Msg(..))
+import Rides.Model exposing (Msg(..))
 import Rides.RideRequest.Model as RideRequest
 import Rides.RideRequest.Ports
 

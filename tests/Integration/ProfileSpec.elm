@@ -7,7 +7,7 @@ import Msg as Root exposing (Msg(..))
 import Navigation
 import Profile.Model exposing (Msg(..))
 import Profile.Ports
-import Rides.Msg exposing (Msg(..))
+import Rides.Model exposing (Msg(..))
 import Test exposing (..)
 import Testable.Html.Selectors exposing (..)
 import Testable.TestContext exposing (..)

@@ -7,10 +7,8 @@ import Common.Response exposing (Response(..))
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Model as RootModel
 import Profile.Model exposing (contactDeepLink)
-import Rides.Model exposing (Ride)
-import Rides.Msg exposing (..)
-import Rides.RideRequest.Model exposing (Model)
-import Rides.RideRequest.Msg exposing (Msg(..))
+import Rides.Model exposing (Msg(..), Ride)
+import Rides.RideRequest.Model exposing (Model, Msg(..))
 import Rides.RideRequest.Styles exposing (Classes(..), className)
 import Rides.Styles exposing (Classes(Card))
 import Rides.View.RidesList exposing (rideInfo, rideRoute)
@@ -24,7 +22,7 @@ ridesClass =
     Rides.Styles.className
 
 
-rideRequest : String -> RootModel.Model -> Html Rides.Msg.Msg
+rideRequest : String -> RootModel.Model -> Html Rides.Model.Msg
 rideRequest rideId model =
     div [ materializeClass "container" ]
         [ h1 [ layoutClass PageTitle ] [ text "Pedir Carona" ]
@@ -37,7 +35,7 @@ rideRequest rideId model =
         ]
 
 
-rideRequestDetails : Ride -> Html Rides.RideRequest.Msg.Msg
+rideRequestDetails : Ride -> Html Rides.RideRequest.Model.Msg
 rideRequestDetails ride =
     case ride.rideRequest.response of
         Success _ ->
@@ -55,13 +53,13 @@ rideRequestDetails ride =
                 ]
 
         _ ->
-            form [ materializeClass "card", ridesClass Card, onSubmit (Submit ride) ]
+            form [ materializeClass "card", ridesClass Card, onSubmit Submit ]
                 [ div [ materializeClass "card-content" ]
                     (formFields ride ride.rideRequest)
                 ]
 
 
-formFields : Ride -> Model -> List (Html Rides.RideRequest.Msg.Msg)
+formFields : Ride -> Model -> List (Html Rides.RideRequest.Model.Msg)
 formFields ride model =
     [ renderErrors model.response
     , p [] [ text "Confirme os detalhes da carona antes de confirmar" ]
