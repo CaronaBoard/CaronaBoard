@@ -1,13 +1,13 @@
 port module Profile.Ports exposing (saveProfile, subscriptions)
 
-import Common.Response exposing (FirebaseResponse, firebaseMap)
+import Common.Response exposing (FirebaseResponse, fromFirebase)
 import Profile.Model exposing (Msg(..), Profile)
 
 
 subscriptions : Sub Msg
 subscriptions =
     Sub.batch
-        [ profileResponse ProfileResponse
+        [ profileResponse (fromFirebase >> ProfileResponse)
         ]
 
 

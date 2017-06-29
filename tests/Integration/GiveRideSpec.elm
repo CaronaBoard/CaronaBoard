@@ -1,5 +1,6 @@
 module Integration.GiveRideSpec exposing (tests)
 
+import Common.Response exposing (Response(..))
 import Expect exposing (equal)
 import GiveRide.Model exposing (Msg(..))
 import GiveRide.Ports
@@ -29,7 +30,7 @@ tests =
                 >> assertCalled (Cmd.map MsgForGiveRide <| GiveRide.Ports.giveRide fixtures.newRide)
         , test "shows error when giveRide port returns an error" <|
             submitNewRide
-                >> update (MsgForGiveRide <| GiveRideResponse ( Just "Scientists just proved that undefined is indeed not a function", Nothing ))
+                >> update (MsgForGiveRide <| GiveRideResponse (Error "Scientists just proved that undefined is indeed not a function"))
                 >> find []
                 >> assertText (expectToContainText "not a function")
         , test "goes to enable notifications page on success" <|
@@ -38,7 +39,7 @@ tests =
                 >> assertCalled (Cmd.map MsgForUrlRouter <| Navigation.newUrl <| toPath EnableNotificationsPage)
         , test "goes to the rides page on success if notifications are already enabled" <|
             submitNewRide
-                >> update (MsgForNotifications <| NotificationsResponse ( Nothing, Just True ))
+                >> update (MsgForNotifications <| NotificationsResponse (Success True))
                 >> successResponse
                 >> assertCalled (Cmd.map MsgForUrlRouter <| Navigation.newUrl <| toPath RidesPage)
         , test "shows notification on success" <|
@@ -81,4 +82,4 @@ submitNewRide =
 
 successResponse : TestContext Root.Msg Model -> TestContext Root.Msg Model
 successResponse =
-    update (MsgForGiveRide <| GiveRideResponse ( Nothing, Just True ))
+    update (MsgForGiveRide <| GiveRideResponse (Success True))

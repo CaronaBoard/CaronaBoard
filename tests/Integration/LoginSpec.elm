@@ -1,5 +1,6 @@
 module Integration.LoginSpec exposing (tests)
 
+import Common.Response exposing (Response(..))
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (expectToContainText, fixtures, successSignIn)
@@ -30,7 +31,7 @@ tests =
                     >> assertCalled (Cmd.map MsgForLogin <| checkRegistration "foo@bar.com")
             , test "goes to registration if not registered yet" <|
                 submitEmail
-                    >> update (MsgForLogin <| CheckRegistrationResponse ( Nothing, Just False ))
+                    >> update (MsgForLogin <| CheckRegistrationResponse (Success False))
                     >> find []
                     >> assertText (expectToContainText "Cadastro")
             ]
@@ -44,7 +45,7 @@ tests =
                     >> assertCalled (Cmd.map MsgForLogin <| signIn { email = "foo@bar.com", password = "baz" })
             , test "shows error when signing in and renable button" <|
                 submitEmailThenPassword
-                    >> update (MsgForLogin <| SignInResponse ( Just "Invalid password", Nothing ))
+                    >> update (MsgForLogin <| SignInResponse (Error "Invalid password"))
                     >> Expect.all
                         [ assertText (expectToContainText "Invalid password")
                         , find [ tag "button" ]
@@ -67,7 +68,7 @@ tests =
             [ test "removes the logged in user" <|
                 loginContext
                     >> successSignIn
-                    >> update (MsgForLogin (SignOutResponse ( Nothing, Just True )))
+                    >> update (MsgForLogin (SignOutResponse (Success True)))
                     >> currentModel
                     >> (\result ->
                             case result of
@@ -88,7 +89,7 @@ tests =
                     >> assertCalled (Cmd.map MsgForLogin <| passwordReset "foo@bar.com")
             , test "shows error when reseting password and renable button" <|
                 submitEmailThenForgotPassword
-                    >> update (MsgForLogin <| PasswordResetResponse ( Just "Could not send email", Nothing ))
+                    >> update (MsgForLogin <| PasswordResetResponse (Error "Could not send email"))
                     >> Expect.all
                         [ find []
                             >> assertText (expectToContainText "Could not send email")
@@ -106,7 +107,7 @@ tests =
                     >> assertCalled (Cmd.map MsgForLogin <| signUp { email = "foo@bar.com", password = "baz" })
             , test "shows error when signUp port returns an error" <|
                 submitEmailThenRegistration
-                    >> update (MsgForLogin <| SignUpResponse ( Just "undefined is not a function", Nothing ))
+                    >> update (MsgForLogin <| SignUpResponse (Error "undefined is not a function"))
                     >> find []
                     >> assertText (expectToContainText "not a function")
             ]
@@ -139,7 +140,7 @@ submitEmail =
 submitEmailThenPassword : a -> TestContext Root.Msg Model
 submitEmailThenPassword =
     submitEmail
-        >> update (MsgForLogin <| CheckRegistrationResponse ( Nothing, Just True ))
+        >> update (MsgForLogin <| CheckRegistrationResponse (Success True))
         >> find [ tag "input", attribute "type" "password" ]
         >> trigger "input" "{\"target\": {\"value\": \"baz\"}}"
         >> find [ tag "form" ]
@@ -149,7 +150,7 @@ submitEmailThenPassword =
 submitEmailThenForgotPassword : a -> TestContext Root.Msg Model
 submitEmailThenForgotPassword =
     submitEmail
-        >> update (MsgForLogin <| CheckRegistrationResponse ( Nothing, Just True ))
+        >> update (MsgForLogin <| CheckRegistrationResponse (Success True))
         >> find [ class ResetPasswordButton ]
         >> trigger "click" "{}"
 
@@ -157,7 +158,7 @@ submitEmailThenForgotPassword =
 submitEmailThenRegistration : a -> TestContext Root.Msg Model
 submitEmailThenRegistration =
     submitEmail
-        >> update (MsgForLogin <| CheckRegistrationResponse ( Nothing, Just False ))
+        >> update (MsgForLogin <| CheckRegistrationResponse (Success False))
         >> find [ id "password" ]
         >> trigger "input" "{\"target\": {\"value\": \"baz\"}}"
         >> find [ tag "form" ]

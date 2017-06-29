@@ -1,6 +1,6 @@
 module Notifications.Update exposing (init, update)
 
-import Common.Response exposing (Response(..), fromFirebase)
+import Common.Response exposing (Response(..))
 import GiveRide.Model exposing (Msg(..))
 import Model as Root exposing (Msg(..))
 import Notifications.Model exposing (Model, Msg(..))
@@ -27,13 +27,13 @@ update msg model =
         MsgForNotifications msg_ ->
             updateNotifications msg_ model
 
-        MsgForGiveRide (GiveRideResponse ( Nothing, Just _ )) ->
+        MsgForGiveRide (GiveRideResponse (Success _)) ->
             updateNotifications (ShowNotice "Carona criada com sucesso!") model
 
-        MsgForRides (MsgForRideRequest _ (RideRequestResponse ( Nothing, Just _ ))) ->
+        MsgForRides (MsgForRideRequest _ (RideRequestResponse (Success _))) ->
             updateNotifications (ShowNotice "Pedido de carona enviado com sucesso!") model
 
-        MsgForProfile (ProfileResponse ( Nothing, Just _ )) ->
+        MsgForProfile (ProfileResponse (Success _)) ->
             updateNotifications (ShowNotice "Perfil atualizado com sucesso") model
 
         _ ->
@@ -47,7 +47,7 @@ updateNotifications msg model =
             ( { model | response = Loading }, Testable.Cmd.wrap <| enableNotifications () )
 
         NotificationsResponse response ->
-            ( { model | response = fromFirebase response }, Testable.Cmd.none )
+            ( { model | response = response }, Testable.Cmd.none )
 
         ShowNotice notice ->
             ( { model | notice = Just notice }

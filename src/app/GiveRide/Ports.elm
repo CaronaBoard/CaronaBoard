@@ -1,13 +1,13 @@
 port module GiveRide.Ports exposing (giveRide, subscriptions)
 
-import Common.Response exposing (FirebaseResponse, firebaseMap)
+import Common.Response exposing (FirebaseResponse, fromFirebase)
 import GiveRide.Model exposing (Msg(..), NewRide)
 
 
 subscriptions : Sub Msg
 subscriptions =
     Sub.batch
-        [ giveRideResponse GiveRideResponse
+        [ giveRideResponse (fromFirebase >> GiveRideResponse)
         ]
 
 

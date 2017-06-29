@@ -1,5 +1,6 @@
 module UrlRouter.Update exposing (changePageTo, init, update, urlRouterUpdate)
 
+import Common.Response exposing (Response(..))
 import GiveRide.Model exposing (Msg(..))
 import Login.Model as Login exposing (Msg(..))
 import Model as Root exposing (Msg(..))
@@ -28,22 +29,22 @@ update notifications profile login msg model =
         MsgForUrlRouter urlMsg ->
             urlRouterUpdate profile login urlMsg model
 
-        MsgForLogin (SignInResponse ( Nothing, Just _ )) ->
+        MsgForLogin (SignInResponse (Success _)) ->
             urlRouterUpdate profile login (Go RidesPage) model
 
-        MsgForLogin (SignOutResponse ( Nothing, Just _ )) ->
+        MsgForLogin (SignOutResponse (Success _)) ->
             urlRouterUpdate profile login (Go LoginPage) model
 
-        MsgForLogin (PasswordResetResponse ( Nothing, Just _ )) ->
+        MsgForLogin (PasswordResetResponse (Success _)) ->
             urlRouterUpdate profile login (Go PasswordResetPage) model
 
-        MsgForGiveRide (GiveRideResponse ( Nothing, Just _ )) ->
+        MsgForGiveRide (GiveRideResponse (Success _)) ->
             if isEnabled notifications then
                 urlRouterUpdate profile login (Go RidesPage) model
             else
                 urlRouterUpdate profile login (Go EnableNotificationsPage) model
 
-        MsgForProfile (ProfileResponse ( Nothing, Just _ )) ->
+        MsgForProfile (ProfileResponse (Success _)) ->
             urlRouterUpdate profile login (Go RidesPage) model
 
         _ ->

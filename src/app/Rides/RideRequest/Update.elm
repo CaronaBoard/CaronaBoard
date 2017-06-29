@@ -1,6 +1,6 @@
 module Rides.RideRequest.Update exposing (init, update)
 
-import Common.Response exposing (Response(..), fromFirebase)
+import Common.Response exposing (Response(..))
 import Rides.Model
 import Rides.RideRequest.Model exposing (Model, Msg(..))
 import Rides.RideRequest.Ports exposing (encodeRideRequest, rideRequest)
@@ -22,4 +22,4 @@ update ride msg model =
             )
 
         RideRequestResponse response ->
-            ( { model | response = fromFirebase response }, Testable.Cmd.none )
+            ( { model | response = response }, Testable.Cmd.none )

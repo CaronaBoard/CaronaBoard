@@ -1,5 +1,6 @@
 module Integration.NotificationsSpec exposing (tests)
 
+import Common.Response exposing (Response(..))
 import Expect exposing (equal)
 import Helpers exposing (expectToContainText, expectToNotContainText, initialContext, signedInContext, someUser, toLocation)
 import Model as Root exposing (Model, Msg(..))
@@ -24,12 +25,12 @@ tests =
                 >> assertCalled (Cmd.map MsgForNotifications <| Notifications.Ports.enableNotifications ())
         , test "shows error when user does not allow notifications" <|
             enableNotifications
-                >> update (MsgForNotifications <| NotificationsResponse ( Just "I don't like notifications", Nothing ))
+                >> update (MsgForNotifications <| NotificationsResponse (Error "I don't like notifications"))
                 >> find []
                 >> assertText (expectToContainText "As notificações não foram ativadas")
         , test "shows success message when notifications are enabled" <|
             enableNotifications
-                >> update (MsgForNotifications <| NotificationsResponse ( Nothing, Just True ))
+                >> update (MsgForNotifications <| NotificationsResponse (Success True))
                 >> find []
                 >> assertText (expectToContainText "Notificações ativadas")
         , describe "notices"

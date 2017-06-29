@@ -1,6 +1,6 @@
 module Login.Update exposing (init, update)
 
-import Common.Response exposing (Response(..), firebaseMap, fromFirebase)
+import Common.Response exposing (Response(..))
 import Login.Model exposing (Model, Msg(..), Step(..), User, step)
 import Login.Ports exposing (checkRegistration, passwordReset, signIn, signOut, signUp)
 import Model as Root exposing (Msg(MsgForLogin, MsgForUrlRouter))
@@ -52,16 +52,16 @@ loginUpdate msg model =
                     ( { model | signUp = Loading }, Testable.Cmd.wrap <| signUp { email = model.email, password = model.password } )
 
         CheckRegistrationResponse response ->
-            ( { model | registered = fromFirebase response }, Testable.Cmd.none )
+            ( { model | registered = response }, Testable.Cmd.none )
 
         SignInResponse response ->
-            ( { model | loggedIn = fromFirebase (firebaseMap (\res -> res.user) response) }, Testable.Cmd.none )
+            ( { model | loggedIn = Common.Response.map (\res -> res.user) response }, Testable.Cmd.none )
 
         SignOut ->
             ( model, Testable.Cmd.wrap <| signOut () )
 
         SignOutResponse response ->
-            case fromFirebase response of
+            case response of
                 Success _ ->
                     ( init Nothing, Testable.Cmd.none )
 
@@ -72,7 +72,7 @@ loginUpdate msg model =
             ( { model | passwordReset = Loading }, Testable.Cmd.wrap <| passwordReset model.email )
 
         PasswordResetResponse response ->
-            ( { model | passwordReset = fromFirebase response }, Testable.Cmd.none )
+            ( { model | passwordReset = response }, Testable.Cmd.none )
 
         SignUpResponse response ->
-            ( { model | signUp = fromFirebase response }, Testable.Cmd.none )
+            ( { model | signUp = response }, Testable.Cmd.none )
