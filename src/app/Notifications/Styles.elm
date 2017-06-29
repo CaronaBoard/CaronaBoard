@@ -1,13 +1,20 @@
-module Notifications.Styles exposing (Classes(..), class, namespace, styles)
+module Notifications.Styles exposing (Classes(..), className, namespace, styles)
 
 import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
 import Css exposing (..)
 import Css.Namespace
+import Testable.Html exposing (Attribute)
 
 
-{ class, namespace } =
-    withNamespace "notifications"
+namespace : String
+namespace =
+    "notifications"
+
+
+className : Classes -> Attribute msg
+className =
+    namespacedClass namespace
 
 
 type Classes
@@ -18,11 +25,11 @@ type Classes
 styles : Stylesheet
 styles =
     (stylesheet << Css.Namespace.namespace namespace)
-        [ cssClass NoticeVisible <|
+        [ class NoticeVisible <|
             notice
                 ++ [ bottom (px 0)
                    ]
-        , cssClass NoticeHidden <|
+        , class NoticeHidden <|
             notice
                 ++ [ bottom (px -50)
                    ]

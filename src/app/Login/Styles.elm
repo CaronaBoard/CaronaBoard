@@ -1,14 +1,21 @@
-module Login.Styles exposing (Classes(..), class, namespace, styles)
+module Login.Styles exposing (Classes(..), className, namespace, styles)
 
 import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
 import Css exposing (..)
 import Css.Elements exposing (h1, input, label)
 import Css.Namespace
+import Testable.Html exposing (Attribute)
 
 
-{ class, namespace } =
-    withNamespace "login"
+namespace : String
+namespace =
+    "login"
+
+
+className : Classes -> Attribute msg
+className =
+    namespacedClass namespace
 
 
 type Classes
@@ -27,13 +34,13 @@ type Classes
 styles : Stylesheet
 styles =
     (stylesheet << Css.Namespace.namespace namespace)
-        [ cssClass Page
+        [ class Page
             [ height (pct 100)
             , width (pct 100)
             , position absolute
             , margin2 (pct 0) auto
             ]
-        , cssClass Background
+        , class Background
             [ backgroundImage (url "static/images/streets.svg")
             , backgroundColor primaryBlue
             , backgroundSize cover
@@ -42,7 +49,7 @@ styles =
             , height (pct 100)
             , width (pct 100)
             ]
-        , cssClass Container
+        , class Container
             [ displayFlex
             , justifyContent spaceBetween
             , flexDirection column
@@ -50,22 +57,22 @@ styles =
             , property "background" "linear-gradient(rgb(52, 103, 255) 0%, rgba(52, 103, 255, .96) 50%, rgba(52, 103, 255, .9) 100%)"
             , overflow hidden
             ]
-        , cssClass Icon
+        , class Icon
             [ display none
             ]
-        , cssClass StepTitle step
-        , cssClass StepForm <|
+        , class StepTitle step
+        , class StepForm <|
             step
                 ++ [ flexGrow (int 2)
                    , displayFlex
                    , flexDirection column
                    , justifyContent spaceBetween
                    ]
-        , cssClass PasswordStep
+        , class PasswordStep
             [ property "animation" "slide-in 0.5s forwards"
             ]
         , slideInAnimation
-        , cssClass FilledEmail
+        , class FilledEmail
             [ textAlign left
             ]
         , desktopStyles
@@ -85,7 +92,7 @@ step =
         , label
             [ important <| lightTextColor
             ]
-        , cssClass SubmitButton <|
+        , class SubmitButton <|
             button
                 ++ [ color primaryBlue
                    , backgroundColor white
@@ -93,7 +100,7 @@ step =
                         [ backgroundColor grey
                         ]
                    ]
-        , cssClass ResetPasswordButton button
+        , class ResetPasswordButton button
         ]
     ]
 
@@ -130,16 +137,16 @@ slideInAnimation =
 desktopStyles : Snippet
 desktopStyles =
     mediaQuery "(min-width: 1200px)"
-        [ cssClass Page centralizeContents
-        , cssClass Background
+        [ class Page centralizeContents
+        , class Background
             [ maxHeight (px 680)
             , maxWidth (px 945)
             , boxShadow4 (em 0) (em 0.3) (em 1.2) (rgba 0 0 0 0.5)
             ]
-        , cssClass Container
+        , class Container
             [ flexWrap wrap
             ]
-        , cssClass Icon
+        , class Icon
             [ display block
             , descendants
                 [ selector ".material-icons"
@@ -147,11 +154,11 @@ desktopStyles =
                     ]
                 ]
             ]
-        , cssClass StepTitle <|
+        , class StepTitle <|
             stepDesktop
                 ++ centralizeContents
                 ++ [ flexDirection column ]
-        , cssClass StepForm <|
+        , class StepForm <|
             stepDesktop
                 ++ [ backgroundColor (rgb 255 255 255)
                    , darkTextColor
@@ -171,7 +178,7 @@ stepDesktop =
         , label
             [ important darkTextColor
             ]
-        , cssClass SubmitButton <|
+        , class SubmitButton <|
             buttonDesktop
                 ++ [ backgroundColor primaryBlue
                    , lightTextColor
@@ -179,7 +186,7 @@ stepDesktop =
                         [ backgroundColor lighterBlue
                         ]
                    ]
-        , cssClass ResetPasswordButton buttonDesktop
+        , class ResetPasswordButton buttonDesktop
         ]
     ]
 

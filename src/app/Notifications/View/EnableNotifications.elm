@@ -4,7 +4,7 @@ import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors)
 import Common.Icon exposing (icon)
 import Common.Response exposing (Response(..))
-import Layout.Styles exposing (Classes(..), class)
+import Layout.Styles exposing (Classes(..), className)
 import Notifications.Model exposing (Model)
 import Notifications.Msg exposing (Msg(..))
 import Testable.Html exposing (..)
@@ -15,7 +15,7 @@ import Testable.Html.Events exposing (onSubmit)
 enableNotifications : Model -> Html Msg
 enableNotifications model =
     div [ materializeClass "container" ]
-        [ h1 [ class PageTitle ] [ text "Ativar Notificações" ]
+        [ h1 [ className PageTitle ] [ text "Ativar Notificações" ]
         , form [ materializeClass "card", onSubmit EnableNotifications ]
             [ div [ materializeClass "card-content" ]
                 [ case model.response of
@@ -30,11 +30,11 @@ enableNotifications model =
                 , br [] []
                 , case model.response of
                     Success _ ->
-                        button [ disabled True, class SubmitButton, materializeClass "waves-effect waves-light btn-large" ]
-                            [ div [ class ButtonContainer ] [ icon "done", text "Notificações ativadas" ] ]
+                        button [ disabled True, className SubmitButton, materializeClass "waves-effect waves-light btn-large" ]
+                            [ div [ className ButtonContainer ] [ icon "done", text "Notificações ativadas" ] ]
 
                     _ ->
-                        loadingOrSubmitButton model.response [ id "enableNotifications", class SubmitButton ] [ text "Ativar Notificações" ]
+                        loadingOrSubmitButton model.response [ id "enableNotifications", className SubmitButton ] [ text "Ativar Notificações" ]
                 ]
             ]
         ]

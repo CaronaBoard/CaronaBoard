@@ -5,15 +5,15 @@ import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
 import Layout.Styles exposing (Classes(..))
 import Profile.Model exposing (Model, contactIdentifier)
 import Profile.Msg exposing (Msg(..))
-import Profile.Styles exposing (Classes(..), class)
+import Profile.Styles exposing (Classes(..), className)
 import Testable.Html exposing (..)
 import Testable.Html.Attributes exposing (for, href, id, placeholder, selected, target, value)
 import Testable.Html.Events exposing (onInput, onSubmit)
 
 
-layoutClass : class -> Attribute msg
+layoutClass : Layout.Styles.Classes -> Attribute msg
 layoutClass =
-    Layout.Styles.class
+    Layout.Styles.className
 
 
 profile : Model -> Html Msg
@@ -38,17 +38,17 @@ formFields model =
     , p [] [ text "Você precisa preencher seus dados de contato para poder dar ou pedir carona. Essa é a forma que os outros entrarão em contato com você." ]
     , br [] []
     , textInput model.fields.name UpdateName "name" "Seu nome"
-    , div [ class ContactField ]
-        [ div [ materializeClass "input-field", class ContactKind ]
+    , div [ className ContactField ]
+        [ div [ materializeClass "input-field", className ContactKind ]
             [ div [ materializeClass "select-wrapper" ]
                 [ span [ materializeClass "caret" ] [ text "▼" ]
-                , select [ class Select, onInput UpdateContactKind, id "contactKind" ]
+                , select [ className Select, onInput UpdateContactKind, id "contactKind" ]
                     [ contactKindOption model "Whatsapp"
                     , contactKindOption model "Telegram"
                     ]
                 ]
             ]
-        , div [ class ContactValue ]
+        , div [ className ContactValue ]
             [ textInput model.fields.contact.value UpdateContactValue "contactValue" (contactIdentifier model.fields.contact.kind) ]
         ]
     , loadingOrSubmitButton model.response [ id "submitProfile", layoutClass SubmitButton ] [ text "Salvar" ]

@@ -6,7 +6,7 @@ import Common.Icon exposing (icon)
 import Json.Decode as Json
 import Login.Model exposing (Model)
 import Login.Msg exposing (Msg(PasswordReset, UpdatePassword))
-import Login.Styles exposing (Classes(FilledEmail, PasswordStep, ResetPasswordButton, SubmitButton), class)
+import Login.Styles exposing (Classes(FilledEmail, PasswordStep, ResetPasswordButton, SubmitButton), className)
 import Testable.Html exposing (Html, div, i, input, label, text)
 import Testable.Html.Attributes exposing (autofocus, for, id, placeholder, type_, value)
 import Testable.Html.Events exposing (onInput, onSubmit, onWithOptions)
@@ -14,10 +14,10 @@ import Testable.Html.Events exposing (onInput, onSubmit, onWithOptions)
 
 passwordStep : Model -> Html Msg
 passwordStep model =
-    div [ class PasswordStep ]
+    div [ className PasswordStep ]
         [ renderErrors model.loggedIn
         , renderErrors model.passwordReset
-        , div [ class FilledEmail ] [ text model.email ]
+        , div [ className FilledEmail ] [ text model.email ]
         , div [ materializeClass "input-field" ]
             [ input
                 [ type_ "password"
@@ -30,9 +30,9 @@ passwordStep model =
                 []
             , label [ for "password" ] [ text "Senha" ]
             ]
-        , loadingOrSubmitButton model.loggedIn [ class SubmitButton ] [ text "Entrar", icon "done" ]
+        , loadingOrSubmitButton model.loggedIn [ className SubmitButton ] [ text "Entrar", icon "done" ]
         , loadingOrSubmitButton model.passwordReset
-            [ class ResetPasswordButton
+            [ className ResetPasswordButton
             , materializeClass "btn-flat"
             , onWithOptions "click" { stopPropagation = True, preventDefault = True } (Json.succeed PasswordReset)
             ]

@@ -11,7 +11,7 @@ import Rides.Model exposing (Ride)
 import Rides.Msg exposing (..)
 import Rides.RideRequest.Model exposing (Model)
 import Rides.RideRequest.Msg exposing (Msg(..))
-import Rides.RideRequest.Styles exposing (Classes(..), class)
+import Rides.RideRequest.Styles exposing (Classes(..), className)
 import Rides.Styles exposing (Classes(Card))
 import Rides.View.RidesList exposing (rideInfo, rideRoute)
 import Testable.Html exposing (..)
@@ -19,14 +19,14 @@ import Testable.Html.Attributes exposing (for, href, id, placeholder, selected, 
 import Testable.Html.Events exposing (onInput, onSubmit)
 
 
-layoutClass : class -> Attribute msg
+layoutClass : Layout.Styles.Classes -> Attribute msg
 layoutClass =
-    Layout.Styles.class
+    Layout.Styles.className
 
 
-ridesClass : class -> Attribute msg
+ridesClass : Rides.Styles.Classes -> Attribute msg
 ridesClass =
-    Rides.Styles.class
+    Rides.Styles.className
 
 
 rideRequest : String -> RootModel.Model -> Html Rides.Msg.Msg
@@ -52,7 +52,7 @@ rideRequestDetails ride =
                     , br [] []
                     , p [] [ text "Para combinar melhor com o motorista, use o contato abaixo:" ]
                     , br [] []
-                    , p [ class Contact ]
+                    , p [ className Contact ]
                         [ text <| ride.profile.contact.kind ++ " "
                         , a [ href <| contactDeepLink ride.profile.contact, target "_blank" ] [ text ride.profile.contact.value ]
                         ]
