@@ -1,11 +1,24 @@
-module Login.Update exposing (update)
+module Login.Update exposing (init, update)
 
 import Common.Response exposing (Response(..), firebaseMap, fromFirebase)
-import Login.Model exposing (Model, Step(..), User, init, step)
-import Login.Model exposing (Msg(..))
+import Login.Model exposing (Model, Msg(..), Step(..), User, step)
 import Login.Ports exposing (checkRegistration, passwordReset, signIn, signOut, signUp)
-import Msg as Root exposing (Msg(MsgForLogin, MsgForUrlRouter))
+import Model as Root exposing (Msg(MsgForLogin, MsgForUrlRouter))
 import Testable.Cmd
+
+
+init : Maybe User -> Model
+init user =
+    { email = ""
+    , password = ""
+    , registered = Empty
+    , loggedIn =
+        user
+            |> Maybe.map Success
+            |> Maybe.withDefault Empty
+    , passwordReset = Empty
+    , signUp = Empty
+    }
 
 
 update : Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd Login.Model.Msg )

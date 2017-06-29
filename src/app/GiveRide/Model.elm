@@ -1,4 +1,4 @@
-module GiveRide.Model exposing (Model, Msg(..), NewRide, init)
+module GiveRide.Model exposing (Model, Msg(..), NewRide)
 
 import Common.Response exposing (FirebaseResponse, Response(..))
 
@@ -24,15 +24,3 @@ type Msg
     | UpdateHours String
     | Submit
     | GiveRideResponse (FirebaseResponse Bool)
-
-
-init : Model
-init =
-    { fields =
-        { origin = ""
-        , destination = ""
-        , days = ""
-        , hours = ""
-        }
-    , response = Empty
-    }

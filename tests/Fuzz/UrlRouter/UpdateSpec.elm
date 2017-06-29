@@ -4,9 +4,11 @@ import Array exposing (Array, fromList, get, length)
 import Expect exposing (equal)
 import Fuzz exposing (Fuzzer)
 import Helpers exposing (fixtures, someUser, toLocation)
-import Login.Model as Login
+import Login.Model
+import Login.Update
 import Navigation exposing (Location)
 import Profile.Model
+import Profile.Update
 import Test exposing (..)
 import UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, toPath)
 import UrlRouter.Update exposing (changePageTo)
@@ -42,7 +44,7 @@ tests =
 
 profileSample : Profile.Model.Model
 profileSample =
-    Profile.Model.init (Just fixtures.profile)
+    Profile.Update.init (Just fixtures.profile)
 
 
 pages : Array Page
@@ -62,14 +64,14 @@ pathToLocation path =
     { href = "", host = "", hostname = "", protocol = "", origin = "", port_ = "", pathname = "", search = "", hash = path, username = "", password = "" }
 
 
-randomLogin : Fuzzer Login.Model
+randomLogin : Fuzzer Login.Model.Model
 randomLogin =
     Fuzz.map
         (\bool ->
             if bool then
-                Login.init someUser
+                Login.Update.init someUser
             else
-                Login.init Nothing
+                Login.Update.init Nothing
         )
         Fuzz.bool
 

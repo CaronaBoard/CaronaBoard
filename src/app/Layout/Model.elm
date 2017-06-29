@@ -1,4 +1,4 @@
-module Layout.Model exposing (Model, Msg(..), init)
+module Layout.Model exposing (Model, Msg(..))
 
 
 type alias Model =
@@ -9,9 +9,3 @@ type alias Model =
 type Msg
     = OpenDropdown
     | CloseDropdown
-
-
-init : Model
-init =
-    { dropdownOpen = False
-    }

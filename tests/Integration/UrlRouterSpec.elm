@@ -7,7 +7,7 @@ import Layout.Styles exposing (Classes(OpenMenuButton, SignOutButton))
 import Login.Ports exposing (signOut)
 import Login.Styles
 import Model exposing (Model)
-import Msg as Root exposing (Msg(..))
+import Model as Root exposing (Msg(..))
 import Profile.Model exposing (Msg(..))
 import Rides.Styles
 import Test exposing (..)

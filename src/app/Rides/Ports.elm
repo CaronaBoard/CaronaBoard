@@ -4,10 +4,9 @@ import Common.Decoder exposing (normalizeId2)
 import Json.Decode as Json exposing (..)
 import Json.Decode.Pipeline exposing (..)
 import Profile.Model exposing (Contact, Profile)
-import Rides.Model exposing (Model, Ride)
-import Rides.Model exposing (Msg(..))
-import Rides.RideRequest.Model as RideRequest
+import Rides.Model exposing (Model, Msg(..), Ride)
 import Rides.RideRequest.Ports
+import Rides.RideRequest.Update as RideRequest
 
 
 subscriptions : Model -> Sub Msg

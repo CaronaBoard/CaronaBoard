@@ -1,4 +1,4 @@
-module Profile.Model exposing (Contact, Model, Msg(..), Profile, contactDeepLink, contactIdentifier, init)
+module Profile.Model exposing (Contact, Model, Msg(..), Profile, contactDeepLink, contactIdentifier)
 
 import Common.Response exposing (FirebaseResponse, Response(..))
 
@@ -28,17 +28,6 @@ type Msg
     | UpdateContactValue String
     | Submit
     | ProfileResponse (FirebaseResponse Profile)
-
-
-init : Maybe Profile -> Model
-init profile =
-    { fields =
-        { name = ""
-        , contact = { kind = "Whatsapp", value = "" }
-        }
-    , savedProfile = profile
-    , response = Empty
-    }
 
 
 contactDeepLink : Contact -> String

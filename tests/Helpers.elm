@@ -2,14 +2,12 @@ module Helpers exposing (..)
 
 import Expect
 import GiveRide.Model exposing (NewRide)
-import Login.Model exposing (User)
-import Login.Model exposing (Msg(..))
+import Login.Model exposing (Msg(..), User)
 import Model
-import Msg
 import Navigation exposing (Location)
 import Profile.Model exposing (Profile)
 import Rides.Model exposing (Ride)
-import Rides.RideRequest.Model as RideRequest
+import Rides.RideRequest.Update as RideRequest
 import String.Extra
 import Testable.TestContext exposing (..)
 import Update
@@ -17,16 +15,16 @@ import UrlRouter.Routes exposing (Page(..), toPath)
 import View
 
 
-initialContext : Maybe User -> Maybe Profile -> Page -> a -> TestContext Msg.Msg Model.Model
+initialContext : Maybe User -> Maybe Profile -> Page -> a -> TestContext Model.Msg Model.Model
 initialContext currentUser profile page _ =
     startForTest
-        { init = Model.init { currentUser = currentUser, profile = profile } (toLocation page)
+        { init = Update.init { currentUser = currentUser, profile = profile } (toLocation page)
         , update = Update.update
         , view = View.view
         }
 
 
-signedInContext : Page -> a -> TestContext Msg.Msg Model.Model
+signedInContext : Page -> a -> TestContext Model.Msg Model.Model
 signedInContext =
     initialContext someUser (Just fixtures.profile)
 
@@ -53,14 +51,14 @@ someUser =
     Just fixtures.user
 
 
-successSignIn : TestContext Msg.Msg model -> TestContext Msg.Msg model
+successSignIn : TestContext Model.Msg model -> TestContext Model.Msg model
 successSignIn =
-    update (Msg.MsgForLogin <| SignInResponse ( Nothing, Maybe.map (\user -> { user = user, profile = Just fixtures.profile }) someUser ))
+    update (Model.MsgForLogin <| SignInResponse ( Nothing, Maybe.map (\user -> { user = user, profile = Just fixtures.profile }) someUser ))
 
 
-successSignInWithoutProfile : TestContext Msg.Msg model -> TestContext Msg.Msg model
+successSignInWithoutProfile : TestContext Model.Msg model -> TestContext Model.Msg model
 successSignInWithoutProfile =
-    update (Msg.MsgForLogin <| SignInResponse ( Nothing, Maybe.map (\user -> { user = user, profile = Nothing }) someUser ))
+    update (Model.MsgForLogin <| SignInResponse ( Nothing, Maybe.map (\user -> { user = user, profile = Nothing }) someUser ))
 
 
 jsonQuotes : String -> String

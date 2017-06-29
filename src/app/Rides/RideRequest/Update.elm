@@ -1,10 +1,16 @@
-module Rides.RideRequest.Update exposing (update)
+module Rides.RideRequest.Update exposing (init, update)
 
 import Common.Response exposing (Response(..), fromFirebase)
 import Rides.Model
 import Rides.RideRequest.Model exposing (Model, Msg(..))
 import Rides.RideRequest.Ports exposing (encodeRideRequest, rideRequest)
 import Testable.Cmd
+
+
+init : Model
+init =
+    { response = Empty
+    }
 
 
 update : Rides.Model.Ride -> Rides.RideRequest.Model.Msg -> Model -> ( Model, Testable.Cmd.Cmd Rides.RideRequest.Model.Msg )

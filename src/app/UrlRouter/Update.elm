@@ -1,14 +1,25 @@
-module UrlRouter.Update exposing (changePageTo, update, urlRouterUpdate)
+module UrlRouter.Update exposing (changePageTo, init, update, urlRouterUpdate)
 
 import GiveRide.Model exposing (Msg(..))
 import Login.Model as Login exposing (Msg(..))
-import Msg as Root exposing (Msg(..))
+import Model as Root exposing (Msg(..))
 import Navigation exposing (Location)
 import Notifications.Model as Notifications exposing (isEnabled)
 import Profile.Model as Profile exposing (Msg(..))
 import Testable.Cmd
 import UrlRouter.Model exposing (Model, Msg(Go, UrlChange))
 import UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, toPath)
+
+
+init : Location -> Model
+init location =
+    case pathParser location of
+        Nothing ->
+            { page = SplashScreenPage
+            }
+
+        Just page ->
+            { page = page }
 
 
 update : Notifications.Model -> Profile.Model -> Login.Model -> Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd UrlRouter.Model.Msg )

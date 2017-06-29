@@ -1,4 +1,4 @@
-module Rides.RideRequest.Model exposing (Model, Msg(..), init)
+module Rides.RideRequest.Model exposing (Model, Msg(..))
 
 import Common.Response exposing (FirebaseResponse, Response(..))
 
@@ -11,9 +11,3 @@ type alias Model =
 type Msg
     = Submit
     | RideRequestResponse (FirebaseResponse Bool)
-
-
-init : Model
-init =
-    { response = Empty
-    }

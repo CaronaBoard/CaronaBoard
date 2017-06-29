@@ -3,13 +3,12 @@ module Integration.LoginSpec exposing (tests)
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (expectToContainText, fixtures, successSignIn)
-import Login.Model exposing (Model, init, loggedInUser)
-import Login.Model exposing (Msg(..))
+import Login.Model exposing (Model, Msg(..), loggedInUser)
 import Login.Ports exposing (..)
 import Login.Styles exposing (Classes(..))
-import Login.Update as Update
+import Login.Update as Update exposing (init)
 import Login.View.Login as View
-import Msg as Root exposing (Msg(MsgForLogin))
+import Model as Root exposing (Msg(MsgForLogin))
 import Test exposing (..)
 import Testable.Cmd
 import Testable.Html
