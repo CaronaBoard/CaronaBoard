@@ -3,8 +3,8 @@ module Layout.View.SplashScreen exposing (splashScreen)
 import Common.Colors exposing (..)
 import Css exposing (..)
 import Model exposing (Msg(..))
-import Testable.Html exposing (Html, div)
-import Testable.Html.Attributes exposing (style)
+import Html exposing (Html, div)
+import Html.Attributes exposing (style)
 
 
 splashScreen : Html Msg

@@ -4,7 +4,6 @@ import Common.Response exposing (Response(..))
 import Profile.Update
 import Rides.Ride.Model exposing (Model, Msg(..))
 import Rides.Ride.Ports exposing (encodeRide, rideRequest)
-import Testable.Cmd
 
 
 init : Model
@@ -20,13 +19,13 @@ init =
     }
 
 
-update : Rides.Ride.Model.Msg -> Model -> ( Model, Testable.Cmd.Cmd Rides.Ride.Model.Msg )
+update : Rides.Ride.Model.Msg -> Model -> ( Model, Cmd.Cmd Rides.Ride.Model.Msg )
 update msg model =
     case msg of
         Submit ->
             ( { model | rideRequest = Loading }
-            , Testable.Cmd.wrap (rideRequest (encodeRide model))
+            , rideRequest <| encodeRide model
             )
 
         RideRequestResponse response ->
-            ( { model | rideRequest = response }, Testable.Cmd.none )
+            ( { model | rideRequest = response }, Cmd.none )

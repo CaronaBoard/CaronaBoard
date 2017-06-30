@@ -5,7 +5,6 @@ import GiveRide.Model exposing (Model, Msg(..))
 import GiveRide.Ports exposing (giveRide)
 import Login.Model exposing (User)
 import Model as Root exposing (Msg(..))
-import Testable.Cmd
 
 
 init : Model
@@ -20,17 +19,17 @@ init =
     }
 
 
-update : Maybe User -> Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd GiveRide.Model.Msg )
+update : Maybe User -> Root.Msg -> Model -> ( Model, Cmd.Cmd GiveRide.Model.Msg )
 update user msg model =
     case msg of
         MsgForGiveRide msg_ ->
             updateGiveRide user msg_ model
 
         _ ->
-            ( model, Testable.Cmd.none )
+            ( model, Cmd.none )
 
 
-updateGiveRide : Maybe User -> GiveRide.Model.Msg -> Model -> ( Model, Testable.Cmd.Cmd GiveRide.Model.Msg )
+updateGiveRide : Maybe User -> GiveRide.Model.Msg -> Model -> ( Model, Cmd.Cmd GiveRide.Model.Msg )
 updateGiveRide user msg model =
     let
         fields =
@@ -41,31 +40,31 @@ updateGiveRide user msg model =
     in
     case msg of
         UpdateOrigin origin ->
-            ( updateFields { fields | origin = origin }, Testable.Cmd.none )
+            ( updateFields { fields | origin = origin }, Cmd.none )
 
         UpdateDestination destination ->
-            ( updateFields { fields | destination = destination }, Testable.Cmd.none )
+            ( updateFields { fields | destination = destination }, Cmd.none )
 
         UpdateDays days ->
-            ( updateFields { fields | days = days }, Testable.Cmd.none )
+            ( updateFields { fields | days = days }, Cmd.none )
 
         UpdateHours hours ->
-            ( updateFields { fields | hours = hours }, Testable.Cmd.none )
+            ( updateFields { fields | hours = hours }, Cmd.none )
 
         Submit ->
             case user of
                 Just user_ ->
                     ( { model | response = Loading }
-                    , Testable.Cmd.wrap (giveRide fields)
+                    , giveRide fields
                     )
 
                 Nothing ->
-                    ( model, Testable.Cmd.none )
+                    ( model, Cmd.none )
 
         GiveRideResponse response ->
             case response of
                 Success _ ->
-                    ( init, Testable.Cmd.none )
+                    ( init, Cmd.none )
 
                 _ ->
-                    ( { model | response = response }, Testable.Cmd.none )
+                    ( { model | response = response }, Cmd.none )

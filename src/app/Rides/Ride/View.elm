@@ -12,9 +12,9 @@ import Rides.Ride.Model exposing (Model, Msg(..))
 import Rides.Ride.Styles exposing (Classes(..), className)
 import Rides.Styles exposing (Classes(Card))
 import Rides.View.RidesList exposing (rideInfo, rideRoute)
-import Testable.Html exposing (..)
-import Testable.Html.Attributes exposing (for, href, id, placeholder, selected, target, value)
-import Testable.Html.Events exposing (onInput, onSubmit)
+import Html exposing (..)
+import Html.Attributes exposing (for, href, id, placeholder, selected, target, value)
+import Html.Events exposing (onInput, onSubmit)
 
 
 ridesClass : Rides.Styles.Classes -> Attribute msg
@@ -28,7 +28,7 @@ ride rideId model =
         [ h1 [ layoutClass PageTitle ] [ text "Pedir Carona" ]
         , case findById rideId model.rides of
             Just ride ->
-                Testable.Html.map (MsgForRide ride.id) <| rideDetails ride
+                Html.map (MsgForRide ride.id) <| rideDetails ride
 
             Nothing ->
                 text "Carona não encontrada"

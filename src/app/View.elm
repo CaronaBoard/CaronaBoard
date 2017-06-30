@@ -1,7 +1,7 @@
 module View exposing (staticView, view)
 
 import GiveRide.View exposing (giveRide)
-import Html
+import Html exposing (div, h1, text)
 import Layout.View.Layout exposing (layout)
 import Layout.View.SplashScreen exposing (splashScreen)
 import Login.View.Layout exposing (loginLayout)
@@ -13,19 +13,17 @@ import Profile.View exposing (profile)
 import Rides.Ride.View exposing (ride)
 import Rides.View.Instructions exposing (instructions)
 import Rides.View.RidesList exposing (ridesList)
-import Testable
-import Testable.Html exposing (div, h1, text)
 import UrlRouter.Routes exposing (..)
 
 
-view : Model -> Testable.Html.Html Root.Msg
+view : Model -> Html.Html Root.Msg
 view model =
     case model.urlRouter.page of
         SplashScreenPage ->
             splashScreen
 
         LoginPage ->
-            loginLayout (Testable.Html.map MsgForLogin <| login model.login)
+            loginLayout (Html.map MsgForLogin <| login model.login)
 
         RidesPage ->
             layout model
@@ -42,18 +40,18 @@ view model =
             loginLayout passwordReset
 
         GiveRidePage ->
-            layout model (Testable.Html.map MsgForGiveRide <| giveRide model.giveRide)
+            layout model (Html.map MsgForGiveRide <| giveRide model.giveRide)
 
         EnableNotificationsPage ->
-            layout model (Testable.Html.map MsgForNotifications <| enableNotifications model.notifications)
+            layout model (Html.map MsgForNotifications <| enableNotifications model.notifications)
 
         RidePage rideId ->
-            layout model (Testable.Html.map MsgForRides <| ride rideId model)
+            layout model (Html.map MsgForRides <| ride rideId model)
 
         ProfilePage ->
-            layout model (Testable.Html.map MsgForProfile <| profile model.profile)
+            layout model (Html.map MsgForProfile <| profile model.profile)
 
 
 staticView : Html.Html Root.Msg
 staticView =
-    Testable.view (always splashScreen) Nothing
+    splashScreen

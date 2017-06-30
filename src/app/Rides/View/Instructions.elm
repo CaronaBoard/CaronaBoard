@@ -1,7 +1,7 @@
 module Rides.View.Instructions exposing (instructions)
 
 import Common.CssHelpers exposing (materializeClass)
-import Testable.Html exposing (Html, div, li, ol, strong, text)
+import Html exposing (Html, div, li, ol, strong, text)
 
 
 instructions : Html a

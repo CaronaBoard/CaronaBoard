@@ -5,9 +5,9 @@ import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
 import Login.Model exposing (Model)
 import Login.Model exposing (Msg(..))
 import Login.Styles exposing (Classes(..), className)
-import Testable.Html exposing (..)
-import Testable.Html.Attributes exposing (autofocus, for, id, placeholder, selected, type_, value)
-import Testable.Html.Events exposing (onInput, onSubmit)
+import Html exposing (..)
+import Html.Attributes exposing (autofocus, for, id, placeholder, selected, type_, value)
+import Html.Events exposing (onInput, onSubmit)
 
 
 registrationStep : Model -> Html Msg

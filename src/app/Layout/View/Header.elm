@@ -7,15 +7,15 @@ import Layout.Model exposing (Model, Msg(CloseDropdown, OpenDropdown))
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Login.Model exposing (Msg(SignOut))
 import Model exposing (Msg(..))
-import Testable.Html exposing (Html, a, b, button, div, h1, h2, i, img, li, nav, text, ul)
-import Testable.Html.Attributes exposing (alt, href, id, rel, src, style)
-import Testable.Html.Events exposing (onClick)
+import Html exposing (Html, a, b, button, div, h1, h2, i, img, li, nav, text, ul)
+import Html.Attributes exposing (alt, href, id, rel, src, style)
+import Html.Events exposing (onClick)
 import UrlRouter.Routes exposing (Page(..))
 
 
 header : Model -> Html Model.Msg
 header model =
-    Testable.Html.header [ materializeClass "navbar-fixed" ] <|
+    Html.header [ materializeClass "navbar-fixed" ] <|
         menu model
             ++ [ nav [ layoutClass Navbar ]
                     [ div [ materializeClass "nav-wrapper" ]

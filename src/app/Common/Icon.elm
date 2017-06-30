@@ -1,7 +1,7 @@
 module Common.Icon exposing (icon, iconLeft, iconRight)
 
 import Common.CssHelpers exposing (materializeClass)
-import Testable.Html exposing (Html, i, text)
+import Html exposing (Html, i, text)
 
 
 iconRight : String -> Html a
