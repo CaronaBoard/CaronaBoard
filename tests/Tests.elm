@@ -1,4 +1,4 @@
-port module Main exposing (..)
+port module Tests exposing (all)
 
 import Fuzz.UrlRouter.UpdateSpec
 import Integration.GiveRideSpec
@@ -9,16 +9,14 @@ import Integration.ProfileSpec
 import Integration.RideSpec
 import Integration.RidesSpec
 import Integration.UrlRouterSpec
-import Json.Encode exposing (Value)
 import Test exposing (..)
-import Test.Runner.Node exposing (run)
 import Unit.Common.DecoderSpec
 import Unit.Rides.PortsSpec
 
 
-tests : Test
-tests =
-    Test.concat
+all : Test
+all =
+    describe "CaronaBoard"
         [ Fuzz.UrlRouter.UpdateSpec.tests
         , Integration.RidesSpec.tests
         , Integration.LoginSpec.tests
@@ -31,11 +29,3 @@ tests =
         , Unit.Rides.PortsSpec.tests
         , Unit.Common.DecoderSpec.tests
         ]
-
-
-main : Test.Runner.Node.TestProgram
-main =
-    run emit tests
-
-
-port emit : ( String, Value ) -> Cmd msg

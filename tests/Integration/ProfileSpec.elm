@@ -18,7 +18,7 @@ import UrlRouter.Routes exposing (Page(..), toPath)
 
 tests : Test
 tests =
-    describe "requests a ride" <|
+    describe "Profile" <|
         [ test "fill the fields correctly" <|
             fillProfile
                 >> expectView

@@ -6,9 +6,10 @@ import Helpers exposing (expectToContainText, expectToNotContainText, initialCon
 import Layout.Styles exposing (Classes(Menu, OpenMenuButton))
 import Model as Root exposing (Model, Msg(MsgForLayout))
 import Test exposing (..)
-import Testable.Html.Selectors exposing (..)
-import Testable.Html.Types exposing (Selector)
-import Testable.TestContext exposing (..)
+import Test.Html.Events as Events exposing (Event(..))
+import Test.Html.Query exposing (..)
+import Test.Html.Selector exposing (..)
+import TestContext exposing (..)
 import UrlRouter.Routes exposing (Page(..))
 
 
@@ -17,30 +18,30 @@ tests =
     describe "Layout"
         [ test "starts with the dropdown in the header closed" <|
             layoutContext
+                >> expectView
                 >> findAll [ class Menu ]
-                >> assertNodeCount (Expect.equal 0)
+                >> count (Expect.equal 0)
         , test "opens the dropdown on click" <|
             layoutContext
-                >> find [ class OpenMenuButton ]
-                >> trigger "click" "{}"
-                >> find [ class Menu ]
-                >> assertPresent
+                >> simulate (find [ class OpenMenuButton ]) Events.Click
+                >> expectView
+                >> findAll [ class Menu ]
+                >> count (Expect.equal 1)
         , test "closes the dropdown when clicking outside" <|
             layoutContext
-                >> find [ class OpenMenuButton ]
-                >> trigger "click" "{}"
-                >> find [ class Menu ]
-                >> trigger "click" "{}"
+                >> simulate (find [ class OpenMenuButton ]) Events.Click
+                >> simulate (find [ class Menu ]) Events.Click
+                >> expectView
                 >> findAll [ class Menu ]
-                >> assertNodeCount (Expect.equal 0)
+                >> count (Expect.equal 0)
         ]
 
 
-layoutContext : a -> TestContext Root.Msg Model
+layoutContext : a -> TestContext Model Root.Msg
 layoutContext =
     signedInContext RidesPage
 
 
 class : Classes -> Selector
 class =
-    Testable.Html.Selectors.class << identifierToString Layout.Styles.namespace
+    Test.Html.Selector.class << identifierToString Layout.Styles.namespace
