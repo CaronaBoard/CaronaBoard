@@ -3,29 +3,34 @@ module Helpers exposing (..)
 import Common.Response exposing (Response(..))
 import Expect
 import GiveRide.Model exposing (NewRide)
+import Html
 import Login.Model exposing (Msg(..), User)
 import Model
+import NativeLoadFix
 import Navigation exposing (Location)
+import Ports exposing (subscriptions)
 import Profile.Model exposing (Profile)
 import Rides.Model as Rides
 import Rides.Ride.Model as Ride
 import String.Extra
-import Testable.TestContext exposing (..)
+import TestContext exposing (..)
 import Update
 import UrlRouter.Routes exposing (Page(..), toPath)
 import View
 
 
-initialContext : Maybe User -> Maybe Profile -> Page -> a -> TestContext Model.Msg Model.Model
+initialContext : Maybe User -> Maybe Profile -> Page -> a -> TestContext Model.Model Model.Msg
 initialContext currentUser profile page _ =
-    startForTest
+    Html.program
         { init = Update.init { currentUser = currentUser, profile = profile } (toLocation page)
-        , update = Update.update
         , view = View.view
+        , update = Update.update
+        , subscriptions = subscriptions
         }
+        |> start
 
 
-signedInContext : Page -> a -> TestContext Model.Msg Model.Model
+signedInContext : Page -> a -> TestContext Model.Model Model.Msg
 signedInContext =
     initialContext someUser (Just fixtures.profile)
 
@@ -52,12 +57,12 @@ someUser =
     Just fixtures.user
 
 
-successSignIn : TestContext Model.Msg model -> TestContext Model.Msg model
+successSignIn : TestContext model Model.Msg -> TestContext model Model.Msg
 successSignIn =
     update (Model.MsgForLogin <| SignInResponse (Success { user = fixtures.user, profile = Just fixtures.profile }))
 
 
-successSignInWithoutProfile : TestContext Model.Msg model -> TestContext Model.Msg model
+successSignInWithoutProfile : TestContext model Model.Msg -> TestContext model Model.Msg
 successSignInWithoutProfile =
     update (Model.MsgForLogin <| SignInResponse (Success { user = fixtures.user, profile = Nothing }))
 
