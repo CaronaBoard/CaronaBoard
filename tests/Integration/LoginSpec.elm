@@ -3,7 +3,8 @@ module Integration.LoginSpec exposing (tests)
 import Common.Response exposing (Response(..))
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
-import Helpers exposing (expectToContainText, fixtures, successSignIn)
+import Helpers exposing (fixtures, successSignIn)
+import Html
 import Login.Model exposing (Model, Msg(..), signedInUser)
 import Login.Ports exposing (..)
 import Login.Styles exposing (Classes(..))
@@ -11,11 +12,10 @@ import Login.Update as Update exposing (init)
 import Login.View.Login as View
 import Model as Root exposing (Msg(MsgForLogin))
 import Test exposing (..)
-
-import Testable.Html
-import Testable.Html.Selectors exposing (..)
-import Testable.Html.Types exposing (Selector)
-import Testable.TestContext exposing (..)
+import Test.Html.Events as Events exposing (Event(..))
+import Test.Html.Query exposing (..)
+import Test.Html.Selector exposing (..)
+import TestContext exposing (..)
 
 
 tests : Test
@@ -24,142 +24,134 @@ tests =
         [ describe "email check"
             [ test "shows loading button on submit" <|
                 submitEmail
-                    >> thenFind [ tag "button" ]
-                    >> assertText (Expect.equal "Carregando...")
+                    >> expectView
+                    >> find [ class SubmitButton ]
+                    >> has [ text "Carregando..." ]
             , test "sends request via checkRegistration port" <|
                 submitEmail
-                    >> assertCalled (Cmd.map MsgForLogin <| checkRegistration "foo@bar.com")
+                    >> expectCmd (Cmd.map MsgForLogin <| checkRegistration "foo@bar.com")
             , test "goes to registration if not registered yet" <|
                 submitEmail
                     >> update (MsgForLogin <| CheckRegistrationResponse (Success False))
+                    >> expectView
                     >> find []
-                    >> assertText (expectToContainText "Cadastro")
+                    >> has [ text "Cadastro" ]
             ]
         , describe "password check"
             [ test "shows loading button on submit" <|
                 submitEmailThenPassword
-                    >> thenFind [ tag "button" ]
-                    >> assertText (Expect.equal "Carregando...")
+                    >> expectView
+                    >> find [ class SubmitButton ]
+                    >> has [ text "Carregando..." ]
             , test "sends request via checkRegistration port" <|
                 submitEmailThenPassword
-                    >> assertCalled (Cmd.map MsgForLogin <| signIn { email = "foo@bar.com", password = "baz" })
+                    >> expectCmd (Cmd.map MsgForLogin <| signIn { email = "foo@bar.com", password = "baz" })
             , test "shows error when signing in and renable button" <|
                 submitEmailThenPassword
                     >> update (MsgForLogin <| SignInResponse (Error "Invalid password"))
+                    >> expectView
                     >> Expect.all
-                        [ assertText (expectToContainText "Invalid password")
-                        , find [ tag "button" ]
-                            >> assertText (expectToContainText "Entrar")
+                        [ has [ text "Invalid password" ]
+                        , find [ class SubmitButton ]
+                            >> has [ text "Entrar" ]
                         ]
             , test "returns the signed in user from the model" <|
                 submitEmailThenPassword
                     >> successSignIn
-                    >> currentModel
-                    >> (\result ->
-                            case result of
-                                Ok model ->
-                                    Expect.equal (Just fixtures.user) (signedInUser model)
-
-                                Err err ->
-                                    Expect.fail (toString err)
-                       )
+                    >> expectModel
+                        (\model ->
+                            Expect.equal (Just fixtures.user) (signedInUser model)
+                        )
             ]
         , describe "logout"
             [ test "removes the signed in user" <|
                 loginContext
                     >> successSignIn
                     >> update (MsgForLogin (SignOutResponse (Success True)))
-                    >> currentModel
-                    >> (\result ->
-                            case result of
-                                Ok model ->
-                                    Expect.equal Nothing (signedInUser model)
-
-                                Err err ->
-                                    Expect.fail (toString err)
-                       )
+                    >> expectModel
+                        (\model ->
+                            Expect.equal Nothing (signedInUser model)
+                        )
             ]
         , describe "password reset"
             [ test "shows loading on submit" <|
                 submitEmailThenForgotPassword
+                    >> expectView
                     >> find [ class ResetPasswordButton ]
-                    >> assertText (Expect.equal "Carregando...")
+                    >> has [ text "Carregando..." ]
             , test "calls the resetPassword port" <|
                 submitEmailThenForgotPassword
-                    >> assertCalled (Cmd.map MsgForLogin <| passwordReset "foo@bar.com")
+                    >> expectCmd (Cmd.map MsgForLogin <| passwordReset "foo@bar.com")
             , test "shows error when reseting password and renable button" <|
                 submitEmailThenForgotPassword
                     >> update (MsgForLogin <| PasswordResetResponse (Error "Could not send email"))
+                    >> expectView
                     >> Expect.all
-                        [ find []
-                            >> assertText (expectToContainText "Could not send email")
+                        [ has [ text "Could not send email" ]
                         , find [ class ResetPasswordButton ]
-                            >> assertText (expectToContainText "Esqueci a Senha")
+                            >> has [ text "Esqueci a Senha" ]
                         ]
             ]
         , describe "registration"
             [ test "shows loading on submit" <|
                 submitEmailThenRegistration
+                    >> expectView
                     >> find [ class SubmitButton ]
-                    >> assertText (Expect.equal "Carregando...")
+                    >> has [ text "Carregando..." ]
             , test "sends request via signUp port" <|
                 submitEmailThenRegistration
-                    >> assertCalled (Cmd.map MsgForLogin <| signUp { email = "foo@bar.com", password = "baz" })
+                    >> expectCmd (Cmd.map MsgForLogin <| signUp { email = "foo@bar.com", password = "baz" })
             , test "shows error when signUp port returns an error" <|
                 submitEmailThenRegistration
                     >> update (MsgForLogin <| SignUpResponse (Error "undefined is not a function"))
+                    >> expectView
                     >> find []
-                    >> assertText (expectToContainText "not a function")
+                    >> has [ text "not a function" ]
             ]
         ]
 
 
 class : Login.Styles.Classes -> Selector
 class =
-    Testable.Html.Selectors.class << identifierToString Login.Styles.namespace
+    Test.Html.Selector.class << identifierToString Login.Styles.namespace
 
 
-loginContext : a -> TestContext Root.Msg Model
+loginContext : a -> TestContext Model Root.Msg
 loginContext _ =
-    startForTest
+    Html.program
         { init = ( init Nothing, Cmd.none )
         , update = \msg model -> Tuple.mapSecond (Cmd.map MsgForLogin) <| Update.update msg model
-        , view = View.login >> Testable.Html.map MsgForLogin
+        , view = View.login >> Html.map MsgForLogin
+        , subscriptions = always Sub.none
         }
+        |> start
 
 
-submitEmail : a -> TestContext Root.Msg Model
+submitEmail : a -> TestContext Model Root.Msg
 submitEmail =
     loginContext
-        >> find [ tag "input", attribute "type" "email" ]
-        >> trigger "input" "{\"target\": {\"value\": \"foo@bar.com\"}}"
-        >> find [ tag "form" ]
-        >> trigger "submit" "{}"
+        >> simulate (find [ tag "input", attribute "type" "email" ]) (Events.Input "foo@bar.com")
+        >> simulate (find [ tag "form" ]) Events.Submit
 
 
-submitEmailThenPassword : a -> TestContext Root.Msg Model
+submitEmailThenPassword : a -> TestContext Model Root.Msg
 submitEmailThenPassword =
     submitEmail
         >> update (MsgForLogin <| CheckRegistrationResponse (Success True))
-        >> find [ tag "input", attribute "type" "password" ]
-        >> trigger "input" "{\"target\": {\"value\": \"baz\"}}"
-        >> find [ tag "form" ]
-        >> trigger "submit" "{}"
+        >> simulate (find [ tag "input", attribute "type" "password" ]) (Events.Input "baz")
+        >> simulate (find [ tag "form" ]) Events.Submit
 
 
-submitEmailThenForgotPassword : a -> TestContext Root.Msg Model
+submitEmailThenForgotPassword : a -> TestContext Model Root.Msg
 submitEmailThenForgotPassword =
     submitEmail
         >> update (MsgForLogin <| CheckRegistrationResponse (Success True))
-        >> find [ class ResetPasswordButton ]
-        >> trigger "click" "{}"
+        >> simulate (find [ class ResetPasswordButton ]) Events.Click
 
 
-submitEmailThenRegistration : a -> TestContext Root.Msg Model
+submitEmailThenRegistration : a -> TestContext Model Root.Msg
 submitEmailThenRegistration =
     submitEmail
         >> update (MsgForLogin <| CheckRegistrationResponse (Success False))
-        >> find [ id "password" ]
-        >> trigger "input" "{\"target\": {\"value\": \"baz\"}}"
-        >> find [ tag "form" ]
-        >> trigger "submit" "{}"
+        >> simulate (find [ id "password" ]) (Events.Input "baz")
+        >> simulate (find [ tag "form" ]) Events.Submit

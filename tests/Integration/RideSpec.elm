@@ -1,7 +1,6 @@
 module Integration.RideSpec exposing (tests)
 
 import Common.Response exposing (Response(..))
-import Expect exposing (equal)
 import Helpers exposing (expectToContainText, fixtures, initialContext, signedInContext, someUser, toLocation)
 import Model as Root exposing (Model, Msg(..))
 import Rides.Model exposing (Msg(..))
@@ -32,20 +31,17 @@ tests =
             submitRide
                 >> update (MsgForRides <| MsgForRide "ride-2" <| RideRequestResponse (Error "undefined is not a function"))
                 >> expectView
-                >> findAll [ text "undefined is not a function" ]
-                >> count (Expect.equal 1)
+                >> has [ text "not a function" ]
         , test "shows notification on success" <|
             submitRide
                 >> successResponse
                 >> expectView
-                >> findAll [ text "Pedido de carona enviado com sucesso!" ]
-                >> count (Expect.equal 1)
+                >> has [ text "Pedido de carona enviado com sucesso!" ]
         , test "reveals ride contact" <|
             submitRide
                 >> successResponse
                 >> expectView
-                >> findAll [ text "wpp-for-ride-2" ]
-                >> count (Expect.equal 1)
+                >> has [ text "wpp-for-ride-2" ]
         ]
 
 
