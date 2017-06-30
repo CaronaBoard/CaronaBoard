@@ -16,7 +16,7 @@ import UrlRouter.Update exposing (changePageTo)
 
 tests : Test
 tests =
-    describe "UrlRouter"
+    describe "Fuzz UrlRouter"
         [ describe "changePageTo"
             [ fuzz3 randomPage randomLogin randomPage "returns the requested page redirect unless the current page, the requested one and the redirect to are all the same" <|
                 \currentPage login requestedPage ->
