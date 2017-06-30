@@ -8,8 +8,10 @@ import Rides.Model exposing (Msg(..))
 import Rides.Ride.Model exposing (Msg(..))
 import Rides.Ride.Ports exposing (RideRequest)
 import Test exposing (..)
-import Testable.Html.Selectors exposing (..)
-import Testable.TestContext exposing (..)
+import Test.Html.Events as Events exposing (Event(..))
+import Test.Html.Query exposing (..)
+import Test.Html.Selector exposing (..)
+import TestContext exposing (..)
 import UrlRouter.Routes exposing (Page(..), toPath)
 
 
@@ -18,8 +20,9 @@ tests =
     describe "requests a ride" <|
         [ test "shows loading on submit" <|
             submitRide
+                >> expectView
                 >> find [ id "submitRide" ]
-                >> assertText (Expect.equal "Carregando...")
+                >> has [ text "Carregando..." ]
 
         -- TODO: Comparing nested Cmds like this is not working right now
         -- , test "sends request via ride port" <|
@@ -28,22 +31,25 @@ tests =
         , test "shows error when ride port returns an error" <|
             submitRide
                 >> update (MsgForRides <| MsgForRide "ride-2" <| RideRequestResponse (Error "undefined is not a function"))
-                >> find []
-                >> assertText (expectToContainText "not a function")
+                >> expectView
+                >> findAll [ text "undefined is not a function" ]
+                >> count (Expect.equal 1)
         , test "shows notification on success" <|
             submitRide
                 >> successResponse
-                >> find []
-                >> assertText (expectToContainText "Pedido de carona enviado com sucesso!")
+                >> expectView
+                >> findAll [ text "Pedido de carona enviado com sucesso!" ]
+                >> count (Expect.equal 1)
         , test "reveals ride contact" <|
             submitRide
                 >> successResponse
-                >> find []
-                >> assertText (expectToContainText "wpp-for-ride-2")
+                >> expectView
+                >> findAll [ text "wpp-for-ride-2" ]
+                >> count (Expect.equal 1)
         ]
 
 
-ridesContextContext : a -> TestContext Root.Msg Model
+ridesContextContext : a -> TestContext Model Root.Msg
 ridesContextContext =
     signedInContext (RidePage "ride-2")
         >> update (MsgForRides <| UpdateRides fixtures.rides)
@@ -54,13 +60,12 @@ rideRequestExample =
     { rideId = "ride-2", toUserId = "user-2" }
 
 
-submitRide : a -> TestContext Root.Msg Model
+submitRide : a -> TestContext Model Root.Msg
 submitRide =
     ridesContextContext
-        >> find [ tag "form" ]
-        >> trigger "submit" "{}"
+        >> simulate (find [ tag "form" ]) Events.Submit
 
 
-successResponse : TestContext Root.Msg Model -> TestContext Root.Msg Model
+successResponse : TestContext Model Root.Msg -> TestContext Model Root.Msg
 successResponse =
     update (MsgForRides <| MsgForRide "ride-2" <| RideRequestResponse (Success True))
