@@ -5,9 +5,9 @@ import Common.Form exposing (loadingOrSubmitButton, renderErrors)
 import Common.Icon exposing (icon)
 import Login.Model exposing (Model, Msg(UpdateEmail))
 import Login.Styles exposing (Classes(SubmitButton), className)
-import Testable.Html exposing (Html, div, i, input, label, text)
-import Testable.Html.Attributes exposing (for, id, placeholder, type_, value)
-import Testable.Html.Events exposing (onInput, onSubmit)
+import Html exposing (Html, div, i, input, label, text)
+import Html.Attributes exposing (for, id, placeholder, type_, value)
+import Html.Events exposing (onInput, onSubmit)
 
 
 emailStep : Model -> Html Msg

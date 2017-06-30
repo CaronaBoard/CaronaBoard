@@ -4,7 +4,7 @@ import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
 import Css exposing (..)
 import Css.Namespace
-import Testable.Html exposing (Attribute)
+import Html exposing (Attribute)
 
 
 namespace : String

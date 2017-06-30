@@ -9,12 +9,11 @@ import Navigation exposing (Location)
 import Notifications.Update as Notifications
 import Profile.Update as Profile
 import Rides.Update as Rides
-import Testable.Cmd
 import UrlRouter.Model
 import UrlRouter.Update as UrlRouter
 
 
-init : Flags -> Location -> ( Model, Testable.Cmd.Cmd Msg )
+init : Flags -> Location -> ( Model, Cmd.Cmd Msg )
 init { currentUser, profile } location =
     let
         initialModel =
@@ -30,7 +29,7 @@ init { currentUser, profile } location =
     updateUrlRouter location initialModel
 
 
-update : Msg -> Model -> ( Model, Testable.Cmd.Cmd Msg )
+update : Msg -> Model -> ( Model, Cmd.Cmd Msg )
 update msg model =
     let
         urlRouter =
@@ -65,25 +64,25 @@ update msg model =
             }
 
         cmds =
-            Testable.Cmd.batch
-                [ Testable.Cmd.map MsgForUrlRouter <| Tuple.second urlRouter
-                , Testable.Cmd.map MsgForLogin <| Tuple.second login
-                , Testable.Cmd.map MsgForRides <| Tuple.second rides
-                , Testable.Cmd.map MsgForLayout <| Tuple.second layout
-                , Testable.Cmd.map MsgForGiveRide <| Tuple.second giveRide
-                , Testable.Cmd.map MsgForNotifications <| Tuple.second notifications
-                , Testable.Cmd.map MsgForProfile <| Tuple.second profile
+            Cmd.batch
+                [ Cmd.map MsgForUrlRouter <| Tuple.second urlRouter
+                , Cmd.map MsgForLogin <| Tuple.second login
+                , Cmd.map MsgForRides <| Tuple.second rides
+                , Cmd.map MsgForLayout <| Tuple.second layout
+                , Cmd.map MsgForGiveRide <| Tuple.second giveRide
+                , Cmd.map MsgForNotifications <| Tuple.second notifications
+                , Cmd.map MsgForProfile <| Tuple.second profile
                 ]
     in
     ( updatedModel, cmds )
 
 
-updateUrlRouter : Location -> Model -> ( Model, Testable.Cmd.Cmd Msg )
+updateUrlRouter : Location -> Model -> ( Model, Cmd.Cmd Msg )
 updateUrlRouter location model =
     let
         updatedUrlRouter =
             UrlRouter.update model.notifications model.profile model.login (MsgForUrlRouter <| UrlRouter.Model.UrlChange location) model.urlRouter
     in
     ( { model | urlRouter = Tuple.first updatedUrlRouter }
-    , Testable.Cmd.map MsgForUrlRouter <| Tuple.second updatedUrlRouter
+    , Cmd.map MsgForUrlRouter <| Tuple.second updatedUrlRouter
     )

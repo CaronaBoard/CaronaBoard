@@ -6,9 +6,9 @@ import Common.Icon exposing (icon)
 import Json.Decode as Json
 import Login.Model exposing (Model, Msg(PasswordReset, UpdatePassword))
 import Login.Styles exposing (Classes(FilledEmail, PasswordStep, ResetPasswordButton, SubmitButton), className)
-import Testable.Html exposing (Html, div, i, input, label, text)
-import Testable.Html.Attributes exposing (autofocus, for, id, placeholder, type_, value)
-import Testable.Html.Events exposing (onInput, onSubmit, onWithOptions)
+import Html exposing (Html, div, i, input, label, text)
+import Html.Attributes exposing (autofocus, for, id, placeholder, type_, value)
+import Html.Events exposing (onInput, onSubmit, onWithOptions)
 
 
 passwordStep : Model -> Html Msg

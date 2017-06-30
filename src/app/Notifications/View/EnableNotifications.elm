@@ -6,9 +6,9 @@ import Common.Icon exposing (icon)
 import Common.Response exposing (Response(..))
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Notifications.Model exposing (Model, Msg(..))
-import Testable.Html exposing (..)
-import Testable.Html.Attributes exposing (disabled, id)
-import Testable.Html.Events exposing (onSubmit)
+import Html exposing (..)
+import Html.Attributes exposing (disabled, id)
+import Html.Events exposing (onSubmit)
 
 
 enableNotifications : Model -> Html Msg

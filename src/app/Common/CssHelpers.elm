@@ -1,8 +1,8 @@
 module Common.CssHelpers exposing (Namespace, materializeClass, namespacedClass)
 
+import Html exposing (Attribute)
+import Html.Attributes
 import Html.CssHelpers as CssHelpers
-import Testable.Html exposing (Attribute)
-import Testable.Html.Attributes
 
 
 type alias Namespace class msg =
@@ -22,4 +22,4 @@ namespacedClass namespace =
 
 materializeClass : String -> Attribute msg
 materializeClass =
-    Testable.Html.Attributes.class
+    Html.Attributes.class

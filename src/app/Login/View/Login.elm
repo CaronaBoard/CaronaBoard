@@ -6,8 +6,8 @@ import Login.Styles exposing (Classes(..), className)
 import Login.View.EmailStep exposing (emailStep)
 import Login.View.PasswordStep exposing (passwordStep)
 import Login.View.Registration exposing (registrationStep)
-import Testable.Html exposing (Html, b, div, form, h1, input, p, text)
-import Testable.Html.Events exposing (onInput, onSubmit)
+import Html exposing (Html, b, div, form, h1, input, p, text)
+import Html.Events exposing (onInput, onSubmit)
 
 
 login : Model -> Html Msg

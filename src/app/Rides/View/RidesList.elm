@@ -7,7 +7,7 @@ import Model exposing (Msg(..))
 import Rides.Model as Rides
 import Rides.Ride.Model as Ride
 import Rides.Styles exposing (Classes(..), className)
-import Testable.Html exposing (..)
+import Html exposing (..)
 import UrlRouter.Routes exposing (Page(..))
 
 

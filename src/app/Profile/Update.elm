@@ -5,7 +5,6 @@ import Login.Model exposing (Msg(SignInResponse))
 import Model as Root exposing (Msg(..))
 import Profile.Model exposing (Model, Msg(..), Profile)
 import Profile.Ports exposing (saveProfile)
-import Testable.Cmd
 
 
 init : Maybe Profile -> Model
@@ -19,7 +18,7 @@ init profile =
     }
 
 
-update : Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd Profile.Model.Msg )
+update : Root.Msg -> Model -> ( Model, Cmd.Cmd Profile.Model.Msg )
 update msg model =
     case msg of
         MsgForProfile msg_ ->
@@ -28,16 +27,16 @@ update msg model =
         MsgForLogin (SignInResponse (Success response)) ->
             case response.profile of
                 Just profile ->
-                    ( { model | fields = profile, savedProfile = Just profile }, Testable.Cmd.none )
+                    ( { model | fields = profile, savedProfile = Just profile }, Cmd.none )
 
                 Nothing ->
-                    ( init Nothing, Testable.Cmd.none )
+                    ( init Nothing, Cmd.none )
 
         _ ->
-            ( model, Testable.Cmd.none )
+            ( model, Cmd.none )
 
 
-updateProfile : Profile.Model.Msg -> Model -> ( Model, Testable.Cmd.Cmd Profile.Model.Msg )
+updateProfile : Profile.Model.Msg -> Model -> ( Model, Cmd.Cmd Profile.Model.Msg )
 updateProfile msg model =
     let
         fields =
@@ -51,21 +50,21 @@ updateProfile msg model =
     in
     case msg of
         UpdateName name ->
-            ( updateFields { fields | name = name }, Testable.Cmd.none )
+            ( updateFields { fields | name = name }, Cmd.none )
 
         UpdateContactKind kind ->
-            ( updateFields { fields | contact = { contact | kind = kind } }, Testable.Cmd.none )
+            ( updateFields { fields | contact = { contact | kind = kind } }, Cmd.none )
 
         UpdateContactValue value ->
-            ( updateFields { fields | contact = { contact | value = value } }, Testable.Cmd.none )
+            ( updateFields { fields | contact = { contact | value = value } }, Cmd.none )
 
         Submit ->
-            ( { model | response = Loading }, Testable.Cmd.wrap (saveProfile fields) )
+            ( { model | response = Loading }, saveProfile fields )
 
         ProfileResponse response ->
             case response of
                 Success profile ->
-                    ( { model | savedProfile = Just profile, response = response }, Testable.Cmd.none )
+                    ( { model | savedProfile = Just profile, response = response }, Cmd.none )
 
                 _ ->
-                    ( { model | response = response }, Testable.Cmd.none )
+                    ( { model | response = response }, Cmd.none )

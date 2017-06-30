@@ -5,9 +5,9 @@ import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Profile.Model exposing (Model, Msg(..), contactIdentifier)
 import Profile.Styles exposing (Classes(..), className)
-import Testable.Html exposing (..)
-import Testable.Html.Attributes exposing (for, href, id, placeholder, selected, target, value)
-import Testable.Html.Events exposing (onInput, onSubmit)
+import Html exposing (..)
+import Html.Attributes exposing (for, href, id, placeholder, selected, target, value)
+import Html.Events exposing (onInput, onSubmit)
 
 
 profile : Model -> Html Msg

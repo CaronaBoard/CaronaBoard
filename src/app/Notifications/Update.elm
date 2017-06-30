@@ -5,12 +5,11 @@ import GiveRide.Model exposing (Msg(..))
 import Model as Root exposing (Msg(..))
 import Notifications.Model exposing (Model, Msg(..))
 import Notifications.Ports exposing (enableNotifications)
+import Process
 import Profile.Model exposing (Msg(..))
 import Rides.Model exposing (Msg(..))
 import Rides.Ride.Model exposing (Msg(..))
-import Testable.Cmd
-import Testable.Process as Process
-import Testable.Task as Task
+import Task
 import Time
 
 
@@ -21,7 +20,7 @@ init =
     }
 
 
-update : Root.Msg -> Model -> ( Model, Testable.Cmd.Cmd Notifications.Model.Msg )
+update : Root.Msg -> Model -> ( Model, Cmd.Cmd Notifications.Model.Msg )
 update msg model =
     case msg of
         MsgForNotifications msg_ ->
@@ -37,17 +36,17 @@ update msg model =
             updateNotifications (ShowNotice "Perfil atualizado com sucesso") model
 
         _ ->
-            ( model, Testable.Cmd.none )
+            ( model, Cmd.none )
 
 
-updateNotifications : Notifications.Model.Msg -> Model -> ( Model, Testable.Cmd.Cmd Notifications.Model.Msg )
+updateNotifications : Notifications.Model.Msg -> Model -> ( Model, Cmd.Cmd Notifications.Model.Msg )
 updateNotifications msg model =
     case msg of
         EnableNotifications ->
-            ( { model | response = Loading }, Testable.Cmd.wrap <| enableNotifications () )
+            ( { model | response = Loading }, enableNotifications () )
 
         NotificationsResponse response ->
-            ( { model | response = response }, Testable.Cmd.none )
+            ( { model | response = response }, Cmd.none )
 
         ShowNotice notice ->
             ( { model | notice = Just notice }
@@ -56,4 +55,4 @@ updateNotifications msg model =
             )
 
         HideNotice ->
-            ( { model | notice = Nothing }, Testable.Cmd.none )
+            ( { model | notice = Nothing }, Cmd.none )
