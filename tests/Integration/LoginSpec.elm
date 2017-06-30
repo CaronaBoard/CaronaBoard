@@ -11,7 +11,7 @@ import Login.Update as Update exposing (init)
 import Login.View.Login as View
 import Model as Root exposing (Msg(MsgForLogin))
 import Test exposing (..)
-import Testable.Cmd
+
 import Testable.Html
 import Testable.Html.Selectors exposing (..)
 import Testable.Html.Types exposing (Selector)
@@ -122,8 +122,8 @@ class =
 loginContext : a -> TestContext Root.Msg Model
 loginContext _ =
     startForTest
-        { init = ( init Nothing, Testable.Cmd.none )
-        , update = \msg model -> Tuple.mapSecond (Testable.Cmd.map MsgForLogin) <| Update.update msg model
+        { init = ( init Nothing, Cmd.none )
+        , update = \msg model -> Tuple.mapSecond (Cmd.map MsgForLogin) <| Update.update msg model
         , view = View.login >> Testable.Html.map MsgForLogin
         }
 
