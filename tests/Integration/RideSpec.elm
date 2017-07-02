@@ -22,11 +22,9 @@ tests =
                 >> expectView
                 >> find [ id "submitRide" ]
                 >> has [ text "Carregando..." ]
-
-        -- TODO: Comparing nested Cmds like this is not working right now
-        -- , test "sends request via ride port" <|
-        --     submitRide
-        --         >> assertCalled (Cmd.map (MsgForRides << MsgForRide "ride-2") <| Rides.Ride.Ports.ride rideRequestExample)
+        , test "sends request via ride port" <|
+            submitRide
+                >> expectCmd (Rides.Ride.Ports.rideRequest rideRequestExample)
         , test "shows error when ride port returns an error" <|
             submitRide
                 >> update (MsgForRides <| MsgForRide "ride-2" <| RideRequestResponse (Error "undefined is not a function"))
