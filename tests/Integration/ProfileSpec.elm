@@ -37,26 +37,30 @@ tests =
                 >> update (MsgForProfile <| ProfileResponse (Error "undefined is not a function"))
                 >> expectView
                 >> has [ text "not a function" ]
-
-        -- , test "shows notification on success" <|
-        --     submitProfile
-        --         >> successResponse
-        --         >> expectView
-        --         >> has [ text "Perfil atualizado com sucesso" ]
-        -- , test "goes to the rides page on success" <|
-        --     submitProfile
-        --         >> successResponse
-        --         >> assertCalled (Cmd.map MsgForUrlRouter <| Navigation.newUrl <| toPath RidesPage)
-        -- , test "set profile on login response" <|
-        --     profileContext
-        --         >> successSignIn
-        --         >> expectView
-        --         >> Expect.all
-        --             [ find [ id "name" ]
-        --                 >> has [ attribute "value" fixtures.profile.name ]
-        --             , find [ id "contactValue" ]
-        --                 >> has [ attribute "value" fixtures.profile.contact.value ]
-        --             ]
+        , test "shows notification on success" <|
+            submitProfile
+                >> successResponse
+                >> expectView
+                >> has [ text "Perfil atualizado com sucesso" ]
+        , test "goes to the rides page on success" <|
+            submitProfile
+                >> successResponse
+                >> expectModel
+                    (\model ->
+                        model.urlRouter.page
+                            |> Expect.equal RidesPage
+                    )
+        , test "leave profile fields filled after returning to profile page" <|
+            profileContext
+                >> successSignIn
+                >> navigate (toPath ProfilePage)
+                >> expectView
+                >> Expect.all
+                    [ find [ id "name" ]
+                        >> has [ attribute "value" fixtures.profile.name ]
+                    , find [ id "contactValue" ]
+                        >> has [ attribute "value" fixtures.profile.contact.value ]
+                    ]
         ]
 
 

@@ -7,7 +7,6 @@ import Model as Root exposing (Msg(..))
 import Navigation exposing (Location)
 import Notifications.Model as Notifications exposing (isEnabled)
 import Profile.Model as Profile exposing (Msg(..))
-
 import UrlRouter.Model exposing (Model, Msg(Go, UrlChange))
 import UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, toPath)
 
