@@ -3,9 +3,8 @@ module Helpers exposing (..)
 import Common.Response exposing (Response(..))
 import Expect
 import GiveRide.Model exposing (NewRide)
-import Html
 import Login.Model exposing (Msg(..), User)
-import Model
+import Model exposing (Msg(..))
 import NativeLoadFix
 import Navigation exposing (Location)
 import Ports exposing (subscriptions)
@@ -15,14 +14,15 @@ import Rides.Ride.Model as Ride
 import String.Extra
 import TestContext exposing (..)
 import Update
+import UrlRouter.Model exposing (Msg(..))
 import UrlRouter.Routes exposing (Page(..), toPath)
 import View
 
 
 initialContext : Maybe User -> Maybe Profile -> Page -> a -> TestContext Model.Model Model.Msg
 initialContext currentUser profile page _ =
-    Html.program
-        { init = Update.init { currentUser = currentUser, profile = profile } (toLocation page)
+    Navigation.program (MsgForUrlRouter << UrlChange)
+        { init = \_ -> Update.init { currentUser = currentUser, profile = profile } (toLocation page)
         , view = View.view
         , update = Update.update
         , subscriptions = subscriptions
