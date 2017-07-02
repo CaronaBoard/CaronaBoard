@@ -22,57 +22,56 @@ import UrlRouter.Routes exposing (Page(..), toPath)
 tests : Test
 tests =
     describe "UrlRouter"
-        -- [ describe "initial routing"
-        --     [ test "renders rides page if app starts on login page but user is already signed in" <|
-        --         signedInContext LoginPage
-        --             >> expectToBeOnRidesPage
-        --     , test "renders login page if app starts on rides page but user is not signed in" <|
-        --         initialContext Nothing Nothing RidesPage
-        --             >> expectToBeOnLoginPage
-        --     ]
-        [ test "renders login and hides rides when user is not signed in and is on login route" <|
+        [ describe "initial routing"
+            [ test "renders rides page if app starts on login page but user is already signed in" <|
+                signedInContext LoginPage
+                    >> expectToBeOnRidesPage
+            , test "renders login page if app starts on rides page but user is not signed in" <|
+                initialContext Nothing Nothing RidesPage
+                    >> expectToBeOnLoginPage
+            ]
+        , test "renders login and hides rides when user is not signed in and is on login route" <|
             loginContext
                 >> expectToBeOnLoginPage
-
-        -- , test "redirects user to login page if it is not signed in and goes to home or page" <|
-        --     loginContext
-        --         >> Expect.all
-        --             [ update (MsgForUrlRouter <| UrlChange (toLocation RidesPage)) >> expectToBeOnLoginPage
-        --             , update (MsgForUrlRouter <| UrlChange (toLocation SplashScreenPage)) >> expectToBeOnLoginPage
-        --             ]
-        -- , test "renders rides and hides login when user is signed in and on rides route" <|
-        --     loginContext
-        --         >> successSignIn
-        --         >> update (MsgForUrlRouter <| UrlChange (toLocation RidesPage))
-        --         >> expectToBeOnRidesPage
-        -- , test "redirects user to rides page if it is already signed in and goes to login page or home page" <|
-        --     loginContext
-        --         >> successSignIn
-        --         >> Expect.all
-        --             [ update (MsgForUrlRouter <| UrlChange (toLocation LoginPage)) >> expectToBeOnRidesPage
-        --             , update (MsgForUrlRouter <| UrlChange (toLocation SplashScreenPage)) >> expectToBeOnRidesPage
-        --             ]
-        -- , describe "logout"
-        --     [ test "trigger port on sign out button click" <|
-        --         loginThenLogout
-        --             >> expectCmd (Cmd.map MsgForLogin <| signOut ())
-        --     , test "does not log user out until the response from firebase" <|
-        --         loginThenLogout
-        --             >> expectToBeOnRidesPage
-        --     ]
-        -- , test "redirect to profile page if user does not have a profile yet" <|
-        --     loginContext
-        --         >> successSignInWithoutProfile
-        --         >> Expect.all
-        --             [ update (MsgForUrlRouter <| UrlChange (toLocation LoginPage)) >> expectToBeOnProfilePage
-        --             , update (MsgForUrlRouter <| UrlChange (toLocation RidesPage)) >> expectToBeOnProfilePage
-        --             ]
-        -- , test "do not redirect to profile page after creating on" <|
-        --     loginContext
-        --         >> successSignInWithoutProfile
-        --         >> update (MsgForProfile <| ProfileResponse (Success fixtures.profile))
-        --         >> update (MsgForUrlRouter <| UrlChange (toLocation RidesPage))
-        --         >> expectToBeOnRidesPage
+        , test "redirects user to login page if it is not signed in and goes to home or page" <|
+            loginContext
+                >> Expect.all
+                    [ update (MsgForUrlRouter <| UrlChange (toLocation RidesPage)) >> expectToBeOnLoginPage
+                    , update (MsgForUrlRouter <| UrlChange (toLocation SplashScreenPage)) >> expectToBeOnLoginPage
+                    ]
+        , test "renders rides and hides login when user is signed in and on rides route" <|
+            loginContext
+                >> successSignIn
+                >> update (MsgForUrlRouter <| UrlChange (toLocation RidesPage))
+                >> expectToBeOnRidesPage
+        , test "redirects user to rides page if it is already signed in and goes to login page or home page" <|
+            loginContext
+                >> successSignIn
+                >> Expect.all
+                    [ update (MsgForUrlRouter <| UrlChange (toLocation LoginPage)) >> expectToBeOnRidesPage
+                    , update (MsgForUrlRouter <| UrlChange (toLocation SplashScreenPage)) >> expectToBeOnRidesPage
+                    ]
+        , describe "logout"
+            [ test "trigger port on sign out button click" <|
+                loginThenLogout
+                    >> expectCmd (Cmd.map MsgForLogin <| signOut ())
+            , test "does not log user out until the response from firebase" <|
+                loginThenLogout
+                    >> expectToBeOnRidesPage
+            ]
+        , test "redirect to profile page if user does not have a profile yet" <|
+            loginContext
+                >> successSignInWithoutProfile
+                >> Expect.all
+                    [ update (MsgForUrlRouter <| UrlChange (toLocation LoginPage)) >> expectToBeOnProfilePage
+                    , update (MsgForUrlRouter <| UrlChange (toLocation RidesPage)) >> expectToBeOnProfilePage
+                    ]
+        , test "do not redirect to profile page after creating on" <|
+            loginContext
+                >> successSignInWithoutProfile
+                >> update (MsgForProfile <| ProfileResponse (Success fixtures.profile))
+                >> update (MsgForUrlRouter <| UrlChange (toLocation RidesPage))
+                >> expectToBeOnRidesPage
         ]
 
 
