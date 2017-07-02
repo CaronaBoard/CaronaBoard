@@ -4,7 +4,6 @@ import Common.Response exposing (Response(..))
 import Expect exposing (equal)
 import Helpers exposing (expectToContainText, fixtures, initialContext, someUser, successSignIn, toLocation)
 import Model as Root exposing (Model, Msg(..))
-import Navigation
 import Profile.Model exposing (Msg(..))
 import Profile.Ports
 import Rides.Model exposing (Msg(..))
@@ -47,8 +46,7 @@ tests =
                 >> successResponse
                 >> expectModel
                     (\model ->
-                        model.urlRouter.page
-                            |> Expect.equal RidesPage
+                        Expect.equal RidesPage model.urlRouter.page
                     )
         , test "leave profile fields filled after returning to profile page" <|
             profileContext
