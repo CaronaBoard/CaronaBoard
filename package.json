@@ -13,7 +13,7 @@
     "deploy": "./deploy.sh",
     "deploy:now": "npm run build && now build",
     "install": "elm package install -y && cd tests && elm install && npm run sync-test-deps",
-    "sync-test-deps": "mkdir -p elm-stuff/generated-code/elm-community/elm-test/elm-stuff; rsync -a tests/elm-stuff/ elm-stuff/generated-code/elm-community/elm-test/elm-stuff/"
+    "sync-test-deps": "mkdir -p elm-stuff/generated-code/elm-community/elm-test/elm-stuff && cp -R tests/elm-stuff elm-stuff/generated-code/elm-community/elm-test/"
   },
   "repository": {
     "type": "git",
