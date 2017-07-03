@@ -2,6 +2,7 @@ module Layout.Update exposing (init, update)
 
 import Layout.Model exposing (Model, Msg(..))
 import Model as Root exposing (Msg(..))
+import Return exposing (Return, return)
 
 
 init : Model
@@ -10,21 +11,21 @@ init =
     }
 
 
-update : Root.Msg -> Model -> ( Model, Cmd.Cmd Layout.Model.Msg )
+update : Root.Msg -> Model -> Return Layout.Model.Msg Model
 update msg model =
     case msg of
         MsgForLayout layoutMsg ->
             updateLayout layoutMsg model
 
         _ ->
-            ( model, Cmd.none )
+            return model Cmd.none
 
 
-updateLayout : Layout.Model.Msg -> Model -> ( Model, Cmd.Cmd Layout.Model.Msg )
+updateLayout : Layout.Model.Msg -> Model -> Return Layout.Model.Msg Model
 updateLayout msg model =
     case msg of
         OpenDropdown ->
-            ( { model | dropdownOpen = True }, Cmd.none )
+            return { model | dropdownOpen = True } Cmd.none
 
         CloseDropdown ->
-            ( { model | dropdownOpen = False }, Cmd.none )
+            return { model | dropdownOpen = False } Cmd.none

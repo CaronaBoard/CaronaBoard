@@ -2,9 +2,9 @@ module Rides.Update exposing (init, update)
 
 import Common.IdentifiedList exposing (findById, mapIfId)
 import Model as Root exposing (Msg(..))
+import Return exposing (Return, return)
 import Rides.Model exposing (..)
 import Rides.Ride.Update as Ride
-
 
 
 init : Model
@@ -12,21 +12,21 @@ init =
     []
 
 
-update : Root.Msg -> Model -> ( Model, Cmd.Cmd Rides.Model.Msg )
+update : Root.Msg -> Model -> Return Rides.Model.Msg Model
 update msg model =
     case msg of
         MsgForRides msg_ ->
             updateRides msg_ model
 
         _ ->
-            ( model, Cmd.none )
+            return model Cmd.none
 
 
-updateRides : Rides.Model.Msg -> Model -> ( Model, Cmd.Cmd Rides.Model.Msg )
+updateRides : Rides.Model.Msg -> Model -> Return Rides.Model.Msg Model
 updateRides msg model =
     case msg of
         UpdateRides rides ->
-            ( rides, Cmd.none )
+            return rides Cmd.none
 
         MsgForRide rideId msg_ ->
             let
@@ -44,4 +44,4 @@ updateRides msg model =
                         |> Maybe.map updateRideCmd
                         |> Maybe.withDefault Cmd.none
             in
-            ( rides, cmd )
+            return rides cmd

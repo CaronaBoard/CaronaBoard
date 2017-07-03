@@ -2,6 +2,7 @@ module Rides.Ride.Update exposing (init, update)
 
 import Common.Response exposing (Response(..))
 import Profile.Update
+import Return exposing (Return, return)
 import Rides.Ride.Model exposing (Model, Msg(..))
 import Rides.Ride.Ports exposing (encodeRide, rideRequest)
 
@@ -19,13 +20,12 @@ init =
     }
 
 
-update : Rides.Ride.Model.Msg -> Model -> ( Model, Cmd.Cmd Rides.Ride.Model.Msg )
+update : Rides.Ride.Model.Msg -> Model -> Return Rides.Ride.Model.Msg Model
 update msg model =
     case msg of
         Submit ->
-            ( { model | rideRequest = Loading }
-            , rideRequest <| encodeRide model
-            )
+            return { model | rideRequest = Loading } <|
+                rideRequest (encodeRide model)
 
         RideRequestResponse response ->
-            ( { model | rideRequest = response }, Cmd.none )
+            return { model | rideRequest = response } Cmd.none

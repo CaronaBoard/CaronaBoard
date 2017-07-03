@@ -8,12 +8,13 @@ import Model exposing (Flags, Model, Msg(..))
 import Navigation exposing (Location)
 import Notifications.Update as Notifications
 import Profile.Update as Profile
+import Return exposing (Return, return)
 import Rides.Update as Rides
 import UrlRouter.Model
 import UrlRouter.Update as UrlRouter
 
 
-init : Flags -> Location -> ( Model, Cmd.Cmd Msg )
+init : Flags -> Location -> Return Msg Model
 init { currentUser, profile } location =
     let
         initialModel =
@@ -29,7 +30,7 @@ init { currentUser, profile } location =
     updateUrlRouter location initialModel
 
 
-update : Msg -> Model -> ( Model, Cmd.Cmd Msg )
+update : Msg -> Model -> Return Msg Model
 update msg model =
     let
         urlRouter =
@@ -77,7 +78,7 @@ update msg model =
     ( updatedModel, cmds )
 
 
-updateUrlRouter : Location -> Model -> ( Model, Cmd.Cmd Msg )
+updateUrlRouter : Location -> Model -> Return Msg Model
 updateUrlRouter location model =
     let
         updatedUrlRouter =

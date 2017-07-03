@@ -7,6 +7,7 @@ import Model as Root exposing (Msg(..))
 import Navigation exposing (Location)
 import Notifications.Model as Notifications exposing (isEnabled)
 import Profile.Model as Profile exposing (Msg(..))
+import Return exposing (Return, return)
 import UrlRouter.Model exposing (Model, Msg(Go, UrlChange))
 import UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, toPath)
 
@@ -22,7 +23,7 @@ init location =
             { page = page }
 
 
-update : Notifications.Model -> Profile.Model -> Login.Model -> Root.Msg -> Model -> ( Model, Cmd.Cmd UrlRouter.Model.Msg )
+update : Notifications.Model -> Profile.Model -> Login.Model -> Root.Msg -> Model -> Return UrlRouter.Model.Msg Model
 update notifications profile login msg model =
     case msg of
         MsgForUrlRouter urlMsg ->
@@ -47,10 +48,10 @@ update notifications profile login msg model =
             urlRouterUpdate profile login (Go RidesPage) model
 
         _ ->
-            ( model, Cmd.none )
+            return model Cmd.none
 
 
-urlRouterUpdate : Profile.Model -> Login.Model -> UrlRouter.Model.Msg -> Model -> ( Model, Cmd.Cmd UrlRouter.Model.Msg )
+urlRouterUpdate : Profile.Model -> Login.Model -> UrlRouter.Model.Msg -> Model -> Return UrlRouter.Model.Msg Model
 urlRouterUpdate profile login msg model =
     case msg of
         Go route ->
@@ -59,10 +60,10 @@ urlRouterUpdate profile login msg model =
         UrlChange location ->
             case changePageTo profile login model location of
                 Nothing ->
-                    ( model, Cmd.none )
+                    return model Cmd.none
 
                 Just page ->
-                    ( { model | page = page }, Navigation.modifyUrl (toPath page) )
+                    return { model | page = page } (Navigation.modifyUrl (toPath page))
 
 
 changePageTo : Profile.Model -> Login.Model -> Model -> Location -> Maybe Page
