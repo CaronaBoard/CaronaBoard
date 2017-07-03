@@ -25,7 +25,10 @@
         "eeue56/elm-html-test": "3.1.1 <= v < 4.0.0"
     },
     "dependency-sources": {
-        "xavh4/elm-testable": "../../elm-testable"
+        "xavh4/elm-testable": {
+          "url": "https://github.com/rogeriochaves/elm-testable.git",
+          "ref": "rewrite-native"
+        }
     },
     "elm-version": "0.18.0 <= v < 0.19.0"
 }
