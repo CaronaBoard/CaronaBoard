@@ -5,6 +5,7 @@ import Login.Model exposing (Msg(SignInResponse))
 import Model as Root exposing (Msg(..))
 import Profile.Model exposing (Model, Msg(..), Profile)
 import Profile.Ports exposing (saveProfile)
+import Return exposing (Return, return)
 
 
 init : Maybe Profile -> Model
@@ -18,7 +19,7 @@ init profile =
     }
 
 
-update : Root.Msg -> Model -> ( Model, Cmd.Cmd Profile.Model.Msg )
+update : Root.Msg -> Model -> Return Profile.Model.Msg Model
 update msg model =
     case msg of
         MsgForProfile msg_ ->
@@ -27,16 +28,16 @@ update msg model =
         MsgForLogin (SignInResponse (Success response)) ->
             case response.profile of
                 Just profile ->
-                    ( { model | fields = profile, savedProfile = Just profile }, Cmd.none )
+                    return { model | fields = profile, savedProfile = Just profile } Cmd.none
 
                 Nothing ->
-                    ( init Nothing, Cmd.none )
+                    return (init Nothing) Cmd.none
 
         _ ->
-            ( model, Cmd.none )
+            return model Cmd.none
 
 
-updateProfile : Profile.Model.Msg -> Model -> ( Model, Cmd.Cmd Profile.Model.Msg )
+updateProfile : Profile.Model.Msg -> Model -> Return Profile.Model.Msg Model
 updateProfile msg model =
     let
         fields =
@@ -50,21 +51,21 @@ updateProfile msg model =
     in
     case msg of
         UpdateName name ->
-            ( updateFields { fields | name = name }, Cmd.none )
+            return (updateFields { fields | name = name }) Cmd.none
 
         UpdateContactKind kind ->
-            ( updateFields { fields | contact = { contact | kind = kind } }, Cmd.none )
+            return (updateFields { fields | contact = { contact | kind = kind } }) Cmd.none
 
         UpdateContactValue value ->
-            ( updateFields { fields | contact = { contact | value = value } }, Cmd.none )
+            return (updateFields { fields | contact = { contact | value = value } }) Cmd.none
 
         Submit ->
-            ( { model | response = Loading }, saveProfile fields )
+            return { model | response = Loading } (saveProfile fields)
 
         ProfileResponse response ->
             case response of
                 Success profile ->
-                    ( { model | savedProfile = Just profile, response = response }, Cmd.none )
+                    return { model | savedProfile = Just profile, response = response } Cmd.none
 
                 _ ->
-                    ( { model | response = response }, Cmd.none )
+                    return { model | response = response } Cmd.none
