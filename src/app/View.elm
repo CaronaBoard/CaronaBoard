@@ -53,7 +53,7 @@ view model =
             layout model (Html.map MsgForProfile <| profile model.profile)
 
         GroupsPage ->
-            groupsList model.groups
+            layout model (groupsList model.groups)
 
 
 staticView : Html.Html Root.Msg
