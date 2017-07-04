@@ -23,12 +23,13 @@ import View
 initialContext : Maybe User -> Maybe Profile -> Page -> a -> TestContext Model.Model Model.Msg
 initialContext currentUser profile page _ =
     Navigation.program (MsgForUrlRouter << UrlChange)
-        { init = \_ -> Update.init { currentUser = currentUser, profile = profile } (toLocation page)
+        { init = Update.init { currentUser = currentUser, profile = profile }
         , view = View.view
         , update = Update.update
         , subscriptions = subscriptions
         }
         |> start
+        |> navigate (toPath page)
 
 
 signedInContext : Page -> a -> TestContext Model.Model Model.Msg
