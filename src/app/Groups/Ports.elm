@@ -1,7 +1,7 @@
-port module Groups.Ports exposing (groupsResponse, subscriptions)
+port module Groups.Ports exposing (groupsList, groupsListResponse, subscriptions)
 
 import Common.Decoder exposing (normalizeId)
-import Common.Response exposing (fromResult)
+import Common.Response exposing (FirebaseResponse, decodeFromFirebase)
 import Groups.Model exposing (Group, Model, Msg(..))
 import Json.Decode as Json exposing (..)
 import Json.Decode.Pipeline exposing (..)
@@ -10,7 +10,7 @@ import Json.Decode.Pipeline exposing (..)
 subscriptions : Sub Msg
 subscriptions =
     Sub.batch
-        [ groupsResponse (decodeValue decodeGroups >> fromResult >> UpdateGroups)
+        [ groupsListResponse (decodeFromFirebase decodeGroups >> UpdateGroups)
         ]
 
 
@@ -27,4 +27,7 @@ decodeGroup =
         |> required "name" string
 
 
-port groupsResponse : (Json.Value -> msg) -> Sub msg
+port groupsList : () -> Cmd msg
+
+
+port groupsListResponse : (FirebaseResponse Json.Value -> msg) -> Sub msg

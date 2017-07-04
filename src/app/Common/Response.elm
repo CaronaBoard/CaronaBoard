@@ -1,4 +1,6 @@
-module Common.Response exposing (FirebaseResponse, Response(..), fromFirebase, fromResult, map)
+module Common.Response exposing (FirebaseResponse, Response(..), decodeFromFirebase, fromFirebase, fromResult, map)
+
+import Json.Decode as Json exposing (Decoder, decodeValue)
 
 
 type Response a
@@ -39,6 +41,22 @@ fromFirebase response =
 
         ( Nothing, Nothing ) ->
             Error "Invalid FirebaseResponse"
+
+
+decodeFromFirebase : Decoder a -> FirebaseResponse Json.Value -> Response a
+decodeFromFirebase decoder response =
+    case fromFirebase response of
+        Success json ->
+            fromResult (decodeValue decoder json)
+
+        Empty ->
+            Empty
+
+        Loading ->
+            Loading
+
+        Error err ->
+            Error err
 
 
 fromResult : Result x a -> Response a

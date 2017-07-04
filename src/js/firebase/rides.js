@@ -15,8 +15,8 @@ module.exports = function(firebase, app) {
       .then(function() {
         app.ports.giveRideResponse.send(success(true));
       })
-      .catch(function(error) {
-        app.ports.giveRideResponse.send(error(error.message));
+      .catch(function(err) {
+        app.ports.giveRideResponse.send(error(err.message));
       });
   });
 
@@ -41,10 +41,10 @@ module.exports = function(firebase, app) {
           response: success(true)
         });
       })
-      .catch(function(error) {
+      .catch(function(err) {
         app.ports.rideRequestResponse.send({
           rideId: rideRequest.rideId,
-          response: error(error.message)
+          response: error(err.message)
         });
       });
   });

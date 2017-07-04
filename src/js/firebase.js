@@ -17,4 +17,5 @@ module.exports = function(app) {
   require("./firebase/rides")(firebase, app);
   require("./firebase/notifications")(firebase, app);
   require("./firebase/profile")(firebase, app);
+  require("./firebase/groups")(firebase, app);
 };
