@@ -2,6 +2,7 @@ port module Tests exposing (all)
 
 import Fuzz.UrlRouter.UpdateSpec
 import Integration.GiveRideSpec
+import Integration.GroupsSpec
 import Integration.LayoutSpec
 import Integration.LoginSpec
 import Integration.NotificationsSpec
@@ -28,4 +29,5 @@ all =
         , Integration.ProfileSpec.tests
         , Unit.Rides.PortsSpec.tests
         , Unit.Common.DecoderSpec.tests
+        , Integration.GroupsSpec.tests
         ]

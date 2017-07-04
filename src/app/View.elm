@@ -51,6 +51,9 @@ view model =
         ProfilePage ->
             layout model (Html.map MsgForProfile <| profile model.profile)
 
+        GroupsPage ->
+            text "Carregando..."
+
 
 staticView : Html.Html Root.Msg
 staticView =
