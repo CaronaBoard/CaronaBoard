@@ -1,6 +1,7 @@
 module View exposing (staticView, view)
 
 import GiveRide.View exposing (giveRide)
+import Groups.View exposing (groupsList)
 import Html exposing (div, h1, text)
 import Layout.View.Layout exposing (layout)
 import Layout.View.SplashScreen exposing (splashScreen)
@@ -52,7 +53,7 @@ view model =
             layout model (Html.map MsgForProfile <| profile model.profile)
 
         GroupsPage ->
-            text "Carregando..."
+            groupsList model.groups
 
 
 staticView : Html.Html Root.Msg

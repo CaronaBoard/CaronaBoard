@@ -3,6 +3,7 @@ module Helpers exposing (..)
 import Common.Response exposing (Response(..))
 import Expect
 import GiveRide.Model exposing (NewRide)
+import Groups.Model as Groups
 import Login.Model exposing (Msg(..), User)
 import Model exposing (Msg(..))
 import NativeLoadFix
@@ -72,7 +73,7 @@ jsonQuotes =
     String.Extra.replace "'" "\""
 
 
-fixtures : { rides : Rides.Model, ride : Ride.Model, user : User, profile : Profile, newRide : NewRide }
+fixtures : { rides : Rides.Model, ride : Ride.Model, user : User, profile : Profile, newRide : NewRide, group1 : Groups.Group, group2 : Groups.Group, groups : List Groups.Group }
 fixtures =
     let
         user =
@@ -89,10 +90,22 @@ fixtures =
 
         newRide =
             { origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" }
+
+        group1 =
+            { id = "idGroup1", name = "winona riders" }
+
+        group2 =
+            { id = "idGroup2", name = "the uber killars" }
+
+        groups =
+            [ group1, group2 ]
     in
     { rides = [ ride1, ride2 ]
     , ride = ride1
     , user = user
     , profile = profile
     , newRide = newRide
+    , group1 = group1
+    , group2 = group2
+    , groups = groups
     }

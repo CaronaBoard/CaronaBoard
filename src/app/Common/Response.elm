@@ -1,4 +1,4 @@
-module Common.Response exposing (FirebaseResponse, Response(..), fromFirebase, map)
+module Common.Response exposing (FirebaseResponse, Response(..), fromFirebase, fromResult, map)
 
 
 type Response a
@@ -39,3 +39,13 @@ fromFirebase response =
 
         ( Nothing, Nothing ) ->
             Error "Invalid FirebaseResponse"
+
+
+fromResult : Result x a -> Response a
+fromResult result =
+    case result of
+        Ok data ->
+            Success data
+
+        Err err ->
+            Error (toString err)
