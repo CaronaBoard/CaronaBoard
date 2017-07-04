@@ -7,6 +7,7 @@ import Model as Root exposing (Msg(..))
 import Navigation exposing (Location)
 import Notifications.Model as Notifications exposing (isEnabled)
 import Profile.Model as Profile exposing (Msg(..))
+import Return exposing (Return, return)
 import UrlRouter.Model exposing (Model, Msg(Go, UrlChange))
 import UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, toPath)
 
@@ -22,35 +23,35 @@ init location =
             { page = page }
 
 
-update : Notifications.Model -> Profile.Model -> Login.Model -> Root.Msg -> Model -> ( Model, Cmd.Cmd UrlRouter.Model.Msg )
-update notifications profile login msg model =
+update : Root.Msg -> Root.Model -> Return UrlRouter.Model.Msg Model
+update msg { notifications, profile, login, urlRouter } =
     case msg of
         MsgForUrlRouter urlMsg ->
-            urlRouterUpdate profile login urlMsg model
+            urlRouterUpdate profile login urlMsg urlRouter
 
         MsgForLogin (SignInResponse (Success _)) ->
-            urlRouterUpdate profile login (Go RidesPage) model
+            urlRouterUpdate profile login (Go RidesPage) urlRouter
 
         MsgForLogin (SignOutResponse (Success _)) ->
-            urlRouterUpdate profile login (Go LoginPage) model
+            urlRouterUpdate profile login (Go LoginPage) urlRouter
 
         MsgForLogin (PasswordResetResponse (Success _)) ->
-            urlRouterUpdate profile login (Go PasswordResetPage) model
+            urlRouterUpdate profile login (Go PasswordResetPage) urlRouter
 
         MsgForGiveRide (GiveRideResponse (Success _)) ->
             if isEnabled notifications then
-                urlRouterUpdate profile login (Go RidesPage) model
+                urlRouterUpdate profile login (Go RidesPage) urlRouter
             else
-                urlRouterUpdate profile login (Go EnableNotificationsPage) model
+                urlRouterUpdate profile login (Go EnableNotificationsPage) urlRouter
 
         MsgForProfile (ProfileResponse (Success _)) ->
-            urlRouterUpdate profile login (Go RidesPage) model
+            urlRouterUpdate profile login (Go RidesPage) urlRouter
 
         _ ->
-            ( model, Cmd.none )
+            return urlRouter Cmd.none
 
 
-urlRouterUpdate : Profile.Model -> Login.Model -> UrlRouter.Model.Msg -> Model -> ( Model, Cmd.Cmd UrlRouter.Model.Msg )
+urlRouterUpdate : Profile.Model -> Login.Model -> UrlRouter.Model.Msg -> Model -> Return UrlRouter.Model.Msg Model
 urlRouterUpdate profile login msg model =
     case msg of
         Go route ->
@@ -59,10 +60,10 @@ urlRouterUpdate profile login msg model =
         UrlChange location ->
             case changePageTo profile login model location of
                 Nothing ->
-                    ( model, Cmd.none )
+                    return model Cmd.none
 
                 Just page ->
-                    ( { model | page = page }, Navigation.modifyUrl (toPath page) )
+                    return { model | page = page } (Navigation.modifyUrl (toPath page))
 
 
 changePageTo : Profile.Model -> Login.Model -> Model -> Location -> Maybe Page

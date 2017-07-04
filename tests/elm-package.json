@@ -9,6 +9,7 @@
     ],
     "exposed-modules": [],
     "dependencies": {
+        "Fresheyeball/elm-return": "6.0.3 <= v < 7.0.0",
         "NoRedInk/elm-decode-pipeline": "3.0.0 <= v < 4.0.0",
         "xavh4/elm-testable": "1.0.0 <= v < 3.0.0",
         "elm-community/elm-test": "4.1.0 <= v < 5.0.0",
