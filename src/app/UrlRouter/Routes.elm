@@ -16,6 +16,7 @@ type Page
     | EnableNotificationsPage
     | RidePage String
     | ProfilePage
+    | GroupsPage
 
 
 pageParser : Parser (Page -> a) a
@@ -29,6 +30,7 @@ pageParser =
         , map EnableNotificationsPage (static "enable-notifications")
         , map RidePage (static "request-ride" </> string)
         , map ProfilePage (static "profile")
+        , map GroupsPage (static "groups")
         ]
 
 
@@ -61,6 +63,9 @@ toPath page =
 
         ProfilePage ->
             "#/profile"
+
+        GroupsPage ->
+            "#/groups"
 
 
 redirectTo : Profile.Model -> Login.Model -> Page -> Page
@@ -112,6 +117,9 @@ requiresAuthentication page =
             True
 
         ProfilePage ->
+            True
+
+        GroupsPage ->
             True
 
 
