@@ -23,32 +23,32 @@ init location =
             { page = page }
 
 
-update : Notifications.Model -> Profile.Model -> Login.Model -> Root.Msg -> Model -> Return UrlRouter.Model.Msg Model
-update notifications profile login msg model =
+update : Root.Msg -> Root.Model -> Return UrlRouter.Model.Msg Model
+update msg { notifications, profile, login, urlRouter } =
     case msg of
         MsgForUrlRouter urlMsg ->
-            urlRouterUpdate profile login urlMsg model
+            urlRouterUpdate profile login urlMsg urlRouter
 
         MsgForLogin (SignInResponse (Success _)) ->
-            urlRouterUpdate profile login (Go RidesPage) model
+            urlRouterUpdate profile login (Go RidesPage) urlRouter
 
         MsgForLogin (SignOutResponse (Success _)) ->
-            urlRouterUpdate profile login (Go LoginPage) model
+            urlRouterUpdate profile login (Go LoginPage) urlRouter
 
         MsgForLogin (PasswordResetResponse (Success _)) ->
-            urlRouterUpdate profile login (Go PasswordResetPage) model
+            urlRouterUpdate profile login (Go PasswordResetPage) urlRouter
 
         MsgForGiveRide (GiveRideResponse (Success _)) ->
             if isEnabled notifications then
-                urlRouterUpdate profile login (Go RidesPage) model
+                urlRouterUpdate profile login (Go RidesPage) urlRouter
             else
-                urlRouterUpdate profile login (Go EnableNotificationsPage) model
+                urlRouterUpdate profile login (Go EnableNotificationsPage) urlRouter
 
         MsgForProfile (ProfileResponse (Success _)) ->
-            urlRouterUpdate profile login (Go RidesPage) model
+            urlRouterUpdate profile login (Go RidesPage) urlRouter
 
         _ ->
-            return model Cmd.none
+            return urlRouter Cmd.none
 
 
 urlRouterUpdate : Profile.Model -> Login.Model -> UrlRouter.Model.Msg -> Model -> Return UrlRouter.Model.Msg Model

@@ -28,49 +28,23 @@ init { currentUser, profile } location =
             , profile = Profile.init profile
             }
     in
-    updateUrlRouter location initialModel
+    initialRouting location initialModel
 
 
 update : Msg -> Model -> Return Msg Model
 update msg model =
-    let
-        urlRouter =
-            mapCmd MsgForUrlRouter (UrlRouter.update model.notifications model.profile model.login msg model.urlRouter)
-
-        login =
-            mapCmd MsgForLogin (Login.update msg model.login)
-
-        rides =
-            mapCmd MsgForRides (Rides.update msg model.rides)
-
-        layout =
-            mapCmd MsgForLayout (Layout.update msg model.layout)
-
-        giveRide =
-            mapCmd MsgForGiveRide (GiveRide.update (signedInUser model.login) msg model.giveRide)
-
-        notifications =
-            mapCmd MsgForNotifications (Notifications.update msg model.notifications)
-
-        profile =
-            mapCmd MsgForProfile (Profile.update msg model.profile)
-    in
     singleton Model
-        <*> urlRouter
-        <*> login
-        <*> rides
-        <*> layout
-        <*> giveRide
-        <*> notifications
-        <*> profile
+        <*> mapCmd MsgForUrlRouter (UrlRouter.update msg model)
+        <*> mapCmd MsgForLogin (Login.update msg model.login)
+        <*> mapCmd MsgForRides (Rides.update msg model.rides)
+        <*> mapCmd MsgForLayout (Layout.update msg model.layout)
+        <*> mapCmd MsgForGiveRide (GiveRide.update (signedInUser model.login) msg model.giveRide)
+        <*> mapCmd MsgForNotifications (Notifications.update msg model.notifications)
+        <*> mapCmd MsgForProfile (Profile.update msg model.profile)
 
 
-updateUrlRouter : Location -> Model -> Return Msg Model
-updateUrlRouter location model =
-    let
-        updatedUrlRouter =
-            UrlRouter.update model.notifications model.profile model.login (MsgForUrlRouter <| UrlRouter.Model.UrlChange location) model.urlRouter
-    in
-    ( { model | urlRouter = Tuple.first updatedUrlRouter }
-    , Cmd.map MsgForUrlRouter <| Tuple.second updatedUrlRouter
-    )
+initialRouting : Location -> Model -> Return Msg Model
+initialRouting location model =
+    UrlRouter.update (MsgForUrlRouter <| UrlRouter.Model.UrlChange location) model
+        |> Return.map (\urlRouter -> { model | urlRouter = urlRouter })
+        |> mapCmd MsgForUrlRouter
