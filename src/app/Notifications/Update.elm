@@ -7,6 +7,7 @@ import Notifications.Model exposing (Model, Msg(..))
 import Notifications.Ports exposing (enableNotifications)
 import Process
 import Profile.Model exposing (Msg(..))
+import Return exposing (Return, return)
 import Rides.Model exposing (Msg(..))
 import Rides.Ride.Model exposing (Msg(..))
 import Task
@@ -20,7 +21,7 @@ init =
     }
 
 
-update : Root.Msg -> Model -> ( Model, Cmd.Cmd Notifications.Model.Msg )
+update : Root.Msg -> Model -> Return Notifications.Model.Msg Model
 update msg model =
     case msg of
         MsgForNotifications msg_ ->
@@ -36,23 +37,24 @@ update msg model =
             updateNotifications (ShowNotice "Perfil atualizado com sucesso") model
 
         _ ->
-            ( model, Cmd.none )
+            return model Cmd.none
 
 
-updateNotifications : Notifications.Model.Msg -> Model -> ( Model, Cmd.Cmd Notifications.Model.Msg )
+updateNotifications : Notifications.Model.Msg -> Model -> Return Notifications.Model.Msg Model
 updateNotifications msg model =
     case msg of
         EnableNotifications ->
-            ( { model | response = Loading }, enableNotifications () )
+            return { model | response = Loading } <|
+                enableNotifications ()
 
         NotificationsResponse response ->
-            ( { model | response = response }, Cmd.none )
+            return { model | response = response } Cmd.none
 
         ShowNotice notice ->
-            ( { model | notice = Just notice }
-            , Process.sleep (3 * Time.second)
-                |> Task.perform (always HideNotice)
-            )
+            return { model | notice = Just notice }
+                (Process.sleep (3 * Time.second)
+                    |> Task.perform (always HideNotice)
+                )
 
         HideNotice ->
-            ( { model | notice = Nothing }, Cmd.none )
+            return { model | notice = Nothing } Cmd.none

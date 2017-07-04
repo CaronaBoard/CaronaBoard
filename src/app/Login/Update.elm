@@ -4,6 +4,7 @@ import Common.Response exposing (Response(..))
 import Login.Model exposing (Model, Msg(..), Step(..), User, step)
 import Login.Ports exposing (checkRegistration, passwordReset, signIn, signOut, signUp)
 import Model as Root exposing (Msg(MsgForLogin, MsgForUrlRouter))
+import Return exposing (Return, return)
 
 
 init : Maybe User -> Model
@@ -20,58 +21,61 @@ init user =
     }
 
 
-update : Root.Msg -> Model -> ( Model, Cmd.Cmd Login.Model.Msg )
+update : Root.Msg -> Model -> Return Login.Model.Msg Model
 update msg model =
     case msg of
         MsgForLogin loginMsg ->
             loginUpdate loginMsg model
 
         _ ->
-            ( model, Cmd.none )
+            return model Cmd.none
 
 
-loginUpdate : Login.Model.Msg -> Model -> ( Model, Cmd.Cmd Login.Model.Msg )
+loginUpdate : Login.Model.Msg -> Model -> Return Login.Model.Msg Model
 loginUpdate msg model =
     case msg of
         UpdateEmail email ->
-            ( { model | email = email }, Cmd.none )
+            return { model | email = email } Cmd.none
 
         UpdatePassword password ->
-            ( { model | password = password }, Cmd.none )
+            return { model | password = password } Cmd.none
 
         Submit ->
             case step model of
                 EmailStep ->
-                    ( { model | registered = Loading }, checkRegistration model.email )
+                    return { model | registered = Loading } <|
+                        checkRegistration model.email
 
                 PasswordStep ->
-                    ( { model | signedIn = Loading }, signIn { email = model.email, password = model.password } )
+                    return { model | signedIn = Loading } <|
+                        signIn { email = model.email, password = model.password }
 
                 NotRegisteredStep ->
-                    ( { model | signUp = Loading }, signUp { email = model.email, password = model.password } )
+                    return { model | signUp = Loading } <|
+                        signUp { email = model.email, password = model.password }
 
         CheckRegistrationResponse response ->
-            ( { model | registered = response }, Cmd.none )
+            return { model | registered = response } Cmd.none
 
         SignInResponse response ->
-            ( { model | signedIn = Common.Response.map (\res -> res.user) response }, Cmd.none )
+            return { model | signedIn = Common.Response.map (\res -> res.user) response } Cmd.none
 
         SignOut ->
-            ( model, signOut () )
+            return model (signOut ())
 
         SignOutResponse response ->
             case response of
                 Success _ ->
-                    ( init Nothing, Cmd.none )
+                    return (init Nothing) Cmd.none
 
                 _ ->
-                    ( model, Cmd.none )
+                    return model Cmd.none
 
         PasswordReset ->
-            ( { model | passwordReset = Loading }, passwordReset model.email )
+            return { model | passwordReset = Loading } (passwordReset model.email)
 
         PasswordResetResponse response ->
-            ( { model | passwordReset = response }, Cmd.none )
+            return { model | passwordReset = response } Cmd.none
 
         SignUpResponse response ->
-            ( { model | signUp = response }, Cmd.none )
+            return { model | signUp = response } Cmd.none
