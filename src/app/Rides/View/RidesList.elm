@@ -2,21 +2,28 @@ module Rides.View.RidesList exposing (rideInfo, rideRoute, ridesList)
 
 import Common.CssHelpers exposing (materializeClass)
 import Common.Icon exposing (icon)
+import Common.IdentifiedList exposing (findById)
 import Common.Link exposing (linkTo)
-import Common.Response exposing (Response(..))
+import Common.Response as Response exposing (Response(..))
 import Html exposing (..)
 import Layout.Styles exposing (Classes(..), layoutClass)
-import Model exposing (Msg(..))
-import Rides.Model as Rides
+import Model as Root exposing (Msg(..))
 import Rides.Ride.Model as Ride
 import Rides.Styles exposing (Classes(..), className)
 import UrlRouter.Routes exposing (Page(..))
 
 
-ridesList : String -> Rides.Model -> Html Msg
-ridesList groupId model =
+ridesList : String -> Root.Model -> Html Msg
+ridesList groupId { rides, groups } =
+    let
+        groupName =
+            groups.groups
+                |> Response.map (findById groupId >> Maybe.map .name >> Maybe.withDefault "")
+                |> Response.withDefault ""
+    in
     div [ layoutClass Container ]
-        [ case model.rides of
+        [ h1 [ layoutClass PageTitle ] [ text groupName ]
+        , case rides.rides of
             Empty ->
                 text ""
 
