@@ -3,17 +3,18 @@ module Rides.View.RidesList exposing (rideInfo, rideRoute, ridesList)
 import Common.CssHelpers exposing (materializeClass)
 import Common.Icon exposing (icon)
 import Common.Link exposing (linkTo)
+import Html exposing (..)
+import Layout.Styles exposing (Classes(..), layoutClass)
 import Model exposing (Msg(..))
 import Rides.Model as Rides
 import Rides.Ride.Model as Ride
 import Rides.Styles exposing (Classes(..), className)
-import Html exposing (..)
 import UrlRouter.Routes exposing (Page(..))
 
 
 ridesList : Rides.Model -> Html Msg
 ridesList rides =
-    div [ materializeClass "container" ] (List.map rideItem rides)
+    div [ layoutClass Container ] (List.map rideItem rides)
 
 
 rideItem : Ride.Model -> Html Msg

@@ -1,12 +1,12 @@
 module Rides.View.Instructions exposing (instructions)
 
-import Common.CssHelpers exposing (materializeClass)
 import Html exposing (Html, div, li, ol, strong, text)
+import Layout.Styles exposing (Classes(..), layoutClass)
 
 
 instructions : Html a
 instructions =
-    div [ materializeClass "container" ]
+    div [ layoutClass Container ]
         [ ol []
             [ li []
                 [ text "Encontre uma rota que passe perto do seu destino" ]
@@ -17,7 +17,7 @@ instructions =
             , li []
                 [ strong []
                     [ text "Pronto!" ]
-                , text "Seu colega oferecendo carona para a rota selecionada irá receber sua mensagem"
+                , text " Seu colega oferecendo carona para a rota selecionada irá receber sua mensagem"
                 ]
             ]
         ]

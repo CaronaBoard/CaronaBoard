@@ -11,7 +11,7 @@ import Html.Events exposing (onInput, onSubmit)
 
 giveRide : Model -> Html Msg
 giveRide model =
-    div [ materializeClass "container" ]
+    div [ layoutClass Container ]
         [ h1 [ layoutClass PageTitle ] [ text "Dar Carona" ]
         , form [ materializeClass "card", onSubmit Submit ]
             [ div [ materializeClass "card-content" ]

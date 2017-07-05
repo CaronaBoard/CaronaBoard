@@ -6,6 +6,7 @@ import Css exposing (..)
 import Css.Elements exposing (..)
 import Css.Namespace
 import Html exposing (Attribute)
+import Layout.Styles exposing (container)
 
 
 namespace : String
@@ -19,20 +20,25 @@ className =
 
 
 type Classes
-    = List
+    = ListContainer
+    | List
 
 
 styles : Stylesheet
 styles =
     (stylesheet << Css.Namespace.namespace namespace)
-        [ class List
+        [ class ListContainer <|
+            container
+                ++ [ backgroundColor white
+                   ]
+        , class List
             [ listStyle none
             , backgroundColor white
             , fontSize (px 16)
             , descendants
                 [ li
-                    [ padding (px 16)
-                    , border3 (px 1) solid grey
+                    [ padding2 (px 16) (px 0)
+                    , borderBottom3 (px 1) solid grey
                     , displayFlex
                     , alignItems center
                     , after

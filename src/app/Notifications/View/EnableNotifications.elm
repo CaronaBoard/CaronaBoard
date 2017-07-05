@@ -13,7 +13,7 @@ import Html.Events exposing (onSubmit)
 
 enableNotifications : Model -> Html Msg
 enableNotifications model =
-    div [ materializeClass "container" ]
+    div [ layoutClass Container ]
         [ h1 [ layoutClass PageTitle ] [ text "Ativar Notificações" ]
         , form [ materializeClass "card", onSubmit EnableNotifications ]
             [ div [ materializeClass "card-content" ]
