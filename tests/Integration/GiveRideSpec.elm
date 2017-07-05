@@ -59,7 +59,7 @@ tests =
         , test "clear fields on success after returning to the form" <|
             submitNewRide
                 >> successResponse
-                >> navigate (toPath GiveRidePage)
+                >> navigate (toPath <| GiveRidePage "idGroup1")
                 >> expectView
                 >> find [ id "origin" ]
                 >> has [ attribute "value" "" ]
@@ -68,7 +68,7 @@ tests =
 
 ridesContext : a -> TestContext Model Root.Msg
 ridesContext =
-    signedInContext GiveRidePage
+    signedInContext (GiveRidePage "idGroup1")
 
 
 fillNewRide : a -> TestContext Model Root.Msg
