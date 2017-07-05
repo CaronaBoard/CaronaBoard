@@ -9,7 +9,6 @@ import Login.Ports exposing (signOut)
 import Login.Styles
 import Model as Root exposing (Model, Msg(..))
 import Profile.Model exposing (Msg(..))
-import Rides.Styles
 import Test exposing (..)
 import Test.Html.Events as Events exposing (Event(..))
 import Test.Html.Query exposing (..)
@@ -25,9 +24,9 @@ tests =
         [ describe "initial routing"
             [ test "renders rides page if app starts on login page but user is already signed in" <|
                 signedInContext LoginPage
-                    >> expectToBeOnRidesPage
+                    >> expectToBeOnGroupsPage
             , test "renders login page if app starts on rides page but user is not signed in" <|
-                initialContext Nothing Nothing RidesPage
+                initialContext Nothing Nothing GroupsPage
                     >> expectToBeOnLoginPage
             ]
         , test "renders login and hides rides when user is not signed in and is on login route" <|
@@ -36,20 +35,20 @@ tests =
         , test "redirects user to login page if it is not signed in and goes to home or page" <|
             loginContext
                 >> Expect.all
-                    [ update (MsgForUrlRouter <| UrlChange (toLocation RidesPage)) >> expectToBeOnLoginPage
+                    [ update (MsgForUrlRouter <| UrlChange (toLocation GroupsPage)) >> expectToBeOnLoginPage
                     , update (MsgForUrlRouter <| UrlChange (toLocation SplashScreenPage)) >> expectToBeOnLoginPage
                     ]
-        , test "renders rides and hides login when user is signed in and on rides route" <|
+        , test "renders groups and hides login when user is signed in and on groups route" <|
             loginContext
                 >> successSignIn
-                >> update (MsgForUrlRouter <| UrlChange (toLocation RidesPage))
-                >> expectToBeOnRidesPage
-        , test "redirects user to rides page if it is already signed in and goes to login page or home page" <|
+                >> update (MsgForUrlRouter <| UrlChange (toLocation GroupsPage))
+                >> expectToBeOnGroupsPage
+        , test "redirects user to groups page if it is already signed in and goes to login page or home page" <|
             loginContext
                 >> successSignIn
                 >> Expect.all
-                    [ update (MsgForUrlRouter <| UrlChange (toLocation LoginPage)) >> expectToBeOnRidesPage
-                    , update (MsgForUrlRouter <| UrlChange (toLocation SplashScreenPage)) >> expectToBeOnRidesPage
+                    [ update (MsgForUrlRouter <| UrlChange (toLocation LoginPage)) >> expectToBeOnGroupsPage
+                    , update (MsgForUrlRouter <| UrlChange (toLocation SplashScreenPage)) >> expectToBeOnGroupsPage
                     ]
         , describe "logout"
             [ test "trigger port on sign out button click" <|
@@ -57,21 +56,21 @@ tests =
                     >> expectCmd (Cmd.map MsgForLogin <| signOut ())
             , test "does not log user out until the response from firebase" <|
                 loginThenLogout
-                    >> expectToBeOnRidesPage
+                    >> expectToBeOnGroupsPage
             ]
         , test "redirect to profile page if user does not have a profile yet" <|
             loginContext
                 >> successSignInWithoutProfile
                 >> Expect.all
                     [ update (MsgForUrlRouter <| UrlChange (toLocation LoginPage)) >> expectToBeOnProfilePage
-                    , update (MsgForUrlRouter <| UrlChange (toLocation RidesPage)) >> expectToBeOnProfilePage
+                    , update (MsgForUrlRouter <| UrlChange (toLocation GroupsPage)) >> expectToBeOnProfilePage
                     ]
         , test "do not redirect to profile page after creating on" <|
             loginContext
                 >> successSignInWithoutProfile
                 >> update (MsgForProfile <| ProfileResponse (Success fixtures.profile))
-                >> update (MsgForUrlRouter <| UrlChange (toLocation RidesPage))
-                >> expectToBeOnRidesPage
+                >> update (MsgForUrlRouter <| UrlChange (toLocation GroupsPage))
+                >> expectToBeOnGroupsPage
         ]
 
 
@@ -90,16 +89,11 @@ loginClass =
     Test.Html.Selector.class << identifierToString Login.Styles.namespace
 
 
-ridesClass : Rides.Styles.Classes -> Selector
-ridesClass =
-    Test.Html.Selector.class << identifierToString Rides.Styles.namespace
-
-
 loginThenLogout : a -> TestContext Model Root.Msg
 loginThenLogout =
     loginContext
         >> successSignIn
-        >> update (MsgForUrlRouter <| UrlChange (toLocation RidesPage))
+        >> update (MsgForUrlRouter <| UrlChange (toLocation GroupsPage))
         >> simulate (find [ layoutClass OpenMenuButton ]) Events.Click
         >> simulate (find [ layoutClass SignOutButton ]) Events.Click
 
@@ -113,11 +107,11 @@ expectToBeOnLoginPage =
             ]
 
 
-expectToBeOnRidesPage : TestContext Model msg -> Expect.Expectation
-expectToBeOnRidesPage =
+expectToBeOnGroupsPage : TestContext Model msg -> Expect.Expectation
+expectToBeOnGroupsPage =
     expectModel
         (\model ->
-            Expect.equal RidesPage model.urlRouter.page
+            Expect.equal GroupsPage model.urlRouter.page
         )
 
 

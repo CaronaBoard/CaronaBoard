@@ -37,12 +37,12 @@ tests =
                 >> has [ text "Notificações ativadas" ]
         , describe "notices"
             [ test "shows notice" <|
-                signedInContext RidesPage
+                signedInContext GroupsPage
                     >> update (MsgForNotifications <| ShowNotice "banana!")
                     >> expectView
                     >> has [ text "banana!" ]
             , test "hides notice after 3 seconds" <|
-                signedInContext RidesPage
+                signedInContext GroupsPage
                     >> update (MsgForNotifications <| ShowNotice "banana!")
                     >> advanceTime (3 * Time.second)
                     >> expectView

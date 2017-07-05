@@ -30,7 +30,7 @@ update msg { notifications, profile, login, urlRouter } =
             urlRouterUpdate profile login urlMsg urlRouter
 
         MsgForLogin (SignInResponse (Success _)) ->
-            urlRouterUpdate profile login (Go RidesPage) urlRouter
+            urlRouterUpdate profile login (Go GroupsPage) urlRouter
 
         MsgForLogin (SignOutResponse (Success _)) ->
             urlRouterUpdate profile login (Go LoginPage) urlRouter
@@ -40,12 +40,12 @@ update msg { notifications, profile, login, urlRouter } =
 
         MsgForGiveRide (GiveRideResponse (Success _)) ->
             if isEnabled notifications then
-                urlRouterUpdate profile login (Go RidesPage) urlRouter
+                urlRouterUpdate profile login (Go GroupsPage) urlRouter
             else
                 urlRouterUpdate profile login (Go EnableNotificationsPage) urlRouter
 
         MsgForProfile (ProfileResponse (Success _)) ->
-            urlRouterUpdate profile login (Go RidesPage) urlRouter
+            urlRouterUpdate profile login (Go GroupsPage) urlRouter
 
         _ ->
             return urlRouter Cmd.none

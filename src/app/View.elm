@@ -26,7 +26,7 @@ view model =
         LoginPage ->
             loginLayout (Html.map MsgForLogin <| login model.login)
 
-        RidesPage ->
+        RidesPage groupId ->
             layout model
                 (div []
                     [ instructions

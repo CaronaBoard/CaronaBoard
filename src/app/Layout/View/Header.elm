@@ -3,13 +3,13 @@ module Layout.View.Header exposing (header)
 import Common.CssHelpers exposing (materializeClass)
 import Common.Icon exposing (icon)
 import Common.Link exposing (linkTo)
+import Html exposing (Html, a, b, button, div, h1, h2, i, img, li, nav, text, ul)
+import Html.Attributes exposing (alt, href, id, rel, src, style)
+import Html.Events exposing (onClick)
 import Layout.Model exposing (Model, Msg(CloseDropdown, OpenDropdown))
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Login.Model exposing (Msg(SignOut))
 import Model exposing (Msg(..))
-import Html exposing (Html, a, b, button, div, h1, h2, i, img, li, nav, text, ul)
-import Html.Attributes exposing (alt, href, id, rel, src, style)
-import Html.Events exposing (onClick)
 import UrlRouter.Routes exposing (Page(..))
 
 
@@ -19,7 +19,7 @@ header model =
         menu model
             ++ [ nav [ layoutClass Navbar ]
                     [ div [ materializeClass "nav-wrapper" ]
-                        [ linkTo RidesPage
+                        [ linkTo GroupsPage
                             [ layoutClass BrandLogo, materializeClass "left" ]
                             [ b [] [ text "Carona" ]
                             , text "Board"
