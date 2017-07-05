@@ -30,7 +30,7 @@ view model =
             layout model
                 (div []
                     [ instructions
-                    , ridesList model.rides
+                    , ridesList groupId model.rides
                     ]
                 )
 

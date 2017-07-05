@@ -11,7 +11,7 @@ import Test exposing (..)
 import Test.Html.Query exposing (..)
 import Test.Html.Selector exposing (..)
 import TestContext exposing (..)
-import UrlRouter.Routes exposing (Page(..))
+import UrlRouter.Routes exposing (Page(..), toPath)
 
 
 tests : Test
@@ -31,11 +31,23 @@ tests =
                 >> has [ text "Carregando..." ]
         , test "renders rides when they load" <|
             ridesContext
-                >> send ridesListResponse ( Nothing, Just <| simpleStringify { idGroup1 = { idUser1 = { idRide1 = fixtures.ride1 }, idUser2 = { idRide2 = fixtures.ride2 } } } )
+                >> loadRides
                 >> expectView
                 >> findAll [ class Card ]
                 >> count (Expect.equal 2)
+        , test "renders only the rides for the selected group" <|
+            ridesContext
+                >> loadRides
+                >> navigate (toPath <| RidesPage "idGroup2")
+                >> expectView
+                >> findAll [ class Card ]
+                >> count (Expect.equal 0)
         ]
+
+
+loadRides : TestContext model msg -> TestContext model msg
+loadRides =
+    send ridesListResponse ( Nothing, Just <| simpleStringify { idGroup1 = { idUser1 = { idRide1 = fixtures.ride1 }, idUser2 = { idRide2 = fixtures.ride2 } } } )
 
 
 ridesContext : a -> TestContext Model Root.Msg
