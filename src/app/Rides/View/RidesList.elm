@@ -3,6 +3,7 @@ module Rides.View.RidesList exposing (rideInfo, rideRoute, ridesList)
 import Common.CssHelpers exposing (materializeClass)
 import Common.Icon exposing (icon)
 import Common.Link exposing (linkTo)
+import Common.Response exposing (Response(..))
 import Html exposing (..)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Model exposing (Msg(..))
@@ -13,8 +14,19 @@ import UrlRouter.Routes exposing (Page(..))
 
 
 ridesList : Rides.Model -> Html Msg
-ridesList rides =
-    div [ layoutClass Container ] (List.map rideItem rides)
+ridesList model =
+    case model.rides of
+        Empty ->
+            text ""
+
+        Loading ->
+            text "Carregando..."
+
+        Success rides ->
+            div [ layoutClass Container ] (List.map rideItem rides)
+
+        Error err ->
+            text err
 
 
 rideItem : Ride.Model -> Html Msg

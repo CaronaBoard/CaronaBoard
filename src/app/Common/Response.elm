@@ -1,5 +1,15 @@
-module Common.Response exposing (FirebaseResponse, Response(..), decodeFromFirebase, fromFirebase, fromResult, map)
+module Common.Response
+    exposing
+        ( FirebaseResponse
+        , Response(..)
+        , decodeFromFirebase
+        , fromFirebase
+        , fromResult
+        , map
+        , withDefault
+        )
 
+import Css.Elements exposing (a)
 import Json.Decode as Json exposing (Decoder, decodeValue)
 
 
@@ -28,6 +38,16 @@ map f response =
 
         Error err ->
             Error err
+
+
+withDefault : a -> Response a -> a
+withDefault default response =
+    case response of
+        Success a ->
+            a
+
+        _ ->
+            default
 
 
 fromFirebase : FirebaseResponse a -> Response a

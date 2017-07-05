@@ -48,10 +48,10 @@ module.exports = function(firebase, app) {
         });
       });
   });
-};
 
-module.exports.fetchRides = function(firebase, app) {
-  firebase.database().ref("rides").on("value", function(rides) {
-    app.ports.rides.send(rides.val());
+  app.ports.ridesList.subscribe(function() {
+    firebase.database().ref("rides").on("value", function(rides) {
+      app.ports.ridesListResponse.send(success(rides.val()));
+    });
   });
 };

@@ -8,7 +8,6 @@ module.exports = function(firebase, app) {
       .ref("groups")
       .once("value")
       .then(function(groups) {
-        console.log(groups.val());
         app.ports.groupsListResponse.send(success(groups.val()));
       })
       .catch(function(err) {

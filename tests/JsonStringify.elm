@@ -10,6 +10,7 @@ simpleStringify : a -> Json.Encode.Value
 simpleStringify a =
     toString a
         |> replace All (regex " ([^ ]+) =") (\match -> " \"" ++ matchOrEmptyAt match 1 ++ "\":")
+        |> replace All (regex ": ([A-Z].*?) ") (\_ -> ": null ")
         |> Json.Decode.decodeString Json.Decode.value
         |> unwrap
 

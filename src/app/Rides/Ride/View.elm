@@ -3,7 +3,10 @@ module Rides.Ride.View exposing (ride)
 import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
 import Common.IdentifiedList exposing (findById)
-import Common.Response exposing (Response(..))
+import Common.Response as Response exposing (Response(..))
+import Html exposing (..)
+import Html.Attributes exposing (for, href, id, placeholder, selected, target, value)
+import Html.Events exposing (onInput, onSubmit)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Model as RootModel
 import Profile.Model exposing (contactDeepLink)
@@ -12,9 +15,6 @@ import Rides.Ride.Model exposing (Model, Msg(..))
 import Rides.Ride.Styles exposing (Classes(..), className)
 import Rides.Styles exposing (Classes(Card))
 import Rides.View.RidesList exposing (rideInfo, rideRoute)
-import Html exposing (..)
-import Html.Attributes exposing (for, href, id, placeholder, selected, target, value)
-import Html.Events exposing (onInput, onSubmit)
 
 
 ridesClass : Rides.Styles.Classes -> Attribute msg
@@ -26,7 +26,7 @@ ride : String -> RootModel.Model -> Html Rides.Model.Msg
 ride rideId model =
     div [ layoutClass Container ]
         [ h1 [ layoutClass PageTitle ] [ text "Pedir Carona" ]
-        , case findById rideId model.rides of
+        , case findById rideId (Response.withDefault [] model.rides.rides) of
             Just ride ->
                 Html.map (MsgForRide ride.id) <| rideDetails ride
 
