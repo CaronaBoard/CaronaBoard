@@ -9,7 +9,7 @@ import UrlParser exposing ((</>), Parser, map, oneOf, parseHash, string)
 type Page
     = SplashScreenPage
     | LoginPage
-    | RidesPage
+    | RidesPage String
     | NotFoundPage
     | PasswordResetPage
     | GiveRidePage
@@ -24,7 +24,7 @@ pageParser =
     oneOf
         [ map SplashScreenPage (static "")
         , map LoginPage (static "login")
-        , map RidesPage (static "rides")
+        , map RidesPage (static "groups" </> string </> static "rides")
         , map PasswordResetPage (static "password-reset")
         , map GiveRidePage (static "give-ride")
         , map EnableNotificationsPage (static "enable-notifications")
@@ -43,8 +43,8 @@ toPath page =
         LoginPage ->
             "#/login"
 
-        RidesPage ->
-            "#/rides"
+        RidesPage groupId ->
+            "#/groups/" ++ groupId ++ "/rides"
 
         NotFoundPage ->
             "#/not-found"
@@ -76,10 +76,10 @@ redirectTo profile login page =
         else
             case page of
                 SplashScreenPage ->
-                    RidesPage
+                    GroupsPage
 
                 LoginPage ->
-                    RidesPage
+                    GroupsPage
 
                 _ ->
                     page
@@ -95,7 +95,7 @@ requiresAuthentication page =
         SplashScreenPage ->
             True
 
-        RidesPage ->
+        RidesPage _ ->
             True
 
         LoginPage ->

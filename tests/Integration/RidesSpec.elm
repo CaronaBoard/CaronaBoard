@@ -32,7 +32,7 @@ tests =
 
 ridesContext : a -> TestContext Model Root.Msg
 ridesContext =
-    signedInContext RidesPage
+    signedInContext (RidesPage "idGroup1")
 
 
 class : Classes -> Test.Html.Selector.Selector

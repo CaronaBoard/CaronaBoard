@@ -43,13 +43,13 @@ tests =
                     (\model ->
                         Expect.equal EnableNotificationsPage model.urlRouter.page
                     )
-        , test "goes to the rides page on success if notifications are already enabled" <|
+        , test "goes to the groups page on success if notifications are already enabled" <|
             submitNewRide
                 >> update (MsgForNotifications <| NotificationsResponse (Success True))
                 >> successResponse
                 >> expectModel
                     (\model ->
-                        Expect.equal RidesPage model.urlRouter.page
+                        Expect.equal GroupsPage model.urlRouter.page
                     )
         , test "shows notification on success" <|
             submitNewRide
