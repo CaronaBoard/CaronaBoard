@@ -31,15 +31,15 @@ ridesList groupId model =
                 if ridesForGroup == [] then
                     text "Esse grupo ainda não tem nenhuma oferta de carona. Tem um carro? Cadastre uma carona!"
                 else
-                    div [] (List.map rideItem ridesForGroup)
+                    div [] (List.map (rideItem groupId) ridesForGroup)
 
             Error err ->
                 text err
         ]
 
 
-rideItem : Ride.Model -> Html Msg
-rideItem ride =
+rideItem : String -> Ride.Model -> Html Msg
+rideItem groupId ride =
     div [ className Card, materializeClass "card" ]
         [ div [ materializeClass "card-content" ]
             [ span [ className CardTitle ] [ text ride.destination ]
@@ -47,7 +47,7 @@ rideItem ride =
             ]
         , div [ className OtherDetails, materializeClass "card-action" ]
             [ rideInfo ride
-            , linkTo (RidePage ride.id) [ className ActionButton ] [ text "Quero carona" ]
+            , linkTo (RidePage groupId ride.id) [ className ActionButton ] [ text "Quero carona" ]
             ]
         ]
 

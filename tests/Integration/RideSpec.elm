@@ -45,7 +45,7 @@ tests =
 
 ridesContextContext : a -> TestContext Model Root.Msg
 ridesContextContext =
-    signedInContext (RidePage "idRide2")
+    signedInContext (RidePage "idGroup1" "idRide2")
         >> update (MsgForRides <| UpdateRides <| Success fixtures.rides)
 
 
