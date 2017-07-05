@@ -11,7 +11,8 @@ import Return exposing (Return, return)
 init : Model
 init =
     { fields =
-        { origin = ""
+        { groupId = ""
+        , origin = ""
         , destination = ""
         , days = ""
         , hours = ""
@@ -52,10 +53,10 @@ updateGiveRide user msg model =
         UpdateHours hours ->
             return (updateFields { fields | hours = hours }) Cmd.none
 
-        Submit ->
+        Submit groupId ->
             case user of
                 Just user_ ->
-                    return { model | response = Loading } (giveRide fields)
+                    return { model | response = Loading } (giveRide { fields | groupId = groupId })
 
                 Nothing ->
                     return model Cmd.none

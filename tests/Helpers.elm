@@ -10,7 +10,6 @@ import NativeLoadFix
 import Navigation exposing (Location)
 import Ports exposing (subscriptions)
 import Profile.Model exposing (Profile)
-import Rides.Model as Rides
 import Rides.Ride.Model as Ride
 import String.Extra
 import TestContext exposing (..)
@@ -90,7 +89,7 @@ fixtures =
             { id = "idRide2", groupId = "idGroup1", userId = "isUser2", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", profile = { name = "bar", contact = { kind = "Whatsapp", value = "wpp-for-idRide2" } }, rideRequest = Empty }
 
         newRide =
-            { origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" }
+            { groupId = "idGroup1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" }
 
         group1 =
             { id = "idGroup1", name = "winona riders" }

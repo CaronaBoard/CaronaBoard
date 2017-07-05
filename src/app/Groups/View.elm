@@ -1,6 +1,5 @@
 module Groups.View exposing (groupsList)
 
-import Common.CssHelpers exposing (materializeClass)
 import Common.Response exposing (Response(..))
 import Groups.Model exposing (Group, Model)
 import Groups.Styles exposing (Classes(..), className)

@@ -3,17 +3,17 @@ module GiveRide.View exposing (giveRide)
 import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
 import GiveRide.Model exposing (Model, Msg(..))
-import Layout.Styles exposing (Classes(..), layoutClass)
 import Html exposing (..)
 import Html.Attributes exposing (for, id, placeholder, selected, value)
 import Html.Events exposing (onInput, onSubmit)
+import Layout.Styles exposing (Classes(..), layoutClass)
 
 
-giveRide : Model -> Html Msg
-giveRide model =
+giveRide : String -> Model -> Html Msg
+giveRide groupId model =
     div [ layoutClass Container ]
         [ h1 [ layoutClass PageTitle ] [ text "Dar Carona" ]
-        , form [ materializeClass "card", onSubmit Submit ]
+        , form [ materializeClass "card", onSubmit (Submit groupId) ]
             [ div [ materializeClass "card-content" ]
                 (formFields model)
             ]
