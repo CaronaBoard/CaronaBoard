@@ -2,22 +2,51 @@ module Rides.View.RidesList exposing (rideInfo, rideRoute, ridesList)
 
 import Common.CssHelpers exposing (materializeClass)
 import Common.Icon exposing (icon)
+import Common.IdentifiedList exposing (findById)
 import Common.Link exposing (linkTo)
-import Model exposing (Msg(..))
-import Rides.Model as Rides
+import Common.Response as Response exposing (Response(..))
+import Html exposing (..)
+import Layout.Styles exposing (Classes(..), layoutClass)
+import Model as Root exposing (Msg(..))
 import Rides.Ride.Model as Ride
 import Rides.Styles exposing (Classes(..), className)
-import Html exposing (..)
 import UrlRouter.Routes exposing (Page(..))
 
 
-ridesList : Rides.Model -> Html Msg
-ridesList rides =
-    div [ materializeClass "container" ] (List.map rideItem rides)
+ridesList : String -> Root.Model -> Html Msg
+ridesList groupId { rides, groups } =
+    let
+        groupName =
+            groups.groups
+                |> Response.map (findById groupId >> Maybe.map .name >> Maybe.withDefault "")
+                |> Response.withDefault ""
+    in
+    div [ layoutClass Container ]
+        [ h1 [ layoutClass PageTitle ] [ text groupName ]
+        , case rides.rides of
+            Empty ->
+                text ""
+
+            Loading ->
+                text "Carregando..."
+
+            Success rides ->
+                let
+                    ridesForGroup =
+                        List.filter (\ride -> ride.groupId == groupId) rides
+                in
+                if ridesForGroup == [] then
+                    text "Esse grupo ainda não tem nenhuma oferta de carona. Tem um carro? Cadastre uma carona!"
+                else
+                    div [] (List.map (rideItem groupId) ridesForGroup)
+
+            Error err ->
+                text err
+        ]
 
 
-rideItem : Ride.Model -> Html Msg
-rideItem ride =
+rideItem : String -> Ride.Model -> Html Msg
+rideItem groupId ride =
     div [ className Card, materializeClass "card" ]
         [ div [ materializeClass "card-content" ]
             [ span [ className CardTitle ] [ text ride.destination ]
@@ -25,7 +54,7 @@ rideItem ride =
             ]
         , div [ className OtherDetails, materializeClass "card-action" ]
             [ rideInfo ride
-            , linkTo (RidePage ride.id) [ className ActionButton ] [ text "Quero carona" ]
+            , linkTo (RidePage groupId ride.id) [ className ActionButton ] [ text "Quero carona" ]
             ]
         ]
 

@@ -12,7 +12,7 @@ import Html.Events exposing (onInput, onSubmit)
 
 profile : Model -> Html Msg
 profile model =
-    div [ materializeClass "container" ]
+    div [ layoutClass Container ]
         [ h1 [ layoutClass PageTitle ]
             [ if model.savedProfile == Nothing then
                 text "Criar Perfil"

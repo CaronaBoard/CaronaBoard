@@ -1,5 +1,4 @@
 var firebase = require("firebase");
-var fetchRides = require("./rides").fetchRides;
 var success = require("./helpers").success;
 var error = require("./helpers").error;
 

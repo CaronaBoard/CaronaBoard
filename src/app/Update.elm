@@ -1,6 +1,7 @@
 module Update exposing (init, update)
 
 import GiveRide.Update as GiveRide
+import Groups.Update as Groups
 import Infix exposing ((<*>))
 import Layout.Update as Layout
 import Login.Model exposing (signedInUser)
@@ -26,6 +27,7 @@ init { currentUser, profile } location =
             , giveRide = GiveRide.init
             , notifications = Notifications.init
             , profile = Profile.init profile
+            , groups = Groups.init
             }
     in
     initialRouting location initialModel
@@ -41,6 +43,7 @@ update msg model =
         <*> mapCmd MsgForGiveRide (GiveRide.update (signedInUser model.login) msg model.giveRide)
         <*> mapCmd MsgForNotifications (Notifications.update msg model.notifications)
         <*> mapCmd MsgForProfile (Profile.update msg model.profile)
+        <*> mapCmd MsgForGroups (Groups.update msg model.groups)
 
 
 initialRouting : Location -> Model -> Return Msg Model

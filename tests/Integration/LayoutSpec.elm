@@ -39,7 +39,7 @@ tests =
 
 layoutContext : a -> TestContext Model Root.Msg
 layoutContext =
-    signedInContext RidesPage
+    signedInContext GroupsPage
 
 
 class : Classes -> Selector

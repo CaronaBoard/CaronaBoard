@@ -9,13 +9,14 @@ import UrlParser exposing ((</>), Parser, map, oneOf, parseHash, string)
 type Page
     = SplashScreenPage
     | LoginPage
-    | RidesPage
+    | RidesPage String
     | NotFoundPage
     | PasswordResetPage
-    | GiveRidePage
+    | GiveRidePage String
     | EnableNotificationsPage
-    | RidePage String
+    | RidePage String String
     | ProfilePage
+    | GroupsPage
 
 
 pageParser : Parser (Page -> a) a
@@ -23,12 +24,13 @@ pageParser =
     oneOf
         [ map SplashScreenPage (static "")
         , map LoginPage (static "login")
-        , map RidesPage (static "rides")
         , map PasswordResetPage (static "password-reset")
-        , map GiveRidePage (static "give-ride")
-        , map EnableNotificationsPage (static "enable-notifications")
-        , map RidePage (static "request-ride" </> string)
         , map ProfilePage (static "profile")
+        , map EnableNotificationsPage (static "enable-notifications")
+        , map GroupsPage (static "groups")
+        , map RidesPage (static "groups" </> string </> static "rides")
+        , map GiveRidePage (static "groups" </> string </> static "rides" </> static "give")
+        , map RidePage (static "groups" </> string </> static "rides" </> string </> static "request")
         ]
 
 
@@ -41,8 +43,8 @@ toPath page =
         LoginPage ->
             "#/login"
 
-        RidesPage ->
-            "#/rides"
+        RidesPage groupId ->
+            "#/groups/" ++ groupId ++ "/rides"
 
         NotFoundPage ->
             "#/not-found"
@@ -50,17 +52,20 @@ toPath page =
         PasswordResetPage ->
             "#/password-reset"
 
-        GiveRidePage ->
-            "#/give-ride"
+        GiveRidePage groupId ->
+            "#/groups/" ++ groupId ++ "/rides/give"
 
         EnableNotificationsPage ->
             "#/enable-notifications"
 
-        RidePage rideId ->
-            "#/request-ride/" ++ rideId
+        RidePage groupId rideId ->
+            "#/groups/" ++ groupId ++ "/rides/" ++ rideId ++ "/request"
 
         ProfilePage ->
             "#/profile"
+
+        GroupsPage ->
+            "#/groups"
 
 
 redirectTo : Profile.Model -> Login.Model -> Page -> Page
@@ -71,10 +76,10 @@ redirectTo profile login page =
         else
             case page of
                 SplashScreenPage ->
-                    RidesPage
+                    GroupsPage
 
                 LoginPage ->
-                    RidesPage
+                    GroupsPage
 
                 _ ->
                     page
@@ -90,7 +95,7 @@ requiresAuthentication page =
         SplashScreenPage ->
             True
 
-        RidesPage ->
+        RidesPage _ ->
             True
 
         LoginPage ->
@@ -102,16 +107,19 @@ requiresAuthentication page =
         PasswordResetPage ->
             False
 
-        GiveRidePage ->
+        GiveRidePage _ ->
             True
 
         EnableNotificationsPage ->
             True
 
-        RidePage _ ->
+        RidePage _ _ ->
             True
 
         ProfilePage ->
+            True
+
+        GroupsPage ->
             True
 
 

@@ -12,8 +12,8 @@ tests =
     describe "Rides Ports"
         [ test "decodes rides" <|
             \_ ->
-                "{'user-1': {'ride-1': {'origin': 'bar', 'destination': 'baz, near qux', 'days': 'Mon to Fri', 'hours': '18:30', 'profile': {'name': 'foo', 'contact': {'kind': 'Whatsapp', 'value': '+5551'}}}}}"
+                "{'idGroup1': {'isUser1': {'idRide1': {'origin': 'bar', 'destination': 'baz, near qux', 'days': 'Mon to Fri', 'hours': '18:30', 'profile': {'name': 'foo', 'contact': {'kind': 'Whatsapp', 'value': '+5551'}}}}}}"
                     |> jsonQuotes
                     |> decodeString decodeRides
-                    |> Expect.equal (Ok [ fixtures.ride ])
+                    |> Expect.equal (Ok [ fixtures.ride1 ])
         ]

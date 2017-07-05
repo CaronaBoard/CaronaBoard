@@ -1,5 +1,4 @@
 var firebase = require("firebase");
-var fetchRides = require("./rides").fetchRides;
 var checkNotificationToken = require("./notifications").checkNotificationToken;
 var success = require("./helpers").success;
 var error = require("./helpers").error;
@@ -45,7 +44,6 @@ module.exports = function(firebase, app) {
         })
       );
     });
-    fetchRides(firebase, app);
     checkNotificationToken(firebase, app);
   };
 

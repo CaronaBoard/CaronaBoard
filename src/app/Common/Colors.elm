@@ -1,4 +1,4 @@
-module Common.Colors exposing (darkTextColor, grey, lightTextColor, lighterBlue, primaryBlack, primaryBlue, white)
+module Common.Colors exposing (..)
 
 import Css exposing (Color, Mixin, color, rgb)
 
@@ -36,3 +36,8 @@ white =
 grey : Color
 grey =
     rgb 240 240 240
+
+
+darkerGrey : Color
+darkerGrey =
+    rgb 180 180 180

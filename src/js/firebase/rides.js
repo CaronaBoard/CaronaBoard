@@ -9,14 +9,26 @@ module.exports = function(firebase, app) {
       .then(function(profile) {
         return firebase
           .database()
-          .ref("rides/" + firebase.auth().currentUser.uid)
-          .push(Object.assign({ profile: profile.val() }, newRide));
+          .ref(
+            "rides/" + newRide.groupId + "/" + firebase.auth().currentUser.uid
+          )
+          .push(
+            Object.assign(
+              { profile: profile.val() },
+              {
+                origin: newRide.origin,
+                destination: newRide.destination,
+                days: newRide.days,
+                hours: newRide.hours
+              }
+            )
+          );
       })
       .then(function() {
         app.ports.giveRideResponse.send(success(true));
       })
-      .catch(function(error) {
-        app.ports.giveRideResponse.send(error(error.message));
+      .catch(function(err) {
+        app.ports.giveRideResponse.send(error(err.message));
       });
   });
 
@@ -27,6 +39,8 @@ module.exports = function(firebase, app) {
           .database()
           .ref(
             "ridesRequests/" +
+              rideRequest.groupId +
+              "/" +
               rideRequest.rideId +
               "/" +
               rideRequest.toUserId +
@@ -41,17 +55,17 @@ module.exports = function(firebase, app) {
           response: success(true)
         });
       })
-      .catch(function(error) {
+      .catch(function(err) {
         app.ports.rideRequestResponse.send({
           rideId: rideRequest.rideId,
-          response: error(error.message)
+          response: error(err.message)
         });
       });
   });
-};
 
-module.exports.fetchRides = function(firebase, app) {
-  firebase.database().ref("rides").on("value", function(rides) {
-    app.ports.rides.send(rides.val());
+  app.ports.ridesList.subscribe(function() {
+    firebase.database().ref("rides").on("value", function(rides) {
+      app.ports.ridesListResponse.send(success(rides.val()));
+    });
   });
 };
