@@ -39,6 +39,8 @@ module.exports = function(firebase, app) {
           .database()
           .ref(
             "ridesRequests/" +
+              rideRequest.groupId +
+              "/" +
               rideRequest.rideId +
               "/" +
               rideRequest.toUserId +

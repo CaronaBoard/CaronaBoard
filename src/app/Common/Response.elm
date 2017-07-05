@@ -9,7 +9,6 @@ module Common.Response
         , withDefault
         )
 
-import Css.Elements exposing (a)
 import Json.Decode as Json exposing (Decoder, decodeValue)
 
 
