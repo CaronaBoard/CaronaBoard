@@ -10,6 +10,7 @@
     "build:analyze": "npm run build && open build/stats.html",
     "generate-html": "mkdir -p build && elm-static-html -c elm-static-html.json",
     "test": "elm-test tests/Tests.elm",
+    "test:watch": "elm-test tests/Tests.elm --watch",
     "deploy": "./deploy.sh",
     "deploy:now": "npm run build && now build",
     "install": "elm package install -y && cd tests && elm install && npm run sync-test-deps",

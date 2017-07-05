@@ -43,13 +43,13 @@ tests =
                     (\model ->
                         Expect.equal EnableNotificationsPage model.urlRouter.page
                     )
-        , test "goes to the rides page on success if notifications are already enabled" <|
+        , test "goes to the groups page on success if notifications are already enabled" <|
             submitNewRide
                 >> update (MsgForNotifications <| NotificationsResponse (Success True))
                 >> successResponse
                 >> expectModel
                     (\model ->
-                        Expect.equal RidesPage model.urlRouter.page
+                        Expect.equal GroupsPage model.urlRouter.page
                     )
         , test "shows notification on success" <|
             submitNewRide
@@ -59,7 +59,7 @@ tests =
         , test "clear fields on success after returning to the form" <|
             submitNewRide
                 >> successResponse
-                >> navigate (toPath GiveRidePage)
+                >> navigate (toPath <| GiveRidePage "idGroup1")
                 >> expectView
                 >> find [ id "origin" ]
                 >> has [ attribute "value" "" ]
@@ -68,7 +68,7 @@ tests =
 
 ridesContext : a -> TestContext Model Root.Msg
 ridesContext =
-    signedInContext GiveRidePage
+    signedInContext (GiveRidePage "idGroup1")
 
 
 fillNewRide : a -> TestContext Model Root.Msg

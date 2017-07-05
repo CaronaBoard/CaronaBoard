@@ -10,7 +10,8 @@ type alias Model =
 
 
 type alias NewRide =
-    { origin : String
+    { groupId : String
+    , origin : String
     , destination : String
     , days : String
     , hours : String
@@ -22,5 +23,5 @@ type Msg
     | UpdateDestination String
     | UpdateDays String
     | UpdateHours String
-    | Submit
+    | Submit String
     | GiveRideResponse (Response Bool)

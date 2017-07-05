@@ -41,12 +41,12 @@ tests =
                 >> successResponse
                 >> expectView
                 >> has [ text "Perfil atualizado com sucesso" ]
-        , test "goes to the rides page on success" <|
+        , test "goes to the groups page on success" <|
             submitProfile
                 >> successResponse
                 >> expectModel
                     (\model ->
-                        Expect.equal RidesPage model.urlRouter.page
+                        Expect.equal GroupsPage model.urlRouter.page
                     )
         , test "leave profile fields filled after returning to profile page" <|
             profileContext
@@ -65,7 +65,7 @@ tests =
 profileContext : a -> TestContext Model Root.Msg
 profileContext =
     initialContext someUser Nothing ProfilePage
-        >> update (MsgForRides <| UpdateRides fixtures.rides)
+        >> update (MsgForRides <| UpdateRides <| Success fixtures.rides)
 
 
 fillProfile : a -> TestContext Model Root.Msg

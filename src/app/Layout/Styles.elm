@@ -1,4 +1,4 @@
-module Layout.Styles exposing (Classes(..), button, layoutClass, namespace, styles)
+module Layout.Styles exposing (Classes(..), button, container, layoutClass, namespace, styles)
 
 import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
@@ -19,7 +19,8 @@ layoutClass =
 
 
 type Classes
-    = Page
+    = Container
+    | Page
     | Menu
     | AnimatedDropdown
     | Navbar
@@ -89,7 +90,9 @@ generalStyles =
 
 layoutStyles : List Snippet
 layoutStyles =
-    [ class Page
+    [ class Container
+        container
+    , class Page
         []
     , class Navbar
         [ backgroundColor primaryBlue
@@ -143,4 +146,12 @@ button =
     , hover
         [ backgroundColor lighterBlue
         ]
+    ]
+
+
+container : List Mixin
+container =
+    [ padding2 (px 0) (pct 5)
+    , maxWidth (px 1280)
+    , margin2 (px 0) auto
     ]

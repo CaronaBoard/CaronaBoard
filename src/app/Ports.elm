@@ -1,6 +1,7 @@
 port module Ports exposing (subscriptions)
 
 import GiveRide.Ports as GiveRide
+import Groups.Ports as Groups
 import Login.Ports as Login
 import Model as Root exposing (Model, Msg(..))
 import Notifications.Ports as Notifications
@@ -16,4 +17,5 @@ subscriptions model =
         , Sub.map MsgForGiveRide GiveRide.subscriptions
         , Sub.map MsgForNotifications Notifications.subscriptions
         , Sub.map MsgForProfile Profile.subscriptions
+        , Sub.map MsgForGroups Groups.subscriptions
         ]

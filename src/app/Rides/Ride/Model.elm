@@ -6,6 +6,7 @@ import Profile.Model exposing (Profile)
 
 type alias Model =
     { id : String
+    , groupId : String
     , userId : String
     , origin : String
     , destination : String
@@ -17,5 +18,5 @@ type alias Model =
 
 
 type Msg
-    = Submit
+    = Submit String
     | RideRequestResponse (Response Bool)

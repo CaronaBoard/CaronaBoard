@@ -3,13 +3,13 @@ module Helpers exposing (..)
 import Common.Response exposing (Response(..))
 import Expect
 import GiveRide.Model exposing (NewRide)
+import Groups.Model as Groups
 import Login.Model exposing (Msg(..), User)
 import Model exposing (Msg(..))
 import NativeLoadFix
 import Navigation exposing (Location)
 import Ports exposing (subscriptions)
 import Profile.Model exposing (Profile)
-import Rides.Model as Rides
 import Rides.Ride.Model as Ride
 import String.Extra
 import TestContext exposing (..)
@@ -22,12 +22,13 @@ import View
 initialContext : Maybe User -> Maybe Profile -> Page -> a -> TestContext Model.Model Model.Msg
 initialContext currentUser profile page _ =
     Navigation.program (MsgForUrlRouter << UrlChange)
-        { init = \_ -> Update.init { currentUser = currentUser, profile = profile } (toLocation page)
+        { init = Update.init { currentUser = currentUser, profile = profile }
         , view = View.view
         , update = Update.update
         , subscriptions = subscriptions
         }
         |> start
+        |> navigate (toPath page)
 
 
 signedInContext : Page -> a -> TestContext Model.Model Model.Msg
@@ -72,7 +73,7 @@ jsonQuotes =
     String.Extra.replace "'" "\""
 
 
-fixtures : { rides : Rides.Model, ride : Ride.Model, user : User, profile : Profile, newRide : NewRide }
+fixtures : { rides : List Ride.Model, ride1 : Ride.Model, ride2 : Ride.Model, user : User, profile : Profile, newRide : NewRide, group1 : Groups.Group, group2 : Groups.Group, groups : List Groups.Group }
 fixtures =
     let
         user =
@@ -82,17 +83,30 @@ fixtures =
             { name = "foo", contact = { kind = "Whatsapp", value = "passenger-wpp" } }
 
         ride1 =
-            { id = "ride-1", userId = "user-1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", profile = { name = "foo", contact = { kind = "Whatsapp", value = "+5551" } }, rideRequest = Empty }
+            { id = "idRide1", groupId = "idGroup1", userId = "isUser1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", profile = { name = "foo", contact = { kind = "Whatsapp", value = "+5551" } }, rideRequest = Empty }
 
         ride2 =
-            { id = "ride-2", userId = "user-2", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", profile = { name = "bar", contact = { kind = "Whatsapp", value = "wpp-for-ride-2" } }, rideRequest = Empty }
+            { id = "idRide2", groupId = "idGroup1", userId = "isUser2", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", profile = { name = "bar", contact = { kind = "Whatsapp", value = "wpp-for-idRide2" } }, rideRequest = Empty }
 
         newRide =
-            { origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" }
+            { groupId = "idGroup1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" }
+
+        group1 =
+            { id = "idGroup1", name = "winona riders" }
+
+        group2 =
+            { id = "idGroup2", name = "the uber killars" }
+
+        groups =
+            [ group1, group2 ]
     in
     { rides = [ ride1, ride2 ]
-    , ride = ride1
+    , ride1 = ride1
+    , ride2 = ride2
     , user = user
     , profile = profile
     , newRide = newRide
+    , group1 = group1
+    , group2 = group2
+    , groups = groups
     }

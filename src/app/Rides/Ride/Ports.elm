@@ -23,14 +23,16 @@ port rideRequestResponse : ({ rideId : String, response : FirebaseResponse Bool 
 
 
 type alias RideRequest =
-    { rideId : String
+    { groupId : String
+    , rideId : String
     , toUserId : String
     }
 
 
-encodeRide : Model -> RideRequest
-encodeRide ride =
-    { rideId = ride.id
+encodeRide : String -> Model -> RideRequest
+encodeRide groupId ride =
+    { groupId = groupId
+    , rideId = ride.id
     , toUserId = ride.userId
     }
 
@@ -39,6 +41,7 @@ decodeRide : Decoder Ride.Model
 decodeRide =
     decode Ride.Model
         |> hardcoded "id"
+        |> hardcoded "groupId"
         |> hardcoded "userId"
         |> required "origin" string
         |> required "destination" string
