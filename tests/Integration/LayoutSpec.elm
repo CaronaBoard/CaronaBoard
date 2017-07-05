@@ -6,7 +6,7 @@ import Helpers exposing (expectToContainText, expectToNotContainText, initialCon
 import Layout.Styles exposing (Classes(Menu, OpenMenuButton))
 import Model as Root exposing (Model, Msg(MsgForLayout))
 import Test exposing (..)
-import Test.Html.Events as Events exposing (Event(..))
+import Test.Html.Event exposing (click)
 import Test.Html.Query exposing (..)
 import Test.Html.Selector exposing (..)
 import TestContext exposing (..)
@@ -23,14 +23,14 @@ tests =
                 >> count (Expect.equal 0)
         , test "opens the dropdown on click" <|
             layoutContext
-                >> simulate (find [ class OpenMenuButton ]) Events.Click
+                >> simulate (find [ class OpenMenuButton ]) click
                 >> expectView
                 >> findAll [ class Menu ]
                 >> count (Expect.equal 1)
         , test "closes the dropdown when clicking outside" <|
             layoutContext
-                >> simulate (find [ class OpenMenuButton ]) Events.Click
-                >> simulate (find [ class Menu ]) Events.Click
+                >> simulate (find [ class OpenMenuButton ]) click
+                >> simulate (find [ class Menu ]) click
                 >> expectView
                 >> findAll [ class Menu ]
                 >> count (Expect.equal 0)

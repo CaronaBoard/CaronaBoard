@@ -12,7 +12,7 @@ import Login.Update as Update exposing (init)
 import Login.View.Login as View
 import Model as Root exposing (Msg(MsgForLogin))
 import Test exposing (..)
-import Test.Html.Events as Events exposing (Event(..))
+import Test.Html.Event exposing (click, input, submit)
 import Test.Html.Query exposing (..)
 import Test.Html.Selector exposing (..)
 import TestContext exposing (..)
@@ -130,28 +130,28 @@ loginContext _ =
 submitEmail : a -> TestContext Model Root.Msg
 submitEmail =
     loginContext
-        >> simulate (find [ tag "input", attribute "type" "email" ]) (Events.Input "foo@bar.com")
-        >> simulate (find [ tag "form" ]) Events.Submit
+        >> simulate (find [ tag "input", attribute "type" "email" ]) (input "foo@bar.com")
+        >> simulate (find [ tag "form" ]) submit
 
 
 submitEmailThenPassword : a -> TestContext Model Root.Msg
 submitEmailThenPassword =
     submitEmail
         >> update (MsgForLogin <| CheckRegistrationResponse (Success True))
-        >> simulate (find [ tag "input", attribute "type" "password" ]) (Events.Input "baz")
-        >> simulate (find [ tag "form" ]) Events.Submit
+        >> simulate (find [ tag "input", attribute "type" "password" ]) (input "baz")
+        >> simulate (find [ tag "form" ]) submit
 
 
 submitEmailThenForgotPassword : a -> TestContext Model Root.Msg
 submitEmailThenForgotPassword =
     submitEmail
         >> update (MsgForLogin <| CheckRegistrationResponse (Success True))
-        >> simulate (find [ class ResetPasswordButton ]) Events.Click
+        >> simulate (find [ class ResetPasswordButton ]) click
 
 
 submitEmailThenRegistration : a -> TestContext Model Root.Msg
 submitEmailThenRegistration =
     submitEmail
         >> update (MsgForLogin <| CheckRegistrationResponse (Success False))
-        >> simulate (find [ id "password" ]) (Events.Input "baz")
-        >> simulate (find [ tag "form" ]) Events.Submit
+        >> simulate (find [ id "password" ]) (input "baz")
+        >> simulate (find [ tag "form" ]) submit

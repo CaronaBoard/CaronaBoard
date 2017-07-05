@@ -6,7 +6,7 @@ import Model as Root exposing (Model, Msg(..))
 import Notifications.Model exposing (..)
 import Notifications.Ports
 import Test exposing (..)
-import Test.Html.Events as Events exposing (Event(..))
+import Test.Html.Event exposing (submit)
 import Test.Html.Query exposing (..)
 import Test.Html.Selector exposing (..)
 import TestContext exposing (..)
@@ -54,4 +54,4 @@ tests =
 enableNotifications : a -> TestContext Root.Model Root.Msg
 enableNotifications =
     signedInContext EnableNotificationsPage
-        >> simulate (find [ tag "form" ]) Events.Submit
+        >> simulate (find [ tag "form" ]) submit

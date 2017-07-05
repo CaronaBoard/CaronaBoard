@@ -23,7 +23,7 @@
         "rtfeldman/elm-css": "8.1.0 <= v < 9.0.0",
         "rtfeldman/elm-css-helpers": "2.1.0 <= v < 3.0.0",
         "rtfeldman/elm-css-util": "1.0.2 <= v < 2.0.0",
-        "eeue56/elm-html-test": "3.1.1 <= v < 4.0.0"
+        "eeue56/elm-html-test": "4.1.0 <= v < 5.0.0"
     },
     "dependency-sources": {
         "xavh4/elm-testable": {
