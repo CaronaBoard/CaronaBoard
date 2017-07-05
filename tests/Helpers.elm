@@ -84,10 +84,10 @@ fixtures =
             { name = "foo", contact = { kind = "Whatsapp", value = "passenger-wpp" } }
 
         ride1 =
-            { id = "ride-1", userId = "user-1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", profile = { name = "foo", contact = { kind = "Whatsapp", value = "+5551" } }, rideRequest = Empty }
+            { id = "ride-1", groupId = "idGroup1", userId = "user-1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", profile = { name = "foo", contact = { kind = "Whatsapp", value = "+5551" } }, rideRequest = Empty }
 
         ride2 =
-            { id = "ride-2", userId = "user-2", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", profile = { name = "bar", contact = { kind = "Whatsapp", value = "wpp-for-ride-2" } }, rideRequest = Empty }
+            { id = "ride-2", groupId = "idGroup1", userId = "user-2", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", profile = { name = "bar", contact = { kind = "Whatsapp", value = "wpp-for-ride-2" } }, rideRequest = Empty }
 
         newRide =
             { origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" }

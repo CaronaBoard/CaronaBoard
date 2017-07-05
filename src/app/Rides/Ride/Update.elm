@@ -11,6 +11,7 @@ init : Model
 init =
     { id = ""
     , userId = ""
+    , groupId = ""
     , origin = ""
     , destination = ""
     , days = ""
