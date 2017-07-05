@@ -9,8 +9,20 @@ module.exports = function(firebase, app) {
       .then(function(profile) {
         return firebase
           .database()
-          .ref("rides/" + firebase.auth().currentUser.uid)
-          .push(Object.assign({ profile: profile.val() }, newRide));
+          .ref(
+            "rides/" + newRide.groupId + "/" + firebase.auth().currentUser.uid
+          )
+          .push(
+            Object.assign(
+              { profile: profile.val() },
+              {
+                origin: newRide.origin,
+                destination: newRide.destination,
+                days: newRide.days,
+                hours: newRide.hours
+              }
+            )
+          );
       })
       .then(function() {
         app.ports.giveRideResponse.send(success(true));

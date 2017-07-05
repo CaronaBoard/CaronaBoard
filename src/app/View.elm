@@ -41,7 +41,7 @@ view model =
             loginLayout passwordReset
 
         GiveRidePage groupId ->
-            layout model (Html.map MsgForGiveRide <| giveRide model.giveRide)
+            layout model (Html.map MsgForGiveRide <| giveRide groupId model.giveRide)
 
         EnableNotificationsPage ->
             layout model (Html.map MsgForNotifications <| enableNotifications model.notifications)
