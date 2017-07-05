@@ -6,17 +6,17 @@ import Common.Link exposing (linkTo)
 import Html exposing (Html, a, b, button, div, h1, h2, i, img, li, nav, text, ul)
 import Html.Attributes exposing (alt, href, id, rel, src, style)
 import Html.Events exposing (onClick)
-import Layout.Model exposing (Model, Msg(CloseDropdown, OpenDropdown))
+import Layout.Model as Layout exposing (Msg(CloseDropdown, OpenDropdown))
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Login.Model exposing (Msg(SignOut))
-import Model exposing (Msg(..))
+import Model as Root exposing (Msg(..))
 import UrlRouter.Routes exposing (Page(..))
 
 
-header : Model -> Html Model.Msg
+header : Root.Model -> Html Root.Msg
 header model =
     Html.header [ materializeClass "navbar-fixed" ] <|
-        menu model
+        menu model.layout
             ++ [ nav [ layoutClass Navbar ]
                     [ div [ materializeClass "nav-wrapper" ]
                         [ linkTo GroupsPage
@@ -25,13 +25,18 @@ header model =
                             , text "Board"
                             ]
                         , ul [ materializeClass "right" ]
-                            [ li []
-                                [ linkTo (GiveRidePage "twpoa")
-                                    [ layoutClass AddRideLink ]
-                                    [ icon "directions_car"
-                                    , text "Dou carona"
-                                    ]
-                                ]
+                            [ case model.urlRouter.page of
+                                RidesPage groupId ->
+                                    li []
+                                        [ linkTo (GiveRidePage groupId)
+                                            [ layoutClass AddRideLink ]
+                                            [ icon "directions_car"
+                                            , text "Dou carona"
+                                            ]
+                                        ]
+
+                                _ ->
+                                    div [] []
                             , li []
                                 [ a [ layoutClass OpenMenuButton, onClick (MsgForLayout OpenDropdown) ]
                                     [ icon "more_vert"
@@ -43,7 +48,7 @@ header model =
                ]
 
 
-menu : Model -> List (Html Model.Msg)
+menu : Layout.Model -> List (Html Root.Msg)
 menu model =
     if model.dropdownOpen then
         [ div [ layoutClass Menu, onClick (MsgForLayout CloseDropdown) ]
