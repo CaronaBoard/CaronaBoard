@@ -3,12 +3,13 @@ module Integration.RidesSpec exposing (tests)
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (expectToContainText, fixtures, initialContext, signedInContext, someUser, toLocation)
+import JsonStringify exposing (simpleStringify)
 import Model as Root exposing (Model, Msg(..))
-import Rides.Model exposing (Msg(..))
+import Rides.Ports exposing (..)
 import Rides.Styles exposing (Classes(Card))
 import Test exposing (..)
 import Test.Html.Query exposing (..)
-import Test.Html.Selector
+import Test.Html.Selector exposing (..)
 import TestContext exposing (..)
 import UrlRouter.Routes exposing (Page(..))
 
@@ -21,10 +22,17 @@ tests =
                 >> TestContext.expectView
                 >> findAll [ class Card ]
                 >> count (Expect.equal 0)
-        , test "renders routes when they load" <|
+        , test "request rides list when going to the page" <|
             ridesContext
-                >> update (MsgForRides <| UpdateRides fixtures.rides)
-                >> TestContext.expectView
+                >> expectCmd (ridesList ())
+        , test "shows loading when the rides are loading" <|
+            ridesContext
+                >> expectView
+                >> has [ text "Carregando..." ]
+        , test "renders rides when they load" <|
+            ridesContext
+                >> send ridesListResponse ( Nothing, Just <| simpleStringify { idGroup1 = { idUser1 = { idRide1 = fixtures.ride1 }, idUser2 = { idRide2 = fixtures.ride2 } } } )
+                >> expectView
                 >> findAll [ class Card ]
                 >> count (Expect.equal 2)
         ]

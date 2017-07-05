@@ -27,7 +27,7 @@ tests =
                 >> expectCmd (Rides.Ride.Ports.rideRequest rideRequestExample)
         , test "shows error when ride port returns an error" <|
             submitRide
-                >> update (MsgForRides <| MsgForRide "ride-2" <| RideRequestResponse (Error "undefined is not a function"))
+                >> update (MsgForRides <| MsgForRide "idRide2" <| RideRequestResponse (Error "undefined is not a function"))
                 >> expectView
                 >> has [ text "not a function" ]
         , test "shows notification on success" <|
@@ -39,19 +39,19 @@ tests =
             submitRide
                 >> successResponse
                 >> expectView
-                >> has [ text "wpp-for-ride-2" ]
+                >> has [ text "wpp-for-idRide2" ]
         ]
 
 
 ridesContextContext : a -> TestContext Model Root.Msg
 ridesContextContext =
-    signedInContext (RidePage "ride-2")
-        >> update (MsgForRides <| UpdateRides fixtures.rides)
+    signedInContext (RidePage "idRide2")
+        >> update (MsgForRides <| UpdateRides <| Success fixtures.rides)
 
 
 rideRequestExample : RideRequest
 rideRequestExample =
-    { rideId = "ride-2", toUserId = "user-2" }
+    { rideId = "idRide2", toUserId = "isUser2" }
 
 
 submitRide : a -> TestContext Model Root.Msg
@@ -62,4 +62,4 @@ submitRide =
 
 successResponse : TestContext Model Root.Msg -> TestContext Model Root.Msg
 successResponse =
-    update (MsgForRides <| MsgForRide "ride-2" <| RideRequestResponse (Success True))
+    update (MsgForRides <| MsgForRide "idRide2" <| RideRequestResponse (Success True))

@@ -74,7 +74,7 @@ jsonQuotes =
     String.Extra.replace "'" "\""
 
 
-fixtures : { rides : Rides.Model, ride : Ride.Model, user : User, profile : Profile, newRide : NewRide, group1 : Groups.Group, group2 : Groups.Group, groups : List Groups.Group }
+fixtures : { rides : List Ride.Model, ride1 : Ride.Model, ride2 : Ride.Model, user : User, profile : Profile, newRide : NewRide, group1 : Groups.Group, group2 : Groups.Group, groups : List Groups.Group }
 fixtures =
     let
         user =
@@ -84,10 +84,10 @@ fixtures =
             { name = "foo", contact = { kind = "Whatsapp", value = "passenger-wpp" } }
 
         ride1 =
-            { id = "ride-1", groupId = "idGroup1", userId = "user-1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", profile = { name = "foo", contact = { kind = "Whatsapp", value = "+5551" } }, rideRequest = Empty }
+            { id = "idRide1", groupId = "idGroup1", userId = "isUser1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", profile = { name = "foo", contact = { kind = "Whatsapp", value = "+5551" } }, rideRequest = Empty }
 
         ride2 =
-            { id = "ride-2", groupId = "idGroup1", userId = "user-2", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", profile = { name = "bar", contact = { kind = "Whatsapp", value = "wpp-for-ride-2" } }, rideRequest = Empty }
+            { id = "idRide2", groupId = "idGroup1", userId = "isUser2", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", profile = { name = "bar", contact = { kind = "Whatsapp", value = "wpp-for-idRide2" } }, rideRequest = Empty }
 
         newRide =
             { origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" }
@@ -102,7 +102,8 @@ fixtures =
             [ group1, group2 ]
     in
     { rides = [ ride1, ride2 ]
-    , ride = ride1
+    , ride1 = ride1
+    , ride2 = ride2
     , user = user
     , profile = profile
     , newRide = newRide

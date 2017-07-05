@@ -65,7 +65,7 @@ tests =
 profileContext : a -> TestContext Model Root.Msg
 profileContext =
     initialContext someUser Nothing ProfilePage
-        >> update (MsgForRides <| UpdateRides fixtures.rides)
+        >> update (MsgForRides <| UpdateRides <| Success fixtures.rides)
 
 
 fillProfile : a -> TestContext Model Root.Msg
