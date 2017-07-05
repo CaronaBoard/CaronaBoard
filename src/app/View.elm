@@ -12,7 +12,6 @@ import Model as Root exposing (Model, Msg(..))
 import Notifications.View.EnableNotifications exposing (enableNotifications)
 import Profile.View exposing (profile)
 import Rides.Ride.View exposing (ride)
-import Rides.View.Instructions exposing (instructions)
 import Rides.View.RidesList exposing (ridesList)
 import UrlRouter.Routes exposing (..)
 
@@ -27,12 +26,7 @@ view model =
             loginLayout (Html.map MsgForLogin <| login model.login)
 
         RidesPage groupId ->
-            layout model
-                (div []
-                    [ instructions
-                    , ridesList groupId model.rides
-                    ]
-                )
+            layout model (ridesList groupId model)
 
         NotFoundPage ->
             h1 [] [ text "404 não encontrado" ]
