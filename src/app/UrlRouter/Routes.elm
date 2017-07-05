@@ -14,7 +14,7 @@ type Page
     | PasswordResetPage
     | GiveRidePage String
     | EnableNotificationsPage
-    | RidePage String
+    | RidePage String String
     | ProfilePage
     | GroupsPage
 
@@ -24,13 +24,13 @@ pageParser =
     oneOf
         [ map SplashScreenPage (static "")
         , map LoginPage (static "login")
-        , map RidesPage (static "groups" </> string </> static "rides")
         , map PasswordResetPage (static "password-reset")
-        , map GiveRidePage (static "groups" </> string </> static "rides" </> static "give")
-        , map EnableNotificationsPage (static "enable-notifications")
-        , map RidePage (static "request-ride" </> string)
         , map ProfilePage (static "profile")
+        , map EnableNotificationsPage (static "enable-notifications")
         , map GroupsPage (static "groups")
+        , map RidesPage (static "groups" </> string </> static "rides")
+        , map GiveRidePage (static "groups" </> string </> static "rides" </> static "give")
+        , map RidePage (static "groups" </> string </> static "rides" </> string </> static "request")
         ]
 
 
@@ -58,8 +58,8 @@ toPath page =
         EnableNotificationsPage ->
             "#/enable-notifications"
 
-        RidePage rideId ->
-            "#/request-ride/" ++ rideId
+        RidePage groupId rideId ->
+            "#/groups/" ++ groupId ++ "/rides/" ++ rideId ++ "/request"
 
         ProfilePage ->
             "#/profile"
@@ -113,7 +113,7 @@ requiresAuthentication page =
         EnableNotificationsPage ->
             True
 
-        RidePage _ ->
+        RidePage _ _ ->
             True
 
         ProfilePage ->
