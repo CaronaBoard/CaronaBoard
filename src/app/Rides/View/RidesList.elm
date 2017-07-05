@@ -13,20 +13,29 @@ import Rides.Styles exposing (Classes(..), className)
 import UrlRouter.Routes exposing (Page(..))
 
 
-ridesList : Rides.Model -> Html Msg
-ridesList model =
-    case model.rides of
-        Empty ->
-            text ""
+ridesList : String -> Rides.Model -> Html Msg
+ridesList groupId model =
+    div [ layoutClass Container ]
+        [ case model.rides of
+            Empty ->
+                text ""
 
-        Loading ->
-            text "Carregando..."
+            Loading ->
+                text "Carregando..."
 
-        Success rides ->
-            div [ layoutClass Container ] (List.map rideItem rides)
+            Success rides ->
+                let
+                    ridesForGroup =
+                        List.filter (\ride -> ride.groupId == groupId) rides
+                in
+                if ridesForGroup == [] then
+                    text "Esse grupo ainda não tem nenhuma oferta de carona. Tem um carro? Cadastre uma carona!"
+                else
+                    div [] (List.map rideItem ridesForGroup)
 
-        Error err ->
-            text err
+            Error err ->
+                text err
+        ]
 
 
 rideItem : Ride.Model -> Html Msg
