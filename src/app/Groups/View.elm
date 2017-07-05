@@ -24,10 +24,12 @@ groupsList model =
 
         Success groups ->
             div []
-                [ div [ materializeClass "container" ]
-                    [ h1 [ layoutClass PageTitle ] [ text "Groupos de Carona" ]
+                [ div [ layoutClass Container ]
+                    [ h1 [ layoutClass PageTitle ] [ text "Grupos de Carona" ]
                     ]
-                , ul [ className List ] (List.map groupItem groups)
+                , div [ className ListContainer ]
+                    [ ul [ className List ] (List.map groupItem groups)
+                    ]
                 ]
 
         Error err ->

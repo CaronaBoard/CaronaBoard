@@ -24,7 +24,7 @@ ridesClass =
 
 ride : String -> RootModel.Model -> Html Rides.Model.Msg
 ride rideId model =
-    div [ materializeClass "container" ]
+    div [ layoutClass Container ]
         [ h1 [ layoutClass PageTitle ] [ text "Pedir Carona" ]
         , case findById rideId model.rides of
             Just ride ->
