@@ -26,7 +26,7 @@ header model =
                             ]
                         , ul [ materializeClass "right" ]
                             [ li []
-                                [ linkTo GiveRidePage
+                                [ linkTo (GiveRidePage "twpoa")
                                     [ layoutClass AddRideLink ]
                                     [ icon "directions_car"
                                     , text "Dou carona"
