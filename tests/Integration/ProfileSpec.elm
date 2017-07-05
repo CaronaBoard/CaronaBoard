@@ -8,7 +8,7 @@ import Profile.Model exposing (Msg(..))
 import Profile.Ports
 import Rides.Model exposing (Msg(..))
 import Test exposing (..)
-import Test.Html.Events as Events exposing (Event(..))
+import Test.Html.Event exposing (input, submit)
 import Test.Html.Query exposing (..)
 import Test.Html.Selector exposing (..)
 import TestContext exposing (..)
@@ -71,15 +71,15 @@ profileContext =
 fillProfile : a -> TestContext Model Root.Msg
 fillProfile =
     profileContext
-        >> simulate (find [ id "name" ]) (Events.Input fixtures.profile.name)
-        >> simulate (find [ id "contactKind" ]) (Events.Input fixtures.profile.contact.kind)
-        >> simulate (find [ id "contactValue" ]) (Events.Input fixtures.profile.contact.value)
+        >> simulate (find [ id "name" ]) (input fixtures.profile.name)
+        >> simulate (find [ id "contactKind" ]) (input fixtures.profile.contact.kind)
+        >> simulate (find [ id "contactValue" ]) (input fixtures.profile.contact.value)
 
 
 submitProfile : a -> TestContext Model Root.Msg
 submitProfile =
     fillProfile
-        >> simulate (find [ tag "form" ]) Events.Submit
+        >> simulate (find [ tag "form" ]) submit
 
 
 successResponse : TestContext Model Root.Msg -> TestContext Model Root.Msg

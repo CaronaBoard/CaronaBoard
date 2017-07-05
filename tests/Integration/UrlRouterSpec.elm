@@ -10,7 +10,7 @@ import Login.Styles
 import Model as Root exposing (Model, Msg(..))
 import Profile.Model exposing (Msg(..))
 import Test exposing (..)
-import Test.Html.Events as Events exposing (Event(..))
+import Test.Html.Event exposing (click)
 import Test.Html.Query exposing (..)
 import Test.Html.Selector exposing (..)
 import TestContext exposing (..)
@@ -94,8 +94,8 @@ loginThenLogout =
     loginContext
         >> successSignIn
         >> update (MsgForUrlRouter <| UrlChange (toLocation GroupsPage))
-        >> simulate (find [ layoutClass OpenMenuButton ]) Events.Click
-        >> simulate (find [ layoutClass SignOutButton ]) Events.Click
+        >> simulate (find [ layoutClass OpenMenuButton ]) click
+        >> simulate (find [ layoutClass SignOutButton ]) click
 
 
 expectToBeOnLoginPage : TestContext model msg -> Expect.Expectation

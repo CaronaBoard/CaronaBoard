@@ -8,7 +8,7 @@ import Helpers exposing (expectToContainText, fixtures, initialContext, signedIn
 import Model as Root exposing (Model, Msg(..))
 import Notifications.Model exposing (Msg(..))
 import Test exposing (..)
-import Test.Html.Events as Events exposing (Event(..))
+import Test.Html.Event exposing (input, submit)
 import Test.Html.Query exposing (..)
 import Test.Html.Selector exposing (..)
 import TestContext exposing (..)
@@ -74,16 +74,16 @@ ridesContext =
 fillNewRide : a -> TestContext Model Root.Msg
 fillNewRide =
     ridesContext
-        >> simulate (find [ id "origin" ]) (Input fixtures.newRide.origin)
-        >> simulate (find [ id "destination" ]) (Input fixtures.newRide.destination)
-        >> simulate (find [ id "days" ]) (Input fixtures.newRide.days)
-        >> simulate (find [ id "hours" ]) (Input fixtures.newRide.hours)
+        >> simulate (find [ id "origin" ]) (input fixtures.newRide.origin)
+        >> simulate (find [ id "destination" ]) (input fixtures.newRide.destination)
+        >> simulate (find [ id "days" ]) (input fixtures.newRide.days)
+        >> simulate (find [ id "hours" ]) (input fixtures.newRide.hours)
 
 
 submitNewRide : a -> TestContext Model Root.Msg
 submitNewRide =
     fillNewRide
-        >> simulate (find [ tag "form" ]) Events.Submit
+        >> simulate (find [ tag "form" ]) submit
 
 
 successResponse : TestContext Model Root.Msg -> TestContext Model Root.Msg

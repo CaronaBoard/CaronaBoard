@@ -7,7 +7,7 @@ import Rides.Model exposing (Msg(..))
 import Rides.Ride.Model exposing (Msg(..))
 import Rides.Ride.Ports exposing (RideRequest)
 import Test exposing (..)
-import Test.Html.Events as Events exposing (Event(..))
+import Test.Html.Event exposing (submit)
 import Test.Html.Query exposing (..)
 import Test.Html.Selector exposing (..)
 import TestContext exposing (..)
@@ -57,7 +57,7 @@ rideRequestExample =
 submitRide : a -> TestContext Model Root.Msg
 submitRide =
     ridesContextContext
-        >> simulate (find [ tag "form" ]) Events.Submit
+        >> simulate (find [ tag "form" ]) submit
 
 
 successResponse : TestContext Model Root.Msg -> TestContext Model Root.Msg

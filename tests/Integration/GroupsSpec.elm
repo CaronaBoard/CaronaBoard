@@ -6,7 +6,7 @@ import Helpers exposing (expectToContainText, fixtures, initialContext, jsonQuot
 import JsonStringify exposing (simpleStringify)
 import Model as Root exposing (Model, Msg(..))
 import Test exposing (..)
-import Test.Html.Events as Events
+import Test.Html.Event exposing (click)
 import Test.Html.Query exposing (..)
 import Test.Html.Selector exposing (..)
 import TestContext exposing (..)
@@ -34,7 +34,7 @@ tests =
         , test "goes the the group's rides when clicking on it" <|
             groupsContext
                 >> loadGroups
-                >> simulate (find [ id "idGroup1" ]) Events.Click
+                >> simulate (find [ id "idGroup1" ]) click
                 >> expectModel
                     (\model ->
                         Expect.equal (RidesPage "idGroup1") model.urlRouter.page
