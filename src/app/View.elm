@@ -47,7 +47,7 @@ view model =
             layout model (Html.map MsgForNotifications <| enableNotifications model.notifications)
 
         RidePage groupId rideId ->
-            layout model (Html.map MsgForRides <| ride rideId model)
+            layout model (Html.map MsgForRides <| ride groupId rideId model)
 
         ProfilePage ->
             layout model (Html.map MsgForProfile <| profile model.profile)

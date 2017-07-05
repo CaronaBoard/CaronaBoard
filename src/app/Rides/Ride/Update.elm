@@ -24,9 +24,9 @@ init =
 update : Rides.Ride.Model.Msg -> Model -> Return Rides.Ride.Model.Msg Model
 update msg model =
     case msg of
-        Submit ->
+        Submit groupId ->
             return { model | rideRequest = Loading } <|
-                rideRequest (encodeRide model)
+                rideRequest (encodeRide groupId model)
 
         RideRequestResponse response ->
             return { model | rideRequest = response } Cmd.none

@@ -22,21 +22,21 @@ ridesClass =
     Rides.Styles.className
 
 
-ride : String -> RootModel.Model -> Html Rides.Model.Msg
-ride rideId model =
+ride : String -> String -> RootModel.Model -> Html Rides.Model.Msg
+ride groupId rideId model =
     div [ layoutClass Container ]
         [ h1 [ layoutClass PageTitle ] [ text "Pedir Carona" ]
         , case findById rideId (Response.withDefault [] model.rides.rides) of
             Just ride ->
-                Html.map (MsgForRide ride.id) <| rideDetails ride
+                Html.map (MsgForRide ride.id) <| rideDetails groupId ride
 
             Nothing ->
                 text "Carona não encontrada"
         ]
 
 
-rideDetails : Model -> Html Rides.Ride.Model.Msg
-rideDetails model =
+rideDetails : String -> Model -> Html Rides.Ride.Model.Msg
+rideDetails groupId model =
     case model.rideRequest of
         Success _ ->
             div [ materializeClass "card" ]
@@ -53,7 +53,7 @@ rideDetails model =
                 ]
 
         _ ->
-            form [ materializeClass "card", ridesClass Card, onSubmit Submit ]
+            form [ materializeClass "card", ridesClass Card, onSubmit (Submit groupId) ]
                 [ div [ materializeClass "card-content" ]
                     (formFields model)
                 ]

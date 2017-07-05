@@ -18,5 +18,5 @@ type alias Model =
 
 
 type Msg
-    = Submit
+    = Submit String
     | RideRequestResponse (Response Bool)
