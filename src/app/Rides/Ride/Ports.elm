@@ -39,6 +39,7 @@ decodeRide : Decoder Ride.Model
 decodeRide =
     decode Ride.Model
         |> hardcoded "id"
+        |> hardcoded "groupId"
         |> hardcoded "userId"
         |> required "origin" string
         |> required "destination" string

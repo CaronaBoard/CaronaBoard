@@ -1,6 +1,6 @@
 port module Rides.Ports exposing (decodeRides, subscriptions)
 
-import Common.Decoder exposing (normalizeId2)
+import Common.Decoder exposing (normalizeId3)
 import Json.Decode as Json exposing (..)
 import Rides.Model exposing (Model, Msg(..))
 import Rides.Ride.Model as Ride
@@ -18,7 +18,7 @@ subscriptions model =
 decodeRides : Decoder (List Ride.Model)
 decodeRides =
     decodeRide
-        |> normalizeId2 (\userId id ride -> { ride | userId = userId, id = id })
+        |> normalizeId3 (\groupId userId id ride -> { ride | groupId = groupId, userId = userId, id = id })
 
 
 port rides : (Json.Value -> msg) -> Sub msg
