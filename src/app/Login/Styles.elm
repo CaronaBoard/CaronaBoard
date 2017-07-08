@@ -76,6 +76,8 @@ styles =
         , class FilledEmail
             [ textAlign left
             ]
+        , class ResetPasswordButton
+            linkButton
         , desktopStyles
         ]
 

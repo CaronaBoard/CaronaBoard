@@ -23,6 +23,8 @@ type Classes
     | Page
     | Menu
     | AnimatedDropdown
+    | DropdownLink
+    | Header
     | Navbar
     | BrandLogo
     | SubmitButton
@@ -63,8 +65,14 @@ layoutStyles =
         container
     , class Page
         []
+    , class Header
+        [ height (px 54)
+        ]
     , class Navbar
         [ backgroundColor primaryBlue
+        , position fixed
+        , displayFlex
+        , justifyContent spaceBetween
         ]
     , class BrandLogo
         [ fontSize (Css.rem 1.4)
@@ -99,17 +107,28 @@ layoutStyles =
         , width (pct 100)
         , height (pct 100)
         , zIndex (int 998)
-        , children
-            [ class AnimatedDropdown
-                [ margin (px 10)
-                , display block
-                , top (px 0)
-                , right (px 0)
-                , width auto
-                , opacity (int 1)
-                , overflow hidden
-                , property "animation" "slideDown 0.3s"
-                ]
+        ]
+    , class AnimatedDropdown <|
+        card
+            ++ [ padding (px 0)
+               , margin (px 10)
+               , display block
+               , top (px 0)
+               , right (px 0)
+               , width auto
+               , opacity (int 1)
+               , overflow hidden
+               , property "animation" "slideDown 0.3s"
+               , backgroundColor white
+               , position absolute
+               , zIndex (int 999)
+               ]
+    , class DropdownLink
+        [ padding2 (px 10) (px 15)
+        , fontSize (px 16)
+        , display block
+        , hover
+            [ backgroundColor grey
             ]
         ]
     , class AddRideLink

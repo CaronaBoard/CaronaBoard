@@ -1,6 +1,5 @@
 module Layout.View.Header exposing (header)
 
-import Common.CssHelpers exposing (materializeClass)
 import Common.Icon exposing (icon)
 import Common.Link exposing (linkTo)
 import Html exposing (Html, a, b, button, div, h1, h2, i, img, li, nav, text, ul)
@@ -15,32 +14,30 @@ import UrlRouter.Routes exposing (Page(..))
 
 header : Root.Model -> Html Root.Msg
 header model =
-    Html.header [ materializeClass "navbar-fixed" ] <|
+    Html.header [ layoutClass Header ] <|
         menu model.layout
             ++ [ nav [ layoutClass Navbar ]
-                    [ div [ materializeClass "nav-wrapper" ]
-                        [ linkTo GroupsPage
-                            [ layoutClass BrandLogo, materializeClass "left" ]
-                            [ b [] [ text "Carona" ]
-                            , text "Board"
-                            ]
-                        , ul [ materializeClass "right" ]
-                            [ case model.urlRouter.page of
-                                RidesPage groupId ->
-                                    li []
-                                        [ linkTo (GiveRidePage groupId)
-                                            [ layoutClass AddRideLink ]
-                                            [ icon "directions_car"
-                                            , text "Dou carona"
-                                            ]
+                    [ linkTo GroupsPage
+                        [ layoutClass BrandLogo ]
+                        [ b [] [ text "Carona" ]
+                        , text "Board"
+                        ]
+                    , ul []
+                        [ case model.urlRouter.page of
+                            RidesPage groupId ->
+                                li []
+                                    [ linkTo (GiveRidePage groupId)
+                                        [ layoutClass AddRideLink ]
+                                        [ icon "directions_car"
+                                        , text "Dou carona"
                                         ]
-
-                                _ ->
-                                    div [] []
-                            , li []
-                                [ a [ layoutClass OpenMenuButton, onClick (MsgForLayout OpenDropdown) ]
-                                    [ icon "more_vert"
                                     ]
+
+                            _ ->
+                                div [] []
+                        , li []
+                            [ a [ layoutClass OpenMenuButton, onClick (MsgForLayout OpenDropdown) ]
+                                [ icon "more_vert"
                                 ]
                             ]
                         ]
@@ -52,15 +49,15 @@ menu : Layout.Model -> List (Html Root.Msg)
 menu model =
     if model.dropdownOpen then
         [ div [ layoutClass Menu, onClick (MsgForLayout CloseDropdown) ]
-            [ ul [ layoutClass AnimatedDropdown, materializeClass "dropdown-content" ]
+            [ ul [ layoutClass AnimatedDropdown ]
                 [ li []
-                    [ a [ href "http://goo.gl/forms/GYVDfZuhWg" ] [ text "Dar Feedback" ]
+                    [ a [ layoutClass DropdownLink, href "http://goo.gl/forms/GYVDfZuhWg" ] [ text "Dar Feedback" ]
                     ]
                 , li []
-                    [ linkTo ProfilePage [] [ text "Editar Perfil" ]
+                    [ linkTo ProfilePage [ layoutClass DropdownLink ] [ text "Editar Perfil" ]
                     ]
                 , li []
-                    [ a [ onClick (MsgForLogin SignOut), layoutClass SignOutButton ] [ text "Sair" ]
+                    [ a [ layoutClass DropdownLink, onClick (MsgForLogin SignOut), layoutClass SignOutButton ] [ text "Sair" ]
                     ]
                 ]
             ]
