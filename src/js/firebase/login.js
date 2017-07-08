@@ -13,8 +13,8 @@ module.exports = function(firebase, app) {
       .then(function(providers) {
         app.ports.checkRegistrationResponse.send(success(providers.length > 0));
       })
-      .catch(function() {
-        app.ports.checkRegistrationResponse.send(error(error.message));
+      .catch(function(err) {
+        app.ports.checkRegistrationResponse.send(error(err.message));
       });
   });
 
@@ -23,14 +23,14 @@ module.exports = function(firebase, app) {
       .auth()
       .signInWithEmailAndPassword(credentials.email, credentials.password)
       .then(signInUser)
-      .catch(function(error) {
-        app.ports.signInResponse.send(error(error.message));
+      .catch(function(err) {
+        app.ports.signInResponse.send(error(err.message));
       });
   });
 
   app.ports.signOut.subscribe(function() {
-    firebase.auth().signOut().then(signOutUser).catch(function(error) {
-      app.ports.signOutResponse.send(error(error.message));
+    firebase.auth().signOut().then(signOutUser).catch(function(err) {
+      app.ports.signOutResponse.send(error(err.message));
     });
   });
 
@@ -66,10 +66,10 @@ module.exports = function(firebase, app) {
       .auth()
       .sendPasswordResetEmail(email)
       .then(function() {
-        app.ports.passwordResetResponse.send(null);
+        app.ports.passwordResetResponse.send(success(true));
       })
-      .catch(function(error) {
-        app.ports.passwordResetResponse.send(error.message);
+      .catch(function(err) {
+        app.ports.passwordResetResponse.send(error(err.message));
       });
   });
 
@@ -80,8 +80,8 @@ module.exports = function(firebase, app) {
       .then(function(user) {
         app.ports.signUpResponse.send(success(true));
       })
-      .catch(function(error) {
-        app.ports.signUpResponse.send(error(error.message));
+      .catch(function(err) {
+        app.ports.signUpResponse.send(error(err.message));
       });
   });
 };

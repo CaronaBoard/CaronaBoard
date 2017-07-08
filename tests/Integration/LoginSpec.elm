@@ -25,7 +25,6 @@ tests =
             [ test "shows loading button on submit" <|
                 submitEmail
                     >> expectView
-                    >> find [ class SubmitButton ]
                     >> has [ text "Carregando..." ]
             , test "sends request via checkRegistration port" <|
                 submitEmail
@@ -41,7 +40,6 @@ tests =
             [ test "shows loading button on submit" <|
                 submitEmailThenPassword
                     >> expectView
-                    >> find [ class SubmitButton ]
                     >> has [ text "Carregando..." ]
             , test "sends request via checkRegistration port" <|
                 submitEmailThenPassword
@@ -77,7 +75,7 @@ tests =
             [ test "shows loading on submit" <|
                 submitEmailThenForgotPassword
                     >> expectView
-                    >> find [ class ResetPasswordButton ]
+                    >> find [ id "resetPassword" ]
                     >> has [ text "Carregando..." ]
             , test "calls the resetPassword port" <|
                 submitEmailThenForgotPassword
@@ -88,7 +86,7 @@ tests =
                     >> expectView
                     >> Expect.all
                         [ has [ text "Could not send email" ]
-                        , find [ class ResetPasswordButton ]
+                        , find [ id "resetPassword" ]
                             >> has [ text "Esqueci a Senha" ]
                         ]
             ]
@@ -96,7 +94,6 @@ tests =
             [ test "shows loading on submit" <|
                 submitEmailThenRegistration
                     >> expectView
-                    >> find [ class SubmitButton ]
                     >> has [ text "Carregando..." ]
             , test "sends request via signUp port" <|
                 submitEmailThenRegistration
@@ -146,7 +143,7 @@ submitEmailThenForgotPassword : a -> TestContext Model Root.Msg
 submitEmailThenForgotPassword =
     submitEmail
         >> update (MsgForLogin <| CheckRegistrationResponse (Success True))
-        >> simulate (find [ class ResetPasswordButton ]) click
+        >> simulate (find [ id "resetPassword" ]) click
 
 
 submitEmailThenRegistration : a -> TestContext Model Root.Msg
