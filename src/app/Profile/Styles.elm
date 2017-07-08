@@ -31,10 +31,10 @@ styles =
             , justifyContent spaceBetween
             ]
         , class ContactKind
-            [ width (pct 30)
+            [ width (pct 40)
             ]
         , class ContactValue
-            [ width (pct 68)
+            [ width (pct 60)
             ]
         , class Select
             [ backgroundColor transparent

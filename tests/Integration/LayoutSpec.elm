@@ -3,7 +3,7 @@ module Integration.LayoutSpec exposing (tests)
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (expectToContainText, expectToNotContainText, initialContext, signedInContext, someUser)
-import Layout.Styles exposing (Classes(Menu, OpenMenuButton))
+import Layout.Styles exposing (Classes(Menu))
 import Model as Root exposing (Model, Msg(MsgForLayout))
 import Test exposing (..)
 import Test.Html.Event exposing (click)
@@ -23,13 +23,13 @@ tests =
                 >> count (Expect.equal 0)
         , test "opens the dropdown on click" <|
             layoutContext
-                >> simulate (find [ class OpenMenuButton ]) click
+                >> simulate (find [ id "openMenu" ]) click
                 >> expectView
                 >> findAll [ class Menu ]
                 >> count (Expect.equal 1)
         , test "closes the dropdown when clicking outside" <|
             layoutContext
-                >> simulate (find [ class OpenMenuButton ]) click
+                >> simulate (find [ id "openMenu" ]) click
                 >> simulate (find [ class Menu ]) click
                 >> expectView
                 >> findAll [ class Menu ]

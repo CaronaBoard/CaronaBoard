@@ -1,4 +1,4 @@
-module Layout.Styles exposing (Classes(..), button, container, layoutClass, namespace, styles)
+module Layout.Styles exposing (..)
 
 import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
@@ -23,14 +23,28 @@ type Classes
     | Page
     | Menu
     | AnimatedDropdown
+    | DropdownLink
+    | Header
     | Navbar
     | BrandLogo
     | SubmitButton
+    | DisabledButton
+    | LinkButton
+    | DisabledLinkButton
     | ButtonContainer
-    | OpenMenuButton
+    | MenuButton
     | SignOutButton
     | AddRideLink
     | PageTitle
+    | ErrorMessage
+    | Card
+    | CardTitle
+    | InputField
+    | SelectWrapper
+    | SelectCaret
+    | MaterialIcon
+    | MaterialIconLeft
+    | MaterialIconRight
 
 
 styles : Stylesheet
@@ -42,48 +56,44 @@ styles =
 generalStyles : List Snippet
 generalStyles =
     [ html
-        [ fontFamilies [ "Lato", sansSerif.value ]
+        [ -- source: https://www.smashingmagazine.com/2015/11/using-system-ui-fonts-practical-guide/
+          fontFamilies [ "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "sans-serif" ]
+        , fontSize (px 14)
+        , property "line-height" "1.5"
+        , fontWeight normal
         ]
     , body
         [ backgroundColor grey
+        , margin (px 0)
         ]
-    , selector ".btn-large"
-        [ important <| borderRadius (px 54)
-        , important <| property "text-transform" "none"
+    , selector "*"
+        [ boxSizing borderBox
         ]
-    , class PageTitle
-        [ darkTextColor
-        , fontSize (px 34)
+    , ul
+        [ paddingLeft (px 0)
+        , listStyleType none
         ]
-    , class SubmitButton
-        button
-    , class ButtonContainer
-        [ displayFlex
-        , justifyContent center
+    , a
+        [ textDecoration none
+        , linkColor
         ]
-    , selector ".input-field"
-        [ descendants
-            [ selector "label"
-                [ important <| top (px -10)
-                , important <| fontSize (pct 80)
-                ]
-            , selector "input"
-                [ important <| fontSize (Css.rem 1.1)
-                ]
-            , selector "input:placeholder-shown:not(:focus) + *"
-                [ important <| fontSize (Css.rem 1.1)
-                , important <| top (px 10)
-                ]
-            ]
+    , h1
+        [ fontWeight normal
         ]
-    , class AddRideLink
-        [ displayFlex
-        , alignItems center
-        , descendants
-            [ selector "i"
-                [ marginRight (px 10)
-                ]
-            ]
+    , input
+        [ borderStyle none
+        , borderBottom3 (px 1) solid darkerGrey
+        , marginBottom (px 20)
+        , height (px 42)
+        , width (pct 100)
+        , backgroundColor transparent
+        , color inherit
+        , outline none
+        ]
+    , select
+        [ height (px 42)
+        , width (pct 100)
+        , fontSize (Css.rem 1.1)
         ]
     ]
 
@@ -94,31 +104,152 @@ layoutStyles =
         container
     , class Page
         []
+    , class Header
+        [ height (px 54)
+        ]
     , class Navbar
         [ backgroundColor primaryBlue
+        , position fixed
+        , displayFlex
+        , justifyContent spaceBetween
+        , width (pct 100)
+        , lightTextColor
+        , height (px 56)
+        , lineHeight (px 56)
+        , cardShadow
+        , children
+            [ ul
+                [ margin (px 0)
+                , displayFlex
+                ]
+            ]
+        , descendants
+            [ class MaterialIcon
+                [ fontSize (px 24)
+                ]
+            ]
         ]
+    , class MenuButton
+        menuButton
     , class BrandLogo
         [ fontSize (Css.rem 1.4)
         , marginLeft (px 20)
+        , lightTextColor
+        ]
+    , class PageTitle
+        [ darkTextColor
+        , fontSize (px 34)
+        ]
+    , class SubmitButton
+        button
+    , class DisabledButton <|
+        button
+            ++ [ backgroundColor grey
+               , color darkerGrey
+               , hover
+                    [ backgroundColor grey
+                    ]
+               ]
+    , class LinkButton <|
+        linkButton
+    , class DisabledLinkButton <|
+        linkButton
+            ++ [ color darkerGrey
+               ]
+    , class ButtonContainer
+        [ displayFlex
+        , justifyContent center
         ]
     , class Menu
         [ position fixed
         , width (pct 100)
         , height (pct 100)
         , zIndex (int 998)
-        , children
-            [ class AnimatedDropdown
-                [ margin (px 10)
-                , display block
-                , top (px 0)
-                , right (px 0)
-                , width auto
-                , opacity (int 1)
-                , overflow hidden
-                , property "animation" "slideDown 0.3s"
+        ]
+    , class AnimatedDropdown <|
+        card
+            ++ [ padding (px 0)
+               , margin (px 10)
+               , display block
+               , top (px 0)
+               , right (px 0)
+               , width auto
+               , opacity (int 1)
+               , overflow hidden
+               , property "animation" "slideDown 0.3s"
+               , backgroundColor white
+               , position absolute
+               , zIndex (int 999)
+               ]
+    , class DropdownLink
+        [ padding2 (px 10) (px 15)
+        , fontSize (px 16)
+        , display block
+        , hover
+            [ backgroundColor grey
+            ]
+        ]
+    , class AddRideLink <|
+        menuButton
+            ++ [ displayFlex
+               , alignItems center
+               , descendants
+                    [ selector "i"
+                        [ marginRight (px 10)
+                        ]
+                    ]
+               ]
+    , class ErrorMessage
+        [ lightTextColor
+        , backgroundColor primaryRed
+        , padding2 (px 5) (px 15)
+        , borderRadius (px 17)
+        , fontSize (px 14)
+        , display inlineBlock
+        , marginBottom (px 20)
+        ]
+    , class Card
+        card
+    , class CardTitle
+        [ fontSize (px 16)
+        , fontWeight bold
+        ]
+    , class InputField
+        [ position relative
+        , marginTop (px 15)
+        , descendants
+            [ selector "label"
+                [ top (px -10)
+                , left (px 0)
+                , fontSize (pct 80)
+                , position absolute
+                , property "transition" ".2s ease-out"
+                ]
+            , selector "input"
+                [ fontSize (Css.rem 1.1)
+                ]
+            , selector "input:placeholder-shown:not(:focus) + label"
+                [ fontSize (Css.rem 1.1)
+                , top (px 10)
                 ]
             ]
         ]
+    , class SelectWrapper
+        [ displayFlex
+        , alignItems center
+        , marginRight (px 15)
+        ]
+    , class SelectCaret
+        [ fontSize (px 10)
+        ]
+    , class MaterialIcon
+        materialIcon
+    , class MaterialIconLeft <|
+        materialIcon
+            ++ [ float left ]
+    , class MaterialIconRight <|
+        materialIcon
+            ++ [ float right ]
 
     -- TODO: This below is a very hacky way of adding keyframes, waiting for elm-css to add support for it
     , selector "@keyframes slideDown {"
@@ -141,17 +272,71 @@ layoutStyles =
 button : List Mixin
 button =
     [ width (pct 100)
-    , important <| backgroundColor primaryBlue -- need to overwrite materialize css default color
+    , backgroundColor primaryBlue
     , lightTextColor
+    , borderRadius (px 54)
+    , lineHeight (px 54)
+    , height (px 54)
+    , borderStyle none
+    , cursor pointer
+    , fontSize (px 14)
     , hover
         [ backgroundColor lighterBlue
+        ]
+    , descendants
+        [ selector ".material-icons"
+            [ lineHeight (px 54)
+            ]
         ]
     ]
 
 
+linkButton : List Mixin
+linkButton =
+    button
+        ++ [ backgroundColor transparent
+           , hover
+                [ backgroundColor transparent
+                ]
+           ]
+
+
 container : List Mixin
 container =
-    [ padding2 (px 0) (pct 5)
-    , maxWidth (px 1280)
+    [ padding2 (px 0) (px 20)
+    , maxWidth (px 1024)
     , margin2 (px 0) auto
+    ]
+
+
+card : List Mixin
+card =
+    [ backgroundColor white
+    , padding (px 20)
+    , cardShadow
+    , marginBottom (px 15)
+    , darkTextColor
+    ]
+
+
+cardShadow : Mixin
+cardShadow =
+    boxShadow4 (px 1) (px 1) (px 3) (rgba 0 0 0 0.3)
+
+
+materialIcon : List Mixin
+materialIcon =
+    [ fontFamilies [ "Material Icons" ]
+    , fontStyle normal
+    ]
+
+
+menuButton : List Mixin
+menuButton =
+    [ lightTextColor
+    , padding2 (px 0) (px 15)
+    , display block
+    , hover
+        [ backgroundColor (rgba 0 0 0 0.1)
+        ]
     ]

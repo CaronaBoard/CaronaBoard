@@ -35,8 +35,8 @@ module.exports = function(firebase, app) {
           .then(function(profileRef) {
             app.ports.profileResponse.send(success(profile));
           })
-          .catch(function(error) {
-            app.ports.profileResponse.send(error(error.message));
+          .catch(function(err) {
+            app.ports.profileResponse.send(error(err.message));
           });
       });
   });

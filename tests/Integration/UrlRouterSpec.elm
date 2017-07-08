@@ -4,7 +4,7 @@ import Common.Response exposing (Response(..))
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (fixtures, initialContext, signedInContext, someUser, successSignIn, successSignInWithoutProfile, toLocation)
-import Layout.Styles exposing (Classes(OpenMenuButton, SignOutButton))
+import Layout.Styles exposing (Classes(SignOutButton))
 import Login.Ports exposing (signOut)
 import Login.Styles
 import Model as Root exposing (Model, Msg(..))
@@ -94,7 +94,7 @@ loginThenLogout =
     loginContext
         >> successSignIn
         >> update (MsgForUrlRouter <| UrlChange (toLocation GroupsPage))
-        >> simulate (find [ layoutClass OpenMenuButton ]) click
+        >> simulate (find [ id "openMenu" ]) click
         >> simulate (find [ layoutClass SignOutButton ]) click
 
 

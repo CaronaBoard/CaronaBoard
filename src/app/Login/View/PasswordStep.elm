@@ -1,14 +1,14 @@
 module Login.View.PasswordStep exposing (passwordStep)
 
-import Common.CssHelpers exposing (materializeClass)
-import Common.Form exposing (loadingOrSubmitButton, renderErrors)
+import Common.Form exposing (customLoadingOrSubmitButton, passwordInput, renderErrors)
 import Common.Icon exposing (icon)
-import Json.Decode as Json
-import Login.Model exposing (Model, Msg(PasswordReset, UpdatePassword))
-import Login.Styles exposing (Classes(FilledEmail, PasswordStep, ResetPasswordButton, SubmitButton), className)
 import Html exposing (Html, div, i, input, label, text)
 import Html.Attributes exposing (autofocus, for, id, placeholder, type_, value)
 import Html.Events exposing (onInput, onSubmit, onWithOptions)
+import Json.Decode as Json
+import Layout.Styles exposing (Classes(..), layoutClass)
+import Login.Model exposing (Model, Msg(PasswordReset, UpdatePassword))
+import Login.Styles exposing (Classes(..), className)
 
 
 passwordStep : Model -> Html Msg
@@ -17,23 +17,14 @@ passwordStep model =
         [ renderErrors model.signedIn
         , renderErrors model.passwordReset
         , div [ className FilledEmail ] [ text model.email ]
-        , div [ materializeClass "input-field" ]
-            [ input
-                [ type_ "password"
-                , id "password"
-                , onInput UpdatePassword
-                , value model.password
-                , autofocus True
-                , placeholder " "
-                ]
-                []
-            , label [ for "password" ] [ text "Senha" ]
+        , passwordInput model.password UpdatePassword "password" "Senha"
+        , customLoadingOrSubmitButton model.signedIn
+            [ className Login.Styles.SubmitButton ]
+            [ layoutClass DisabledButton ]
+            [ text "Entrar", icon "done" ]
+        , customLoadingOrSubmitButton model.passwordReset
+            [ className ResetPasswordButton, id "resetPassword", onWithOptions "click" { stopPropagation = True, preventDefault = True } (Json.succeed PasswordReset) ]
+            [ layoutClass DisabledLinkButton, id "resetPassword" ]
+            [ text "Esqueci a Senha"
             ]
-        , loadingOrSubmitButton model.signedIn [ className SubmitButton ] [ text "Entrar", icon "done" ]
-        , loadingOrSubmitButton model.passwordReset
-            [ className ResetPasswordButton
-            , materializeClass "btn-flat"
-            , onWithOptions "click" { stopPropagation = True, preventDefault = True } (Json.succeed PasswordReset)
-            ]
-            [ text "Esqueci a Senha" ]
         ]

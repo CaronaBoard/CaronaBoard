@@ -6,6 +6,7 @@ import Css exposing (..)
 import Css.Elements exposing (h1, input, label)
 import Css.Namespace
 import Html exposing (Attribute)
+import Layout.Styles exposing (button, linkButton)
 
 
 namespace : String
@@ -75,6 +76,8 @@ styles =
         , class FilledEmail
             [ textAlign left
             ]
+        , class ResetPasswordButton
+            linkButton
         , desktopStyles
         ]
 
@@ -87,10 +90,10 @@ step =
             [ fontSize (px 32)
             ]
         , input
-            [ important <| borderBottom3 (px 1) solid white
+            [ borderBottom3 (px 1) solid white
             ]
         , label
-            [ important <| lightTextColor
+            [ lightTextColor
             ]
         , class SubmitButton <|
             button
@@ -100,15 +103,7 @@ step =
                         [ backgroundColor grey
                         ]
                    ]
-        , class ResetPasswordButton button
         ]
-    ]
-
-
-button : List Mixin
-button =
-    [ width (pct 100)
-    , lightTextColor
     ]
 
 
@@ -173,10 +168,10 @@ stepDesktop =
     , height (pct 100)
     , descendants
         [ input
-            [ important <| borderBottom3 (px 1) solid primaryBlack
+            [ borderBottom3 (px 1) solid primaryBlack
             ]
         , label
-            [ important darkTextColor
+            [ darkTextColor
             ]
         , class SubmitButton <|
             buttonDesktop
@@ -186,7 +181,9 @@ stepDesktop =
                         [ backgroundColor lighterBlue
                         ]
                    ]
-        , class ResetPasswordButton buttonDesktop
+        , class ResetPasswordButton <|
+            linkButton
+                ++ buttonDesktop
         ]
     ]
 

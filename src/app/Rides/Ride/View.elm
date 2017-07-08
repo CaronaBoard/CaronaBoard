@@ -1,6 +1,5 @@
 module Rides.Ride.View exposing (ride)
 
-import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
 import Common.IdentifiedList exposing (findById)
 import Common.Response as Response exposing (Response(..))
@@ -39,33 +38,27 @@ rideDetails : String -> Model -> Html Rides.Ride.Model.Msg
 rideDetails groupId model =
     case model.rideRequest of
         Success _ ->
-            div [ materializeClass "card" ]
-                [ div [ materializeClass "card-content" ]
-                    [ p [] [ text "O pedido de carona foi enviado com sucesso!" ]
-                    , br [] []
-                    , p [] [ text "Para combinar melhor com o motorista, use o contato abaixo:" ]
-                    , br [] []
-                    , p [ className Contact ]
-                        [ text <| model.profile.contact.kind ++ " "
-                        , a [ href <| contactDeepLink model.profile.contact, target "_blank" ] [ text model.profile.contact.value ]
-                        ]
+            div [ ridesClass Rides.Styles.Card ]
+                [ div [ layoutClass CardTitle ] [ text "O pedido de carona foi enviado com sucesso!" ]
+                , p [] [ text "Para combinar melhor com o motorista, use o contato abaixo:" ]
+                , div [ className Contact ]
+                    [ text <| model.profile.contact.kind ++ " "
+                    , a [ href <| contactDeepLink model.profile.contact, target "_blank" ] [ text model.profile.contact.value ]
                     ]
                 ]
 
         _ ->
-            form [ materializeClass "card", ridesClass Card, onSubmit (Submit groupId) ]
-                [ div [ materializeClass "card-content" ]
-                    (formFields model)
-                ]
+            form [ ridesClass Rides.Styles.Card, onSubmit (Submit groupId) ]
+                (formFields model)
 
 
 formFields : Model -> List (Html Rides.Ride.Model.Msg)
 formFields model =
     [ renderErrors model.rideRequest
-    , p [] [ text "Confirme os detalhes da carona antes de confirmar" ]
+    , div [ layoutClass CardTitle ] [ text "Confirme os detalhes da carona antes de confirmar" ]
     , br [] []
     , rideRoute model
     , rideInfo model
     , br [] []
-    , loadingOrSubmitButton model.rideRequest [ id "submitRide", layoutClass SubmitButton ] [ text "Pedir carona" ]
+    , loadingOrSubmitButton model.rideRequest "submitRide" [ text "Pedir carona" ]
     ]
