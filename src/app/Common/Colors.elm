@@ -41,3 +41,8 @@ grey =
 darkerGrey : Color
 darkerGrey =
     rgb 180 180 180
+
+
+primaryRed : Color
+primaryRed =
+    rgb 255 50 50

@@ -31,6 +31,7 @@ type Classes
     | SignOutButton
     | AddRideLink
     | PageTitle
+    | ErrorMessage
 
 
 styles : Stylesheet
@@ -51,16 +52,6 @@ generalStyles =
         [ important <| borderRadius (px 54)
         , important <| property "text-transform" "none"
         ]
-    , class PageTitle
-        [ darkTextColor
-        , fontSize (px 34)
-        ]
-    , class SubmitButton
-        button
-    , class ButtonContainer
-        [ displayFlex
-        , justifyContent center
-        ]
     , selector ".input-field"
         [ descendants
             [ selector "label"
@@ -73,15 +64,6 @@ generalStyles =
             , selector "input:placeholder-shown:not(:focus) + *"
                 [ important <| fontSize (Css.rem 1.1)
                 , important <| top (px 10)
-                ]
-            ]
-        ]
-    , class AddRideLink
-        [ displayFlex
-        , alignItems center
-        , descendants
-            [ selector "i"
-                [ marginRight (px 10)
                 ]
             ]
         ]
@@ -101,6 +83,16 @@ layoutStyles =
         [ fontSize (Css.rem 1.4)
         , marginLeft (px 20)
         ]
+    , class PageTitle
+        [ darkTextColor
+        , fontSize (px 34)
+        ]
+    , class SubmitButton
+        button
+    , class ButtonContainer
+        [ displayFlex
+        , justifyContent center
+        ]
     , class Menu
         [ position fixed
         , width (pct 100)
@@ -118,6 +110,24 @@ layoutStyles =
                 , property "animation" "slideDown 0.3s"
                 ]
             ]
+        ]
+    , class AddRideLink
+        [ displayFlex
+        , alignItems center
+        , descendants
+            [ selector "i"
+                [ marginRight (px 10)
+                ]
+            ]
+        ]
+    , class ErrorMessage
+        [ lightTextColor
+        , backgroundColor primaryRed
+        , padding2 (px 5) (px 15)
+        , borderRadius (px 17)
+        , fontSize (px 14)
+        , display inlineBlock
+        , marginBottom (px 20)
         ]
 
     -- TODO: This below is a very hacky way of adding keyframes, waiting for elm-css to add support for it
