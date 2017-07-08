@@ -1,9 +1,7 @@
 module Login.View.Registration exposing (registrationStep)
 
-import Common.CssHelpers exposing (materializeClass)
-import Common.Form exposing (customLoadingOrSubmitButton, renderErrors, textInput)
+import Common.Form exposing (customLoadingOrSubmitButton, emailInput, passwordInput, renderErrors, textInput)
 import Html exposing (..)
-import Html.Attributes exposing (autofocus, for, id, placeholder, selected, type_, value)
 import Html.Events exposing (onInput, onSubmit)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Login.Model exposing (Model, Msg(..))
@@ -31,28 +29,8 @@ registration : Model -> Html Msg
 registration model =
     div []
         [ renderErrors model.signUp
-        , div [ materializeClass "input-field" ]
-            [ input
-                [ type_ "email"
-                , id "email"
-                , onInput UpdateEmail
-                , value model.email
-                , placeholder " "
-                ]
-                []
-            , label [ for "email" ] [ text "Email" ]
-            ]
-        , div [ materializeClass "input-field" ]
-            [ input
-                [ type_ "password"
-                , id "password"
-                , onInput UpdatePassword
-                , value model.password
-                , placeholder " "
-                ]
-                []
-            , label [ for "password" ] [ text "Nova Senha" ]
-            ]
+        , emailInput model.email UpdateEmail "email" "Email"
+        , passwordInput model.password UpdatePassword "password" "Nova Senha"
         , customLoadingOrSubmitButton model.signUp
             [ className Login.Styles.SubmitButton ]
             [ layoutClass DisabledButton ]

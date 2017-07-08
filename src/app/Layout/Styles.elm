@@ -37,6 +37,7 @@ type Classes
     | ErrorMessage
     | Card
     | CardTitle
+    | InputField
 
 
 styles : Stylesheet
@@ -52,21 +53,6 @@ generalStyles =
         ]
     , body
         [ backgroundColor grey
-        ]
-    , selector ".input-field"
-        [ descendants
-            [ selector "label"
-                [ important <| top (px -10)
-                , important <| fontSize (pct 80)
-                ]
-            , selector "input"
-                [ important <| fontSize (Css.rem 1.1)
-                ]
-            , selector "input:placeholder-shown:not(:focus) + *"
-                [ important <| fontSize (Css.rem 1.1)
-                , important <| top (px 10)
-                ]
-            ]
         ]
     ]
 
@@ -149,6 +135,26 @@ layoutStyles =
     , class CardTitle
         [ fontSize (px 16)
         , fontWeight bold
+        ]
+    , class InputField
+        [ position relative
+        , marginTop (px 15)
+        , descendants
+            [ selector "label"
+                [ top (px -10)
+                , left (px 0)
+                , fontSize (pct 80)
+                , position absolute
+                , property "transition" ".2s ease-out"
+                ]
+            , selector "input"
+                [ fontSize (Css.rem 1.1)
+                ]
+            , selector "input:placeholder-shown:not(:focus) + label"
+                [ fontSize (Css.rem 1.1)
+                , top (px 10)
+                ]
+            ]
         ]
 
     -- TODO: This below is a very hacky way of adding keyframes, waiting for elm-css to add support for it
