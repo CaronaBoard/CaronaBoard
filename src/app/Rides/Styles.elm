@@ -3,9 +3,10 @@ module Rides.Styles exposing (Classes(..), className, namespace, styles)
 import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
 import Css exposing (..)
-import Css.Elements exposing (p)
+import Css.Elements exposing (li)
 import Css.Namespace
 import Html exposing (Attribute)
+import Layout.Styles exposing (card)
 
 
 namespace : String
@@ -20,22 +21,21 @@ className =
 
 type Classes
     = Card
-    | CardTitle
     | OtherDetails
     | ActionButton
     | Path
     | PathIcon
     | PathIconDot
+    | RideInfo
 
 
 styles : Stylesheet
 styles =
     (stylesheet << Css.Namespace.namespace namespace)
-        [ class Card
-            [ display block
-            , darkTextColor
-            , descendants cardStyles
-            ]
+        [ class Card <|
+            card
+                ++ [ descendants cardStyles
+                   ]
         ]
 
 
@@ -46,19 +46,12 @@ cardStyles =
         , marginRight (px 5)
         , verticalAlign middle
         ]
-    , class CardTitle
-        [ fontSize (px 16)
-        , fontWeight bold
-        ]
     , class OtherDetails
         [ displayFlex
         , justifyContent spaceBetween
         , alignItems flexEnd
-        , descendants
-            [ p
-                [ margin (px 0)
-                ]
-            ]
+        , borderTop3 (px 1) solid grey
+        , paddingTop (px 15)
         ]
     , class ActionButton <|
         [ important <| darkTextColor
@@ -91,5 +84,8 @@ cardStyles =
                 , marginRight (px 5)
                 ]
             ]
+        ]
+    , class RideInfo
+        [ margin (px 0)
         ]
     ]

@@ -2,12 +2,12 @@ module Profile.View exposing (profile)
 
 import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
-import Layout.Styles exposing (Classes(..), layoutClass)
-import Profile.Model exposing (Model, Msg(..), contactIdentifier)
-import Profile.Styles exposing (Classes(..), className)
 import Html exposing (..)
 import Html.Attributes exposing (for, href, id, placeholder, selected, target, value)
 import Html.Events exposing (onInput, onSubmit)
+import Layout.Styles exposing (Classes(..), layoutClass)
+import Profile.Model exposing (Model, Msg(..), contactIdentifier)
+import Profile.Styles exposing (Classes(..), className)
 
 
 profile : Model -> Html Msg
@@ -19,10 +19,8 @@ profile model =
               else
                 text "Editar Perfil"
             ]
-        , form [ materializeClass "card", onSubmit Submit ]
-            [ div [ materializeClass "card-content" ]
-                (formFields model)
-            ]
+        , form [ layoutClass Card, onSubmit Submit ]
+            (formFields model)
         ]
 
 
