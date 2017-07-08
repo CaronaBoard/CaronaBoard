@@ -40,6 +40,8 @@ type Classes
     | Card
     | CardTitle
     | InputField
+    | SelectWrapper
+    | SelectCaret
 
 
 styles : Stylesheet
@@ -174,6 +176,13 @@ layoutStyles =
                 , top (px 10)
                 ]
             ]
+        ]
+    , class SelectWrapper
+        [ displayFlex
+        , alignItems center
+        ]
+    , class SelectCaret
+        [ fontSize (px 10)
         ]
 
     -- TODO: This below is a very hacky way of adding keyframes, waiting for elm-css to add support for it

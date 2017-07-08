@@ -1,6 +1,5 @@
 module Profile.View exposing (profile)
 
-import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
 import Html exposing (..)
 import Html.Attributes exposing (for, href, id, placeholder, selected, target, value)
@@ -33,12 +32,12 @@ formFields model =
     , div [ className ContactField ]
         [ div [ className ContactKind ]
             [ div [ layoutClass InputField ]
-                [ div [ materializeClass "select-wrapper" ]
-                    [ span [ materializeClass "caret" ] [ text "▼" ]
-                    , select [ className Select, onInput UpdateContactKind, id "contactKind" ]
+                [ div [ layoutClass SelectWrapper ]
+                    [ select [ className Select, onInput UpdateContactKind, id "contactKind" ]
                         [ contactKindOption model "Whatsapp"
                         , contactKindOption model "Telegram"
                         ]
+                    , span [ layoutClass SelectCaret ] [ text "▼" ]
                     ]
                 ]
             ]
