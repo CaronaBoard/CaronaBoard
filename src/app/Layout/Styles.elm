@@ -32,7 +32,7 @@ type Classes
     | LinkButton
     | DisabledLinkButton
     | ButtonContainer
-    | OpenMenuButton
+    | MenuButton
     | SignOutButton
     | AddRideLink
     | PageTitle
@@ -57,9 +57,38 @@ generalStyles : List Snippet
 generalStyles =
     [ html
         [ fontFamilies [ "Lato", sansSerif.value ]
+        , fontSize (px 14)
+        , property "line-height" "1.5"
+        , fontWeight normal
         ]
     , body
         [ backgroundColor grey
+        , margin (px 0)
+        ]
+    , selector "*"
+        [ boxSizing borderBox
+        ]
+    , ul
+        [ paddingLeft (px 0)
+        , listStyleType none
+        ]
+    , a
+        [ textDecoration none
+        , linkColor
+        ]
+    , input
+        [ borderStyle none
+        , borderBottom3 (px 1) solid darkerGrey
+        , marginBottom (px 20)
+        , height (px 42)
+        , width (pct 100)
+        , backgroundColor transparent
+        , color inherit
+        ]
+    , select
+        [ height (px 42)
+        , width (pct 100)
+        , fontSize (Css.rem 1.1)
         ]
     ]
 
@@ -78,10 +107,29 @@ layoutStyles =
         , position fixed
         , displayFlex
         , justifyContent spaceBetween
+        , width (pct 100)
+        , lightTextColor
+        , height (px 56)
+        , lineHeight (px 56)
+        , cardShadow
+        , children
+            [ ul
+                [ margin (px 0)
+                , displayFlex
+                ]
+            ]
+        , descendants
+            [ class MaterialIcon
+                [ fontSize (px 24)
+                ]
+            ]
         ]
+    , class MenuButton
+        menuButton
     , class BrandLogo
         [ fontSize (Css.rem 1.4)
         , marginLeft (px 20)
+        , lightTextColor
         ]
     , class PageTitle
         [ darkTextColor
@@ -136,15 +184,16 @@ layoutStyles =
             [ backgroundColor grey
             ]
         ]
-    , class AddRideLink
-        [ displayFlex
-        , alignItems center
-        , descendants
-            [ selector "i"
-                [ marginRight (px 10)
-                ]
-            ]
-        ]
+    , class AddRideLink <|
+        menuButton
+            ++ [ displayFlex
+               , alignItems center
+               , descendants
+                    [ selector "i"
+                        [ marginRight (px 10)
+                        ]
+                    ]
+               ]
     , class ErrorMessage
         [ lightTextColor
         , backgroundColor primaryRed
@@ -183,6 +232,7 @@ layoutStyles =
     , class SelectWrapper
         [ displayFlex
         , alignItems center
+        , marginRight (px 15)
         ]
     , class SelectCaret
         [ fontSize (px 10)
@@ -224,6 +274,7 @@ button =
     , height (px 54)
     , borderStyle none
     , cursor pointer
+    , fontSize (px 14)
     , hover
         [ backgroundColor lighterBlue
         ]
@@ -259,6 +310,7 @@ card =
     , padding (px 20)
     , cardShadow
     , marginBottom (px 15)
+    , darkTextColor
     ]
 
 
@@ -271,4 +323,15 @@ materialIcon : List Mixin
 materialIcon =
     [ fontFamilies [ "Material Icons" ]
     , fontStyle normal
+    ]
+
+
+menuButton : List Mixin
+menuButton =
+    [ lightTextColor
+    , padding2 (px 0) (px 15)
+    , display block
+    , hover
+        [ backgroundColor (rgba 0 0 0 0.1)
+        ]
     ]
