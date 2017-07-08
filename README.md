@@ -28,7 +28,7 @@ Below some ideas about the concept of CaronaBoard:
 - [Firebase](https://www.firebase.com/) for a no-backend database
 - [Webpack](https://webpack.github.io/) for bundling elm + css + html and minification
 - [Github Pages](https://pages.github.com/) for hosting, with [now](https://zeit.co/now) for preview
-- [Materialize](http://materializecss.com/) as the css framework
+- [Material Design](https://material.io/) a base for the design specs
 - [Service Worker Precache](https://github.com/GoogleChrome/sw-precache) for working offline
 
 ### Prerequesites
