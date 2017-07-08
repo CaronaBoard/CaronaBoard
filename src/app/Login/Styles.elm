@@ -6,6 +6,7 @@ import Css exposing (..)
 import Css.Elements exposing (h1, input, label)
 import Css.Namespace
 import Html exposing (Attribute)
+import Layout.Styles exposing (button)
 
 
 namespace : String
@@ -24,7 +25,6 @@ type Classes
     | Container
     | Icon
     | SubmitButton
-    | ResetPasswordButton
     | StepTitle
     | StepForm
     | PasswordStep
@@ -100,18 +100,7 @@ step =
                         [ backgroundColor grey
                         ]
                    ]
-        , class ResetPasswordButton <|
-            button
-                ++ [ important <| backgroundColor transparent
-                   ]
         ]
-    ]
-
-
-button : List Mixin
-button =
-    [ width (pct 100)
-    , lightTextColor
     ]
 
 
@@ -189,7 +178,6 @@ stepDesktop =
                         [ backgroundColor lighterBlue
                         ]
                    ]
-        , class ResetPasswordButton buttonDesktop
         ]
     ]
 

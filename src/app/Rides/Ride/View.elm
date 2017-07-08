@@ -60,5 +60,5 @@ formFields model =
     , rideRoute model
     , rideInfo model
     , br [] []
-    , loadingOrSubmitButton model.rideRequest [ id "submitRide", layoutClass SubmitButton ] [ text "Pedir carona" ]
+    , loadingOrSubmitButton model.rideRequest "submitRide" [ text "Pedir carona" ]
     ]

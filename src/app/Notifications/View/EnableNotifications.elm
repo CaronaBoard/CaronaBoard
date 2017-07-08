@@ -1,6 +1,5 @@
 module Notifications.View.EnableNotifications exposing (enableNotifications)
 
-import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors)
 import Common.Icon exposing (icon)
 import Common.Response exposing (Response(..))
@@ -27,10 +26,10 @@ enableNotifications model =
             , br [] []
             , case model.response of
                 Success _ ->
-                    button [ disabled True, layoutClass SubmitButton, materializeClass "waves-effect waves-light btn-large" ]
+                    button [ disabled True, layoutClass DisabledButton ]
                         [ div [ layoutClass ButtonContainer ] [ icon "done", text "Notificações ativadas" ] ]
 
                 _ ->
-                    loadingOrSubmitButton model.response [ id "enableNotifications", layoutClass SubmitButton ] [ text "Ativar Notificações" ]
+                    loadingOrSubmitButton model.response "enableNotifications" [ text "Próximo", icon "arrow_forward" ]
             ]
         ]

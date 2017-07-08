@@ -27,6 +27,8 @@ type Classes
     | BrandLogo
     | SubmitButton
     | DisabledButton
+    | LinkButton
+    | DisabledLinkButton
     | ButtonContainer
     | OpenMenuButton
     | SignOutButton
@@ -90,12 +92,17 @@ layoutStyles =
         button
     , class DisabledButton <|
         button
-            -- temporary importants for overwritting login buttons
-            ++ [ important <| backgroundColor grey
-               , important <| color darkerGrey
+            ++ [ backgroundColor grey
+               , color darkerGrey
                , hover
-                    [ important <| backgroundColor grey
+                    [ backgroundColor grey
                     ]
+               ]
+    , class LinkButton <|
+        linkButton
+    , class DisabledLinkButton <|
+        linkButton
+            ++ [ color darkerGrey
                ]
     , class ButtonContainer
         [ displayFlex
@@ -181,6 +188,16 @@ button =
             ]
         ]
     ]
+
+
+linkButton : List Mixin
+linkButton =
+    button
+        ++ [ backgroundColor transparent
+           , hover
+                [ backgroundColor transparent
+                ]
+           ]
 
 
 container : List Mixin
