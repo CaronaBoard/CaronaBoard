@@ -56,7 +56,8 @@ styles =
 generalStyles : List Snippet
 generalStyles =
     [ html
-        [ fontFamilies [ "Lato", sansSerif.value ]
+        [ -- source: https://www.smashingmagazine.com/2015/11/using-system-ui-fonts-practical-guide/
+          fontFamilies [ "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "sans-serif" ]
         , fontSize (px 14)
         , property "line-height" "1.5"
         , fontWeight normal
@@ -84,6 +85,7 @@ generalStyles =
         , width (pct 100)
         , backgroundColor transparent
         , color inherit
+        , outline none
         ]
     , select
         [ height (px 42)
