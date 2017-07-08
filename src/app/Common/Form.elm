@@ -12,11 +12,11 @@ loadingOrSubmitButton : Response a -> List (Attribute msg) -> List (Html msg) ->
 loadingOrSubmitButton response extraAttributes children =
     case response of
         Loading ->
-            button ([ disabled True, materializeClass "waves-effect waves-light btn-large" ] ++ extraAttributes)
+            button ([ disabled True, layoutClass DisabledButton ] ++ extraAttributes)
                 [ div [ layoutClass ButtonContainer ] [ text "Carregando...", i [] [] ] ]
 
         _ ->
-            button ([ materializeClass "waves-effect waves-light btn-large" ] ++ extraAttributes)
+            button ([ layoutClass SubmitButton ] ++ extraAttributes)
                 [ div [ layoutClass ButtonContainer ] children
                 ]
 

@@ -26,6 +26,7 @@ type Classes
     | Navbar
     | BrandLogo
     | SubmitButton
+    | DisabledButton
     | ButtonContainer
     | OpenMenuButton
     | SignOutButton
@@ -49,10 +50,6 @@ generalStyles =
         ]
     , body
         [ backgroundColor grey
-        ]
-    , selector ".btn-large"
-        [ important <| borderRadius (px 54)
-        , important <| property "text-transform" "none"
         ]
     , selector ".input-field"
         [ descendants
@@ -91,6 +88,15 @@ layoutStyles =
         ]
     , class SubmitButton
         button
+    , class DisabledButton <|
+        button
+            -- temporary importants for overwritting login buttons
+            ++ [ important <| backgroundColor grey
+               , important <| color darkerGrey
+               , hover
+                    [ important <| backgroundColor grey
+                    ]
+               ]
     , class ButtonContainer
         [ displayFlex
         , justifyContent center
@@ -159,10 +165,20 @@ layoutStyles =
 button : List Mixin
 button =
     [ width (pct 100)
-    , important <| backgroundColor primaryBlue -- need to overwrite materialize css default color
+    , backgroundColor primaryBlue
     , lightTextColor
+    , borderRadius (px 54)
+    , lineHeight (px 54)
+    , height (px 54)
+    , borderStyle none
+    , cursor pointer
     , hover
         [ backgroundColor lighterBlue
+        ]
+    , descendants
+        [ selector ".material-icons"
+            [ lineHeight (px 54)
+            ]
         ]
     ]
 

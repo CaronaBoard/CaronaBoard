@@ -66,10 +66,10 @@ module.exports = function(firebase, app) {
       .auth()
       .sendPasswordResetEmail(email)
       .then(function() {
-        app.ports.passwordResetResponse.send(null);
+        app.ports.passwordResetResponse.send(success(true));
       })
       .catch(function(err) {
-        app.ports.passwordResetResponse.send(err.message);
+        app.ports.passwordResetResponse.send(error(err.message));
       });
   });
 

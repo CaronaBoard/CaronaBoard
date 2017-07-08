@@ -100,7 +100,10 @@ step =
                         [ backgroundColor grey
                         ]
                    ]
-        , class ResetPasswordButton button
+        , class ResetPasswordButton <|
+            button
+                ++ [ important <| backgroundColor transparent
+                   ]
         ]
     ]
 

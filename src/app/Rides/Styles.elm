@@ -3,7 +3,6 @@ module Rides.Styles exposing (Classes(..), className, namespace, styles)
 import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
 import Css exposing (..)
-import Css.Elements exposing (li)
 import Css.Namespace
 import Html exposing (Attribute)
 import Layout.Styles exposing (card)
@@ -54,8 +53,8 @@ cardStyles =
         , paddingTop (px 15)
         ]
     , class ActionButton <|
-        [ important <| darkTextColor
-        , important <| margin (px 0)
+        [ darkTextColor
+        , margin (px 0)
         , backgroundColor (hex "#EEE")
         , borderStyle none
         , padding2 (px 10) (px 15)
