@@ -43,7 +43,7 @@ formFields model =
         , div [ className ContactValue ]
             [ textInput model.fields.contact.value UpdateContactValue "contactValue" (contactIdentifier model.fields.contact.kind) ]
         ]
-    , loadingOrSubmitButton model.response [ id "submitProfile", layoutClass SubmitButton ] [ text "Salvar" ]
+    , loadingOrSubmitButton model.response "submitProfile" [ text "Salvar" ]
     ]
 
 

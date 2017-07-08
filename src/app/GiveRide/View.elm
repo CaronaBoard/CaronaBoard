@@ -4,7 +4,6 @@ import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
 import GiveRide.Model exposing (Model, Msg(..))
 import Html exposing (..)
-import Html.Attributes exposing (for, id, placeholder, selected, value)
 import Html.Events exposing (onInput, onSubmit)
 import Layout.Styles exposing (Classes(..), layoutClass)
 
@@ -35,5 +34,5 @@ formFields model =
             [ textInput model.fields.hours UpdateHours "hours" "Horário de saída"
             ]
         ]
-    , loadingOrSubmitButton model.response [ id "submitNewRide", layoutClass SubmitButton ] [ text "Cadastrar" ]
+    , loadingOrSubmitButton model.response "submitNewRide" [ text "Cadastrar" ]
     ]
