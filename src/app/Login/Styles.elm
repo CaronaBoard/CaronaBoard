@@ -90,10 +90,10 @@ step =
             [ fontSize (px 32)
             ]
         , input
-            [ important <| borderBottom3 (px 1) solid white
+            [ borderBottom3 (px 1) solid white
             ]
         , label
-            [ important <| lightTextColor
+            [ lightTextColor
             ]
         , class SubmitButton <|
             button
@@ -168,10 +168,10 @@ stepDesktop =
     , height (pct 100)
     , descendants
         [ input
-            [ important <| borderBottom3 (px 1) solid primaryBlack
+            [ borderBottom3 (px 1) solid primaryBlack
             ]
         , label
-            [ important darkTextColor
+            [ darkTextColor
             ]
         , class SubmitButton <|
             buttonDesktop
