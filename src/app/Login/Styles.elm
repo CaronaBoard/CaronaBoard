@@ -6,7 +6,7 @@ import Css exposing (..)
 import Css.Elements exposing (h1, input, label)
 import Css.Namespace
 import Html exposing (Attribute)
-import Layout.Styles exposing (button)
+import Layout.Styles exposing (button, linkButton)
 
 
 namespace : String
@@ -25,6 +25,7 @@ type Classes
     | Container
     | Icon
     | SubmitButton
+    | ResetPasswordButton
     | StepTitle
     | StepForm
     | PasswordStep
@@ -178,6 +179,9 @@ stepDesktop =
                         [ backgroundColor lighterBlue
                         ]
                    ]
+        , class ResetPasswordButton <|
+            linkButton
+                ++ buttonDesktop
         ]
     ]
 

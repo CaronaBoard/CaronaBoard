@@ -31,12 +31,14 @@ formFields model =
     , br [] []
     , textInput model.fields.name UpdateName "name" "Seu nome"
     , div [ className ContactField ]
-        [ div [ materializeClass "input-field", className ContactKind ]
-            [ div [ materializeClass "select-wrapper" ]
-                [ span [ materializeClass "caret" ] [ text "▼" ]
-                , select [ className Select, onInput UpdateContactKind, id "contactKind" ]
-                    [ contactKindOption model "Whatsapp"
-                    , contactKindOption model "Telegram"
+        [ div [ className ContactKind ]
+            [ div [ layoutClass InputField ]
+                [ div [ materializeClass "select-wrapper" ]
+                    [ span [ materializeClass "caret" ] [ text "▼" ]
+                    , select [ className Select, onInput UpdateContactKind, id "contactKind" ]
+                        [ contactKindOption model "Whatsapp"
+                        , contactKindOption model "Telegram"
+                        ]
                     ]
                 ]
             ]
