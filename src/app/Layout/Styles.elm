@@ -208,8 +208,8 @@ linkButton =
 
 container : List Mixin
 container =
-    [ padding2 (px 0) (pct 5)
-    , maxWidth (px 1280)
+    [ padding2 (px 0) (px 20)
+    , maxWidth (px 1024)
     , margin2 (px 0) auto
     ]
 
