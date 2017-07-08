@@ -1,4 +1,4 @@
-module Common.CssHelpers exposing (Namespace, materializeClass, namespacedClass)
+module Common.CssHelpers exposing (Namespace, namespacedClass)
 
 import Html exposing (Attribute)
 import Html.Attributes
@@ -18,8 +18,3 @@ namespacedClass namespace =
             CssHelpers.withNamespace namespace
     in
     \name -> class [ name ]
-
-
-materializeClass : String -> Attribute msg
-materializeClass =
-    Html.Attributes.class

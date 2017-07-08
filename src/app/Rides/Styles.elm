@@ -40,7 +40,7 @@ styles =
 
 cardStyles : List Snippet
 cardStyles =
-    [ selector ".material-icons"
+    [ selector ".layoutMaterialIcon"
         [ fontSize (px 16)
         , marginRight (px 5)
         , verticalAlign middle
@@ -67,17 +67,17 @@ cardStyles =
         ]
     , class PathIcon
         [ descendants
-            [ selector ".material-icons"
+            [ selector ".layoutMaterialIcon"
                 [ position absolute
                 , fontSize (px 16)
-                , marginTop (px 14)
+                , marginTop (px 10)
                 , marginLeft (px 2)
                 ]
             ]
         ]
     , class PathIconDot
         [ descendants
-            [ selector ".material-icons"
+            [ selector ".layoutMaterialIcon"
                 [ fontSize (px 10)
                 , marginLeft (px 5)
                 , marginRight (px 5)
