@@ -1,6 +1,5 @@
 module Rides.View.RidesList exposing (rideInfo, rideRoute, ridesList)
 
-import Common.CssHelpers exposing (materializeClass)
 import Common.Icon exposing (icon)
 import Common.IdentifiedList exposing (findById)
 import Common.Link exposing (linkTo)
@@ -47,12 +46,10 @@ ridesList groupId { rides, groups } =
 
 rideItem : String -> Ride.Model -> Html Msg
 rideItem groupId ride =
-    div [ className Card, materializeClass "card" ]
-        [ div [ materializeClass "card-content" ]
-            [ span [ className CardTitle ] [ text ride.destination ]
-            , rideRoute ride
-            ]
-        , div [ className OtherDetails, materializeClass "card-action" ]
+    div [ className Rides.Styles.Card ]
+        [ span [ layoutClass CardTitle ] [ text ride.destination ]
+        , rideRoute ride
+        , div [ className OtherDetails ]
             [ rideInfo ride
             , linkTo (RidePage groupId ride.id) [ className ActionButton ] [ text "Quero carona" ]
             ]
@@ -62,12 +59,12 @@ rideItem groupId ride =
 rideRoute : Ride.Model -> Html msg
 rideRoute ride =
     div [ className Path ]
-        [ p []
+        [ div []
             [ div [ className PathIcon ] [ icon "more_vert" ]
             , span [ className PathIconDot ] [ icon "radio_button_unchecked" ]
             , text <| "Origem: " ++ ride.origin
             ]
-        , p []
+        , div []
             [ span [ className PathIconDot ] [ icon "radio_button_unchecked" ]
             , text <| "Destino: " ++ ride.destination
             ]
@@ -76,16 +73,16 @@ rideRoute ride =
 
 rideInfo : Ride.Model -> Html msg
 rideInfo ride =
-    div []
-        [ p []
+    ul [ className RideInfo ]
+        [ li []
             [ icon "today"
             , text ride.days
             ]
-        , p []
+        , li []
             [ icon "schedule"
             , text ride.hours
             ]
-        , p []
+        , li []
             [ icon "directions_car"
             , text ride.profile.name
             ]

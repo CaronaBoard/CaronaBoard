@@ -1,4 +1,4 @@
-module Layout.Styles exposing (Classes(..), button, container, layoutClass, namespace, styles)
+module Layout.Styles exposing (..)
 
 import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
@@ -32,6 +32,8 @@ type Classes
     | AddRideLink
     | PageTitle
     | ErrorMessage
+    | Card
+    | CardTitle
 
 
 styles : Stylesheet
@@ -129,6 +131,12 @@ layoutStyles =
         , display inlineBlock
         , marginBottom (px 20)
         ]
+    , class Card
+        card
+    , class CardTitle
+        [ fontSize (px 16)
+        , fontWeight bold
+        ]
 
     -- TODO: This below is a very hacky way of adding keyframes, waiting for elm-css to add support for it
     , selector "@keyframes slideDown {"
@@ -165,3 +173,17 @@ container =
     , maxWidth (px 1280)
     , margin2 (px 0) auto
     ]
+
+
+card : List Mixin
+card =
+    [ backgroundColor white
+    , padding (px 20)
+    , cardShadow
+    , marginBottom (px 15)
+    ]
+
+
+cardShadow : Mixin
+cardShadow =
+    boxShadow4 (px 1) (px 1) (px 3) (rgba 0 0 0 0.3)

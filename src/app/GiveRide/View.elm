@@ -13,10 +13,8 @@ giveRide : String -> Model -> Html Msg
 giveRide groupId model =
     div [ layoutClass Container ]
         [ h1 [ layoutClass PageTitle ] [ text "Dar Carona" ]
-        , form [ materializeClass "card", onSubmit (Submit groupId) ]
-            [ div [ materializeClass "card-content" ]
-                (formFields model)
-            ]
+        , form [ layoutClass Card, onSubmit (Submit groupId) ]
+            (formFields model)
         ]
 
 
