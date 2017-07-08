@@ -1,6 +1,5 @@
 module GiveRide.View exposing (giveRide)
 
-import Common.CssHelpers exposing (materializeClass)
 import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
 import GiveRide.Model exposing (Model, Msg(..))
 import Html exposing (..)
@@ -20,19 +19,9 @@ giveRide groupId model =
 formFields : Model -> List (Html Msg)
 formFields model =
     [ renderErrors model.response
-    , div [ materializeClass "row" ]
-        [ div [ materializeClass "col s12 m12 l6" ]
-            [ textInput model.fields.origin UpdateOrigin "origin" "Origem da carona"
-            ]
-        , div [ materializeClass "col s12 m12 l6" ]
-            [ textInput model.fields.destination UpdateDestination "destination" "Destino da carona (bairro ou referência)"
-            ]
-        , div [ materializeClass "col s12 m12 l6" ]
-            [ textInput model.fields.days UpdateDays "days" "Dias que você pode dar carona"
-            ]
-        , div [ materializeClass "col s12 m12 l6" ]
-            [ textInput model.fields.hours UpdateHours "hours" "Horário de saída"
-            ]
-        ]
+    , textInput model.fields.origin UpdateOrigin "origin" "Origem da carona"
+    , textInput model.fields.destination UpdateDestination "destination" "Destino da carona (bairro ou referência)"
+    , textInput model.fields.days UpdateDays "days" "Dias que você pode dar carona"
+    , textInput model.fields.hours UpdateHours "hours" "Horário de saída"
     , loadingOrSubmitButton model.response "submitNewRide" [ text "Cadastrar" ]
     ]
