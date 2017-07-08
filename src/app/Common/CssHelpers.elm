@@ -1,7 +1,6 @@
 module Common.CssHelpers exposing (Namespace, namespacedClass)
 
 import Html exposing (Attribute)
-import Html.Attributes
 import Html.CssHelpers as CssHelpers
 
 

@@ -36,7 +36,7 @@ header model =
                             _ ->
                                 div [] []
                         , li []
-                            [ a [ layoutClass OpenMenuButton, onClick (MsgForLayout OpenDropdown) ]
+                            [ a [ layoutClass MenuButton, id "openMenu", onClick (MsgForLayout OpenDropdown) ]
                                 [ icon "more_vert"
                                 ]
                             ]
