@@ -77,6 +77,9 @@ generalStyles =
         [ textDecoration none
         , linkColor
         ]
+    , h1
+        [ fontWeight normal
+        ]
     , input
         [ borderStyle none
         , borderBottom3 (px 1) solid darkerGrey
