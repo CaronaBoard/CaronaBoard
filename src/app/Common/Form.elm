@@ -2,10 +2,10 @@ module Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
 
 import Common.CssHelpers exposing (materializeClass)
 import Common.Response exposing (Response(..))
-import Layout.Styles exposing (Classes(ButtonContainer), layoutClass)
 import Html exposing (Attribute, Html, button, div, i, input, label, text)
 import Html.Attributes exposing (disabled, for, id, placeholder, value)
 import Html.Events exposing (onInput)
+import Layout.Styles exposing (Classes(..), layoutClass)
 
 
 loadingOrSubmitButton : Response a -> List (Attribute msg) -> List (Html msg) -> Html msg
@@ -25,7 +25,7 @@ renderErrors : Response a -> Html msg
 renderErrors response =
     case response of
         Error message ->
-            div [ materializeClass "chip red darken-2 white-text" ] [ text message ]
+            div [ layoutClass ErrorMessage ] [ text message ]
 
         _ ->
             div [] []
