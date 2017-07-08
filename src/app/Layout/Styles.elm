@@ -42,6 +42,9 @@ type Classes
     | InputField
     | SelectWrapper
     | SelectCaret
+    | MaterialIcon
+    | MaterialIconLeft
+    | MaterialIconRight
 
 
 styles : Stylesheet
@@ -184,6 +187,14 @@ layoutStyles =
     , class SelectCaret
         [ fontSize (px 10)
         ]
+    , class MaterialIcon
+        materialIcon
+    , class MaterialIconLeft <|
+        materialIcon
+            ++ [ float left ]
+    , class MaterialIconRight <|
+        materialIcon
+            ++ [ float right ]
 
     -- TODO: This below is a very hacky way of adding keyframes, waiting for elm-css to add support for it
     , selector "@keyframes slideDown {"
@@ -254,3 +265,10 @@ card =
 cardShadow : Mixin
 cardShadow =
     boxShadow4 (px 1) (px 1) (px 3) (rgba 0 0 0 0.3)
+
+
+materialIcon : List Mixin
+materialIcon =
+    [ fontFamilies [ "Material Icons" ]
+    , fontStyle normal
+    ]

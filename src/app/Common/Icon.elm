@@ -1,25 +1,25 @@
 module Common.Icon exposing (icon, iconLeft, iconRight)
 
-import Common.CssHelpers exposing (materializeClass)
 import Html exposing (Html, i, text)
+import Layout.Styles exposing (Classes(..), layoutClass)
 
 
 iconRight : String -> Html a
 iconRight =
-    icon_ "right"
+    icon_ MaterialIconRight
 
 
 iconLeft : String -> Html a
 iconLeft =
-    icon_ "left"
+    icon_ MaterialIconLeft
 
 
 icon : String -> Html a
 icon =
-    icon_ ""
+    icon_ MaterialIcon
 
 
-icon_ : String -> String -> Html a
-icon_ extraClasses name =
-    i [ materializeClass <| "material-icons " ++ extraClasses ]
+icon_ : Layout.Styles.Classes -> String -> Html a
+icon_ class_ name =
+    i [ layoutClass class_ ]
         [ text name ]
