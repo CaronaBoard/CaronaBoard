@@ -23,7 +23,7 @@ update msg model =
         MsgForUrlRouter (UrlChange location) ->
             case pathParser location of
                 Just (RideRequestPage groupId rideId fromUserId rideRequestId) ->
-                    return model
+                    return Loading
                         (fetchRideRequest
                             { groupId = groupId
                             , rideId = rideId

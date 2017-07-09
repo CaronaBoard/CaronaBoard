@@ -1,9 +1,10 @@
-module Integration.RideRequestsSpec exposing (tests)
+module Integration.RidesRequestsSpec exposing (tests)
 
 import Expect
 import Helpers exposing (..)
 import JsonStringify exposing (simpleStringify)
-import RideRequests.Ports exposing (fetchRideRequest, fetchRideRequestResponse)
+import Model as Root
+import RidesRequests.Ports exposing (..)
 import Test exposing (..)
 import Test.Html.Query exposing (..)
 import Test.Html.Selector exposing (..)
@@ -15,8 +16,7 @@ tests : Test
 tests =
     describe "ride requests" <|
         [ test "fetches ride request for the url sent by the notification" <|
-            signedInContext GroupsPage
-                >> navigate "#/groups/idGroup1/rides/idRide1/requests/idUser1/idRideRequest1"
+            rideRequestContext
                 >> expectCmd
                     (fetchRideRequest
                         { groupId = "idGroup1"
@@ -26,8 +26,7 @@ tests =
                         }
                     )
         , test "shows ride request details" <|
-            signedInContext GroupsPage
-                >> navigate "#/groups/idGroup1/rides/idRide1/requests/idUser1/idRideRequest1"
+            rideRequestContext
                 >> send fetchRideRequestResponse
                     ( Nothing
                     , Just <|
@@ -45,4 +44,19 @@ tests =
                     [ has [ text "Ride McRider" ]
                     , has [ text "91571" ]
                     ]
+        , test "show loading message while loading" <|
+            rideRequestContext
+                >> expectView
+                >> has [ text "Carregando" ]
+        , test "show error message when there is an error" <|
+            rideRequestContext
+                >> send fetchRideRequestResponse ( Just "foo is not a bar", Nothing )
+                >> expectView
+                >> has [ text "foo is not a bar" ]
         ]
+
+
+rideRequestContext : a -> TestContext Root.Model Root.Msg
+rideRequestContext =
+    signedInContext GroupsPage
+        >> navigate "#/groups/idGroup1/rides/idRide1/requests/idUser1/idRideRequest1"
