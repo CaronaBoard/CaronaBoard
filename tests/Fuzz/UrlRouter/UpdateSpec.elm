@@ -11,7 +11,7 @@ import Profile.Model
 import Profile.Update
 import Return exposing (return)
 import Test exposing (..)
-import UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, toPath)
+import UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, requiresAuthentication, toPath)
 import UrlRouter.Update exposing (changePageTo)
 
 
@@ -23,27 +23,33 @@ tests =
                 \currentPage login requestedPage ->
                     let
                         pageAfterRedirect =
-                            redirectTo profileSample login requestedPage
+                            redirectTo Nothing profileSample login requestedPage
 
                         pageToGo =
-                            changePageTo profileSample login { page = currentPage } (toLocation requestedPage)
+                            changePageTo profileSample login { page = currentPage, returnTo = Nothing } (toLocation requestedPage)
+
+                        returnTo =
+                            if requiresAuthentication requestedPage then
+                                Just requestedPage
+                            else
+                                Nothing
 
                         expectedReturn =
                             if pageAfterRedirect /= requestedPage then
-                                return { page = pageAfterRedirect } <|
+                                return { page = pageAfterRedirect, returnTo = returnTo } <|
                                     Navigation.modifyUrl (toPath pageAfterRedirect)
                             else
-                                return { page = pageAfterRedirect } Cmd.none
+                                return { page = pageAfterRedirect, returnTo = Nothing } Cmd.none
                     in
                     Expect.equal expectedReturn pageToGo
             , fuzz2 randomLogin randomPath "returns 404 for random paths" <|
                 \login randomPath ->
                     let
                         pageToGo =
-                            changePageTo profileSample login { page = SplashScreenPage } (pathToLocation randomPath)
+                            changePageTo profileSample login { page = SplashScreenPage, returnTo = Nothing } (pathToLocation randomPath)
 
                         expectedReturn =
-                            return { page = NotFoundPage } Cmd.none
+                            return { page = NotFoundPage, returnTo = Nothing } Cmd.none
                     in
                     Expect.equal expectedReturn pageToGo
             ]

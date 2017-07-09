@@ -54,6 +54,10 @@ tests =
                     [ update (MsgForUrlRouter <| UrlChange (toLocation LoginPage)) >> expectCurrentPage GroupsPage
                     , update (MsgForUrlRouter <| UrlChange (toLocation SplashScreenPage)) >> expectCurrentPage GroupsPage
                     ]
+        , test "returns to initial requested url after signing in" <|
+            initialContext Nothing Nothing ProfilePage
+                >> successSignIn
+                >> expectCurrentPage ProfilePage
         , describe "logout"
             [ test "trigger port on sign out button click" <|
                 loginThenLogout
