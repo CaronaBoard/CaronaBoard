@@ -1,4 +1,4 @@
-module Login.Model exposing (Model, Msg(..), Step(..), User, isSignedIn, signedInUser, step)
+module Login.Model exposing (Model, Msg(..), User, isSignedIn, signedInUser)
 
 import Common.Response exposing (Response(..))
 import Profile.Model exposing (Profile)
@@ -18,40 +18,23 @@ type alias User =
     { id : String }
 
 
-type Step
-    = EmailStep
-    | NotRegisteredStep
-    | PasswordStep
-
-
 type Msg
     = UpdateEmail String
-    | UpdatePassword String
-    | Submit
+    | SubmitEmail
     | CheckRegistrationResponse (Response Bool)
+    | UpdatePassword String
+    | SubmitPassword
     | SignInResponse (Response { user : User, profile : Maybe Profile })
-    | SignOut
-    | SignOutResponse (Response Bool)
+    | SubmitRegistration
+    | SignUpResponse (Response Bool)
     | PasswordReset
     | PasswordResetResponse (Response Bool)
-    | SignUpResponse (Response Bool)
+    | SignOut
+    | SignOutResponse (Response Bool)
 
 
 type alias Error =
     String
-
-
-step : Model -> Step
-step model =
-    case model.registered of
-        Success True ->
-            PasswordStep
-
-        Success False ->
-            NotRegisteredStep
-
-        _ ->
-            EmailStep
 
 
 signedInUser : Model -> Maybe User

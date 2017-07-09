@@ -3,19 +3,17 @@ module Integration.LoginSpec exposing (tests)
 import Common.Response exposing (Response(..))
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
-import Helpers exposing (fixtures, successSignIn)
-import Html
+import Helpers exposing (expectCurrentPage, fixtures, initialContext, successSignIn, successSignInWithoutProfile)
 import Login.Model exposing (Model, Msg(..), signedInUser)
 import Login.Ports exposing (..)
 import Login.Styles exposing (Classes(..))
-import Login.Update as Update exposing (init)
-import Login.View.Login as View
 import Model as Root exposing (Msg(MsgForLogin))
 import Test exposing (..)
 import Test.Html.Event exposing (click, input, submit)
 import Test.Html.Query exposing (..)
 import Test.Html.Selector exposing (..)
 import TestContext exposing (..)
+import UrlRouter.Routes exposing (Page(..))
 
 
 tests : Test
@@ -58,8 +56,12 @@ tests =
                     >> successSignIn
                     >> expectModel
                         (\model ->
-                            Expect.equal (Just fixtures.user) (signedInUser model)
+                            Expect.equal (Just fixtures.user) (signedInUser model.login)
                         )
+            , test "goes to groups page after sign in" <|
+                submitEmailThenPassword
+                    >> successSignIn
+                    >> expectCurrentPage GroupsPage
             ]
         , describe "logout"
             [ test "removes the signed in user" <|
@@ -68,7 +70,7 @@ tests =
                     >> update (MsgForLogin (SignOutResponse (Success True)))
                     >> expectModel
                         (\model ->
-                            Expect.equal Nothing (signedInUser model)
+                            Expect.equal Nothing (signedInUser model.login)
                         )
             ]
         , describe "password reset"
@@ -104,6 +106,10 @@ tests =
                     >> expectView
                     >> find []
                     >> has [ text "not a function" ]
+            , test "goes to profile page after registration" <|
+                submitEmailThenRegistration
+                    >> successSignInWithoutProfile
+                    >> expectCurrentPage ProfilePage
             ]
         ]
 
@@ -113,25 +119,19 @@ class =
     Test.Html.Selector.class << identifierToString Login.Styles.namespace
 
 
-loginContext : a -> TestContext Model Root.Msg
-loginContext _ =
-    Html.program
-        { init = ( init Nothing, Cmd.none )
-        , update = \msg model -> Tuple.mapSecond (Cmd.map MsgForLogin) <| Update.update msg model
-        , view = View.login >> Html.map MsgForLogin
-        , subscriptions = always Sub.none
-        }
-        |> start
+loginContext : a -> TestContext Root.Model Root.Msg
+loginContext =
+    initialContext Nothing Nothing LoginPage
 
 
-submitEmail : a -> TestContext Model Root.Msg
+submitEmail : a -> TestContext Root.Model Root.Msg
 submitEmail =
     loginContext
         >> simulate (find [ tag "input", attribute "type" "email" ]) (input "foo@bar.com")
         >> simulate (find [ tag "form" ]) submit
 
 
-submitEmailThenPassword : a -> TestContext Model Root.Msg
+submitEmailThenPassword : a -> TestContext Root.Model Root.Msg
 submitEmailThenPassword =
     submitEmail
         >> update (MsgForLogin <| CheckRegistrationResponse (Success True))
@@ -139,14 +139,14 @@ submitEmailThenPassword =
         >> simulate (find [ tag "form" ]) submit
 
 
-submitEmailThenForgotPassword : a -> TestContext Model Root.Msg
+submitEmailThenForgotPassword : a -> TestContext Root.Model Root.Msg
 submitEmailThenForgotPassword =
     submitEmail
         >> update (MsgForLogin <| CheckRegistrationResponse (Success True))
         >> simulate (find [ id "resetPassword" ]) click
 
 
-submitEmailThenRegistration : a -> TestContext Model Root.Msg
+submitEmailThenRegistration : a -> TestContext Root.Model Root.Msg
 submitEmailThenRegistration =
     submitEmail
         >> update (MsgForLogin <| CheckRegistrationResponse (Success False))
