@@ -6,6 +6,7 @@ import Login.Ports as Login
 import Model as Root exposing (Model, Msg(..))
 import Notifications.Ports as Notifications
 import Profile.Ports as Profile
+import RidesRequests.Ports as RidesRequests
 import Rides.Ports as Rides
 
 
@@ -18,4 +19,5 @@ subscriptions model =
         , Sub.map MsgForNotifications Notifications.subscriptions
         , Sub.map MsgForProfile Profile.subscriptions
         , Sub.map MsgForGroups Groups.subscriptions
+        , Sub.map MsgForRidesRequests RidesRequests.subscriptions
         ]
