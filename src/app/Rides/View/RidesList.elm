@@ -37,7 +37,13 @@ ridesList groupId { rides, groups } =
                 if ridesForGroup == [] then
                     text "Esse grupo ainda não tem nenhuma oferta de carona. Tem um carro? Cadastre uma carona!"
                 else
-                    div [] (List.map (rideItem groupId) ridesForGroup)
+                    div []
+                        [ div [] (List.map (rideItem groupId) ridesForGroup)
+                        , p []
+                            [ text "Tem um carro? Adicione sua carona "
+                            , linkTo (GiveRidePage groupId) [] [ text "aqui" ]
+                            ]
+                        ]
 
             Error err ->
                 text err
