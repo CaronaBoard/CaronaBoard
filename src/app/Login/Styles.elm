@@ -144,7 +144,7 @@ desktopStyles =
         , class Icon
             [ display block
             , descendants
-                [ selector ".material-icons"
+                [ selector ".layoutMaterialIcon"
                     [ fontSize (px 80)
                     ]
                 ]
