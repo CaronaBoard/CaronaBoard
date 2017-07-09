@@ -1,4 +1,4 @@
-module UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, toPath)
+module UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, requiresAuthentication, toPath)
 
 import Login.Model as Login exposing (isSignedIn)
 import Navigation
@@ -9,14 +9,16 @@ import UrlParser exposing ((</>), Parser, map, oneOf, parseHash, string)
 type Page
     = SplashScreenPage
     | LoginPage
-    | RidesPage String
-    | NotFoundPage
+    | PasswordStepPage
+    | RegistrationPage
     | PasswordResetPage
-    | GiveRidePage String
-    | EnableNotificationsPage
-    | RidePage String String
+    | NotFoundPage
     | ProfilePage
+    | EnableNotificationsPage
     | GroupsPage
+    | RidesPage String
+    | GiveRidePage String
+    | RidePage String String
 
 
 pageParser : Parser (Page -> a) a
@@ -24,6 +26,8 @@ pageParser =
     oneOf
         [ map SplashScreenPage (static "")
         , map LoginPage (static "login")
+        , map PasswordStepPage (static "login" </> static "password")
+        , map RegistrationPage (static "login" </> static "registration")
         , map PasswordResetPage (static "password-reset")
         , map ProfilePage (static "profile")
         , map EnableNotificationsPage (static "enable-notifications")
@@ -43,33 +47,39 @@ toPath page =
         LoginPage ->
             "#/login"
 
-        RidesPage groupId ->
-            "#/groups/" ++ groupId ++ "/rides"
+        PasswordStepPage ->
+            "#/login/password"
 
-        NotFoundPage ->
-            "#/not-found"
+        RegistrationPage ->
+            "#/login/registration"
 
         PasswordResetPage ->
             "#/password-reset"
 
-        GiveRidePage groupId ->
-            "#/groups/" ++ groupId ++ "/rides/give"
-
-        EnableNotificationsPage ->
-            "#/enable-notifications"
-
-        RidePage groupId rideId ->
-            "#/groups/" ++ groupId ++ "/rides/" ++ rideId ++ "/request"
+        NotFoundPage ->
+            "#/not-found"
 
         ProfilePage ->
             "#/profile"
 
+        EnableNotificationsPage ->
+            "#/enable-notifications"
+
         GroupsPage ->
             "#/groups"
 
+        RidesPage groupId ->
+            "#/groups/" ++ groupId ++ "/rides"
 
-redirectTo : Profile.Model -> Login.Model -> Page -> Page
-redirectTo profile login page =
+        GiveRidePage groupId ->
+            "#/groups/" ++ groupId ++ "/rides/give"
+
+        RidePage groupId rideId ->
+            "#/groups/" ++ groupId ++ "/rides/" ++ rideId ++ "/request"
+
+
+redirectTo : Maybe Page -> Profile.Model -> Login.Model -> Page -> Page
+redirectTo returnTo profile login page =
     if isSignedIn login then
         if profile.savedProfile == Nothing then
             ProfilePage
@@ -79,7 +89,10 @@ redirectTo profile login page =
                     GroupsPage
 
                 LoginPage ->
-                    GroupsPage
+                    Maybe.withDefault GroupsPage returnTo
+
+                PasswordStepPage ->
+                    Maybe.withDefault GroupsPage returnTo
 
                 _ ->
                     page
@@ -95,31 +108,37 @@ requiresAuthentication page =
         SplashScreenPage ->
             True
 
-        RidesPage _ ->
-            True
-
         LoginPage ->
             False
 
-        NotFoundPage ->
+        PasswordStepPage ->
+            False
+
+        RegistrationPage ->
             False
 
         PasswordResetPage ->
             False
 
-        GiveRidePage _ ->
+        NotFoundPage ->
+            False
+
+        ProfilePage ->
             True
 
         EnableNotificationsPage ->
             True
 
-        RidePage _ _ ->
-            True
-
-        ProfilePage ->
-            True
-
         GroupsPage ->
+            True
+
+        RidesPage _ ->
+            True
+
+        GiveRidePage _ ->
+            True
+
+        RidePage _ _ ->
             True
 
 

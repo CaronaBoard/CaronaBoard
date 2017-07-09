@@ -8,6 +8,8 @@ import Layout.View.SplashScreen exposing (splashScreen)
 import Login.View.Layout exposing (loginLayout)
 import Login.View.Login exposing (login)
 import Login.View.PasswordReset exposing (passwordReset)
+import Login.View.PasswordStep exposing (passwordStep)
+import Login.View.Registration exposing (registrationStep)
 import Model as Root exposing (Model, Msg(..))
 import Notifications.View.EnableNotifications exposing (enableNotifications)
 import Profile.View exposing (profile)
@@ -24,6 +26,12 @@ view model =
 
         LoginPage ->
             loginLayout (Html.map MsgForLogin <| login model.login)
+
+        PasswordStepPage ->
+            loginLayout (Html.map MsgForLogin <| passwordStep model.login)
+
+        RegistrationPage ->
+            loginLayout (Html.map MsgForLogin <| registrationStep model.login)
 
         RidesPage groupId ->
             layout model (ridesList groupId model)

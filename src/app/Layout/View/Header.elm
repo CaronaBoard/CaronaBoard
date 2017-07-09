@@ -9,6 +9,7 @@ import Layout.Model as Layout exposing (Msg(CloseDropdown, OpenDropdown))
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Login.Model exposing (Msg(SignOut))
 import Model as Root exposing (Msg(..))
+import UrlRouter.Model exposing (Msg(..))
 import UrlRouter.Routes exposing (Page(..))
 
 
@@ -17,11 +18,14 @@ header model =
     Html.header [ layoutClass Header ] <|
         menu model.layout
             ++ [ nav [ layoutClass Navbar ]
-                    [ linkTo GroupsPage
-                        [ layoutClass BrandLogo ]
-                        [ b [] [ text "Carona" ]
-                        , text "Board"
-                        ]
+                    [ case model.urlRouter.page of
+                        GroupsPage ->
+                            div [] []
+
+                        _ ->
+                            div [ layoutClass NavBack, onClick (MsgForUrlRouter Back) ]
+                                [ icon "keyboard_backspace"
+                                ]
                     , ul []
                         [ case model.urlRouter.page of
                             RidesPage groupId ->
@@ -29,7 +33,7 @@ header model =
                                     [ linkTo (GiveRidePage groupId)
                                         [ layoutClass AddRideLink ]
                                         [ icon "directions_car"
-                                        , text "Dou carona"
+                                        , text "+"
                                         ]
                                     ]
 
@@ -40,6 +44,11 @@ header model =
                                 [ icon "more_vert"
                                 ]
                             ]
+                        ]
+                    , div
+                        [ layoutClass BrandLogo ]
+                        [ b [] [ text "Carona" ]
+                        , text "Board"
                         ]
                     ]
                ]

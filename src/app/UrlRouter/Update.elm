@@ -8,8 +8,8 @@ import Navigation exposing (Location)
 import Notifications.Model as Notifications exposing (isEnabled)
 import Profile.Model as Profile exposing (Msg(..))
 import Return exposing (Return, return)
-import UrlRouter.Model exposing (Model, Msg(Go, UrlChange))
-import UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, toPath)
+import UrlRouter.Model exposing (Model, Msg(..))
+import UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, requiresAuthentication, toPath)
 
 
 init : Location -> Model
@@ -17,10 +17,11 @@ init location =
     case pathParser location of
         Nothing ->
             { page = SplashScreenPage
+            , returnTo = Nothing
             }
 
         Just page ->
-            { page = page }
+            { page = page, returnTo = Nothing }
 
 
 update : Root.Msg -> Root.Model -> Return UrlRouter.Model.Msg Model
@@ -29,8 +30,14 @@ update msg { notifications, profile, login, urlRouter } =
         MsgForUrlRouter urlMsg ->
             urlRouterUpdate profile login urlMsg urlRouter
 
+        MsgForLogin (CheckRegistrationResponse (Success True)) ->
+            urlRouterUpdate profile login (Go PasswordStepPage) urlRouter
+
+        MsgForLogin (CheckRegistrationResponse (Success False)) ->
+            urlRouterUpdate profile login (Go RegistrationPage) urlRouter
+
         MsgForLogin (SignInResponse (Success _)) ->
-            urlRouterUpdate profile login (Go GroupsPage) urlRouter
+            urlRouterUpdate profile login (Go urlRouter.page) urlRouter
 
         MsgForLogin (SignOutResponse (Success _)) ->
             urlRouterUpdate profile login (Go LoginPage) urlRouter
@@ -58,27 +65,34 @@ urlRouterUpdate profile login msg model =
             ( model, Navigation.newUrl (toPath route) )
 
         UrlChange location ->
-            case changePageTo profile login model location of
-                Nothing ->
-                    return model Cmd.none
+            changePageTo profile login model location
 
-                Just page ->
-                    return { model | page = page } (Navigation.modifyUrl (toPath page))
+        Back ->
+            return model (Navigation.back 1)
 
 
-changePageTo : Profile.Model -> Login.Model -> Model -> Location -> Maybe Page
+changePageTo : Profile.Model -> Login.Model -> Model -> Location -> Return UrlRouter.Model.Msg Model
 changePageTo profile login model location =
     let
         requestedPage =
             Maybe.withDefault NotFoundPage (pathParser location)
 
         pageAfterRedirect =
-            redirectTo profile login requestedPage
+            redirectTo model.returnTo profile login requestedPage
 
-        shouldChangeUrl =
-            (model.page /= requestedPage) || (model.page /= pageAfterRedirect)
+        shouldModifyUrl =
+            requestedPage /= pageAfterRedirect
+
+        returnTo =
+            if shouldModifyUrl && requiresAuthentication requestedPage then
+                Just requestedPage
+            else
+                model.returnTo
+
+        navigationCmd =
+            if shouldModifyUrl then
+                Navigation.modifyUrl <| toPath pageAfterRedirect
+            else
+                Cmd.none
     in
-    if shouldChangeUrl then
-        Just pageAfterRedirect
-    else
-        Nothing
+    return { model | page = pageAfterRedirect, returnTo = returnTo } navigationCmd
