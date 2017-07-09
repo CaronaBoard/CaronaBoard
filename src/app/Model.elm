@@ -6,6 +6,7 @@ import Layout.Model as Layout
 import Login.Model as Login
 import Notifications.Model as Notifications
 import Profile.Model as Profile exposing (Profile)
+import RideRequests.Model as RideRequests
 import Rides.Model as Rides
 import UrlRouter.Model as UrlRouter exposing (Msg(UrlChange))
 
@@ -19,7 +20,7 @@ type alias Model =
     , notifications : Notifications.Model
     , profile : Profile.Model
     , groups : Groups.Model
-    , rideRequests : ()
+    , rideRequests : RideRequests.Model
     }
 
 
@@ -38,4 +39,4 @@ type Msg
     | MsgForNotifications Notifications.Msg
     | MsgForProfile Profile.Msg
     | MsgForGroups Groups.Msg
-    | MsgForRideRequests ()
+    | MsgForRideRequests RideRequests.Msg
