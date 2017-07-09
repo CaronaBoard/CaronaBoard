@@ -73,6 +73,14 @@ jsonQuotes =
     String.Extra.replace "'" "\""
 
 
+expectCurrentPage : Page -> TestContext Model.Model msg -> Expect.Expectation
+expectCurrentPage page =
+    expectModel
+        (\model ->
+            Expect.equal page model.urlRouter.page
+        )
+
+
 fixtures : { rides : List Ride.Model, ride1 : Ride.Model, ride2 : Ride.Model, user : User, profile : Profile, newRide : NewRide, group1 : Groups.Group, group2 : Groups.Group, groups : List Groups.Group }
 fixtures =
     let

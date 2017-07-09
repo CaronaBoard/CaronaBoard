@@ -27,6 +27,7 @@ type Classes
     | Header
     | Navbar
     | BrandLogo
+    | NavBack
     | SubmitButton
     | DisabledButton
     | LinkButton
@@ -133,9 +134,19 @@ layoutStyles =
         menuButton
     , class BrandLogo
         [ fontSize (Css.rem 1.4)
-        , marginLeft (px 20)
         , lightTextColor
+        , position absolute
+        , textAlign center
+        , width (pct 100)
         ]
+    , class NavBack <|
+        menuButton
+            ++ [ children
+                    [ selector ".layoutMaterialIcon"
+                        [ fontSize (px 30)
+                        ]
+                    ]
+               ]
     , class PageTitle
         [ darkTextColor
         , fontSize (px 34)
@@ -193,11 +204,6 @@ layoutStyles =
         menuButton
             ++ [ displayFlex
                , alignItems center
-               , descendants
-                    [ selector "i"
-                        [ marginRight (px 10)
-                        ]
-                    ]
                ]
     , class ErrorMessage
         [ lightTextColor
@@ -336,6 +342,10 @@ menuButton =
     [ lightTextColor
     , padding2 (px 0) (px 15)
     , display block
+    , height (px 56)
+    , position relative
+    , zIndex (int 1)
+    , cursor pointer
     , hover
         [ backgroundColor (rgba 0 0 0 0.1)
         ]

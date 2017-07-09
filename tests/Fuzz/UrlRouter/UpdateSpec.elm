@@ -9,8 +9,9 @@ import Login.Update
 import Navigation exposing (Location)
 import Profile.Model
 import Profile.Update
+import Return exposing (return)
 import Test exposing (..)
-import UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, toPath)
+import UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, requiresAuthentication, toPath)
 import UrlRouter.Update exposing (changePageTo)
 
 
@@ -21,23 +22,36 @@ tests =
             [ fuzz3 randomPage randomLogin randomPage "returns the requested page redirect unless the current page, the requested one and the redirect to are all the same" <|
                 \currentPage login requestedPage ->
                     let
-                        pageToRedirect =
-                            redirectTo profileSample login requestedPage
+                        pageAfterRedirect =
+                            redirectTo Nothing profileSample login requestedPage
 
                         pageToGo =
-                            changePageTo profileSample login { page = currentPage } (toLocation requestedPage)
+                            changePageTo profileSample login { page = currentPage, returnTo = Nothing } (toLocation requestedPage)
+
+                        returnTo =
+                            if requiresAuthentication requestedPage then
+                                Just requestedPage
+                            else
+                                Nothing
+
+                        expectedReturn =
+                            if pageAfterRedirect /= requestedPage then
+                                return { page = pageAfterRedirect, returnTo = returnTo } <|
+                                    Navigation.modifyUrl (toPath pageAfterRedirect)
+                            else
+                                return { page = pageAfterRedirect, returnTo = Nothing } Cmd.none
                     in
-                    if currentPage == pageToRedirect && currentPage == requestedPage then
-                        Expect.equal Nothing pageToGo
-                    else
-                        Expect.equal (Just pageToRedirect) pageToGo
+                    Expect.equal expectedReturn pageToGo
             , fuzz2 randomLogin randomPath "returns 404 for random paths" <|
                 \login randomPath ->
                     let
                         pageToGo =
-                            changePageTo profileSample login { page = SplashScreenPage } (pathToLocation randomPath)
+                            changePageTo profileSample login { page = SplashScreenPage, returnTo = Nothing } (pathToLocation randomPath)
+
+                        expectedReturn =
+                            return { page = NotFoundPage, returnTo = Nothing } Cmd.none
                     in
-                    Expect.equal (Just NotFoundPage) pageToGo
+                    Expect.equal expectedReturn pageToGo
             ]
         ]
 
