@@ -1,10 +1,9 @@
 module Integration.GiveRideSpec exposing (tests)
 
 import Common.Response exposing (Response(..))
-import Expect
 import GiveRide.Model exposing (Msg(..))
 import GiveRide.Ports
-import Helpers exposing (expectToContainText, fixtures, initialContext, signedInContext, someUser, toLocation)
+import Helpers exposing (expectCurrentPage, expectToContainText, fixtures, initialContext, signedInContext, someUser, toLocation)
 import Model as Root exposing (Model, Msg(..))
 import Notifications.Model exposing (Msg(..))
 import Test exposing (..)
@@ -39,18 +38,12 @@ tests =
         , test "goes to enable notifications page on success" <|
             submitNewRide
                 >> successResponse
-                >> expectModel
-                    (\model ->
-                        Expect.equal EnableNotificationsPage model.urlRouter.page
-                    )
+                >> expectCurrentPage EnableNotificationsPage
         , test "goes to the groups page on success if notifications are already enabled" <|
             submitNewRide
                 >> update (MsgForNotifications <| NotificationsResponse (Success True))
                 >> successResponse
-                >> expectModel
-                    (\model ->
-                        Expect.equal GroupsPage model.urlRouter.page
-                    )
+                >> expectCurrentPage GroupsPage
         , test "shows notification on success" <|
             submitNewRide
                 >> successResponse

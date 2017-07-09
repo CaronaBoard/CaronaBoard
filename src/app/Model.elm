@@ -19,6 +19,7 @@ type alias Model =
     , notifications : Notifications.Model
     , profile : Profile.Model
     , groups : Groups.Model
+    , rideRequests : ()
     }
 
 
@@ -37,3 +38,4 @@ type Msg
     | MsgForNotifications Notifications.Msg
     | MsgForProfile Profile.Msg
     | MsgForGroups Groups.Msg
+    | MsgForRideRequests ()
