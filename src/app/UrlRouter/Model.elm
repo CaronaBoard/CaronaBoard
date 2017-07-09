@@ -12,3 +12,4 @@ type alias Model =
 type Msg
     = Go Page
     | UrlChange Location
+    | Back
