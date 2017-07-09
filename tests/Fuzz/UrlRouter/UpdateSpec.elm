@@ -9,6 +9,7 @@ import Login.Update
 import Navigation exposing (Location)
 import Profile.Model
 import Profile.Update
+import Return exposing (return)
 import Test exposing (..)
 import UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, toPath)
 import UrlRouter.Update exposing (changePageTo)
@@ -21,23 +22,30 @@ tests =
             [ fuzz3 randomPage randomLogin randomPage "returns the requested page redirect unless the current page, the requested one and the redirect to are all the same" <|
                 \currentPage login requestedPage ->
                     let
-                        pageToRedirect =
+                        pageAfterRedirect =
                             redirectTo profileSample login requestedPage
 
                         pageToGo =
                             changePageTo profileSample login { page = currentPage } (toLocation requestedPage)
+
+                        expectedReturn =
+                            if pageAfterRedirect /= requestedPage then
+                                return { page = pageAfterRedirect } <|
+                                    Navigation.modifyUrl (toPath pageAfterRedirect)
+                            else
+                                return { page = pageAfterRedirect } Cmd.none
                     in
-                    if currentPage == pageToRedirect && currentPage == requestedPage then
-                        Expect.equal Nothing pageToGo
-                    else
-                        Expect.equal (Just pageToRedirect) pageToGo
+                    Expect.equal expectedReturn pageToGo
             , fuzz2 randomLogin randomPath "returns 404 for random paths" <|
                 \login randomPath ->
                     let
                         pageToGo =
                             changePageTo profileSample login { page = SplashScreenPage } (pathToLocation randomPath)
+
+                        expectedReturn =
+                            return { page = NotFoundPage } Cmd.none
                     in
-                    Expect.equal (Just NotFoundPage) pageToGo
+                    Expect.equal expectedReturn pageToGo
             ]
         ]
 
