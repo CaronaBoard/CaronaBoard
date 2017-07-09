@@ -19,7 +19,7 @@ registrationStep model =
                     ]
                 ]
             , div [ className StepForm ]
-                [ form [ onSubmit Submit ] [ registration model ]
+                [ registration model
                 ]
             ]
         ]
@@ -27,7 +27,7 @@ registrationStep model =
 
 registration : Model -> Html Msg
 registration model =
-    div []
+    form [ onSubmit SubmitRegistration ]
         [ renderErrors model.signUp
         , emailInput model.email UpdateEmail "email" "Email"
         , passwordInput model.password UpdatePassword "password" "Nova Senha"

@@ -30,6 +30,12 @@ update msg { notifications, profile, login, urlRouter } =
         MsgForUrlRouter urlMsg ->
             urlRouterUpdate profile login urlMsg urlRouter
 
+        MsgForLogin (CheckRegistrationResponse (Success True)) ->
+            urlRouterUpdate profile login (Go PasswordStepPage) urlRouter
+
+        MsgForLogin (CheckRegistrationResponse (Success False)) ->
+            urlRouterUpdate profile login (Go RegistrationPage) urlRouter
+
         MsgForLogin (SignInResponse (Success _)) ->
             urlRouterUpdate profile login (Go urlRouter.page) urlRouter
 
