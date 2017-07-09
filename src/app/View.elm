@@ -13,9 +13,9 @@ import Login.View.Registration exposing (registrationStep)
 import Model as Root exposing (Model, Msg(..))
 import Notifications.View.EnableNotifications exposing (enableNotifications)
 import Profile.View exposing (profile)
-import RidesRequests.View.Details exposing (details)
 import Rides.Ride.View exposing (ride)
 import Rides.View.RidesList exposing (ridesList)
+import RidesRequests.View.Details exposing (details)
 import UrlRouter.Routes exposing (..)
 
 
@@ -59,7 +59,7 @@ view model =
             layout model (groupsList model.groups)
 
         RideRequestPage _ _ _ _ ->
-            details model.ridesRequests
+            layout model (details model.ridesRequests)
 
 
 staticView : Html.Html Root.Msg
