@@ -19,14 +19,20 @@ module.exports = function(firebase, app) {
       )
       .once("value")
       .then(function(data) {
-        var rideRequest = Object.assign({}, data.val(), {
-          groupId: ids.groupId,
-          rideId: ids.rideId,
-          toUserId: firebase.auth().currentUser.uid,
-          fromUserId: ids.fromUserId,
-          id: ids.id
-        });
-        app.ports.fetchRideRequestResponse.send(success(rideRequest));
+        if (data.val()) {
+          var rideRequest = Object.assign({}, data.val(), {
+            groupId: ids.groupId,
+            rideId: ids.rideId,
+            toUserId: firebase.auth().currentUser.uid,
+            fromUserId: ids.fromUserId,
+            id: ids.id
+          });
+          app.ports.fetchRideRequestResponse.send(success(rideRequest));
+        } else {
+          app.ports.fetchRideRequestResponse.send(
+            error("Pedido de carona não encontrado")
+          );
+        }
       })
       .catch(function(err) {
         app.ports.fetchRideRequestResponse.send(error(err.message));
