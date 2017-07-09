@@ -8,7 +8,7 @@ import Navigation exposing (Location)
 import Notifications.Model as Notifications exposing (isEnabled)
 import Profile.Model as Profile exposing (Msg(..))
 import Return exposing (Return, return)
-import UrlRouter.Model exposing (Model, Msg(Go, UrlChange))
+import UrlRouter.Model exposing (Model, Msg(..))
 import UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, toPath)
 
 
@@ -64,6 +64,9 @@ urlRouterUpdate profile login msg model =
 
                 Just page ->
                     return { model | page = page } (Navigation.modifyUrl (toPath page))
+
+        Back ->
+            return model (Navigation.back 1)
 
 
 changePageTo : Profile.Model -> Login.Model -> Model -> Location -> Maybe Page
