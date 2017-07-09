@@ -30,7 +30,7 @@ update msg { notifications, profile, login, urlRouter } =
             urlRouterUpdate profile login urlMsg urlRouter
 
         MsgForLogin (SignInResponse (Success _)) ->
-            urlRouterUpdate profile login (Go GroupsPage) urlRouter
+            urlRouterUpdate profile login (Go urlRouter.page) urlRouter
 
         MsgForLogin (SignOutResponse (Success _)) ->
             urlRouterUpdate profile login (Go LoginPage) urlRouter
@@ -58,18 +58,13 @@ urlRouterUpdate profile login msg model =
             ( model, Navigation.newUrl (toPath route) )
 
         UrlChange location ->
-            case changePageTo profile login model location of
-                Nothing ->
-                    return model Cmd.none
-
-                Just page ->
-                    return { model | page = page } (Navigation.modifyUrl (toPath page))
+            changePageTo profile login model location
 
         Back ->
             return model (Navigation.back 1)
 
 
-changePageTo : Profile.Model -> Login.Model -> Model -> Location -> Maybe Page
+changePageTo : Profile.Model -> Login.Model -> Model -> Location -> Return UrlRouter.Model.Msg Model
 changePageTo profile login model location =
     let
         requestedPage =
@@ -78,10 +73,13 @@ changePageTo profile login model location =
         pageAfterRedirect =
             redirectTo profile login requestedPage
 
-        shouldChangeUrl =
-            (model.page /= requestedPage) || (model.page /= pageAfterRedirect)
+        shouldModifyUrl =
+            requestedPage /= pageAfterRedirect
+
+        navigationCmd =
+            if shouldModifyUrl then
+                Navigation.modifyUrl <| toPath pageAfterRedirect
+            else
+                Cmd.none
     in
-    if shouldChangeUrl then
-        Just pageAfterRedirect
-    else
-        Nothing
+    return { model | page = pageAfterRedirect } navigationCmd
