@@ -29,7 +29,7 @@ init { currentUser, profile } location =
             , notifications = Notifications.init
             , profile = Profile.init profile
             , groups = Groups.init
-            , rideRequests = ()
+            , rideRequests = RideRequests.init
             }
     in
     initialRouting location initialModel
@@ -46,7 +46,7 @@ update msg model =
         <*> mapCmd MsgForNotifications (Notifications.update msg model.notifications)
         <*> mapCmd MsgForProfile (Profile.update msg model.profile)
         <*> mapCmd MsgForGroups (Groups.update msg model.groups)
-        <*> mapCmd MsgForRideRequests (RideRequests.update msg ())
+        <*> mapCmd MsgForRideRequests (RideRequests.update msg model.rideRequests)
 
 
 initialRouting : Location -> Model -> Return Msg Model
