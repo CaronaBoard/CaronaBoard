@@ -15,6 +15,7 @@ import Notifications.View.EnableNotifications exposing (enableNotifications)
 import Profile.View exposing (profile)
 import Rides.Ride.View exposing (ride)
 import Rides.View.RidesList exposing (ridesList)
+import RidesRequests.View.Details exposing (details)
 import UrlRouter.Routes exposing (..)
 
 
@@ -56,6 +57,9 @@ view model =
 
         GroupsPage ->
             layout model (groupsList model.groups)
+
+        RideRequestPage _ _ _ _ ->
+            layout model (details model.ridesRequests)
 
 
 staticView : Html.Html Root.Msg

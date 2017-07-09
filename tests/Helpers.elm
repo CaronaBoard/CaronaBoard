@@ -85,7 +85,7 @@ fixtures : { rides : List Ride.Model, ride1 : Ride.Model, ride2 : Ride.Model, us
 fixtures =
     let
         user =
-            { id = "foo-bar-bar" }
+            { id = "idUser1" }
 
         profile =
             { name = "foo", contact = { kind = "Whatsapp", value = "passenger-wpp" } }

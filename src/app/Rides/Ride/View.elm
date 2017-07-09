@@ -1,4 +1,4 @@
-module Rides.Ride.View exposing (ride)
+module Rides.Ride.View exposing (contactDetails, ride)
 
 import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
 import Common.IdentifiedList exposing (findById)
@@ -8,7 +8,7 @@ import Html.Attributes exposing (for, href, id, placeholder, selected, target, v
 import Html.Events exposing (onInput, onSubmit)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Model as RootModel
-import Profile.Model exposing (contactDeepLink)
+import Profile.Model exposing (Profile, contactDeepLink)
 import Rides.Model exposing (Msg(..))
 import Rides.Ride.Model exposing (Model, Msg(..))
 import Rides.Ride.Styles exposing (Classes(..), className)
@@ -40,16 +40,21 @@ rideDetails groupId model =
         Success _ ->
             div [ ridesClass Rides.Styles.Card ]
                 [ div [ layoutClass CardTitle ] [ text "O pedido de carona foi enviado com sucesso!" ]
-                , p [] [ text "Para combinar melhor com o motorista, use o contato abaixo:" ]
-                , div [ className Contact ]
-                    [ text <| model.profile.contact.kind ++ " "
-                    , a [ href <| contactDeepLink model.profile.contact, target "_blank" ] [ text model.profile.contact.value ]
-                    ]
+                , p [] [ text "Para combinar melhor a carona, use o contato abaixo:" ]
+                , contactDetails model.profile
                 ]
 
         _ ->
             form [ ridesClass Rides.Styles.Card, onSubmit (Submit groupId) ]
                 (formFields model)
+
+
+contactDetails : Profile -> Html msg
+contactDetails profile =
+    div [ className Contact ]
+        [ text <| profile.contact.kind ++ " "
+        , a [ href <| contactDeepLink profile.contact, target "_blank" ] [ text profile.contact.value ]
+        ]
 
 
 formFields : Model -> List (Html Rides.Ride.Model.Msg)
