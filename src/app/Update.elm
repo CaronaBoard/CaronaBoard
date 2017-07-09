@@ -11,7 +11,7 @@ import Navigation exposing (Location)
 import Notifications.Update as Notifications
 import Profile.Update as Profile
 import Return exposing (Return, mapCmd, return, singleton)
-import RideRequests.Update as RideRequests
+import RidesRequests.Update as RidesRequests
 import Rides.Update as Rides
 import UrlRouter.Model
 import UrlRouter.Update as UrlRouter
@@ -29,7 +29,7 @@ init { currentUser, profile } location =
             , notifications = Notifications.init
             , profile = Profile.init profile
             , groups = Groups.init
-            , rideRequests = RideRequests.init
+            , ridesRequests = RidesRequests.init
             }
     in
     initialRouting location initialModel
@@ -46,7 +46,7 @@ update msg model =
         <*> mapCmd MsgForNotifications (Notifications.update msg model.notifications)
         <*> mapCmd MsgForProfile (Profile.update msg model.profile)
         <*> mapCmd MsgForGroups (Groups.update msg model.groups)
-        <*> mapCmd MsgForRideRequests (RideRequests.update msg model.rideRequests)
+        <*> mapCmd MsgForRidesRequests (RidesRequests.update msg model.ridesRequests)
 
 
 initialRouting : Location -> Model -> Return Msg Model

@@ -21,7 +21,7 @@ tests =
                     (fetchRideRequest
                         { groupId = "idGroup1"
                         , rideId = "idRide1"
-                        , userId = "idUser1"
+                        , fromUserId = "idUser1"
                         , id = "idRideRequest1"
                         }
                     )
@@ -34,7 +34,8 @@ tests =
                         simpleStringify
                             { groupId = "idGroup1"
                             , rideId = "idRide1"
-                            , userId = "idUser1"
+                            , toUserId = "idUser2"
+                            , fromUserId = "idUser1"
                             , id = "idRideRequest1"
                             , profile = { name = "Ride McRider", contact = { kind = "Whatsapp", value = "91571" } }
                             }

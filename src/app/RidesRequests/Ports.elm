@@ -1,10 +1,10 @@
-port module RideRequests.Ports exposing (fetchRideRequest, fetchRideRequestResponse, subscriptions)
+port module RidesRequests.Ports exposing (fetchRideRequest, fetchRideRequestResponse, subscriptions)
 
 import Common.Response exposing (FirebaseResponse, decodeFromFirebase)
 import Json.Decode as Json exposing (..)
 import Json.Decode.Pipeline exposing (..)
 import Profile.Ports exposing (decodeProfile)
-import RideRequests.Model exposing (..)
+import RidesRequests.Model exposing (..)
 
 
 subscriptions : Sub Msg
@@ -19,7 +19,8 @@ decodeRideRequest =
     decode RideRequest
         |> required "groupId" string
         |> required "rideId" string
-        |> required "userId" string
+        |> required "toUserId" string
+        |> required "fromUserId" string
         |> required "id" string
         |> required "profile" decodeProfile
 
@@ -27,7 +28,7 @@ decodeRideRequest =
 port fetchRideRequest :
     { groupId : String
     , rideId : String
-    , userId : String
+    , fromUserId : String
     , id : String
     }
     -> Cmd msg
