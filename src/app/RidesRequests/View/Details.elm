@@ -1,8 +1,8 @@
-module RideRequests.View.Details exposing (details)
+module RidesRequests.View.Details exposing (details)
 
 import Common.Response as Response exposing (Response(..))
 import Html exposing (..)
-import RideRequests.Model exposing (Model, Msg(..))
+import RidesRequests.Model exposing (Model, Msg(..))
 
 
 details : Model -> Html msg

@@ -1,4 +1,4 @@
-module RideRequests.Model exposing (Model, Msg(..), RideRequest)
+module RidesRequests.Model exposing (Model, Msg(..), RideRequest)
 
 import Common.Response exposing (Response)
 import Profile.Model exposing (Profile)
@@ -11,7 +11,8 @@ type alias Model =
 type alias RideRequest =
     { groupId : String
     , rideId : String
-    , userId : String
+    , toUserId : String
+    , fromUserId : String
     , id : String
     , profile : Profile
     }

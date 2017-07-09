@@ -79,8 +79,8 @@ toPath page =
         RidePage groupId rideId ->
             "#/groups/" ++ groupId ++ "/rides/" ++ rideId ++ "/request"
 
-        RideRequestPage groupId rideId userId requestId ->
-            "#/groups/" ++ groupId ++ "/rides/" ++ rideId ++ "/requests/" ++ userId ++ "/" ++ requestId
+        RideRequestPage groupId rideId fromUserId requestId ->
+            "#/groups/" ++ groupId ++ "/rides/" ++ rideId ++ "/requests/" ++ fromUserId ++ "/" ++ requestId
 
 
 redirectTo : Maybe Page -> Profile.Model -> Login.Model -> Page -> Page
