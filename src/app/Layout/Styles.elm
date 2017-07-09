@@ -289,11 +289,6 @@ button =
     , hover
         [ backgroundColor lighterBlue
         ]
-    , descendants
-        [ selector ".material-icons"
-            [ lineHeight (px 54)
-            ]
-        ]
     ]
 
 
