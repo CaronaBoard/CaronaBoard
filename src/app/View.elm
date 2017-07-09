@@ -57,6 +57,9 @@ view model =
         GroupsPage ->
             layout model (groupsList model.groups)
 
+        RideRequestPage _ _ _ _ ->
+            text ""
+
 
 staticView : Html.Html Root.Msg
 staticView =

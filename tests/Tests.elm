@@ -7,6 +7,7 @@ import Integration.LayoutSpec
 import Integration.LoginSpec
 import Integration.NotificationsSpec
 import Integration.ProfileSpec
+import Integration.RideRequestsSpec
 import Integration.RideSpec
 import Integration.RidesSpec
 import Integration.UrlRouterSpec
@@ -27,6 +28,7 @@ all =
         , Integration.NotificationsSpec.tests
         , Integration.RideSpec.tests
         , Integration.ProfileSpec.tests
+        , Integration.RideRequestsSpec.tests
         , Unit.Rides.PortsSpec.tests
         , Unit.Common.DecoderSpec.tests
         , Integration.GroupsSpec.tests

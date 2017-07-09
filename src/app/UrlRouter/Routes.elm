@@ -19,6 +19,7 @@ type Page
     | RidesPage String
     | GiveRidePage String
     | RidePage String String
+    | RideRequestPage String String String String
 
 
 pageParser : Parser (Page -> a) a
@@ -35,6 +36,7 @@ pageParser =
         , map RidesPage (static "groups" </> string </> static "rides")
         , map GiveRidePage (static "groups" </> string </> static "rides" </> static "give")
         , map RidePage (static "groups" </> string </> static "rides" </> string </> static "request")
+        , map RideRequestPage (static "groups" </> string </> static "rides" </> string </> static "requests" </> string </> string)
         ]
 
 
@@ -76,6 +78,9 @@ toPath page =
 
         RidePage groupId rideId ->
             "#/groups/" ++ groupId ++ "/rides/" ++ rideId ++ "/request"
+
+        RideRequestPage groupId rideId userId requestId ->
+            "#/groups/" ++ groupId ++ "/rides/" ++ rideId ++ "/requests/" ++ userId ++ "/" ++ requestId
 
 
 redirectTo : Maybe Page -> Profile.Model -> Login.Model -> Page -> Page
@@ -139,6 +144,9 @@ requiresAuthentication page =
             True
 
         RidePage _ _ ->
+            True
+
+        RideRequestPage _ _ _ _ ->
             True
 
 
