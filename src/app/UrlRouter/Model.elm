@@ -6,6 +6,7 @@ import UrlRouter.Routes exposing (Page(..), pathParser)
 
 type alias Model =
     { page : Page
+    , returnTo : Maybe Page
     }
 
 

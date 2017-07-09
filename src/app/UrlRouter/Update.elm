@@ -9,7 +9,7 @@ import Notifications.Model as Notifications exposing (isEnabled)
 import Profile.Model as Profile exposing (Msg(..))
 import Return exposing (Return, return)
 import UrlRouter.Model exposing (Model, Msg(..))
-import UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, toPath)
+import UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, requiresAuthentication, toPath)
 
 
 init : Location -> Model
@@ -17,10 +17,11 @@ init location =
     case pathParser location of
         Nothing ->
             { page = SplashScreenPage
+            , returnTo = Nothing
             }
 
         Just page ->
-            { page = page }
+            { page = page, returnTo = Nothing }
 
 
 update : Root.Msg -> Root.Model -> Return UrlRouter.Model.Msg Model
@@ -71,10 +72,16 @@ changePageTo profile login model location =
             Maybe.withDefault NotFoundPage (pathParser location)
 
         pageAfterRedirect =
-            redirectTo profile login requestedPage
+            redirectTo model.returnTo profile login requestedPage
 
         shouldModifyUrl =
             requestedPage /= pageAfterRedirect
+
+        returnTo =
+            if shouldModifyUrl && requiresAuthentication requestedPage then
+                Just requestedPage
+            else
+                model.returnTo
 
         navigationCmd =
             if shouldModifyUrl then
@@ -82,4 +89,4 @@ changePageTo profile login model location =
             else
                 Cmd.none
     in
-    return { model | page = pageAfterRedirect } navigationCmd
+    return { model | page = pageAfterRedirect, returnTo = returnTo } navigationCmd

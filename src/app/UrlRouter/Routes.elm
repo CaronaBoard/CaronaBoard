@@ -1,4 +1,4 @@
-module UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, toPath)
+module UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, requiresAuthentication, toPath)
 
 import Login.Model as Login exposing (isSignedIn)
 import Navigation
@@ -68,8 +68,8 @@ toPath page =
             "#/groups"
 
 
-redirectTo : Profile.Model -> Login.Model -> Page -> Page
-redirectTo profile login page =
+redirectTo : Maybe Page -> Profile.Model -> Login.Model -> Page -> Page
+redirectTo returnTo profile login page =
     if isSignedIn login then
         if profile.savedProfile == Nothing then
             ProfilePage
@@ -79,7 +79,7 @@ redirectTo profile login page =
                     GroupsPage
 
                 LoginPage ->
-                    GroupsPage
+                    Maybe.withDefault GroupsPage returnTo
 
                 _ ->
                     page
