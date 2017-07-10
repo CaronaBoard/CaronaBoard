@@ -6,15 +6,15 @@ import Layout.Model as Layout
 import Login.Model as Login
 import Notifications.Model as Notifications
 import Profile.Model as Profile exposing (Profile)
-import RidesRequests.Model as RidesRequests
 import Rides.Model as Rides
+import RidesRequests.Model as RidesRequests
 import UrlRouter.Model as UrlRouter exposing (Msg(UrlChange))
 
 
 type alias Model =
     { urlRouter : UrlRouter.Model
     , login : Login.Model
-    , rides : Rides.Model
+    , rides : Rides.Collection
     , layout : Layout.Model
     , giveRide : GiveRide.Model
     , notifications : Notifications.Model

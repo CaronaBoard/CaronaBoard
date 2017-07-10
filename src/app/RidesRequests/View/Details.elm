@@ -4,7 +4,7 @@ import Common.Form exposing (renderErrors)
 import Common.Response as Response exposing (Response(..))
 import Html exposing (..)
 import Layout.Styles exposing (Classes(..), layoutClass)
-import Rides.Ride.View exposing (contactDetails)
+import Rides.View.Details exposing (contactDetails)
 import RidesRequests.Model exposing (Model, Msg(..))
 
 

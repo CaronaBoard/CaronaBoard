@@ -9,7 +9,6 @@ import Process
 import Profile.Model exposing (Msg(..))
 import Return exposing (Return, return)
 import Rides.Model exposing (Msg(..))
-import Rides.Ride.Model exposing (Msg(..))
 import Task
 import Time
 
@@ -30,7 +29,7 @@ update msg model =
         MsgForGiveRide (GiveRideResponse (Success _)) ->
             updateNotifications (ShowNotice "Carona criada com sucesso!") model
 
-        MsgForRides (MsgForRide _ (RideRequestResponse (Success _))) ->
+        MsgForRides (RideRequestResponse _ (Success _)) ->
             updateNotifications (ShowNotice "Pedido de carona enviado com sucesso!") model
 
         MsgForProfile (ProfileResponse (Success _)) ->

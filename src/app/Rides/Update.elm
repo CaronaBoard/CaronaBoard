@@ -5,18 +5,17 @@ import Common.Response exposing (Response(..))
 import Model as Root exposing (Msg(..))
 import Return exposing (Return, return)
 import Rides.Model exposing (..)
-import Rides.Ports exposing (ridesList)
-import Rides.Ride.Update as Ride
+import Rides.Ports exposing (encodeRide, rideRequest, ridesList)
 import UrlRouter.Model exposing (Msg(..))
 import UrlRouter.Routes exposing (Page(..), pathParser)
 
 
-init : Model
+init : Collection
 init =
     { rides = Empty }
 
 
-update : Root.Msg -> Model -> Return Rides.Model.Msg Model
+update : Root.Msg -> Collection -> Return Rides.Model.Msg Collection
 update msg model =
     case msg of
         MsgForRides msg_ ->
@@ -37,31 +36,33 @@ update msg model =
             return model Cmd.none
 
 
-updateRides : Rides.Model.Msg -> Model -> Return Rides.Model.Msg Model
-updateRides msg model =
+updateRides : Rides.Model.Msg -> Collection -> Return Rides.Model.Msg Collection
+updateRides msg collection =
     case msg of
         UpdateRides response ->
             return { rides = response } Cmd.none
 
-        MsgForRide rideId msg_ ->
-            case model.rides of
-                Success rides ->
-                    let
-                        updateRideModel ride =
-                            Tuple.first <| Ride.update msg_ ride
+        Submit rideId groupId ->
+            updateRide rideId
+                (\ride ->
+                    return { ride | rideRequest = Loading } <|
+                        rideRequest (encodeRide groupId ride)
+                )
+                collection
 
-                        updateRideCmd ride =
-                            Cmd.map (MsgForRide ride.id) <| Tuple.second <| Ride.update msg_ ride
+        RideRequestResponse rideId response ->
+            updateRide rideId
+                (\ride -> return { ride | rideRequest = response } Cmd.none)
+                collection
 
-                        updatedRides =
-                            mapIfId rideId updateRideModel identity rides
 
-                        cmd =
-                            findById rideId rides
-                                |> Maybe.map updateRideCmd
-                                |> Maybe.withDefault Cmd.none
-                    in
-                    return { rides = Success updatedRides } cmd
+updateRide : String -> (Model -> ( Model, Cmd Rides.Model.Msg )) -> Collection -> Return Rides.Model.Msg Collection
+updateRide id f collection =
+    case collection.rides of
+        Success rides ->
+            mapIfId id f (\model -> return model Cmd.none) rides
+                |> Return.sequence
+                |> Return.map (\list -> { rides = Success list })
 
-                _ ->
-                    return model Cmd.none
+        _ ->
+            return collection Cmd.none

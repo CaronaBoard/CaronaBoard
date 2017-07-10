@@ -13,8 +13,8 @@ import Login.View.Registration exposing (registrationStep)
 import Model as Root exposing (Model, Msg(..))
 import Notifications.View.EnableNotifications exposing (enableNotifications)
 import Profile.View exposing (profile)
-import Rides.Ride.View exposing (ride)
-import Rides.View.RidesList exposing (ridesList)
+import Rides.View.Details
+import Rides.View.List
 import RidesRequests.View.Details exposing (details)
 import UrlRouter.Routes exposing (..)
 
@@ -35,7 +35,7 @@ view model =
             loginLayout (Html.map MsgForLogin <| registrationStep model.login)
 
         RidesPage groupId ->
-            layout model (ridesList groupId model)
+            layout model (Rides.View.List.list groupId model)
 
         NotFoundPage ->
             h1 [] [ text "404 não encontrado" ]
@@ -50,7 +50,7 @@ view model =
             layout model (Html.map MsgForNotifications <| enableNotifications model.notifications)
 
         RidePage groupId rideId ->
-            layout model (Html.map MsgForRides <| ride groupId rideId model)
+            layout model (Html.map MsgForRides <| Rides.View.Details.details groupId rideId model)
 
         ProfilePage ->
             layout model (Html.map MsgForProfile <| profile model.profile)
