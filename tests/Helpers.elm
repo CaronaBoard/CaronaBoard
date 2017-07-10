@@ -10,7 +10,7 @@ import NativeLoadFix
 import Navigation exposing (Location)
 import Ports exposing (subscriptions)
 import Profile.Model exposing (Profile)
-import Rides.Model as Ride
+import Rides.Model as Rides
 import String.Extra
 import TestContext exposing (..)
 import Update
@@ -81,7 +81,7 @@ expectCurrentPage page =
         )
 
 
-fixtures : { rides : List Ride.Model, ride1 : Ride.Model, ride2 : Ride.Model, user : User, profile : Profile, newRide : NewRide, group1 : Groups.Group, group2 : Groups.Group, groups : List Groups.Group }
+fixtures : { rides : List Rides.Model, ride1 : Rides.Model, ride2 : Rides.Model, user : User, profile : Profile, newRide : NewRide, group1 : Groups.Group, group2 : Groups.Group, groups : List Groups.Group }
 fixtures =
     let
         user =
@@ -91,10 +91,10 @@ fixtures =
             { name = "foo", contact = { kind = "Whatsapp", value = "passenger-wpp" } }
 
         ride1 =
-            { id = "idRide1", groupId = "idGroup1", userId = "isUser1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", profile = { name = "foo", contact = { kind = "Whatsapp", value = "+5551" } }, rideRequest = Empty }
+            { id = "idRide1", groupId = "idGroup1", userId = "isUser1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", profile = { name = "foo", contact = { kind = "Whatsapp", value = "+5551" } } }
 
         ride2 =
-            { id = "idRide2", groupId = "idGroup1", userId = "isUser2", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", profile = { name = "bar", contact = { kind = "Whatsapp", value = "wpp-for-idRide2" } }, rideRequest = Empty }
+            { id = "idRide2", groupId = "idGroup1", userId = "isUser2", origin = "lorem", destination = "ipsum", days = "sit", hours = "amet", profile = { name = "bar", contact = { kind = "Whatsapp", value = "wpp-for-idRide2" } } }
 
         newRide =
             { groupId = "idGroup1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" }

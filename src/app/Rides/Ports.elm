@@ -1,4 +1,4 @@
-port module Rides.Ports exposing (RideRequest, decodeRides, encodeRide, rideRequest, ridesList, ridesListResponse, subscriptions)
+port module Rides.Ports exposing (decodeRides, ridesList, ridesListResponse, subscriptions)
 
 import Common.Decoder exposing (normalizeId3)
 import Common.Response exposing (FirebaseResponse, Response(..), decodeFromFirebase, fromFirebase)
@@ -12,10 +12,6 @@ subscriptions : Rides.Collection -> Sub Msg
 subscriptions model =
     Sub.batch
         [ ridesListResponse (decodeFromFirebase decodeRides >> UpdateRides)
-        , rideRequestResponse
-            (\response ->
-                RideRequestResponse response.rideId (fromFirebase response.response)
-            )
         ]
 
 
@@ -23,27 +19,6 @@ port ridesList : () -> Cmd msg
 
 
 port ridesListResponse : (FirebaseResponse Json.Value -> msg) -> Sub msg
-
-
-port rideRequest : RideRequest -> Cmd msg
-
-
-port rideRequestResponse : ({ rideId : String, response : FirebaseResponse Bool } -> msg) -> Sub msg
-
-
-type alias RideRequest =
-    { groupId : String
-    , rideId : String
-    , toUserId : String
-    }
-
-
-encodeRide : String -> Model -> RideRequest
-encodeRide groupId ride =
-    { groupId = groupId
-    , rideId = ride.id
-    , toUserId = ride.userId
-    }
 
 
 decodeRides : Decoder (List Rides.Model)
@@ -71,4 +46,3 @@ decodeRide =
                         |> required "value" string
                     )
             )
-        |> hardcoded Empty
