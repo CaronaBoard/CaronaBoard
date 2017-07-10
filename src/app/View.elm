@@ -1,7 +1,6 @@
 module View exposing (staticView, view)
 
-import GiveRide.View exposing (giveRide)
-import Groups.View exposing (groupsList)
+import Groups.View.List
 import Html exposing (div, h1, text)
 import Layout.View.Layout exposing (layout)
 import Layout.View.SplashScreen exposing (splashScreen)
@@ -13,8 +12,9 @@ import Login.View.Registration exposing (registrationStep)
 import Model as Root exposing (Model, Msg(..))
 import Notifications.View.EnableNotifications exposing (enableNotifications)
 import Profile.View exposing (profile)
-import Rides.Ride.View exposing (ride)
-import Rides.View.RidesList exposing (ridesList)
+import Rides.View.Details
+import Rides.View.List
+import Rides.View.New
 import RidesRequests.View.Details exposing (details)
 import UrlRouter.Routes exposing (..)
 
@@ -34,8 +34,8 @@ view model =
         RegistrationPage ->
             loginLayout (Html.map MsgForLogin <| registrationStep model.login)
 
-        RidesPage groupId ->
-            layout model (ridesList groupId model)
+        RidesListPage groupId ->
+            layout model (Rides.View.List.list groupId model)
 
         NotFoundPage ->
             h1 [] [ text "404 não encontrado" ]
@@ -43,22 +43,22 @@ view model =
         PasswordResetPage ->
             loginLayout passwordReset
 
-        GiveRidePage groupId ->
-            layout model (Html.map MsgForGiveRide <| giveRide groupId model.giveRide)
+        RidesCreatePage groupId ->
+            layout model (Html.map MsgForRides <| Rides.View.New.new groupId model.rides)
 
         EnableNotificationsPage ->
             layout model (Html.map MsgForNotifications <| enableNotifications model.notifications)
 
-        RidePage groupId rideId ->
-            layout model (Html.map MsgForRides <| ride groupId rideId model)
+        RideDetailsPage groupId rideId ->
+            layout model (Rides.View.Details.details groupId rideId model)
 
         ProfilePage ->
             layout model (Html.map MsgForProfile <| profile model.profile)
 
         GroupsPage ->
-            layout model (groupsList model.groups)
+            layout model (Groups.View.List.list model.groups)
 
-        RideRequestPage _ _ _ _ ->
+        RideRequestDetailsPage _ _ _ _ ->
             layout model (details model.ridesRequests)
 
 

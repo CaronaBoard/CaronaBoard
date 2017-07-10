@@ -1,8 +1,8 @@
 module Notifications.View.Notice exposing (notice)
 
+import Html exposing (Html, div, text)
 import Model exposing (Model, Msg)
 import Notifications.Styles exposing (Classes(..), className)
-import Html exposing (Html, div, text)
 
 
 notice : Model -> Html Msg

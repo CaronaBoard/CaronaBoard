@@ -1,4 +1,4 @@
-module Rides.View.RidesList exposing (rideInfo, rideRoute, ridesList)
+module Rides.View.List exposing (list, rideInfo, rideRoute)
 
 import Common.Icon exposing (icon)
 import Common.IdentifiedList exposing (findById)
@@ -7,13 +7,13 @@ import Common.Response as Response exposing (Response(..))
 import Html exposing (..)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Model as Root exposing (Msg(..))
-import Rides.Ride.Model as Ride
+import Rides.Model as Ride
 import Rides.Styles exposing (Classes(..), className)
 import UrlRouter.Routes exposing (Page(..))
 
 
-ridesList : String -> Root.Model -> Html Msg
-ridesList groupId { rides, groups } =
+list : String -> Root.Model -> Html Msg
+list groupId { rides, groups } =
     let
         groupName =
             groups.groups
@@ -22,7 +22,7 @@ ridesList groupId { rides, groups } =
     in
     div [ layoutClass Container ]
         [ h1 [ layoutClass PageTitle ] [ text groupName ]
-        , case rides.rides of
+        , case rides.list of
             Empty ->
                 text ""
 
@@ -41,7 +41,7 @@ ridesList groupId { rides, groups } =
                         [ div [] (List.map (rideItem groupId) ridesForGroup)
                         , p []
                             [ text "Tem um carro? Adicione sua carona "
-                            , linkTo (GiveRidePage groupId) [] [ text "aqui" ]
+                            , linkTo (RidesCreatePage groupId) [] [ text "aqui" ]
                             ]
                         ]
 
@@ -57,7 +57,7 @@ rideItem groupId ride =
         , rideRoute ride
         , div [ className OtherDetails ]
             [ rideInfo ride
-            , linkTo (RidePage groupId ride.id) [ className ActionButton ] [ text "Quero carona" ]
+            , linkTo (RideDetailsPage groupId ride.id) [ className ActionButton ] [ text "Quero carona" ]
             ]
         ]
 

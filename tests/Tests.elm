@@ -1,13 +1,11 @@
 port module Tests exposing (all)
 
 import Fuzz.UrlRouter.UpdateSpec
-import Integration.GiveRideSpec
 import Integration.GroupsSpec
 import Integration.LayoutSpec
 import Integration.LoginSpec
 import Integration.NotificationsSpec
 import Integration.ProfileSpec
-import Integration.RideSpec
 import Integration.RidesRequestsSpec
 import Integration.RidesSpec
 import Integration.UrlRouterSpec
@@ -24,9 +22,7 @@ all =
         , Integration.LoginSpec.tests
         , Integration.UrlRouterSpec.tests
         , Integration.LayoutSpec.tests
-        , Integration.GiveRideSpec.tests
         , Integration.NotificationsSpec.tests
-        , Integration.RideSpec.tests
         , Integration.ProfileSpec.tests
         , Integration.RidesRequestsSpec.tests
         , Unit.Rides.PortsSpec.tests

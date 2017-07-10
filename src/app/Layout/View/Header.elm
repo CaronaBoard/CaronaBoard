@@ -28,9 +28,9 @@ header model =
                                 ]
                     , ul []
                         [ case model.urlRouter.page of
-                            RidesPage groupId ->
+                            RidesListPage groupId ->
                                 li []
-                                    [ linkTo (GiveRidePage groupId)
+                                    [ linkTo (RidesCreatePage groupId)
                                         [ layoutClass AddRideLink ]
                                         [ icon "directions_car"
                                         , text "+"

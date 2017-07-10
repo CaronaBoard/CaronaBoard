@@ -26,6 +26,7 @@ type Classes
     | PathIcon
     | PathIconDot
     | RideInfo
+    | Contact
 
 
 styles : Stylesheet
@@ -35,6 +36,9 @@ styles =
             card
                 ++ [ descendants cardStyles
                    ]
+        , class Contact
+            [ fontSize (px 24)
+            ]
         ]
 
 

@@ -1,67 +1,93 @@
 module Rides.Update exposing (init, update)
 
-import Common.IdentifiedList exposing (findById, mapIfId)
 import Common.Response exposing (Response(..))
+import Login.Model exposing (User)
 import Model as Root exposing (Msg(..))
 import Return exposing (Return, return)
 import Rides.Model exposing (..)
-import Rides.Ports exposing (ridesList)
-import Rides.Ride.Update as Ride
+import Rides.Ports exposing (createRide, ridesList)
 import UrlRouter.Model exposing (Msg(..))
 import UrlRouter.Routes exposing (Page(..), pathParser)
 
 
-init : Model
+init : Collection
 init =
-    { rides = Empty }
+    { list = Empty
+    , new =
+        { fields =
+            { groupId = ""
+            , origin = ""
+            , destination = ""
+            , days = ""
+            , hours = ""
+            }
+        , response = Empty
+        }
+    }
 
 
-update : Root.Msg -> Model -> Return Rides.Model.Msg Model
-update msg model =
+update : Maybe User -> Root.Msg -> Collection -> Return Rides.Model.Msg Collection
+update user msg collection =
     case msg of
         MsgForRides msg_ ->
-            updateRides msg_ model
+            updateRides user msg_ collection
 
         MsgForUrlRouter (UrlChange location) ->
-            if model.rides == Empty then
+            if collection.list == Empty then
                 case pathParser location of
-                    Just (RidesPage _) ->
-                        return { model | rides = Loading } (ridesList ())
+                    Just (RidesListPage _) ->
+                        return { collection | list = Loading } (ridesList ())
 
                     _ ->
-                        return model Cmd.none
+                        return collection Cmd.none
             else
-                return model Cmd.none
+                return collection Cmd.none
 
         _ ->
-            return model Cmd.none
+            return collection Cmd.none
 
 
-updateRides : Rides.Model.Msg -> Model -> Return Rides.Model.Msg Model
-updateRides msg model =
+updateRides : Maybe User -> Rides.Model.Msg -> Collection -> Return Rides.Model.Msg Collection
+updateRides user msg collection =
+    let
+        new =
+            collection.new
+
+        fields =
+            collection.new.fields
+
+        updateFields fields =
+            { collection | new = { new | fields = fields } }
+    in
     case msg of
         UpdateRides response ->
-            return { rides = response } Cmd.none
+            return { collection | list = response } Cmd.none
 
-        MsgForRide rideId msg_ ->
-            case model.rides of
-                Success rides ->
-                    let
-                        updateRideModel ride =
-                            Tuple.first <| Ride.update msg_ ride
+        UpdateOrigin origin ->
+            return (updateFields { fields | origin = origin }) Cmd.none
 
-                        updateRideCmd ride =
-                            Cmd.map (MsgForRide ride.id) <| Tuple.second <| Ride.update msg_ ride
+        UpdateDestination destination ->
+            return (updateFields { fields | destination = destination }) Cmd.none
 
-                        updatedRides =
-                            mapIfId rideId updateRideModel identity rides
+        UpdateDays days ->
+            return (updateFields { fields | days = days }) Cmd.none
 
-                        cmd =
-                            findById rideId rides
-                                |> Maybe.map updateRideCmd
-                                |> Maybe.withDefault Cmd.none
-                    in
-                    return { rides = Success updatedRides } cmd
+        UpdateHours hours ->
+            return (updateFields { fields | hours = hours }) Cmd.none
+
+        CreateRide groupId ->
+            case user of
+                Just user_ ->
+                    return { collection | new = { new | response = Loading } }
+                        (createRide { fields | groupId = groupId })
+
+                Nothing ->
+                    return collection Cmd.none
+
+        CreateRideReponse response ->
+            case response of
+                Success _ ->
+                    return init Cmd.none
 
                 _ ->
-                    return model Cmd.none
+                    return { collection | new = { new | response = response } } Cmd.none

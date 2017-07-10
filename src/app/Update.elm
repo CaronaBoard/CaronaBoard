@@ -1,6 +1,5 @@
 module Update exposing (init, update)
 
-import GiveRide.Update as GiveRide
 import Groups.Update as Groups
 import Infix exposing ((<*>))
 import Layout.Update as Layout
@@ -11,8 +10,8 @@ import Navigation exposing (Location)
 import Notifications.Update as Notifications
 import Profile.Update as Profile
 import Return exposing (Return, mapCmd, return, singleton)
-import RidesRequests.Update as RidesRequests
 import Rides.Update as Rides
+import RidesRequests.Update as RidesRequests
 import UrlRouter.Model
 import UrlRouter.Update as UrlRouter
 
@@ -25,7 +24,6 @@ init { currentUser, profile } location =
             , login = Login.init currentUser
             , rides = Rides.init
             , layout = Layout.init
-            , giveRide = GiveRide.init
             , notifications = Notifications.init
             , profile = Profile.init profile
             , groups = Groups.init
@@ -40,9 +38,8 @@ update msg model =
     singleton Model
         <*> mapCmd MsgForUrlRouter (UrlRouter.update msg model)
         <*> mapCmd MsgForLogin (Login.update msg model.login)
-        <*> mapCmd MsgForRides (Rides.update msg model.rides)
+        <*> mapCmd MsgForRides (Rides.update (signedInUser model.login) msg model.rides)
         <*> mapCmd MsgForLayout (Layout.update msg model.layout)
-        <*> mapCmd MsgForGiveRide (GiveRide.update (signedInUser model.login) msg model.giveRide)
         <*> mapCmd MsgForNotifications (Notifications.update msg model.notifications)
         <*> mapCmd MsgForProfile (Profile.update msg model.profile)
         <*> mapCmd MsgForGroups (Groups.update msg model.groups)
