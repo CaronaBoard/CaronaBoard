@@ -2,7 +2,6 @@ module Helpers exposing (..)
 
 import Common.Response exposing (Response(..))
 import Expect
-import Rides.Model exposing (NewRide)
 import Groups.Model as Groups
 import Login.Model exposing (Msg(..), User)
 import Model exposing (Msg(..))
@@ -10,7 +9,7 @@ import NativeLoadFix
 import Navigation exposing (Location)
 import Ports exposing (subscriptions)
 import Profile.Model exposing (Profile)
-import Rides.Model as Rides
+import Rides.Model as Rides exposing (NewRide)
 import String.Extra
 import TestContext exposing (..)
 import Update
