@@ -18,7 +18,7 @@ details : String -> String -> RootModel.Model -> Html Rides.Model.Msg
 details groupId rideId model =
     div [ layoutClass Container ]
         [ h1 [ layoutClass PageTitle ] [ text "Pedir Carona" ]
-        , case findById rideId (Response.withDefault [] model.rides.rides) of
+        , case findById rideId (Response.withDefault [] model.rides.list) of
             Just ride ->
                 rideDetails groupId rideId ride
 

@@ -22,7 +22,7 @@ list groupId { rides, groups } =
     in
     div [ layoutClass Container ]
         [ h1 [ layoutClass PageTitle ] [ text groupName ]
-        , case rides.rides of
+        , case rides.list of
             Empty ->
                 text ""
 

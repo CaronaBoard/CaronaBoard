@@ -1,4 +1,4 @@
-module GiveRide.View exposing (giveRide)
+module GiveRide.View.New exposing (new)
 
 import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
 import GiveRide.Model exposing (Model, Msg(..))
@@ -7,8 +7,8 @@ import Html.Events exposing (onInput, onSubmit)
 import Layout.Styles exposing (Classes(..), layoutClass)
 
 
-giveRide : String -> Model -> Html Msg
-giveRide groupId model =
+new : String -> Model -> Html Msg
+new groupId model =
     div [ layoutClass Container ]
         [ h1 [ layoutClass PageTitle ] [ text "Dar Carona" ]
         , form [ layoutClass Card, onSubmit (Submit groupId) ]
