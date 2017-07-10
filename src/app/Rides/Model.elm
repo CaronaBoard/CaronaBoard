@@ -5,7 +5,7 @@ import Profile.Model exposing (Profile)
 
 
 type alias Collection =
-    { rides : Response (List Model)
+    { list : Response (List Model)
     }
 
 

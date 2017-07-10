@@ -1,7 +1,7 @@
 module View exposing (staticView, view)
 
-import GiveRide.View exposing (giveRide)
-import Groups.View exposing (groupsList)
+import GiveRide.View.New
+import Groups.View.List
 import Html exposing (div, h1, text)
 import Layout.View.Layout exposing (layout)
 import Layout.View.SplashScreen exposing (splashScreen)
@@ -44,7 +44,7 @@ view model =
             loginLayout passwordReset
 
         GiveRidePage groupId ->
-            layout model (Html.map MsgForGiveRide <| giveRide groupId model.giveRide)
+            layout model (Html.map MsgForGiveRide <| GiveRide.View.New.new groupId model.giveRide)
 
         EnableNotificationsPage ->
             layout model (Html.map MsgForNotifications <| enableNotifications model.notifications)
@@ -56,7 +56,7 @@ view model =
             layout model (Html.map MsgForProfile <| profile model.profile)
 
         GroupsPage ->
-            layout model (groupsList model.groups)
+            layout model (Groups.View.List.list model.groups)
 
         RideRequestPage _ _ _ _ ->
             layout model (details model.ridesRequests)

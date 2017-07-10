@@ -12,35 +12,35 @@ import UrlRouter.Routes exposing (Page(..), pathParser)
 
 init : Collection
 init =
-    { rides = Empty }
+    { list = Empty }
 
 
 update : Root.Msg -> Collection -> Return Rides.Model.Msg Collection
-update msg model =
+update msg collection =
     case msg of
         MsgForRides msg_ ->
-            updateRides msg_ model
+            updateRides msg_ collection
 
         MsgForUrlRouter (UrlChange location) ->
-            if model.rides == Empty then
+            if collection.list == Empty then
                 case pathParser location of
                     Just (RidesPage _) ->
-                        return { model | rides = Loading } (ridesList ())
+                        return { collection | list = Loading } (ridesList ())
 
                     _ ->
-                        return model Cmd.none
+                        return collection Cmd.none
             else
-                return model Cmd.none
+                return collection Cmd.none
 
         _ ->
-            return model Cmd.none
+            return collection Cmd.none
 
 
 updateRides : Rides.Model.Msg -> Collection -> Return Rides.Model.Msg Collection
 updateRides msg collection =
     case msg of
         UpdateRides response ->
-            return { rides = response } Cmd.none
+            return { list = response } Cmd.none
 
         Submit rideId groupId ->
             updateRide rideId
@@ -58,11 +58,11 @@ updateRides msg collection =
 
 updateRide : String -> (Model -> ( Model, Cmd Rides.Model.Msg )) -> Collection -> Return Rides.Model.Msg Collection
 updateRide id f collection =
-    case collection.rides of
-        Success rides ->
-            mapIfId id f (\model -> return model Cmd.none) rides
+    case collection.list of
+        Success list ->
+            mapIfId id f (\model -> return model Cmd.none) list
                 |> Return.sequence
-                |> Return.map (\list -> { rides = Success list })
+                |> Return.map (\list -> { list = Success list })
 
         _ ->
             return collection Cmd.none
