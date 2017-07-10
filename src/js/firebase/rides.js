@@ -32,37 +32,6 @@ module.exports = function(firebase, app) {
       });
   });
 
-  app.ports.rideRequest.subscribe(function(rideRequest) {
-    getProfile()
-      .then(function(profile) {
-        return firebase
-          .database()
-          .ref(
-            "ridesRequests/" +
-              rideRequest.groupId +
-              "/" +
-              rideRequest.rideId +
-              "/" +
-              rideRequest.toUserId +
-              "/" +
-              firebase.auth().currentUser.uid
-          )
-          .push({ profile: profile.val() });
-      })
-      .then(function() {
-        app.ports.rideRequestResponse.send({
-          rideId: rideRequest.rideId,
-          response: success(true)
-        });
-      })
-      .catch(function(err) {
-        app.ports.rideRequestResponse.send({
-          rideId: rideRequest.rideId,
-          response: error(err.message)
-        });
-      });
-  });
-
   app.ports.ridesList.subscribe(function() {
     firebase.database().ref("rides").on("value", function(rides) {
       app.ports.ridesListResponse.send(success(rides.val()));

@@ -4,7 +4,8 @@ import Common.Response exposing (Response(..))
 import Helpers exposing (expectToContainText, fixtures, initialContext, signedInContext, someUser, toLocation)
 import Model as Root exposing (Model, Msg(..))
 import Rides.Model exposing (Msg(..))
-import Rides.Ports exposing (RideRequest)
+import RidesRequests.Model exposing (Msg(..))
+import RidesRequests.Ports exposing (RideRequest)
 import Test exposing (..)
 import Test.Html.Event exposing (submit)
 import Test.Html.Query exposing (..)
@@ -23,10 +24,10 @@ tests =
                 >> has [ text "Carregando..." ]
         , test "sends request via ride port" <|
             submitRide
-                >> expectCmd (Rides.Ports.rideRequest rideRequestExample)
+                >> expectCmd (RidesRequests.Ports.createRideRequest rideRequestExample)
         , test "shows error when ride port returns an error" <|
             submitRide
-                >> update (MsgForRides <| RideRequestResponse "idRide2" (Error "undefined is not a function"))
+                >> update (MsgForRidesRequests <| CreateRideRequestResponse "idRide2" (Error "undefined is not a function"))
                 >> expectView
                 >> has [ text "not a function" ]
         , test "shows notification on success" <|
@@ -61,4 +62,4 @@ submitRide =
 
 successResponse : TestContext Model Root.Msg -> TestContext Model Root.Msg
 successResponse =
-    update (MsgForRides <| RideRequestResponse "idRide2" (Success True))
+    update (MsgForRidesRequests <| CreateRideRequestResponse "idRide2" (Success True))

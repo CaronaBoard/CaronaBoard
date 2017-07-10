@@ -20,7 +20,7 @@ type alias Model =
     , notifications : Notifications.Model
     , profile : Profile.Model
     , groups : Groups.Model
-    , ridesRequests : RidesRequests.Model
+    , ridesRequests : RidesRequests.Collection
     }
 
 

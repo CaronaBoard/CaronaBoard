@@ -18,19 +18,8 @@ type alias Model =
     , days : String
     , hours : String
     , profile : Profile
-    , rideRequest : Response Bool
     }
 
 
 type Msg
     = UpdateRides (Response (List Model))
-    | Submit RideId GroupId
-    | RideRequestResponse RideId (Response Bool)
-
-
-type alias RideId =
-    String
-
-
-type alias GroupId =
-    String

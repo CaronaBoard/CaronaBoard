@@ -1,14 +1,19 @@
-module RidesRequests.Model exposing (Model, Msg(..), RideRequest)
+module RidesRequests.Model exposing (Collection, Model, Msg(..))
 
 import Common.Response exposing (Response)
 import Profile.Model exposing (Profile)
+import Rides.Model
+
+
+type alias Collection =
+    { list : Response (List Model)
+    , new :
+        { response : Response Bool
+        }
+    }
 
 
 type alias Model =
-    Response RideRequest
-
-
-type alias RideRequest =
     { groupId : String
     , rideId : String
     , toUserId : String
@@ -19,4 +24,14 @@ type alias RideRequest =
 
 
 type Msg
-    = FetchedRideRequest (Response RideRequest)
+    = FetchedRideRequest (Response Model)
+    | CreateRideRequest Rides.Model.Model
+    | CreateRideRequestResponse RideId (Response Bool)
+
+
+type alias RideId =
+    String
+
+
+type alias GroupId =
+    String
