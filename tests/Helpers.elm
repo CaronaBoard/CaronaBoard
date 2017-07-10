@@ -10,7 +10,7 @@ import NativeLoadFix
 import Navigation exposing (Location)
 import Ports exposing (subscriptions)
 import Profile.Model exposing (Profile)
-import Rides.Ride.Model as Ride
+import Rides.Model as Ride
 import String.Extra
 import TestContext exposing (..)
 import Update

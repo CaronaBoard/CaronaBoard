@@ -1,4 +1,4 @@
-module Rides.View.RidesList exposing (rideInfo, rideRoute, ridesList)
+module Rides.View.List exposing (list, rideInfo, rideRoute)
 
 import Common.Icon exposing (icon)
 import Common.IdentifiedList exposing (findById)
@@ -7,13 +7,13 @@ import Common.Response as Response exposing (Response(..))
 import Html exposing (..)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Model as Root exposing (Msg(..))
-import Rides.Ride.Model as Ride
+import Rides.Model as Ride
 import Rides.Styles exposing (Classes(..), className)
 import UrlRouter.Routes exposing (Page(..))
 
 
-ridesList : String -> Root.Model -> Html Msg
-ridesList groupId { rides, groups } =
+list : String -> Root.Model -> Html Msg
+list groupId { rides, groups } =
     let
         groupName =
             groups.groups
