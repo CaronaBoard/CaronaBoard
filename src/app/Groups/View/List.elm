@@ -1,4 +1,4 @@
-module Groups.View exposing (groupsList)
+module Groups.View.List exposing (list)
 
 import Common.Response exposing (Response(..))
 import Groups.Model exposing (Group, Model)
@@ -12,8 +12,8 @@ import UrlRouter.Model exposing (Msg(..))
 import UrlRouter.Routes exposing (Page(..))
 
 
-groupsList : Model -> Html Root.Msg
-groupsList model =
+list : Model -> Html Root.Msg
+list model =
     case model.groups of
         Empty ->
             text ""
@@ -37,4 +37,4 @@ groupsList model =
 
 groupItem : Group -> Html Root.Msg
 groupItem group =
-    li [ id group.id, onClick (MsgForUrlRouter <| Go <| RidesPage group.id) ] [ text group.name ]
+    li [ id group.id, onClick (MsgForUrlRouter <| Go <| RidesListPage group.id) ] [ text group.name ]

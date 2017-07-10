@@ -4,7 +4,7 @@ var error = require("./helpers").error;
 module.exports = function(firebase, app) {
   var getProfile = require("./profile").getProfile(firebase, app);
 
-  app.ports.giveRide.subscribe(function(newRide) {
+  app.ports.createRide.subscribe(function(newRide) {
     getProfile()
       .then(function(profile) {
         return firebase
@@ -25,41 +25,10 @@ module.exports = function(firebase, app) {
           );
       })
       .then(function() {
-        app.ports.giveRideResponse.send(success(true));
+        app.ports.createRideResponse.send(success(true));
       })
       .catch(function(err) {
-        app.ports.giveRideResponse.send(error(err.message));
-      });
-  });
-
-  app.ports.rideRequest.subscribe(function(rideRequest) {
-    getProfile()
-      .then(function(profile) {
-        return firebase
-          .database()
-          .ref(
-            "ridesRequests/" +
-              rideRequest.groupId +
-              "/" +
-              rideRequest.rideId +
-              "/" +
-              rideRequest.toUserId +
-              "/" +
-              firebase.auth().currentUser.uid
-          )
-          .push({ profile: profile.val() });
-      })
-      .then(function() {
-        app.ports.rideRequestResponse.send({
-          rideId: rideRequest.rideId,
-          response: success(true)
-        });
-      })
-      .catch(function(err) {
-        app.ports.rideRequestResponse.send({
-          rideId: rideRequest.rideId,
-          response: error(err.message)
-        });
+        app.ports.createRideResponse.send(error(err.message));
       });
   });
 

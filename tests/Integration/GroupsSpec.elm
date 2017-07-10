@@ -37,7 +37,7 @@ tests =
                 >> simulate (find [ id "idGroup1" ]) click
                 >> expectModel
                     (\model ->
-                        Expect.equal (RidesPage "idGroup1") model.urlRouter.page
+                        Expect.equal (RidesListPage "idGroup1") model.urlRouter.page
                     )
         ]
 
