@@ -37,4 +37,4 @@ list model =
 
 groupItem : Group -> Html Root.Msg
 groupItem group =
-    li [ id group.id, onClick (MsgForUrlRouter <| Go <| RidesPage group.id) ] [ text group.name ]
+    li [ id group.id, onClick (MsgForUrlRouter <| Go <| RidesListPage group.id) ] [ text group.name ]

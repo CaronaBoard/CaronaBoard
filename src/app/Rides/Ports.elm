@@ -1,4 +1,4 @@
-port module Rides.Ports exposing (decodeRides, ridesList, ridesListResponse, subscriptions)
+port module Rides.Ports exposing (createRide, createRideResponse, decodeRides, ridesList, ridesListResponse, subscriptions)
 
 import Common.Decoder exposing (normalizeId3)
 import Common.Response exposing (FirebaseResponse, Response(..), decodeFromFirebase, fromFirebase)
@@ -12,6 +12,7 @@ subscriptions : Rides.Collection -> Sub Msg
 subscriptions model =
     Sub.batch
         [ ridesListResponse (decodeFromFirebase decodeRides >> UpdateRides)
+        , createRideResponse (fromFirebase >> CreateRideReponse)
         ]
 
 
@@ -19,6 +20,12 @@ port ridesList : () -> Cmd msg
 
 
 port ridesListResponse : (FirebaseResponse Json.Value -> msg) -> Sub msg
+
+
+port createRide : NewRide -> Cmd msg
+
+
+port createRideResponse : (FirebaseResponse Bool -> msg) -> Sub msg
 
 
 decodeRides : Decoder (List Rides.Model)

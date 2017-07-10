@@ -1,6 +1,5 @@
 module Model exposing (Flags, Model, Msg(..))
 
-import GiveRide.Model as GiveRide
 import Groups.Model as Groups
 import Layout.Model as Layout
 import Login.Model as Login
@@ -16,7 +15,6 @@ type alias Model =
     , login : Login.Model
     , rides : Rides.Collection
     , layout : Layout.Model
-    , giveRide : GiveRide.Model
     , notifications : Notifications.Model
     , profile : Profile.Model
     , groups : Groups.Model
@@ -35,7 +33,6 @@ type Msg
     | MsgForLogin Login.Msg
     | MsgForRides Rides.Msg
     | MsgForLayout Layout.Msg
-    | MsgForGiveRide GiveRide.Msg
     | MsgForNotifications Notifications.Msg
     | MsgForProfile Profile.Msg
     | MsgForGroups Groups.Msg
