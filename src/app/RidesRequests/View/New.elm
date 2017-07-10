@@ -44,5 +44,5 @@ formFields ride collection =
     , rideRoute ride
     , rideInfo ride
     , br [] []
-    , loadingOrSubmitButton collection.new.response "submitRide" [ text "Pedir carona" ]
+    , loadingOrSubmitButton collection.new.response "submitRideRequest" [ text "Pedir carona" ]
     ]

@@ -1,6 +1,5 @@
 module View exposing (staticView, view)
 
-import GiveRide.View.New
 import Groups.View.List
 import Html exposing (div, h1, text)
 import Layout.View.Layout exposing (layout)
@@ -15,6 +14,7 @@ import Notifications.View.EnableNotifications exposing (enableNotifications)
 import Profile.View exposing (profile)
 import Rides.View.Details
 import Rides.View.List
+import Rides.View.New
 import RidesRequests.View.Details exposing (details)
 import UrlRouter.Routes exposing (..)
 
@@ -34,7 +34,7 @@ view model =
         RegistrationPage ->
             loginLayout (Html.map MsgForLogin <| registrationStep model.login)
 
-        RidesPage groupId ->
+        RidesListPage groupId ->
             layout model (Rides.View.List.list groupId model)
 
         NotFoundPage ->
@@ -43,13 +43,13 @@ view model =
         PasswordResetPage ->
             loginLayout passwordReset
 
-        GiveRidePage groupId ->
-            layout model (Html.map MsgForGiveRide <| GiveRide.View.New.new groupId model.giveRide)
+        RidesCreatePage groupId ->
+            layout model (Html.map MsgForRides <| Rides.View.New.new groupId model.rides)
 
         EnableNotificationsPage ->
             layout model (Html.map MsgForNotifications <| enableNotifications model.notifications)
 
-        RidePage groupId rideId ->
+        RideDetailsPage groupId rideId ->
             layout model (Rides.View.Details.details groupId rideId model)
 
         ProfilePage ->
@@ -58,7 +58,7 @@ view model =
         GroupsPage ->
             layout model (Groups.View.List.list model.groups)
 
-        RideRequestPage _ _ _ _ ->
+        RideRequestDetailsPage _ _ _ _ ->
             layout model (details model.ridesRequests)
 
 

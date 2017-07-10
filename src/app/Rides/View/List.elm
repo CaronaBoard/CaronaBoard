@@ -41,7 +41,7 @@ list groupId { rides, groups } =
                         [ div [] (List.map (rideItem groupId) ridesForGroup)
                         , p []
                             [ text "Tem um carro? Adicione sua carona "
-                            , linkTo (GiveRidePage groupId) [] [ text "aqui" ]
+                            , linkTo (RidesCreatePage groupId) [] [ text "aqui" ]
                             ]
                         ]
 
@@ -57,7 +57,7 @@ rideItem groupId ride =
         , rideRoute ride
         , div [ className OtherDetails ]
             [ rideInfo ride
-            , linkTo (RidePage groupId ride.id) [ className ActionButton ] [ text "Quero carona" ]
+            , linkTo (RideDetailsPage groupId ride.id) [ className ActionButton ] [ text "Quero carona" ]
             ]
         ]
 

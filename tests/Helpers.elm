@@ -2,7 +2,7 @@ module Helpers exposing (..)
 
 import Common.Response exposing (Response(..))
 import Expect
-import GiveRide.Model exposing (NewRide)
+import Rides.Model exposing (NewRide)
 import Groups.Model as Groups
 import Login.Model exposing (Msg(..), User)
 import Model exposing (Msg(..))

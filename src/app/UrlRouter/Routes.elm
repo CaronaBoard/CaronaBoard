@@ -16,10 +16,10 @@ type Page
     | ProfilePage
     | EnableNotificationsPage
     | GroupsPage
-    | RidesPage String
-    | GiveRidePage String
-    | RidePage String String
-    | RideRequestPage String String String String
+    | RidesListPage String
+    | RidesCreatePage String
+    | RideDetailsPage String String
+    | RideRequestDetailsPage String String String String
 
 
 pageParser : Parser (Page -> a) a
@@ -33,10 +33,10 @@ pageParser =
         , map ProfilePage (static "profile")
         , map EnableNotificationsPage (static "enable-notifications")
         , map GroupsPage (static "groups")
-        , map RidesPage (static "groups" </> string </> static "rides")
-        , map GiveRidePage (static "groups" </> string </> static "rides" </> static "give")
-        , map RidePage (static "groups" </> string </> static "rides" </> string </> static "request")
-        , map RideRequestPage (static "groups" </> string </> static "rides" </> string </> static "requests" </> string </> string)
+        , map RidesListPage (static "groups" </> string </> static "rides")
+        , map RidesCreatePage (static "groups" </> string </> static "rides" </> static "give")
+        , map RideDetailsPage (static "groups" </> string </> static "rides" </> string </> static "request")
+        , map RideRequestDetailsPage (static "groups" </> string </> static "rides" </> string </> static "requests" </> string </> string)
         ]
 
 
@@ -70,16 +70,16 @@ toPath page =
         GroupsPage ->
             "#/groups"
 
-        RidesPage groupId ->
+        RidesListPage groupId ->
             "#/groups/" ++ groupId ++ "/rides"
 
-        GiveRidePage groupId ->
+        RidesCreatePage groupId ->
             "#/groups/" ++ groupId ++ "/rides/give"
 
-        RidePage groupId rideId ->
+        RideDetailsPage groupId rideId ->
             "#/groups/" ++ groupId ++ "/rides/" ++ rideId ++ "/request"
 
-        RideRequestPage groupId rideId fromUserId requestId ->
+        RideRequestDetailsPage groupId rideId fromUserId requestId ->
             "#/groups/" ++ groupId ++ "/rides/" ++ rideId ++ "/requests/" ++ fromUserId ++ "/" ++ requestId
 
 
@@ -137,16 +137,16 @@ requiresAuthentication page =
         GroupsPage ->
             True
 
-        RidesPage _ ->
+        RidesListPage _ ->
             True
 
-        GiveRidePage _ ->
+        RidesCreatePage _ ->
             True
 
-        RidePage _ _ ->
+        RideDetailsPage _ _ ->
             True
 
-        RideRequestPage _ _ _ _ ->
+        RideRequestDetailsPage _ _ _ _ ->
             True
 
 

@@ -26,7 +26,7 @@ update msg collection =
 
         MsgForUrlRouter (UrlChange location) ->
             case pathParser location of
-                Just (RideRequestPage groupId rideId fromUserId rideRequestId) ->
+                Just (RideRequestDetailsPage groupId rideId fromUserId rideRequestId) ->
                     return { collection | list = Loading }
                         (fetchRideRequest
                             { groupId = groupId
