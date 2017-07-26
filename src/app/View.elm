@@ -59,8 +59,8 @@ view model =
         GroupsListPage ->
             layout model (Groups.View.List.list model.login model.groups)
 
-        GroupDetailsPage _ ->
-            layout model (Groups.View.Details.details model.groups)
+        GroupDetailsPage groupId ->
+            layout model (Groups.View.Details.details groupId model)
 
         RideRequestDetailsPage _ _ _ _ ->
             layout model (details model.ridesRequests)

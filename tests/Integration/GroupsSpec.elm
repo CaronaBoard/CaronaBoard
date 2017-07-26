@@ -10,7 +10,7 @@ import Test.Html.Event exposing (click)
 import Test.Html.Query exposing (..)
 import Test.Html.Selector exposing (..)
 import TestContext exposing (..)
-import UrlRouter.Routes exposing (Page(..))
+import UrlRouter.Routes exposing (Page(..), toPath)
 
 
 tests : Test
@@ -45,6 +45,25 @@ tests =
                 >> simulate (find [ id "idGroup2" ]) click
                 >> expectView
                 >> has [ text "Participar do grupo" ]
+        , describe "details"
+            [ test "shows loading when the groups are loading" <|
+                groupsContext
+                    >> navigate (toPath <| GroupDetailsPage "idGroup2")
+                    >> expectView
+                    >> has [ text "Carregando..." ]
+            , test "renders group details after loading" <|
+                groupsContext
+                    >> navigate (toPath <| GroupDetailsPage "idGroup2")
+                    >> loadGroups
+                    >> expectView
+                    >> has [ text fixtures.group2.name ]
+            , test "renders a 404 if the group was not found" <|
+                groupsContext
+                    >> navigate (toPath <| GroupDetailsPage "nan")
+                    >> loadGroups
+                    >> expectView
+                    >> has [ text "404 não encontrado" ]
+            ]
         ]
 
 
