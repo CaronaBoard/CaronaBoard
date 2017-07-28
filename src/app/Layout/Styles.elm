@@ -77,6 +77,7 @@ generalStyles =
     , a
         [ textDecoration none
         , linkColor
+        , cursor pointer
         ]
     , h1
         [ fontWeight normal
