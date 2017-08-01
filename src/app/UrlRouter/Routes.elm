@@ -3,7 +3,7 @@ module UrlRouter.Routes exposing (Page(..), pathParser, redirectTo, requiresAuth
 import Login.Model as Login exposing (isSignedIn)
 import Navigation
 import Profile.Model as Profile
-import UrlParser exposing ((</>), Parser, map, oneOf, parseHash, string)
+import UrlParser exposing ((</>), Parser, map, oneOf, parseHash, string, top)
 
 
 type Page
@@ -26,7 +26,7 @@ type Page
 pageParser : Parser (Page -> a) a
 pageParser =
     oneOf
-        [ map SplashScreenPage (static "")
+        [ map SplashScreenPage top
         , map LoginPage (static "login")
         , map PasswordStepPage (static "login" </> static "password")
         , map RegistrationPage (static "login" </> static "registration")
@@ -159,12 +159,8 @@ requiresAuthentication page =
 
 
 pathParser : Navigation.Location -> Maybe Page
-pathParser location =
-    -- This if is here due to this issue https://github.com/evancz/url-parser/issues/21
-    if location.hash == "" then
-        Just SplashScreenPage
-    else
-        parseHash pageParser location
+pathParser =
+    parseHash pageParser
 
 
 static : String -> Parser a a
