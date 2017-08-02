@@ -11,6 +11,8 @@ simpleStringify a =
     toString a
         |> replace All (regex " ([^ ]+) =") (\match -> " \"" ++ matchOrEmptyAt match 1 ++ "\":")
         |> replace All (regex ": ([A-Z].*?) ") (\_ -> ": null ")
+        |> replace All (regex "\\bTrue\\b") (\_ -> "true")
+        |> replace All (regex "\\bFalse\\b") (\_ -> "false")
         |> Json.Decode.decodeString Json.Decode.value
         |> unwrap
 

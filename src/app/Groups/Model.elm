@@ -13,6 +13,7 @@ type alias Group =
     { id : String
     , name : String
     , users : List Id
+    , joinRequest : Response Bool
     }
 
 
@@ -22,6 +23,8 @@ type alias Id =
 
 type Msg
     = UpdateGroups (Response (List Group))
+    | CreateJoinGroupRequest Id
+    | CreateJoinGroupRequestResponse Id (Response Bool)
 
 
 isMemberOfGroup : Login.Model.Model -> Group -> Bool

@@ -1,7 +1,7 @@
-port module Groups.Ports exposing (groupsList, groupsListResponse, subscriptions)
+port module Groups.Ports exposing (createJoinGroupRequest, createJoinGroupRequestResponse, groupsList, groupsListResponse, subscriptions)
 
 import Common.Decoder exposing (normalizeId)
-import Common.Response exposing (FirebaseResponse, decodeFromFirebase)
+import Common.Response exposing (FirebaseResponse, Response(..), decodeFromFirebase)
 import Groups.Model exposing (Group, Model, Msg(..))
 import Json.Decode as Json exposing (..)
 import Json.Decode.Pipeline exposing (..)
@@ -11,6 +11,10 @@ subscriptions : Sub Msg
 subscriptions =
     Sub.batch
         [ groupsListResponse (decodeFromFirebase decodeGroups >> UpdateGroups)
+        , createJoinGroupRequestResponse
+            (\response ->
+                CreateJoinGroupRequestResponse response.groupId (decodeFromFirebase bool response.response)
+            )
         ]
 
 
@@ -26,9 +30,17 @@ decodeGroup =
         |> hardcoded "id"
         |> required "name" string
         |> required "users" (list string)
+        -- joinRequest
+        |> hardcoded Empty
 
 
 port groupsList : () -> Cmd msg
 
 
 port groupsListResponse : (FirebaseResponse Json.Value -> msg) -> Sub msg
+
+
+port createJoinGroupRequest : { groupId : String } -> Cmd msg
+
+
+port createJoinGroupRequestResponse : ({ groupId : String, response : FirebaseResponse Json.Value } -> msg) -> Sub msg

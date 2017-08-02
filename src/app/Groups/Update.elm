@@ -1,8 +1,9 @@
 module Groups.Update exposing (init, update)
 
-import Common.Response exposing (Response(..))
+import Common.IdentifiedList exposing (mapIfId)
+import Common.Response as Response exposing (Response(..))
 import Groups.Model as Groups exposing (Model, Msg(..))
-import Groups.Ports exposing (groupsList)
+import Groups.Ports exposing (createJoinGroupRequest, groupsList)
 import Model as Root exposing (Msg(..))
 import Return exposing (Return, return)
 import UrlRouter.Model exposing (Msg(..))
@@ -35,3 +36,21 @@ updateGroups msg model =
     case msg of
         UpdateGroups response ->
             return { model | groups = response } Cmd.none
+
+        CreateJoinGroupRequest groupId ->
+            return
+                (updateGroup groupId (\group -> { group | joinRequest = Loading }) model)
+                (createJoinGroupRequest { groupId = groupId })
+
+        CreateJoinGroupRequestResponse groupId response ->
+            return
+                (updateGroup groupId (\group -> { group | joinRequest = response }) model)
+                Cmd.none
+
+
+updateGroup : String -> (Groups.Group -> Groups.Group) -> Model -> Model
+updateGroup groupId updateFn model =
+    { model
+        | groups =
+            Response.map (mapIfId groupId updateFn identity) model.groups
+    }

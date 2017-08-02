@@ -52,9 +52,7 @@ tests =
                     >> expectView
                     >> has [ text "Carregando..." ]
             , test "renders group details after loading" <|
-                groupsContext
-                    >> navigate (toPath <| GroupDetailsPage "idGroup2")
-                    >> loadGroups
+                groupDetailsContext
                     >> expectView
                     >> has [ text fixtures.group2.name ]
             , test "renders a 404 if the group was not found" <|
@@ -63,6 +61,19 @@ tests =
                     >> loadGroups
                     >> expectView
                     >> has [ text "404 não encontrado" ]
+            , test "asks for joining the group" <|
+                groupDetailsContext
+                    >> simulate (find [ id "joinGroup" ]) click
+                    >> Expect.all
+                        [ expectView >> has [ text "Carregando..." ]
+                        , expectCmd (Cmd.map MsgForGroups <| Groups.Ports.createJoinGroupRequest { groupId = "idGroup2" })
+                        ]
+            , test "shows that the join request was sent" <|
+                groupDetailsContext
+                    >> simulate (find [ id "joinGroup" ]) click
+                    >> send createJoinGroupRequestResponse { groupId = "idGroup2", response = ( Nothing, Just <| simpleStringify True ) }
+                    >> expectView
+                    >> has [ text "Pedido enviado!" ]
             ]
         ]
 
@@ -75,3 +86,10 @@ loadGroups =
 groupsContext : a -> TestContext Model Root.Msg
 groupsContext =
     signedInContext GroupsListPage
+
+
+groupDetailsContext : a -> TestContext Model Root.Msg
+groupDetailsContext =
+    groupsContext
+        >> navigate (toPath <| GroupDetailsPage "idGroup2")
+        >> loadGroups
