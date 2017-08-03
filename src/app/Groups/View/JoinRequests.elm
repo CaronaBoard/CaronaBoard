@@ -27,14 +27,18 @@ joinRequestItem : Groups.Model.Group -> Groups.Model.JoinRequest -> Html Root.Ms
 joinRequestItem group joinRequest =
     li [ className JoinRequest ]
         [ text joinRequest.profile.name
-        , button
-            [ id "acceptJoinRequest"
-            , onClick (MsgForGroups <| RespondJoinRequest group.id joinRequest.userId True)
+        , div []
+            [ button
+                [ id "acceptJoinRequest"
+                , className RespondButton
+                , onClick (MsgForGroups <| RespondJoinRequest group.id joinRequest.userId True)
+                ]
+                [ icon "check" ]
+            , button
+                [ id "rejectJoinRequest"
+                , className RespondButton
+                , onClick (MsgForGroups <| RespondJoinRequest group.id joinRequest.userId False)
+                ]
+                [ icon "close" ]
             ]
-            [ icon "check" ]
-        , button
-            [ id "rejectJoinRequest"
-            , onClick (MsgForGroups <| RespondJoinRequest group.id joinRequest.userId False)
-            ]
-            [ icon "close" ]
         ]
