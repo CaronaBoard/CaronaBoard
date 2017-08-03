@@ -6,7 +6,7 @@ import Helpers exposing (expectToContainText, fixtures, initialContext, jsonQuot
 import JsonStringify exposing (simpleStringify)
 import Model as Root exposing (Model, Msg(..))
 import Test exposing (..)
-import Test.Html.Event exposing (click)
+import Test.Html.Event exposing (click, submit)
 import Test.Html.Query exposing (..)
 import Test.Html.Selector exposing (..)
 import TestContext exposing (..)
@@ -63,14 +63,14 @@ tests =
                     >> has [ text "404 não encontrado" ]
             , test "asks for joining the group" <|
                 groupDetailsContext
-                    >> simulate (find [ id "joinGroup" ]) click
+                    >> simulate (find [ tag "form" ]) submit
                     >> Expect.all
                         [ expectView >> has [ text "Carregando..." ]
                         , expectCmd (Cmd.map MsgForGroups <| Groups.Ports.createJoinGroupRequest { groupId = "idGroup2" })
                         ]
             , test "shows that the join request was sent" <|
                 groupDetailsContext
-                    >> simulate (find [ id "joinGroup" ]) click
+                    >> simulate (find [ tag "form" ]) submit
                     >> send createJoinGroupRequestResponse { groupId = "idGroup2", response = ( Nothing, Just <| simpleStringify True ) }
                     >> expectView
                     >> has [ text "Pedido enviado!" ]
