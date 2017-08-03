@@ -43,4 +43,58 @@ module.exports = function(firebase, app) {
         });
       });
   });
+
+  var removeJoinRequest = function(joinRequestResponse) {
+    firebase
+      .database()
+      .ref(
+        "groups/" +
+          joinRequestResponse.groupId +
+          "/joinRequests/" +
+          joinRequestResponse.userId
+      )
+      .remove()
+      .then(function() {
+        app.ports.respondJoinRequestResponse.send({
+          groupId: joinRequestResponse.groupId,
+          userId: joinRequestResponse.userId,
+
+          response: success(true)
+        });
+      })
+      .catch(function(err) {
+        app.ports.respondJoinRequestResponse.send({
+          groupId: joinRequestResponse.groupId,
+          userId: joinRequestResponse.userId,
+
+          response: error(err.message)
+        });
+      });
+  };
+
+  app.ports.respondJoinRequest.subscribe(function(joinRequestResponse) {
+    if (joinRequestResponse.accepted) {
+      firebase
+        .database()
+        .ref(
+          "groups/" +
+            joinRequestResponse.groupId +
+            "/members/" +
+            joinRequestResponse.userId
+        )
+        .set({ admin: false })
+        .then(function() {
+          removeJoinRequest(joinRequestResponse);
+        })
+        .catch(function(err) {
+          app.ports.respondJoinRequestResponse.send({
+            groupId: joinRequestResponse.groupId,
+            userId: joinRequestResponse.userId,
+            response: error(err.message)
+          });
+        });
+    } else {
+      removeJoinRequest(joinRequestResponse);
+    }
+  });
 };
