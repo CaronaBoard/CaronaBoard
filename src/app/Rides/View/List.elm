@@ -4,24 +4,42 @@ import Common.Icon exposing (icon)
 import Common.IdentifiedList exposing (findById)
 import Common.Link exposing (linkTo)
 import Common.Response as Response exposing (Response(..))
+import Groups.Model
+import Groups.View.JoinRequests exposing (joinRequestList)
 import Html exposing (..)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Model as Root exposing (Msg(..))
-import Rides.Model as Ride
+import Rides.Model as Rides
 import Rides.Styles exposing (Classes(..), className)
 import UrlRouter.Routes exposing (Page(..))
 
 
 list : String -> Root.Model -> Html Msg
 list groupId { rides, groups } =
-    let
-        groupName =
-            groups.groups
-                |> Response.map (findById groupId >> Maybe.map .name >> Maybe.withDefault "")
-                |> Response.withDefault ""
-    in
+    case groups.groups of
+        Empty ->
+            text ""
+
+        Loading ->
+            text "Carregando..."
+
+        Success groups ->
+            case findById groupId groups of
+                Just group ->
+                    ridesList group rides
+
+                Nothing ->
+                    h1 [] [ text "404 não encontrado" ]
+
+        Error err ->
+            text err
+
+
+ridesList : Groups.Model.Group -> Rides.Collection -> Html Msg
+ridesList group rides =
     div [ layoutClass Container ]
-        [ h1 [ layoutClass PageTitle ] [ text groupName ]
+        [ h1 [ layoutClass PageTitle ] [ text group.name ]
+        , joinRequestList group
         , case rides.list of
             Empty ->
                 text ""
@@ -32,16 +50,16 @@ list groupId { rides, groups } =
             Success rides ->
                 let
                     ridesForGroup =
-                        List.filter (\ride -> ride.groupId == groupId) rides
+                        List.filter (\ride -> ride.groupId == group.id) rides
                 in
                 if ridesForGroup == [] then
                     text "Esse grupo ainda não tem nenhuma oferta de carona. Tem um carro? Cadastre uma carona!"
                 else
                     div []
-                        [ div [] (List.map (rideItem groupId) ridesForGroup)
+                        [ div [] (List.map (rideItem group.id) ridesForGroup)
                         , p []
                             [ text "Tem um carro? Adicione sua carona "
-                            , linkTo (RidesCreatePage groupId) [] [ text "aqui" ]
+                            , linkTo (RidesCreatePage group.id) [] [ text "aqui" ]
                             ]
                         ]
 
@@ -50,7 +68,7 @@ list groupId { rides, groups } =
         ]
 
 
-rideItem : String -> Ride.Model -> Html Msg
+rideItem : String -> Rides.Model -> Html Msg
 rideItem groupId ride =
     div [ className Rides.Styles.Card ]
         [ span [ layoutClass CardTitle ] [ text ride.destination ]
@@ -62,7 +80,7 @@ rideItem groupId ride =
         ]
 
 
-rideRoute : Ride.Model -> Html msg
+rideRoute : Rides.Model -> Html msg
 rideRoute ride =
     div [ className Path ]
         [ div []
@@ -77,7 +95,7 @@ rideRoute ride =
         ]
 
 
-rideInfo : Ride.Model -> Html msg
+rideInfo : Rides.Model -> Html msg
 rideInfo ride =
     ul [ className RideInfo ]
         [ li []

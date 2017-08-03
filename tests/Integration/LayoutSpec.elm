@@ -36,26 +36,26 @@ tests =
                 >> count (Expect.equal 0)
         , test "does not have a back button on groups page" <|
             layoutContext
-                >> navigate (toPath GroupsPage)
+                >> navigate (toPath GroupsListPage)
                 >> expectView
                 >> findAll [ class NavBack ]
                 >> count (Expect.equal 0)
         , test "has a back button when on others pages" <|
             layoutContext
-                >> navigate (toPath GroupsPage)
+                >> navigate (toPath GroupsListPage)
                 >> navigate (toPath ProfilePage)
                 >> simulate (find [ class NavBack ]) click
                 >> expectModel
                     (\model ->
                         model.urlRouter.page
-                            |> Expect.equal GroupsPage
+                            |> Expect.equal GroupsListPage
                     )
         ]
 
 
 layoutContext : a -> TestContext Model Root.Msg
 layoutContext =
-    signedInContext GroupsPage
+    signedInContext GroupsListPage
 
 
 class : Classes -> Selector

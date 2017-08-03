@@ -47,12 +47,12 @@ update msg { notifications, profile, login, urlRouter } =
 
         MsgForRides (CreateRideReponse (Success _)) ->
             if isEnabled notifications then
-                urlRouterUpdate profile login (Go GroupsPage) urlRouter
+                urlRouterUpdate profile login (Go GroupsListPage) urlRouter
             else
                 urlRouterUpdate profile login (Go EnableNotificationsPage) urlRouter
 
         MsgForProfile (ProfileResponse (Success _)) ->
-            urlRouterUpdate profile login (Go GroupsPage) urlRouter
+            urlRouterUpdate profile login (Go GroupsListPage) urlRouter
 
         _ ->
             return urlRouter Cmd.none

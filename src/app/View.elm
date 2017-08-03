@@ -1,5 +1,6 @@
 module View exposing (staticView, view)
 
+import Groups.View.Details
 import Groups.View.List
 import Html exposing (div, h1, text)
 import Layout.View.Layout exposing (layout)
@@ -55,8 +56,11 @@ view model =
         ProfilePage ->
             layout model (Html.map MsgForProfile <| profile model.profile)
 
-        GroupsPage ->
-            layout model (Groups.View.List.list model.groups)
+        GroupsListPage ->
+            layout model (Groups.View.List.list model.login model.groups)
+
+        GroupDetailsPage groupId ->
+            layout model (Groups.View.Details.details groupId model)
 
         RideRequestDetailsPage _ _ _ _ ->
             layout model (details model.ridesRequests)

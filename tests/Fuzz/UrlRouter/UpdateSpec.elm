@@ -63,7 +63,7 @@ profileSample =
 
 pages : Array Page
 pages =
-    fromList [ SplashScreenPage, LoginPage, GroupsPage, NotFoundPage ]
+    fromList [ SplashScreenPage, LoginPage, GroupsListPage, NotFoundPage ]
 
 
 randomPage : Fuzzer Page

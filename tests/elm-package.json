@@ -11,7 +11,7 @@
     "dependencies": {
         "Fresheyeball/elm-return": "6.0.3 <= v < 7.0.0",
         "NoRedInk/elm-decode-pipeline": "3.0.0 <= v < 4.0.0",
-        "xavh4/elm-testable": "1.0.0 <= v < 3.0.0",
+        "user/project": "1.0.0 <= v < 3.0.0",
         "elm-community/elm-test": "4.1.0 <= v < 5.0.0",
         "elm-community/list-extra": "6.1.0 <= v < 7.0.0",
         "elm-community/string-extra": "1.4.0 <= v < 2.0.0",
@@ -26,7 +26,7 @@
         "eeue56/elm-html-test": "4.1.0 <= v < 5.0.0"
     },
     "dependency-sources": {
-        "xavh4/elm-testable": {
+        "user/project": {
           "url": "https://github.com/rogeriochaves/elm-testable.git",
           "ref": "rewrite-native"
         }

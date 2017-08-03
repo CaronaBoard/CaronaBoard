@@ -22,7 +22,7 @@ tests =
             fillProfile
                 >> expectView
                 >> find [ id "name" ]
-                >> has [ attribute "value" "foo" ]
+                >> has [ attribute "value" fixtures.profile.name ]
         , test "shows loading on submit" <|
             submitProfile
                 >> expectView
@@ -46,7 +46,7 @@ tests =
                 >> successResponse
                 >> expectModel
                     (\model ->
-                        Expect.equal GroupsPage model.urlRouter.page
+                        Expect.equal GroupsListPage model.urlRouter.page
                     )
         , test "leave profile fields filled after returning to profile page" <|
             profileContext
