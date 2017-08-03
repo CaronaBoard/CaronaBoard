@@ -15,7 +15,7 @@ details : String -> Root.Model -> Html Root.Msg
 details groupId { groups } =
     case groups.groups of
         Empty ->
-            text "TODO: fetch groups"
+            text ""
 
         Loading ->
             text "Carregando..."

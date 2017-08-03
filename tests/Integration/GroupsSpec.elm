@@ -16,8 +16,14 @@ import UrlRouter.Routes exposing (Page(..), toPath)
 tests : Test
 tests =
     describe "Groups"
-        [ test "request groups list when going to the page" <|
+        [ test "fetch groups when going to the groups list page" <|
             groupsContext
+                >> expectCmd (groupsList ())
+        , test "fetch groups when going to the groups detail page" <|
+            signedInContext (GroupDetailsPage "idGroup1")
+                >> expectCmd (groupsList ())
+        , test "fetch groups when going to the rides page" <|
+            signedInContext (RidesListPage "idGroup1")
                 >> expectCmd (groupsList ())
         , test "shows loading when the groups are loading" <|
             groupsContext

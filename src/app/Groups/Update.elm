@@ -5,7 +5,7 @@ import Common.Response as Response exposing (Response(..))
 import Groups.Model as Groups exposing (Model, Msg(..))
 import Groups.Ports exposing (..)
 import Model as Root exposing (Msg(..))
-import Return exposing (Return, return)
+import Return exposing (Return, command, return)
 import UrlRouter.Model exposing (Msg(..))
 import UrlRouter.Routes exposing (Page(..), pathParser)
 
@@ -24,13 +24,14 @@ update msg model =
         MsgForUrlRouter (UrlChange location) ->
             case pathParser location of
                 Just GroupsListPage ->
-                    if model.groups == Empty then
-                        return { model | groups = Loading } (groupsList ())
-                    else
-                        return model Cmd.none
+                    fetchGroups model
+
+                Just (GroupDetailsPage _) ->
+                    fetchGroups model
 
                 Just (RidesListPage groupId) ->
-                    return model (joinRequestsList { groupId = groupId })
+                    fetchGroups model
+                        |> command (joinRequestsList { groupId = groupId })
 
                 _ ->
                     return model Cmd.none
@@ -79,6 +80,14 @@ updateGroups msg model =
                     model
                 )
                 Cmd.none
+
+
+fetchGroups : Model -> Return Groups.Msg Model
+fetchGroups model =
+    if model.groups == Empty then
+        return { model | groups = Loading } (groupsList ())
+    else
+        return model Cmd.none
 
 
 updateGroup : String -> (Groups.Group -> Groups.Group) -> Model -> Model
