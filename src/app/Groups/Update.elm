@@ -3,7 +3,7 @@ module Groups.Update exposing (init, update)
 import Common.IdentifiedList exposing (mapIfId)
 import Common.Response as Response exposing (Response(..))
 import Groups.Model as Groups exposing (Model, Msg(..))
-import Groups.Ports exposing (createJoinGroupRequest, groupsList)
+import Groups.Ports exposing (acceptJoinRequest, createJoinGroupRequest, groupsList)
 import Model as Root exposing (Msg(..))
 import Return exposing (Return, return)
 import UrlRouter.Model exposing (Msg(..))
@@ -47,10 +47,45 @@ updateGroups msg model =
                 (updateGroup groupId (\group -> { group | joinRequest = response }) model)
                 Cmd.none
 
+        AcceptJoinRequest groupId userId ->
+            return
+                (updateGroup groupId
+                    (updateJoinRequest userId
+                        (\joinRequest -> { joinRequest | response = Loading })
+                    )
+                    model
+                )
+                (acceptJoinRequest { groupId = groupId, userId = userId })
+
+        AcceptJoinRequestResponse groupId userId response ->
+            return
+                (updateGroup groupId
+                    (updateJoinRequest userId
+                        (\joinRequest -> { joinRequest | response = response })
+                    )
+                    model
+                )
+                Cmd.none
+
 
 updateGroup : String -> (Groups.Group -> Groups.Group) -> Model -> Model
 updateGroup groupId updateFn model =
     { model
         | groups =
             Response.map (mapIfId groupId updateFn identity) model.groups
+    }
+
+
+updateJoinRequest : String -> (Groups.JoinRequest -> Groups.JoinRequest) -> Groups.Group -> Groups.Group
+updateJoinRequest userId updateFn group =
+    { group
+        | joinRequests =
+            List.map
+                (\item ->
+                    if item.userId == userId then
+                        updateFn item
+                    else
+                        item
+                )
+                group.joinRequests
     }
