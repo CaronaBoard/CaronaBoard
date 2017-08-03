@@ -99,10 +99,10 @@ fixtures =
             { groupId = "idGroup1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" }
 
         group1 =
-            { id = "idGroup1", name = "winona riders", users = [ "idUser1" ], joinRequest = Empty }
+            { id = "idGroup1", name = "winona riders", members = [ { userId = "idUser1", admin = True } ], joinRequest = Empty }
 
         group2 =
-            { id = "idGroup2", name = "the uber killars", users = [], joinRequest = Empty }
+            { id = "idGroup2", name = "the uber killars", members = [], joinRequest = Empty }
 
         groups =
             [ group1, group2 ]

@@ -80,7 +80,27 @@ tests =
 
 loadGroups : TestContext model msg -> TestContext model msg
 loadGroups =
-    send groupsListResponse ( Nothing, Just <| simpleStringify { idGroup1 = fixtures.group1, idGroup2 = fixtures.group2 } )
+    let
+        group1 =
+            fixtures.group1
+
+        group2 =
+            fixtures.group2
+
+        group1Denormalized =
+            { group1 | members = { idUser1 = { admin = True } } }
+
+        group2Denormalized =
+            { group2 | members = {} }
+    in
+    send groupsListResponse
+        ( Nothing
+        , Just <|
+            simpleStringify
+                { idGroup1 = group1Denormalized
+                , idGroup2 = group2Denormalized
+                }
+        )
 
 
 groupsContext : a -> TestContext Model Root.Msg
