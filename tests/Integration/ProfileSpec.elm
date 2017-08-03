@@ -22,7 +22,7 @@ tests =
             fillProfile
                 >> expectView
                 >> find [ id "name" ]
-                >> has [ attribute "value" "foo" ]
+                >> has [ attribute "value" fixtures.profile.name ]
         , test "shows loading on submit" <|
             submitProfile
                 >> expectView

@@ -1,7 +1,8 @@
-module Groups.Model exposing (Group, Member, Model, Msg(..), isMemberOfGroup)
+module Groups.Model exposing (Group, JoinRequest, Member, Model, Msg(..), isMemberOfGroup)
 
 import Common.Response exposing (Response)
 import Login.Model exposing (signedInUser)
+import Profile.Model exposing (Profile)
 
 
 type alias Model =
@@ -14,11 +15,16 @@ type alias Group =
     , name : String
     , members : List Member
     , joinRequest : Response Bool
+    , joinRequests : List JoinRequest
     }
 
 
 type alias Member =
     { userId : Id, admin : Bool }
+
+
+type alias JoinRequest =
+    { userId : Id, profile : Profile }
 
 
 type alias Id =

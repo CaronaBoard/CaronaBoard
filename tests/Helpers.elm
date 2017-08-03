@@ -87,7 +87,7 @@ fixtures =
             { id = "idUser1" }
 
         profile =
-            { name = "foo", contact = { kind = "Whatsapp", value = "passenger-wpp" } }
+            { name = "fulano", contact = { kind = "Whatsapp", value = "passenger-wpp" } }
 
         ride1 =
             { id = "idRide1", groupId = "idGroup1", userId = "isUser1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30", profile = { name = "foo", contact = { kind = "Whatsapp", value = "+5551" } } }
@@ -99,10 +99,10 @@ fixtures =
             { groupId = "idGroup1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" }
 
         group1 =
-            { id = "idGroup1", name = "winona riders", members = [ { userId = "idUser1", admin = True } ], joinRequest = Empty }
+            { id = "idGroup1", name = "winona riders", members = [ { userId = "idUser1", admin = True } ], joinRequest = Empty, joinRequests = [] }
 
         group2 =
-            { id = "idGroup2", name = "the uber killars", members = [], joinRequest = Empty }
+            { id = "idGroup2", name = "the uber killars", members = [], joinRequest = Empty, joinRequests = [] }
 
         groups =
             [ group1, group2 ]

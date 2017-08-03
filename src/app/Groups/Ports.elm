@@ -2,9 +2,10 @@ port module Groups.Ports exposing (createJoinGroupRequest, createJoinGroupReques
 
 import Common.Decoder exposing (normalizeId)
 import Common.Response exposing (FirebaseResponse, Response(..), decodeFromFirebase)
-import Groups.Model exposing (Group, Member, Model, Msg(..))
+import Groups.Model exposing (Group, JoinRequest, Member, Model, Msg(..))
 import Json.Decode as Json exposing (..)
 import Json.Decode.Pipeline exposing (..)
+import Profile.Ports exposing (decodeProfile)
 
 
 subscriptions : Sub Msg
@@ -29,9 +30,10 @@ decodeGroup =
     decode Group
         |> hardcoded "id"
         |> required "name" string
-        |> required "members" decodeMembers
+        |> optional "members" decodeMembers []
         -- joinRequest
         |> hardcoded Empty
+        |> optional "joinRequests" decodeJoinRequests []
 
 
 decodeMembers : Decoder (List Member)
@@ -40,6 +42,14 @@ decodeMembers =
         |> hardcoded "userId"
         |> required "admin" bool
         |> normalizeId (\userId member -> { member | userId = userId })
+
+
+decodeJoinRequests : Decoder (List JoinRequest)
+decodeJoinRequests =
+    decode JoinRequest
+        |> hardcoded "userId"
+        |> required "profile" decodeProfile
+        |> normalizeId (\userId joinRequest -> { joinRequest | userId = userId })
 
 
 port groupsList : () -> Cmd msg

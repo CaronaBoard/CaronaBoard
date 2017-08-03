@@ -4,6 +4,7 @@ import Common.Response exposing (Response(..))
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (expectCurrentPage, expectToContainText, fixtures, initialContext, signedInContext, someUser, toLocation)
+import Integration.GroupsSpec exposing (loadGroups)
 import JsonStringify exposing (simpleStringify)
 import Model as Root exposing (Model, Msg(..))
 import Notifications.Model exposing (Msg(..))
@@ -36,12 +37,14 @@ tests =
                     >> has [ text "Carregando..." ]
             , test "renders rides when they load" <|
                 ridesListContext
+                    >> loadGroups
                     >> loadRides
                     >> expectView
                     >> findAll [ class Card ]
                     >> count (Expect.equal 2)
             , test "renders only the rides for the selected group" <|
                 ridesListContext
+                    >> loadGroups
                     >> loadRides
                     >> navigate (toPath <| RidesListPage "idGroup2")
                     >> expectView
