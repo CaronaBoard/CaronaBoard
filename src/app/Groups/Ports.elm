@@ -4,12 +4,14 @@ port module Groups.Ports
         , createJoinGroupRequestResponse
         , groupsList
         , groupsListResponse
+        , joinRequestsList
+        , joinRequestsListResponse
         , respondJoinRequest
         , respondJoinRequestResponse
         , subscriptions
         )
 
-import Common.Decoder exposing (normalizeId)
+import Common.Decoder exposing (normalizeId, normalizeId2)
 import Common.Response exposing (FirebaseResponse, Response(..), decodeFromFirebase)
 import Groups.Model exposing (Group, JoinRequest, Member, Model, Msg(..))
 import Json.Decode as Json exposing (..)
@@ -29,6 +31,10 @@ subscriptions =
             (\response ->
                 RespondJoinRequestResponse response.groupId response.userId (decodeFromFirebase bool response.response)
             )
+        , joinRequestsListResponse
+            (\response ->
+                JoinRequestsListResponse response.groupId (decodeFromFirebase decodeJoinRequests response.response)
+            )
         ]
 
 
@@ -46,7 +52,8 @@ decodeGroup =
         |> optional "members" decodeMembers []
         -- joinRequest
         |> hardcoded Empty
-        |> optional "joinRequests" decodeJoinRequests []
+        -- joinRequests
+        |> hardcoded Empty
 
 
 decodeMembers : Decoder (List Member)
@@ -83,3 +90,9 @@ port respondJoinRequest : { groupId : String, userId : String, accepted : Bool }
 
 
 port respondJoinRequestResponse : ({ groupId : String, userId : String, response : FirebaseResponse Json.Value } -> msg) -> Sub msg
+
+
+port joinRequestsList : { groupId : String } -> Cmd msg
+
+
+port joinRequestsListResponse : ({ groupId : String, response : FirebaseResponse Json.Value } -> msg) -> Sub msg

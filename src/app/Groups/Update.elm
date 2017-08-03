@@ -1,9 +1,9 @@
 module Groups.Update exposing (init, update)
 
-import Common.IdentifiedList exposing (mapIfId)
+import Common.IdentifiedList exposing (findById, mapIfId)
 import Common.Response as Response exposing (Response(..))
 import Groups.Model as Groups exposing (Model, Msg(..))
-import Groups.Ports exposing (createJoinGroupRequest, groupsList, respondJoinRequest)
+import Groups.Ports exposing (..)
 import Model as Root exposing (Msg(..))
 import Return exposing (Return, return)
 import UrlRouter.Model exposing (Msg(..))
@@ -22,10 +22,18 @@ update msg model =
             updateGroups msg_ model
 
         MsgForUrlRouter (UrlChange location) ->
-            if model.groups == Empty && pathParser location == Just GroupsListPage then
-                return { model | groups = Loading } (groupsList ())
-            else
-                return model Cmd.none
+            case pathParser location of
+                Just GroupsListPage ->
+                    if model.groups == Empty then
+                        return { model | groups = Loading } (groupsList ())
+                    else
+                        return model Cmd.none
+
+                Just (RidesListPage groupId) ->
+                    return model (joinRequestsList { groupId = groupId })
+
+                _ ->
+                    return model Cmd.none
 
         _ ->
             return model Cmd.none
@@ -45,6 +53,11 @@ updateGroups msg model =
         CreateJoinGroupRequestResponse groupId response ->
             return
                 (updateGroup groupId (\group -> { group | joinRequest = response }) model)
+                Cmd.none
+
+        JoinRequestsListResponse groupId response ->
+            return
+                (updateGroup groupId (\group -> { group | joinRequests = response }) model)
                 Cmd.none
 
         RespondJoinRequest groupId userId accepted ->
@@ -80,12 +93,14 @@ updateJoinRequest : String -> (Groups.JoinRequest -> Groups.JoinRequest) -> Grou
 updateJoinRequest userId updateFn group =
     { group
         | joinRequests =
-            List.map
-                (\item ->
-                    if item.userId == userId then
-                        updateFn item
-                    else
-                        item
+            Response.map
+                (List.map
+                    (\item ->
+                        if item.userId == userId then
+                            updateFn item
+                        else
+                            item
+                    )
                 )
                 group.joinRequests
     }
