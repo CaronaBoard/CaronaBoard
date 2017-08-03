@@ -23,9 +23,9 @@ module.exports = function(firebase, app) {
         return firebase
           .database()
           .ref(
-            "joinGroupRequests/" +
+            "groups/" +
               joinGroupRequest.groupId +
-              "/" +
+              "/joinRequests/" +
               firebase.auth().currentUser.uid
           )
           .set({ profile: profile.val() });

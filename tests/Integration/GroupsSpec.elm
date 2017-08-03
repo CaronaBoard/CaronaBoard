@@ -1,4 +1,4 @@
-module Integration.GroupsSpec exposing (tests)
+module Integration.GroupsSpec exposing (loadGroups, tests)
 
 import Expect
 import Groups.Ports exposing (..)
@@ -75,6 +75,14 @@ tests =
                     >> expectView
                     >> has [ text "Pedido enviado!" ]
             ]
+        , describe "group join requests"
+            [ test "shows the join requests" <|
+                groupsContext
+                    >> loadGroups
+                    >> simulate (find [ id "idGroup1" ]) click
+                    >> expectView
+                    >> has [ text fixtures.profile.name ]
+            ]
         ]
 
 
@@ -88,10 +96,17 @@ loadGroups =
             fixtures.group2
 
         group1Denormalized =
-            { group1 | members = { idUser1 = { admin = True } } }
+            { group1
+                | members =
+                    { idUser1 = { admin = True }
+                    }
+                , joinRequests =
+                    { idUser2 = { profile = fixtures.profile }
+                    }
+            }
 
         group2Denormalized =
-            { group2 | members = {} }
+            { name = group2.name }
     in
     send groupsListResponse
         ( Nothing
