@@ -76,7 +76,12 @@ tests =
                     >> has [ text "Pedido enviado!" ]
             ]
         , describe "group join requests"
-            [ test "shows the join requests" <|
+            [ test "fetches the join requests" <|
+                groupsContext
+                    >> loadGroups
+                    >> simulate (find [ id "idGroup1" ]) click
+                    >> expectCmd (Cmd.map MsgForGroups <| Groups.Ports.joinRequestsList { groupId = "idGroup1" })
+            , test "shows the join requests" <|
                 joinRequestsContext
                     >> expectView
                     >> has [ text fixtures.profile.name ]
@@ -125,14 +130,7 @@ loadGroups =
             fixtures.group2
 
         group1Denormalized =
-            { group1
-                | members =
-                    { idUser1 = { admin = True }
-                    }
-                , joinRequests =
-                    { idUser2 = { profile = fixtures.profile }
-                    }
-            }
+            { group1 | members = { idUser1 = { admin = True } } }
 
         group2Denormalized =
             { name = group2.name }
@@ -154,9 +152,20 @@ groupsContext =
 
 joinRequestsContext : a -> TestContext Model Root.Msg
 joinRequestsContext =
+    let
+        joinRequests =
+            simpleStringify
+                { idUser2 =
+                    { profile = fixtures.profile }
+                }
+    in
     groupsContext
         >> loadGroups
         >> simulate (find [ id "idGroup1" ]) click
+        >> send joinRequestsListResponse
+            { groupId = "idGroup1"
+            , response = ( Nothing, Just joinRequests )
+            }
 
 
 groupDetailsContext : a -> TestContext Model Root.Msg

@@ -15,7 +15,7 @@ type alias Group =
     , name : String
     , members : List Member
     , joinRequest : Response Bool
-    , joinRequests : List JoinRequest
+    , joinRequests : Response (List JoinRequest)
     }
 
 
@@ -39,6 +39,7 @@ type Msg
     = UpdateGroups (Response (List Group))
     | CreateJoinGroupRequest GroupId
     | CreateJoinGroupRequestResponse GroupId (Response Bool)
+    | JoinRequestsListResponse GroupId (Response (List JoinRequest))
     | RespondJoinRequest GroupId UserId Bool
     | RespondJoinRequestResponse GroupId UserId (Response Bool)
 
@@ -56,19 +57,24 @@ isMemberOfGroup login group =
 
 pendingJoinRequests : Group -> List JoinRequest
 pendingJoinRequests group =
-    group.joinRequests
-        |> List.filter
-            (\joinRequest ->
-                case joinRequest.response of
-                    Empty ->
-                        True
+    case group.joinRequests of
+        Success joinRequests ->
+            List.filter
+                (\joinRequest ->
+                    case joinRequest.response of
+                        Empty ->
+                            True
 
-                    Error _ ->
-                        True
+                        Error _ ->
+                            True
 
-                    Success _ ->
-                        False
+                        Success _ ->
+                            False
 
-                    Loading ->
-                        False
-            )
+                        Loading ->
+                            False
+                )
+                joinRequests
+
+        _ ->
+            []

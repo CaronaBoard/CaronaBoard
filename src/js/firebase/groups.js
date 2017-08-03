@@ -17,15 +17,31 @@ module.exports = function(firebase, app) {
       });
   });
 
+  app.ports.joinRequestsList.subscribe(function(request) {
+    firebase
+      .database()
+      .ref("joinGroupRequests/" + request.groupId)
+      .once("value")
+      .then(function(joinGroupRequests) {
+        app.ports.joinRequestsListResponse.send({
+          groupId: request.groupId,
+          response: success(joinGroupRequests.val())
+        });
+      })
+      .catch(function(err) {
+        app.ports.joinRequestsListResponse.send(error(err.message));
+      });
+  });
+
   app.ports.createJoinGroupRequest.subscribe(function(joinGroupRequest) {
     getProfile()
       .then(function(profile) {
         return firebase
           .database()
           .ref(
-            "groups/" +
+            "joinGroupRequests/" +
               joinGroupRequest.groupId +
-              "/joinRequests/" +
+              "/" +
               firebase.auth().currentUser.uid
           )
           .set({ profile: profile.val() });
@@ -48,9 +64,9 @@ module.exports = function(firebase, app) {
     firebase
       .database()
       .ref(
-        "groups/" +
+        "joinGroupRequests/" +
           joinRequestResponse.groupId +
-          "/joinRequests/" +
+          "/" +
           joinRequestResponse.userId
       )
       .remove()
