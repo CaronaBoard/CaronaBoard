@@ -39,6 +39,12 @@ tests =
                     (\model ->
                         Expect.equal (RidesListPage "idGroup1") model.urlRouter.page
                     )
+        , test "goes to a page requesting to join the group if the user is not a member" <|
+            groupsContext
+                >> loadGroups
+                >> simulate (find [ id "idGroup2" ]) click
+                >> expectView
+                >> has [ text "Participar do grupo" ]
         ]
 
 
@@ -49,4 +55,4 @@ loadGroups =
 
 groupsContext : a -> TestContext Model Root.Msg
 groupsContext =
-    signedInContext GroupsPage
+    signedInContext GroupsListPage

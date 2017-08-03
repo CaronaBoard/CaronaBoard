@@ -46,7 +46,7 @@ tests =
                 >> successResponse
                 >> expectModel
                     (\model ->
-                        Expect.equal GroupsPage model.urlRouter.page
+                        Expect.equal GroupsListPage model.urlRouter.page
                     )
         , test "leave profile fields filled after returning to profile page" <|
             profileContext

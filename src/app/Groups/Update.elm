@@ -21,7 +21,7 @@ update msg model =
             updateGroups msg_ model
 
         MsgForUrlRouter (UrlChange location) ->
-            if model.groups == Empty && pathParser location == Just GroupsPage then
+            if model.groups == Empty && pathParser location == Just GroupsListPage then
                 return { model | groups = Loading } (groupsList ())
             else
                 return model Cmd.none

@@ -1,19 +1,20 @@
 module Groups.View.List exposing (list)
 
 import Common.Response exposing (Response(..))
-import Groups.Model exposing (Group, Model)
+import Groups.Model exposing (Group, Model, isMemberOfGroup)
 import Groups.Styles exposing (Classes(..), className)
 import Html exposing (..)
 import Html.Attributes exposing (id)
 import Html.Events exposing (onClick)
 import Layout.Styles exposing (Classes(..), layoutClass)
+import Login.Model
 import Model as Root exposing (Msg(..))
 import UrlRouter.Model exposing (Msg(..))
 import UrlRouter.Routes exposing (Page(..))
 
 
-list : Model -> Html Root.Msg
-list model =
+list : Login.Model.Model -> Model -> Html Root.Msg
+list login model =
     case model.groups of
         Empty ->
             text ""
@@ -27,7 +28,7 @@ list model =
                     [ h1 [ layoutClass PageTitle ] [ text "Grupos de Carona" ]
                     ]
                 , div [ className ListContainer ]
-                    [ ul [ className List ] (List.map groupItem groups)
+                    [ ul [ className List ] (List.map (groupItem login) groups)
                     ]
                 ]
 
@@ -35,6 +36,13 @@ list model =
             text err
 
 
-groupItem : Group -> Html Root.Msg
-groupItem group =
-    li [ id group.id, onClick (MsgForUrlRouter <| Go <| RidesListPage group.id) ] [ text group.name ]
+groupItem : Login.Model.Model -> Group -> Html Root.Msg
+groupItem login group =
+    let
+        page =
+            if isMemberOfGroup login group then
+                RidesListPage group.id
+            else
+                GroupDetailsPage group.id
+    in
+    li [ id group.id, onClick (MsgForUrlRouter <| Go page) ] [ text group.name ]
