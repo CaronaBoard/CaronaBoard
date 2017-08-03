@@ -77,11 +77,31 @@ tests =
             ]
         , describe "group join requests"
             [ test "shows the join requests" <|
-                groupsContext
-                    >> loadGroups
-                    >> simulate (find [ id "idGroup1" ]) click
+                joinRequestsContext
                     >> expectView
                     >> has [ text fixtures.profile.name ]
+            , test "accepts join requests, hiding it" <|
+                joinRequestsContext
+                    >> simulate (find [ id "acceptJoinRequest" ]) click
+                    >> Expect.all
+                        [ expectView
+                            >> findAll [ text fixtures.profile.name ]
+                            >> count (Expect.equal 0)
+                        , expectCmd (Cmd.map MsgForGroups <| Groups.Ports.acceptJoinRequest { groupId = "idGroup1", userId = "idUser2" })
+                        ]
+            , test "shows join requests again when there is an error" <|
+                joinRequestsContext
+                    >> simulate (find [ id "acceptJoinRequest" ]) click
+                    >> send acceptJoinRequestResponse { groupId = "idGroup1", userId = "idUser2", response = ( Just "Error", Nothing ) }
+                    >> expectView
+                    >> has [ text fixtures.profile.name ]
+            , test "hides successfull join requests" <|
+                joinRequestsContext
+                    >> simulate (find [ id "acceptJoinRequest" ]) click
+                    >> send acceptJoinRequestResponse { groupId = "idGroup1", userId = "idUser2", response = ( Nothing, Just <| simpleStringify True ) }
+                    >> expectView
+                    >> findAll [ text fixtures.profile.name ]
+                    >> count (Expect.equal 0)
             ]
         ]
 
@@ -121,6 +141,13 @@ loadGroups =
 groupsContext : a -> TestContext Model Root.Msg
 groupsContext =
     signedInContext GroupsListPage
+
+
+joinRequestsContext : a -> TestContext Model Root.Msg
+joinRequestsContext =
+    groupsContext
+        >> loadGroups
+        >> simulate (find [ id "idGroup1" ]) click
 
 
 groupDetailsContext : a -> TestContext Model Root.Msg

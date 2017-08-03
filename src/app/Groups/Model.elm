@@ -1,6 +1,6 @@
-module Groups.Model exposing (Group, JoinRequest, Member, Model, Msg(..), isMemberOfGroup)
+module Groups.Model exposing (Group, JoinRequest, Member, Model, Msg(..), isMemberOfGroup, pendingJoinRequests)
 
-import Common.Response exposing (Response)
+import Common.Response exposing (Response(..))
 import Login.Model exposing (signedInUser)
 import Profile.Model exposing (Profile)
 
@@ -20,21 +20,27 @@ type alias Group =
 
 
 type alias Member =
-    { userId : Id, admin : Bool }
+    { userId : UserId, admin : Bool }
 
 
 type alias JoinRequest =
-    { userId : Id, profile : Profile }
+    { userId : UserId, profile : Profile, response : Response Bool }
 
 
-type alias Id =
+type alias GroupId =
+    String
+
+
+type alias UserId =
     String
 
 
 type Msg
     = UpdateGroups (Response (List Group))
-    | CreateJoinGroupRequest Id
-    | CreateJoinGroupRequestResponse Id (Response Bool)
+    | CreateJoinGroupRequest GroupId
+    | CreateJoinGroupRequestResponse GroupId (Response Bool)
+    | AcceptJoinRequest GroupId UserId
+    | AcceptJoinRequestResponse GroupId UserId (Response Bool)
 
 
 isMemberOfGroup : Login.Model.Model -> Group -> Bool
@@ -46,3 +52,23 @@ isMemberOfGroup login group =
     signedInUser login
         |> Maybe.map (\user -> List.member user.id memberIds)
         |> Maybe.withDefault False
+
+
+pendingJoinRequests : Group -> List JoinRequest
+pendingJoinRequests group =
+    group.joinRequests
+        |> List.filter
+            (\joinRequest ->
+                case joinRequest.response of
+                    Empty ->
+                        True
+
+                    Error _ ->
+                        True
+
+                    Success _ ->
+                        False
+
+                    Loading ->
+                        False
+            )
