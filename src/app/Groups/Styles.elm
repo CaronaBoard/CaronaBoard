@@ -24,6 +24,7 @@ type Classes
     | List
     | JoinRequests
     | JoinRequest
+    | RespondButton
 
 
 styles : Stylesheet
@@ -61,9 +62,20 @@ styles =
             [ marginBottom (px 30)
             ]
         , class JoinRequest <|
-            [ padding (px 5)
-            , backgroundColor primaryBlue
+            [ backgroundColor primaryBlue
             , lightTextColor
             , marginBottom (px 8)
+            , displayFlex
+            , alignItems center
+            , justifyContent spaceBetween
+            , padding2 (px 0) (px 10)
+            ]
+        , class RespondButton <|
+            [ lightTextColor
+            , padding4 (px 5) (px 15) (px 2) (px 15)
+            , fontSize (px 18)
+            , backgroundColor darkerBlue
+            , borderStyle none
+            , marginRight (px 5)
             ]
         ]

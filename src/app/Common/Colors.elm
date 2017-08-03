@@ -28,6 +28,11 @@ lighterBlue =
     rgb 80 130 255
 
 
+darkerBlue : Color
+darkerBlue =
+    rgb 0 50 200
+
+
 primaryBlack : Color
 primaryBlack =
     rgb 85 85 85
