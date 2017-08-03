@@ -39,8 +39,8 @@ type Msg
     = UpdateGroups (Response (List Group))
     | CreateJoinGroupRequest GroupId
     | CreateJoinGroupRequestResponse GroupId (Response Bool)
-    | AcceptJoinRequest GroupId UserId
-    | AcceptJoinRequestResponse GroupId UserId (Response Bool)
+    | RespondJoinRequest GroupId UserId Bool
+    | RespondJoinRequestResponse GroupId UserId (Response Bool)
 
 
 isMemberOfGroup : Login.Model.Model -> Group -> Bool

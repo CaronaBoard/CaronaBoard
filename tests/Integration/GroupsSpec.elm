@@ -87,18 +87,27 @@ tests =
                         [ expectView
                             >> findAll [ text fixtures.profile.name ]
                             >> count (Expect.equal 0)
-                        , expectCmd (Cmd.map MsgForGroups <| Groups.Ports.acceptJoinRequest { groupId = "idGroup1", userId = "idUser2" })
+                        , expectCmd (Cmd.map MsgForGroups <| Groups.Ports.respondJoinRequest { groupId = "idGroup1", userId = "idUser2", accepted = True })
+                        ]
+            , test "rejects join requests, hiding it" <|
+                joinRequestsContext
+                    >> simulate (find [ id "rejectJoinRequest" ]) click
+                    >> Expect.all
+                        [ expectView
+                            >> findAll [ text fixtures.profile.name ]
+                            >> count (Expect.equal 0)
+                        , expectCmd (Cmd.map MsgForGroups <| Groups.Ports.respondJoinRequest { groupId = "idGroup1", userId = "idUser2", accepted = False })
                         ]
             , test "shows join requests again when there is an error" <|
                 joinRequestsContext
                     >> simulate (find [ id "acceptJoinRequest" ]) click
-                    >> send acceptJoinRequestResponse { groupId = "idGroup1", userId = "idUser2", response = ( Just "Error", Nothing ) }
+                    >> send respondJoinRequestResponse { groupId = "idGroup1", userId = "idUser2", response = ( Just "Error", Nothing ) }
                     >> expectView
                     >> has [ text fixtures.profile.name ]
             , test "hides successfull join requests" <|
                 joinRequestsContext
                     >> simulate (find [ id "acceptJoinRequest" ]) click
-                    >> send acceptJoinRequestResponse { groupId = "idGroup1", userId = "idUser2", response = ( Nothing, Just <| simpleStringify True ) }
+                    >> send respondJoinRequestResponse { groupId = "idGroup1", userId = "idUser2", response = ( Nothing, Just <| simpleStringify True ) }
                     >> expectView
                     >> findAll [ text fixtures.profile.name ]
                     >> count (Expect.equal 0)

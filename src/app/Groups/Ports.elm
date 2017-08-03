@@ -1,11 +1,11 @@
 port module Groups.Ports
     exposing
-        ( acceptJoinRequest
-        , acceptJoinRequestResponse
-        , createJoinGroupRequest
+        ( createJoinGroupRequest
         , createJoinGroupRequestResponse
         , groupsList
         , groupsListResponse
+        , respondJoinRequest
+        , respondJoinRequestResponse
         , subscriptions
         )
 
@@ -25,9 +25,9 @@ subscriptions =
             (\response ->
                 CreateJoinGroupRequestResponse response.groupId (decodeFromFirebase bool response.response)
             )
-        , acceptJoinRequestResponse
+        , respondJoinRequestResponse
             (\response ->
-                AcceptJoinRequestResponse response.groupId response.userId (decodeFromFirebase bool response.response)
+                RespondJoinRequestResponse response.groupId response.userId (decodeFromFirebase bool response.response)
             )
         ]
 
@@ -79,7 +79,7 @@ port createJoinGroupRequest : { groupId : String } -> Cmd msg
 port createJoinGroupRequestResponse : ({ groupId : String, response : FirebaseResponse Json.Value } -> msg) -> Sub msg
 
 
-port acceptJoinRequest : { groupId : String, userId : String } -> Cmd msg
+port respondJoinRequest : { groupId : String, userId : String, accepted : Bool } -> Cmd msg
 
 
-port acceptJoinRequestResponse : ({ groupId : String, userId : String, response : FirebaseResponse Json.Value } -> msg) -> Sub msg
+port respondJoinRequestResponse : ({ groupId : String, userId : String, response : FirebaseResponse Json.Value } -> msg) -> Sub msg

@@ -29,7 +29,12 @@ joinRequestItem group joinRequest =
         [ text joinRequest.profile.name
         , button
             [ id "acceptJoinRequest"
-            , onClick (MsgForGroups <| AcceptJoinRequest group.id joinRequest.userId)
+            , onClick (MsgForGroups <| RespondJoinRequest group.id joinRequest.userId True)
             ]
-            [ icon "done" ]
+            [ icon "check" ]
+        , button
+            [ id "rejectJoinRequest"
+            , onClick (MsgForGroups <| RespondJoinRequest group.id joinRequest.userId False)
+            ]
+            [ icon "close" ]
         ]
