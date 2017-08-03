@@ -24,9 +24,9 @@ tests =
         [ describe "initial routing"
             [ test "renders rides page if app starts on login page but user is already signed in" <|
                 signedInContext LoginPage
-                    >> expectCurrentPage GroupsPage
+                    >> expectCurrentPage GroupsListPage
             , test "renders login page if app starts on rides page but user is not signed in" <|
-                initialContext Nothing Nothing GroupsPage
+                initialContext Nothing Nothing GroupsListPage
                     >> expectToBeOnLoginPage
             , test "renders the requested page without redirect if already signed in after receiving a success sign in" <|
                 signedInContext ProfilePage
@@ -39,20 +39,20 @@ tests =
         , test "redirects user to login page if it is not signed in and goes to home or page" <|
             loginContext
                 >> Expect.all
-                    [ update (MsgForUrlRouter <| UrlChange (toLocation GroupsPage)) >> expectToBeOnLoginPage
+                    [ update (MsgForUrlRouter <| UrlChange (toLocation GroupsListPage)) >> expectToBeOnLoginPage
                     , update (MsgForUrlRouter <| UrlChange (toLocation SplashScreenPage)) >> expectToBeOnLoginPage
                     ]
         , test "renders groups and hides login when user is signed in and on groups route" <|
             loginContext
                 >> successSignIn
-                >> update (MsgForUrlRouter <| UrlChange (toLocation GroupsPage))
-                >> expectCurrentPage GroupsPage
+                >> update (MsgForUrlRouter <| UrlChange (toLocation GroupsListPage))
+                >> expectCurrentPage GroupsListPage
         , test "redirects user to groups page if it is already signed in and goes to login page or home page" <|
             loginContext
                 >> successSignIn
                 >> Expect.all
-                    [ update (MsgForUrlRouter <| UrlChange (toLocation LoginPage)) >> expectCurrentPage GroupsPage
-                    , update (MsgForUrlRouter <| UrlChange (toLocation SplashScreenPage)) >> expectCurrentPage GroupsPage
+                    [ update (MsgForUrlRouter <| UrlChange (toLocation LoginPage)) >> expectCurrentPage GroupsListPage
+                    , update (MsgForUrlRouter <| UrlChange (toLocation SplashScreenPage)) >> expectCurrentPage GroupsListPage
                     ]
         , test "returns to initial requested url after signing in" <|
             initialContext Nothing Nothing ProfilePage
@@ -64,21 +64,21 @@ tests =
                     >> expectCmd (Cmd.map MsgForLogin <| signOut ())
             , test "does not log user out until the response from firebase" <|
                 loginThenLogout
-                    >> expectCurrentPage GroupsPage
+                    >> expectCurrentPage GroupsListPage
             ]
         , test "redirect to profile page if user does not have a profile yet" <|
             loginContext
                 >> successSignInWithoutProfile
                 >> Expect.all
                     [ update (MsgForUrlRouter <| UrlChange (toLocation LoginPage)) >> expectCurrentPage ProfilePage
-                    , update (MsgForUrlRouter <| UrlChange (toLocation GroupsPage)) >> expectCurrentPage ProfilePage
+                    , update (MsgForUrlRouter <| UrlChange (toLocation GroupsListPage)) >> expectCurrentPage ProfilePage
                     ]
         , test "do not redirect to profile page after creating on" <|
             loginContext
                 >> successSignInWithoutProfile
                 >> update (MsgForProfile <| ProfileResponse (Success fixtures.profile))
-                >> update (MsgForUrlRouter <| UrlChange (toLocation GroupsPage))
-                >> expectCurrentPage GroupsPage
+                >> update (MsgForUrlRouter <| UrlChange (toLocation GroupsListPage))
+                >> expectCurrentPage GroupsListPage
         ]
 
 
@@ -101,7 +101,7 @@ loginThenLogout : a -> TestContext Model Root.Msg
 loginThenLogout =
     loginContext
         >> successSignIn
-        >> update (MsgForUrlRouter <| UrlChange (toLocation GroupsPage))
+        >> update (MsgForUrlRouter <| UrlChange (toLocation GroupsListPage))
         >> simulate (find [ id "openMenu" ]) click
         >> simulate (find [ layoutClass SignOutButton ]) click
 

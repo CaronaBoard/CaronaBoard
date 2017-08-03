@@ -15,7 +15,8 @@ type Page
     | NotFoundPage
     | ProfilePage
     | EnableNotificationsPage
-    | GroupsPage
+    | GroupsListPage
+    | GroupDetailsPage String
     | RidesListPage String
     | RidesCreatePage String
     | RideDetailsPage String String
@@ -32,7 +33,8 @@ pageParser =
         , map PasswordResetPage (static "password-reset")
         , map ProfilePage (static "profile")
         , map EnableNotificationsPage (static "enable-notifications")
-        , map GroupsPage (static "groups")
+        , map GroupsListPage (static "groups")
+        , map GroupDetailsPage (static "groups" </> string)
         , map RidesListPage (static "groups" </> string </> static "rides")
         , map RidesCreatePage (static "groups" </> string </> static "rides" </> static "give")
         , map RideDetailsPage (static "groups" </> string </> static "rides" </> string </> static "request")
@@ -67,8 +69,11 @@ toPath page =
         EnableNotificationsPage ->
             "#/enable-notifications"
 
-        GroupsPage ->
+        GroupsListPage ->
             "#/groups"
+
+        GroupDetailsPage groupId ->
+            "#/groups/" ++ groupId
 
         RidesListPage groupId ->
             "#/groups/" ++ groupId ++ "/rides"
@@ -91,13 +96,13 @@ redirectTo returnTo profile login page =
         else
             case page of
                 SplashScreenPage ->
-                    GroupsPage
+                    GroupsListPage
 
                 LoginPage ->
-                    Maybe.withDefault GroupsPage returnTo
+                    Maybe.withDefault GroupsListPage returnTo
 
                 PasswordStepPage ->
-                    Maybe.withDefault GroupsPage returnTo
+                    Maybe.withDefault GroupsListPage returnTo
 
                 _ ->
                     page
@@ -134,7 +139,10 @@ requiresAuthentication page =
         EnableNotificationsPage ->
             True
 
-        GroupsPage ->
+        GroupsListPage ->
+            True
+
+        GroupDetailsPage _ ->
             True
 
         RidesListPage _ ->

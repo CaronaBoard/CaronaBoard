@@ -25,6 +25,7 @@ decodeGroup =
     decode Group
         |> hardcoded "id"
         |> required "name" string
+        |> required "users" (list string)
 
 
 port groupsList : () -> Cmd msg

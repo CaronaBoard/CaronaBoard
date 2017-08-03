@@ -89,7 +89,7 @@ tests =
 
 rideRequestDetails : a -> TestContext Root.Model Root.Msg
 rideRequestDetails =
-    signedInContext GroupsPage
+    signedInContext GroupsListPage
         >> navigate "#/groups/idGroup1/rides/idRide1/requests/idUser1/idRideRequest1"
 
 

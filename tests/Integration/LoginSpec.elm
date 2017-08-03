@@ -61,7 +61,7 @@ tests =
             , test "goes to groups page after sign in" <|
                 submitEmailThenPassword
                     >> successSignIn
-                    >> expectCurrentPage GroupsPage
+                    >> expectCurrentPage GroupsListPage
             ]
         , describe "logout"
             [ test "removes the signed in user" <|

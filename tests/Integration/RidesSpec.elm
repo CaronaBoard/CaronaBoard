@@ -75,7 +75,7 @@ tests =
                 submitNewRide
                     >> update (MsgForNotifications <| NotificationsResponse (Success True))
                     >> successResponse
-                    >> expectCurrentPage GroupsPage
+                    >> expectCurrentPage GroupsListPage
             , test "shows notification on success" <|
                 submitNewRide
                     >> successResponse

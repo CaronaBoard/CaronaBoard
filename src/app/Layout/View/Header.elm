@@ -19,7 +19,7 @@ header model =
         menu model.layout
             ++ [ nav [ layoutClass Navbar ]
                     [ case model.urlRouter.page of
-                        GroupsPage ->
+                        GroupsListPage ->
                             div [] []
 
                         _ ->
