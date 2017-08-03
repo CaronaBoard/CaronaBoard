@@ -3,7 +3,7 @@ module Groups.Update exposing (init, update)
 import Common.IdentifiedList exposing (mapIfId)
 import Common.Response as Response exposing (Response(..))
 import Groups.Model as Groups exposing (Model, Msg(..))
-import Groups.Ports exposing (acceptJoinRequest, createJoinGroupRequest, groupsList)
+import Groups.Ports exposing (createJoinGroupRequest, groupsList, respondJoinRequest)
 import Model as Root exposing (Msg(..))
 import Return exposing (Return, return)
 import UrlRouter.Model exposing (Msg(..))
@@ -47,7 +47,7 @@ updateGroups msg model =
                 (updateGroup groupId (\group -> { group | joinRequest = response }) model)
                 Cmd.none
 
-        AcceptJoinRequest groupId userId ->
+        RespondJoinRequest groupId userId accepted ->
             return
                 (updateGroup groupId
                     (updateJoinRequest userId
@@ -55,9 +55,9 @@ updateGroups msg model =
                     )
                     model
                 )
-                (acceptJoinRequest { groupId = groupId, userId = userId })
+                (respondJoinRequest { groupId = groupId, userId = userId, accepted = accepted })
 
-        AcceptJoinRequestResponse groupId userId response ->
+        RespondJoinRequestResponse groupId userId response ->
             return
                 (updateGroup groupId
                     (updateJoinRequest userId
