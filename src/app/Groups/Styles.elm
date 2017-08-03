@@ -6,7 +6,7 @@ import Css exposing (..)
 import Css.Elements exposing (..)
 import Css.Namespace
 import Html exposing (Attribute)
-import Layout.Styles exposing (container)
+import Layout.Styles exposing (card, container)
 
 
 namespace : String
@@ -22,6 +22,8 @@ className =
 type Classes
     = ListContainer
     | List
+    | JoinRequests
+    | JoinRequest
 
 
 styles : Stylesheet
@@ -54,5 +56,14 @@ styles =
                         ]
                     ]
                 ]
+            ]
+        , class JoinRequests <|
+            [ marginBottom (px 30)
+            ]
+        , class JoinRequest <|
+            [ padding (px 5)
+            , backgroundColor primaryBlue
+            , lightTextColor
+            , marginBottom (px 8)
             ]
         ]
