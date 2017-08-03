@@ -5,6 +5,7 @@ import Common.IdentifiedList exposing (findById)
 import Common.Link exposing (linkTo)
 import Common.Response as Response exposing (Response(..))
 import Groups.Model
+import Groups.View.JoinRequests exposing (joinRequestList)
 import Html exposing (..)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Model as Root exposing (Msg(..))
@@ -65,16 +66,6 @@ ridesList group rides =
             Error err ->
                 text err
         ]
-
-
-joinRequestList : Groups.Model.Group -> Html Msg
-joinRequestList group =
-    ul [] (List.map joinRequestItem group.joinRequests)
-
-
-joinRequestItem : Groups.Model.JoinRequest -> Html Msg
-joinRequestItem joinRequest =
-    li [] [ text joinRequest.profile.name ]
 
 
 rideItem : String -> Rides.Model -> Html Msg
