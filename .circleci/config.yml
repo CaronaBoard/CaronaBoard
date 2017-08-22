@@ -16,7 +16,13 @@ jobs:
           command: npm test
       - run:
           name: build
-          command: npm run build
+          command: |
+            export FIREBASE_API_KEY="AIzaSyAlZomUWREtKrptg2DfDnrZW5Y2BhYRXt8"
+            export FIREBASE_AUTH_DOMAIN="caronaboard-27658.firebaseapp.com"
+            export FIREBASE_DATABASE_URL="https://caronaboard-27658.firebaseio.com"
+            export FIREBASE_STORAGE_BUCKET="caronaboard-27658.appspot.com"
+            export FIREBASE_MESSAGING_SENDER_ID="1026486772811"
+            npm run build
       - save_cache:
           key: dependencies-cache-node-8-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}-{{ checksum "elm-package.json" }}-{{ checksum "tests/elm-package.json" }}
           paths:

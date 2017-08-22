@@ -34,7 +34,7 @@ module.exports = function(firebase, app) {
 
   app.ports.ridesList.subscribe(function() {
     firebase.database().ref("rides").on("value", function(rides) {
-      app.ports.ridesListResponse.send(success(rides.val()));
+      app.ports.ridesListResponse.send(success(rides.val() || {}));
     });
   });
 };
