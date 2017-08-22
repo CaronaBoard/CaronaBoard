@@ -1,11 +1,16 @@
 var firebase = require("firebase");
 
 var config = {
-  apiKey: "AIzaSyDfwHLwWKTqduazsf4kjbstJEA2E1sCeoI",
-  authDomain: "caronaboard-61f75.firebaseapp.com",
-  databaseURL: "https://caronaboard-61f75.firebaseio.com",
-  storageBucket: "caronaboard-61f75.appspot.com",
-  messagingSenderId: "617045704123"
+  apiKey:
+    process.env.FIREBASE_API_KEY || "AIzaSyDfwHLwWKTqduazsf4kjbstJEA2E1sCeoI",
+  authDomain:
+    process.env.FIREBASE_AUTH_DOMAIN || "caronaboard-61f75.firebaseapp.com",
+  databaseURL:
+    process.env.FIREBASE_DATABASE_URL ||
+    "https://caronaboard-61f75.firebaseio.com",
+  storageBucket:
+    process.env.FIREBASE_STORAGE_BUCKET || "caronaboard-61f75.appspot.com",
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || "617045704123"
 };
 
 firebase.initializeApp(config);

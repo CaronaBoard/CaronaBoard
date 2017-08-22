@@ -33,7 +33,14 @@ const config = {
     disableHostCheck: true
   },
   plugins: [
-    new webpack.EnvironmentPlugin(["DEBUG"]),
+    new webpack.EnvironmentPlugin([
+      "DEBUG",
+      "FIREBASE_API_KEY",
+      "FIREBASE_AUTH_DOMAIN",
+      "FIREBASE_DATABASE_URL",
+      "FIREBASE_STORAGE_BUCKET",
+      "FIREBASE_MESSAGING_SENDER_ID"
+    ]),
     new HtmlWebpackPlugin({
       template: "src/index.ejs"
     }),
@@ -46,7 +53,14 @@ const config = {
     new CopyWebpackPlugin([
       {
         from: "src/firebase-messaging-sw.js",
-        to: ""
+        to: "",
+        transform: content =>
+          content
+            .toString()
+            .replace(
+              "process.env.FIREBASE_MESSAGING_SENDER_ID",
+              `"${process.env.FIREBASE_MESSAGING_SENDER_ID}"`
+            )
       }
     ]),
     new StatsVisualizerPlugin()
