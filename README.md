@@ -3,7 +3,7 @@
 [ci-svg]: https://circleci.com/gh/CaronaBoard/caronaboard.svg?style=shield
 [ci-url]: https://circleci.com/gh/CaronaBoard/caronaboard
 
-## What is CaronaBoard???
+## What's CaronaBoard???
 
 [CaronaBoard.com](http://caronaboard.com) is an open source project, with the goal of creating a way to optimize the use of cars in cities, contributing to reduce local traffic, reduce use of fossil fuel, and help people to connect to their friends and colleagues.
 
