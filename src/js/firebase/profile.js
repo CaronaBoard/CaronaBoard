@@ -14,10 +14,12 @@ var getProfile = function(firebase, app) {
 module.exports = function(firebase, app) {
   app.ports.saveProfile.subscribe(function(profile) {
     var currentUser = firebase.auth().currentUser;
-
+    
     var pathsToUpdate = {};
     pathsToUpdate["profiles/" + currentUser.uid] = profile;
 
+    profile.uid = currentUser.uid
+    
     firebase
       .database()
       .ref("rides/" + currentUser.uid)
