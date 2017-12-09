@@ -4,7 +4,7 @@ import Common.Response exposing (Response(..))
 import Login.Model as Login exposing (Msg(..))
 import Model as Root exposing (Msg(..))
 import Navigation exposing (Location)
-import Notifications.Model as Notifications exposing (isEnabled)
+import Notifications.Model as Notifications exposing (isEnabled, Msg(..))
 import Profile.Model as Profile exposing (Msg(..))
 import Return exposing (Return, return)
 import Rides.Model exposing (Msg(..))
@@ -52,6 +52,9 @@ update msg { notifications, profile, login, urlRouter } =
                 urlRouterUpdate profile login (Go EnableNotificationsPage) urlRouter
 
         MsgForProfile (ProfileResponse (Success _)) ->
+            urlRouterUpdate profile login (Go GroupsListPage) urlRouter
+
+        MsgForNotifications (NotificationsResponse (Success _)) ->
             urlRouterUpdate profile login (Go GroupsListPage) urlRouter
 
         _ ->

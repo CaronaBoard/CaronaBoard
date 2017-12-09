@@ -17,6 +17,8 @@ var successEnabledNotifications = function(firebase, app) {
         .catch(function(err) {
           app.ports.notificationsResponse.send(error(err.message));
         });
+    } else if (currentUser) {
+      window.location = "/#/enable-notifications";
     }
   };
 };

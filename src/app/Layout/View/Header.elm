@@ -45,7 +45,7 @@ header model =
                                 ]
                             ]
                         ]
-                    , div
+                    , linkTo GroupsListPage
                         [ layoutClass BrandLogo ]
                         [ b [] [ text "Carona" ]
                         , text "Board"

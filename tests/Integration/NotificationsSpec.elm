@@ -1,7 +1,7 @@
 module Integration.NotificationsSpec exposing (tests)
 
 import Common.Response exposing (Response(..))
-import Helpers exposing (initialContext, signedInContext, someUser, toLocation)
+import Helpers exposing (..)
 import Model as Root exposing (Model, Msg(..))
 import Notifications.Model exposing (..)
 import Notifications.Ports
@@ -30,11 +30,6 @@ tests =
                 >> update (MsgForNotifications <| NotificationsResponse (Error "I don't like notifications"))
                 >> expectView
                 >> has [ text "As notificações não foram ativadas" ]
-        , test "shows success message when notifications are enabled" <|
-            enableNotifications
-                >> update (MsgForNotifications <| NotificationsResponse (Success True))
-                >> expectView
-                >> has [ text "Notificações ativadas" ]
         , describe "notices"
             [ test "shows notice" <|
                 signedInContext GroupsListPage

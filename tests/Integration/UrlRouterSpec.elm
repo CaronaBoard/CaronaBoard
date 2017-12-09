@@ -3,11 +3,12 @@ module Integration.UrlRouterSpec exposing (tests)
 import Common.Response exposing (Response(..))
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
-import Helpers exposing (expectCurrentPage, fixtures, initialContext, signedInContext, someUser, successSignIn, successSignInWithoutProfile, toLocation)
+import Helpers exposing (..)
 import Layout.Styles exposing (Classes(SignOutButton))
 import Login.Ports exposing (signOut)
 import Login.Styles
 import Model as Root exposing (Model, Msg(..))
+import Notifications.Model exposing (Msg(..))
 import Profile.Model exposing (Msg(..))
 import Test exposing (..)
 import Test.Html.Event exposing (click)
@@ -54,6 +55,10 @@ tests =
                     [ update (MsgForUrlRouter <| UrlChange (toLocation LoginPage)) >> expectCurrentPage GroupsListPage
                     , update (MsgForUrlRouter <| UrlChange (toLocation SplashScreenPage)) >> expectCurrentPage GroupsListPage
                     ]
+        , test "redirects user to groups page after enabling notifications" <|
+            signedInContext EnableNotificationsPage
+                >> successEnableNotifications
+                >> expectCurrentPage GroupsListPage
         , test "returns to initial requested url after signing in" <|
             initialContext Nothing Nothing ProfilePage
                 >> successSignIn
@@ -113,3 +118,8 @@ expectToBeOnLoginPage =
             [ has [ loginClass Login.Styles.Page ]
             , hasNot [ layoutClass Layout.Styles.Page ]
             ]
+
+
+successEnableNotifications : TestContext model Root.Msg -> TestContext model Root.Msg
+successEnableNotifications =
+    update (MsgForNotifications <| NotificationsResponse (Success True))

@@ -138,6 +138,7 @@ layoutStyles =
         , position absolute
         , textAlign center
         , width (pct 100)
+        , cursor pointer
         ]
     , class NavBack <|
         menuButton

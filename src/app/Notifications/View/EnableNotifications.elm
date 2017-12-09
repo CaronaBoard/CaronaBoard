@@ -21,8 +21,7 @@ enableNotifications model =
 
                 _ ->
                     div [] []
-            , div [ layoutClass CardTitle ] [ text "Sua oferta de carona foi cadastrada!" ]
-            , p [] [ text "Agora você precisa ativar as notificações para ficar sabendo quando alguém te pedir uma carona" ]
+            , p [] [ text "Precisamos que você ative as notificações pra ficar sabendo quando receber uma oferta ou pedido de carona e participação nos grupos" ]
             , br [] []
             , case model.response of
                 Success _ ->

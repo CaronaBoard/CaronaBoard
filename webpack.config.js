@@ -33,14 +33,14 @@ const config = {
     disableHostCheck: true
   },
   plugins: [
-    new webpack.EnvironmentPlugin([
-      "DEBUG",
-      "FIREBASE_API_KEY",
-      "FIREBASE_AUTH_DOMAIN",
-      "FIREBASE_DATABASE_URL",
-      "FIREBASE_STORAGE_BUCKET",
-      "FIREBASE_MESSAGING_SENDER_ID"
-    ]),
+    new webpack.EnvironmentPlugin({
+      DEBUG: false,
+      FIREBASE_API_KEY: "AIzaSyDfwHLwWKTqduazsf4kjbstJEA2E1sCeoI",
+      FIREBASE_AUTH_DOMAIN: "caronaboard-61f75.firebaseapp.com",
+      FIREBASE_DATABASE_URL: "https://caronaboard-61f75.firebaseio.com",
+      FIREBASE_STORAGE_BUCKET: "caronaboard-61f75.appspot.com",
+      FIREBASE_MESSAGING_SENDER_ID: "617045704123"
+    }),
     new HtmlWebpackPlugin({
       template: "src/index.ejs"
     }),

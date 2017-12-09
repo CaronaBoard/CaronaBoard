@@ -1,11 +1,9 @@
 var firebase = require("firebase");
-var checkNotificationToken = require("./notifications").checkNotificationToken;
 var success = require("./helpers").success;
 var error = require("./helpers").error;
+var saveProfileLocally = require("./profile").saveProfileLocally;
 
 module.exports = function(firebase, app) {
-  var getProfile = require("./profile").getProfile(firebase, app);
-
   app.ports.checkRegistration.subscribe(function(email) {
     firebase
       .auth()
@@ -22,30 +20,21 @@ module.exports = function(firebase, app) {
     firebase
       .auth()
       .signInWithEmailAndPassword(credentials.email, credentials.password)
-      .then(signInUser)
+      .then(saveProfileLocally(firebase, app))
       .catch(function(err) {
         app.ports.signInResponse.send(error(err.message));
       });
   });
 
   app.ports.signOut.subscribe(function() {
-    firebase.auth().signOut().then(signOutUser).catch(function(err) {
-      app.ports.signOutResponse.send(error(err.message));
-    });
+    firebase
+      .auth()
+      .signOut()
+      .then(signOutUser)
+      .catch(function(err) {
+        app.ports.signOutResponse.send(error(err.message));
+      });
   });
-
-  var signInUser = function(user) {
-    getProfile().then(function(profile) {
-      localStorage.setItem("profile", JSON.stringify(profile.val()));
-      app.ports.signInResponse.send(
-        success({
-          user: { id: user.uid },
-          profile: profile.val()
-        })
-      );
-    });
-    checkNotificationToken(firebase, app);
-  };
 
   var signOutUser = function() {
     localStorage.removeItem("profile");
@@ -55,7 +44,7 @@ module.exports = function(firebase, app) {
   firebase.auth().onAuthStateChanged(function() {
     var user = firebase.auth().currentUser;
     if (user) {
-      signInUser(user);
+      saveProfileLocally(firebase, app)(user);
     } else {
       signOutUser();
     }
