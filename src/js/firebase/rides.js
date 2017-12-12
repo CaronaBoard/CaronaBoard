@@ -1,12 +1,12 @@
-var success = require("./helpers").success;
-var error = require("./helpers").error;
+const success = require("./helpers").success;
+const error = require("./helpers").error;
 
-module.exports = function(firebase, app) {
-  var getProfile = require("./profile").getProfile(firebase, app);
+module.exports = (firebase, app) => {
+  const getProfile = require("./profile").getProfile(firebase, app);
 
-  app.ports.createRide.subscribe(function(newRide) {
+  app.ports.createRide.subscribe(newRide => {
     getProfile()
-      .then(function(profile) {
+      .then(profile => {
         return firebase
           .database()
           .ref(
@@ -24,17 +24,20 @@ module.exports = function(firebase, app) {
             )
           );
       })
-      .then(function() {
+      .then(() => {
         app.ports.createRideResponse.send(success(true));
       })
-      .catch(function(err) {
+      .catch(err => {
         app.ports.createRideResponse.send(error(err.message));
       });
   });
 
-  app.ports.ridesList.subscribe(function() {
-    firebase.database().ref("rides").on("value", function(rides) {
-      app.ports.ridesListResponse.send(success(rides.val() || {}));
-    });
+  app.ports.ridesList.subscribe(() => {
+    firebase
+      .database()
+      .ref("rides")
+      .on("value", rides => {
+        app.ports.ridesListResponse.send(success(rides.val() || {}));
+      });
   });
 };

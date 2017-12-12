@@ -1,5 +1,5 @@
 // After splash screen loaded
-window.addEventListener("load", function() {
+window.addEventListener("load", () => {
   // Load Elm and connect it with Firebase
   require("./js/elm.js");
 

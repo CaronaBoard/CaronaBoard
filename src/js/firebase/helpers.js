@@ -1,12 +1,12 @@
-var tuple = function(a, b) {
+const tuple = (a, b) => {
   return [a, b];
 };
 
-var error = function(a) {
+const error = a => {
   return tuple(a, null);
 };
 
-var success = function(b) {
+const success = b => {
   return tuple(null, b);
 };
 

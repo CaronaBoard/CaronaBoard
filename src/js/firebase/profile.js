@@ -1,10 +1,11 @@
-var firebase = require("firebase");
-var checkNotificationToken = require("./notifications").checkNotificationToken;
-var success = require("./helpers").success;
-var error = require("./helpers").error;
+const firebase = require("firebase");
+const checkNotificationToken = require("./notifications")
+  .checkNotificationToken;
+const success = require("./helpers").success;
+const error = require("./helpers").error;
 
-var getProfile = function(firebase, app) {
-  return function() {
+const getProfile = (firebase, app) => {
+  return () => {
     return firebase
       .database()
       .ref("profiles/" + firebase.auth().currentUser.uid)
@@ -12,9 +13,9 @@ var getProfile = function(firebase, app) {
   };
 };
 
-var saveProfileLocally = function(firebase, app) {
-  return function(user) {
-    getProfile(firebase, app)().then(function(profile) {
+const saveProfileLocally = (firebase, app) => {
+  return user => {
+    getProfile(firebase, app)().then(profile => {
       localStorage.setItem("profile", JSON.stringify(profile.val()));
       app.ports.signInResponse.send(
         success({
@@ -27,11 +28,11 @@ var saveProfileLocally = function(firebase, app) {
   };
 };
 
-module.exports = function(firebase, app) {
-  app.ports.saveProfile.subscribe(function(profile) {
-    var currentUser = firebase.auth().currentUser;
+module.exports = (firebase, app) => {
+  app.ports.saveProfile.subscribe(profile => {
+    const currentUser = firebase.auth().currentUser;
 
-    var pathsToUpdate = {};
+    const pathsToUpdate = {};
     pathsToUpdate["profiles/" + currentUser.uid] = profile;
 
     profile.uid = currentUser.uid;
@@ -39,8 +40,8 @@ module.exports = function(firebase, app) {
     firebase
       .database()
       .ref("rides/" + currentUser.uid)
-      .once("value", function(rides) {
-        Object.keys(rides.val() || {}).forEach(function(key) {
+      .once("value", rides => {
+        Object.keys(rides.val() || {}).forEach(key => {
           pathsToUpdate[
             "rides/" + currentUser.uid + "/" + key + "/profile"
           ] = profile;
@@ -50,11 +51,11 @@ module.exports = function(firebase, app) {
           .database()
           .ref()
           .update(pathsToUpdate)
-          .then(function(profileRef) {
+          .then(profileRef => {
             app.ports.profileResponse.send(success(profile));
             saveProfileLocally(firebase, app)(currentUser);
           })
-          .catch(function(err) {
+          .catch(err => {
             app.ports.profileResponse.send(error(err.message));
           });
       });

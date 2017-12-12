@@ -1,9 +1,9 @@
-var success = require("./helpers").success;
-var error = require("./helpers").error;
+const success = require("./helpers").success;
+const error = require("./helpers").error;
 
-var successEnabledNotifications = function(firebase, app) {
-  return function(token) {
-    var currentUser = firebase.auth().currentUser;
+const successEnabledNotifications = (firebase, app) => {
+  return token => {
+    const currentUser = firebase.auth().currentUser;
     if (token && currentUser) {
       firebase
         .database()
@@ -11,10 +11,10 @@ var successEnabledNotifications = function(firebase, app) {
         .set({
           notificationToken: token
         })
-        .then(function() {
+        .then(() => {
           app.ports.notificationsResponse.send(success(true));
         })
-        .catch(function(err) {
+        .catch(err => {
           app.ports.notificationsResponse.send(error(err.message));
         });
     } else if (currentUser) {
@@ -23,33 +23,33 @@ var successEnabledNotifications = function(firebase, app) {
   };
 };
 
-var checkNotificationToken = function(firebase, app) {
-  var messaging = firebase.messaging();
+const checkNotificationToken = (firebase, app) => {
+  const messaging = firebase.messaging();
 
   messaging
     .getToken()
     .then(successEnabledNotifications(firebase, app))
-    .catch(function() {
+    .catch(() => {
       // ignore
     });
 };
 
-module.exports = function(firebase, app) {
-  var messaging = firebase.messaging();
+module.exports = (firebase, app) => {
+  const messaging = firebase.messaging();
 
-  app.ports.enableNotifications.subscribe(function() {
+  app.ports.enableNotifications.subscribe(() => {
     messaging
       .requestPermission()
-      .then(function() {
+      .then(() => {
         return messaging.getToken();
       })
       .then(successEnabledNotifications(firebase, app))
-      .catch(function(err) {
+      .catch(err => {
         app.ports.notificationsResponse.send(error(err.message));
       });
   });
 
-  messaging.onMessage(function(payload) {
+  messaging.onMessage(payload => {
     alert(payload.notification.body);
     window.location = payload.notification.click_action;
   });

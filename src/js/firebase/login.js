@@ -1,48 +1,48 @@
-var firebase = require("firebase");
-var success = require("./helpers").success;
-var error = require("./helpers").error;
-var saveProfileLocally = require("./profile").saveProfileLocally;
+const firebase = require("firebase");
+const success = require("./helpers").success;
+const error = require("./helpers").error;
+const saveProfileLocally = require("./profile").saveProfileLocally;
 
-module.exports = function(firebase, app) {
-  app.ports.checkRegistration.subscribe(function(email) {
+module.exports = (firebase, app) => {
+  app.ports.checkRegistration.subscribe(email => {
     firebase
       .auth()
       .fetchProvidersForEmail(email)
-      .then(function(providers) {
+      .then(providers => {
         app.ports.checkRegistrationResponse.send(success(providers.length > 0));
       })
-      .catch(function(err) {
+      .catch(err => {
         app.ports.checkRegistrationResponse.send(error(err.message));
       });
   });
 
-  app.ports.signIn.subscribe(function(credentials) {
+  app.ports.signIn.subscribe(credentials => {
     firebase
       .auth()
       .signInWithEmailAndPassword(credentials.email, credentials.password)
       .then(saveProfileLocally(firebase, app))
-      .catch(function(err) {
+      .catch(err => {
         app.ports.signInResponse.send(error(err.message));
       });
   });
 
-  app.ports.signOut.subscribe(function() {
+  app.ports.signOut.subscribe(() => {
     firebase
       .auth()
       .signOut()
       .then(signOutUser)
-      .catch(function(err) {
+      .catch(err => {
         app.ports.signOutResponse.send(error(err.message));
       });
   });
 
-  var signOutUser = function() {
+  const signOutUser = () => {
     localStorage.removeItem("profile");
     app.ports.signOutResponse.send(success(true));
   };
 
-  firebase.auth().onAuthStateChanged(function() {
-    var user = firebase.auth().currentUser;
+  firebase.auth().onAuthStateChanged(() => {
+    const user = firebase.auth().currentUser;
     if (user) {
       saveProfileLocally(firebase, app)(user);
     } else {
@@ -50,26 +50,26 @@ module.exports = function(firebase, app) {
     }
   });
 
-  app.ports.passwordReset.subscribe(function(email) {
+  app.ports.passwordReset.subscribe(email => {
     firebase
       .auth()
       .sendPasswordResetEmail(email)
-      .then(function() {
+      .then(() => {
         app.ports.passwordResetResponse.send(success(true));
       })
-      .catch(function(err) {
+      .catch(err => {
         app.ports.passwordResetResponse.send(error(err.message));
       });
   });
 
-  app.ports.signUp.subscribe(function(credentials) {
+  app.ports.signUp.subscribe(credentials => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(credentials.email, credentials.password)
-      .then(function(user) {
+      .then(user => {
         app.ports.signUpResponse.send(success(true));
       })
-      .catch(function(err) {
+      .catch(err => {
         app.ports.signUpResponse.send(error(err.message));
       });
   });

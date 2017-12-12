@@ -1,10 +1,10 @@
-var success = require("./helpers").success;
-var error = require("./helpers").error;
+const success = require("./helpers").success;
+const error = require("./helpers").error;
 
-module.exports = function(firebase, app) {
-  var getProfile = require("./profile").getProfile(firebase, app);
+module.exports = (firebase, app) => {
+  const getProfile = require("./profile").getProfile(firebase, app);
 
-  app.ports.fetchRideRequest.subscribe(function(ids) {
+  app.ports.fetchRideRequest.subscribe(ids => {
     firebase
       .database()
       .ref(
@@ -20,9 +20,9 @@ module.exports = function(firebase, app) {
           ids.id
       )
       .once("value")
-      .then(function(data) {
+      .then(data => {
         if (data.val()) {
-          var rideRequest = Object.assign({}, data.val(), {
+          const rideRequest = Object.assign({}, data.val(), {
             groupId: ids.groupId,
             rideId: ids.rideId,
             toUserId: firebase.auth().currentUser.uid,
@@ -36,14 +36,14 @@ module.exports = function(firebase, app) {
           );
         }
       })
-      .catch(function(err) {
+      .catch(err => {
         app.ports.fetchRideRequestResponse.send(error(err.message));
       });
   });
 
-  app.ports.createRideRequest.subscribe(function(rideRequest) {
+  app.ports.createRideRequest.subscribe(rideRequest => {
     getProfile()
-      .then(function(profile) {
+      .then(profile => {
         return firebase
           .database()
           .ref(
@@ -58,13 +58,13 @@ module.exports = function(firebase, app) {
           )
           .push({ profile: profile.val() });
       })
-      .then(function() {
+      .then(() => {
         app.ports.createRideRequestResponse.send({
           rideId: rideRequest.rideId,
           response: success(true)
         });
       })
-      .catch(function(err) {
+      .catch(err => {
         app.ports.createRideRequestResponse.send({
           rideId: rideRequest.rideId,
           response: error(err.message)
