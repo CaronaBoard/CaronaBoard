@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run generate-html && DEBUG=true webpack-dev-server --hot",
     "start:dist": "http-server build",
-    "build": "rm -r ./build; npm run generate-html && webpack -p --progress && sw-precache --config=sw-precache-config.js",
+    "build": "rm -r ./build; npm run generate-html && webpack --progress && sw-precache --config=sw-precache-config.js",
     "build:analyze": "npm run build && open build/stats.html",
     "generate-html": "mkdir -p build && elm-static-html -c elm-static-html.json",
     "test": "elm-test tests/Tests.elm",

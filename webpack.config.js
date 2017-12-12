@@ -35,7 +35,7 @@ const config = {
   },
   plugins: [
     new webpack.EnvironmentPlugin({
-      DEBUG: process.env.DEBUG,
+      DEBUG: !!process.env.DEBUG,
       FIREBASE_API_KEY: "AIzaSyDfwHLwWKTqduazsf4kjbstJEA2E1sCeoI",
       FIREBASE_AUTH_DOMAIN: "caronaboard-61f75.firebaseapp.com",
       FIREBASE_DATABASE_URL: "https://caronaboard-61f75.firebaseio.com",
@@ -65,7 +65,16 @@ const config = {
       }
     ])
   ].concat(
-    process.env.DEBUG ? [] : [new UglifyJsPlugin(), new StatsVisualizerPlugin()]
+    process.env.DEBUG
+      ? []
+      : [
+          new UglifyJsPlugin({
+            uglifyOptions: {
+              ecma: 6
+            }
+          }),
+          new StatsVisualizerPlugin()
+        ]
   )
 };
 
