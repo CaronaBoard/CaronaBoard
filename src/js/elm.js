@@ -1,20 +1,6 @@
-var app;
-var connectFirebase;
-
-require(["../app/Stylesheets.elm"], function(Stylesheet) {});
-
-require(["../app/Main.elm"], function(Elm) {
-  var rootNode = document.getElementById("app");
-  rootNode.innerHTML = "";
-  app = Elm.Main.embed(rootNode, getFlags());
-
-  if (connectFirebase) connectFirebase(app);
-});
-
-require(["./firebase"], function(connect) {
-  connectFirebase = connect;
-  if (app) connectFirebase(app);
-});
+var Stylesheet = require("../app/Stylesheets.elm");
+var Elm = require("../app/Main.elm");
+var connectFirebase = require("./firebase");
 
 var getFlags = function() {
   var currentUser =
@@ -37,3 +23,9 @@ var getFlags = function() {
     profile: profile
   };
 };
+
+var rootNode = document.getElementById("app");
+rootNode.innerHTML = "";
+var app = Elm.Main.embed(rootNode, getFlags());
+
+connectFirebase(app);
