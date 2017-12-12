@@ -1,14 +1,8 @@
-const tuple = (a, b) => {
-  return [a, b];
-};
+const tuple = (a, b) => [a, b];
 
-const error = a => {
-  return tuple(a, null);
-};
+const error = a => tuple(a, null);
 
-const success = b => {
-  return tuple(null, b);
-};
+const success = b => tuple(null, b);
 
 module.exports = {
   tuple: tuple,

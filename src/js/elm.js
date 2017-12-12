@@ -22,4 +22,4 @@ rootNode.innerHTML = "";
 
 const app = Elm.Main.embed(rootNode, getFlags());
 
-connectFirebase(app);
+connectFirebase(app.ports);

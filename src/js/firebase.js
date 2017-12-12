@@ -12,11 +12,11 @@ firebase.initializeApp(config);
 
 const database = firebase.database();
 
-module.exports = app => {
-  require("./firebase/login")(firebase, app);
-  require("./firebase/rides")(firebase, app);
-  require("./firebase/notifications")(firebase, app);
-  require("./firebase/profile")(firebase, app);
-  require("./firebase/groups")(firebase, app);
-  require("./firebase/ridesRequests")(firebase, app);
+module.exports = ports => {
+  require("./firebase/login")(firebase, ports);
+  require("./firebase/rides")(firebase, ports);
+  require("./firebase/notifications")(firebase, ports);
+  require("./firebase/profile")(firebase, ports);
+  require("./firebase/groups")(firebase, ports);
+  require("./firebase/ridesRequests")(firebase, ports);
 };

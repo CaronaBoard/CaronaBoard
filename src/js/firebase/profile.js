@@ -4,41 +4,38 @@ const checkNotificationToken = require("./notifications")
 const success = require("./helpers").success;
 const error = require("./helpers").error;
 
-const getProfile = (firebase, app) => {
-  return () => {
-    return firebase
-      .database()
-      .ref("profiles/" + firebase.auth().currentUser.uid)
-      .once("value");
-  };
+const getProfile = ({ database, auth }, ports) => () =>
+  database()
+    .ref("profiles/" + auth().currentUser.uid)
+    .once("value");
+
+const saveProfileLocally = (firebase, ports) => user => {
+  getProfile(firebase, ports)().then(profile => {
+    localStorage.setItem("profile", JSON.stringify(profile.val()));
+
+    ports.signInResponse.send(
+      success({
+        user: { id: user.uid },
+        profile: profile.val()
+      })
+    );
+  });
+
+  checkNotificationToken(firebase, ports);
 };
 
-const saveProfileLocally = (firebase, app) => {
-  return user => {
-    getProfile(firebase, app)().then(profile => {
-      localStorage.setItem("profile", JSON.stringify(profile.val()));
-      app.ports.signInResponse.send(
-        success({
-          user: { id: user.uid },
-          profile: profile.val()
-        })
-      );
-    });
-    checkNotificationToken(firebase, app);
-  };
-};
+module.exports = (firebase, ports) => {
+  const { auth, database } = firebase;
 
-module.exports = (firebase, app) => {
-  app.ports.saveProfile.subscribe(profile => {
-    const currentUser = firebase.auth().currentUser;
+  ports.saveProfile.subscribe(profile => {
+    const currentUser = auth().currentUser;
 
     const pathsToUpdate = {};
     pathsToUpdate["profiles/" + currentUser.uid] = profile;
 
     profile.uid = currentUser.uid;
 
-    firebase
-      .database()
+    database()
       .ref("rides/" + currentUser.uid)
       .once("value", rides => {
         Object.keys(rides.val() || {}).forEach(key => {
@@ -47,19 +44,17 @@ module.exports = (firebase, app) => {
           ] = profile;
         });
 
-        firebase
-          .database()
+        database()
           .ref()
           .update(pathsToUpdate)
           .then(profileRef => {
-            app.ports.profileResponse.send(success(profile));
-            saveProfileLocally(firebase, app)(currentUser);
+            ports.profileResponse.send(success(profile));
+            saveProfileLocally(firebase, ports)(currentUser);
           })
-          .catch(err => {
-            app.ports.profileResponse.send(error(err.message));
-          });
+          .catch(err => ports.profileResponse.send(error(err.message)));
       });
   });
 };
+
 module.exports.getProfile = getProfile;
 module.exports.saveProfileLocally = saveProfileLocally;

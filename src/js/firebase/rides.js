@@ -1,17 +1,15 @@
 const success = require("./helpers").success;
 const error = require("./helpers").error;
 
-module.exports = (firebase, app) => {
-  const getProfile = require("./profile").getProfile(firebase, app);
+module.exports = (firebase, ports) => {
+  const { auth, database } = firebase;
+  const getProfile = require("./profile").getProfile(firebase, ports);
 
-  app.ports.createRide.subscribe(newRide => {
+  ports.createRide.subscribe(newRide =>
     getProfile()
-      .then(profile => {
-        return firebase
-          .database()
-          .ref(
-            "rides/" + newRide.groupId + "/" + firebase.auth().currentUser.uid
-          )
+      .then(profile =>
+        database()
+          .ref("rides/" + newRide.groupId + "/" + auth().currentUser.uid)
           .push(
             Object.assign(
               { profile: profile.val() },
@@ -22,22 +20,17 @@ module.exports = (firebase, app) => {
                 hours: newRide.hours
               }
             )
-          );
-      })
-      .then(() => {
-        app.ports.createRideResponse.send(success(true));
-      })
-      .catch(err => {
-        app.ports.createRideResponse.send(error(err.message));
-      });
-  });
+          )
+      )
+      .then(() => ports.createRideResponse.send(success(true)))
+      .catch(err => ports.createRideResponse.send(error(err.message)))
+  );
 
-  app.ports.ridesList.subscribe(() => {
-    firebase
-      .database()
+  ports.ridesList.subscribe(() =>
+    database()
       .ref("rides")
-      .on("value", rides => {
-        app.ports.ridesListResponse.send(success(rides.val() || {}));
-      });
-  });
+      .on("value", rides =>
+        ports.ridesListResponse.send(success(rides.val() || {}))
+      )
+  );
 };
