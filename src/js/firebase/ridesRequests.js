@@ -1,51 +1,48 @@
-var success = require("./helpers").success;
-var error = require("./helpers").error;
+const success = require("./helpers").success;
+const error = require("./helpers").error;
 
-module.exports = function(firebase, app) {
-  var getProfile = require("./profile").getProfile(firebase, app);
+module.exports = (firebase, ports) => {
+  const { auth, database } = firebase;
+  const getProfile = require("./profile").getProfile(firebase, ports);
 
-  app.ports.fetchRideRequest.subscribe(function(ids) {
-    firebase
-      .database()
+  ports.fetchRideRequest.subscribe(ids =>
+    database()
       .ref(
         "ridesRequests/" +
           ids.groupId +
           "/" +
           ids.rideId +
           "/" +
-          firebase.auth().currentUser.uid +
+          auth().currentUser.uid +
           "/" +
           ids.fromUserId +
           "/" +
           ids.id
       )
       .once("value")
-      .then(function(data) {
+      .then(data => {
         if (data.val()) {
-          var rideRequest = Object.assign({}, data.val(), {
+          const rideRequest = Object.assign({}, data.val(), {
             groupId: ids.groupId,
             rideId: ids.rideId,
-            toUserId: firebase.auth().currentUser.uid,
+            toUserId: auth().currentUser.uid,
             fromUserId: ids.fromUserId,
             id: ids.id
           });
-          app.ports.fetchRideRequestResponse.send(success(rideRequest));
+          ports.fetchRideRequestResponse.send(success(rideRequest));
         } else {
-          app.ports.fetchRideRequestResponse.send(
+          ports.fetchRideRequestResponse.send(
             error("Pedido de carona não encontrado")
           );
         }
       })
-      .catch(function(err) {
-        app.ports.fetchRideRequestResponse.send(error(err.message));
-      });
-  });
+      .catch(err => ports.fetchRideRequestResponse.send(error(err.message)))
+  );
 
-  app.ports.createRideRequest.subscribe(function(rideRequest) {
+  ports.createRideRequest.subscribe(rideRequest =>
     getProfile()
-      .then(function(profile) {
-        return firebase
-          .database()
+      .then(profile =>
+        database()
           .ref(
             "ridesRequests/" +
               rideRequest.groupId +
@@ -54,21 +51,21 @@ module.exports = function(firebase, app) {
               "/" +
               rideRequest.toUserId +
               "/" +
-              firebase.auth().currentUser.uid
+              auth().currentUser.uid
           )
-          .push({ profile: profile.val() });
-      })
-      .then(function() {
-        app.ports.createRideRequestResponse.send({
+          .push({ profile: profile.val() })
+      )
+      .then(() =>
+        ports.createRideRequestResponse.send({
           rideId: rideRequest.rideId,
           response: success(true)
-        });
-      })
-      .catch(function(err) {
-        app.ports.createRideRequestResponse.send({
+        })
+      )
+      .catch(err =>
+        ports.createRideRequestResponse.send({
           rideId: rideRequest.rideId,
           response: error(err.message)
-        });
-      });
-  });
+        })
+      )
+  );
 };

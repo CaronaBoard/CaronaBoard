@@ -1,22 +1,15 @@
-var Stylesheet = require("../app/Stylesheets.elm");
-var Elm = require("../app/Main.elm");
-var connectFirebase = require("./firebase");
+const Stylesheet = require("../app/Stylesheets.elm");
+const Elm = require("../app/Main.elm");
+const connectFirebase = require("./firebase");
 
-var getFlags = function() {
-  var currentUser =
+const getFlags = () => {
+  const currentUser =
     Object.keys(localStorage)
-      .filter(function(key) {
-        return key.match(/firebase:authUser/);
-      })
-      .map(function(key) {
-        return JSON.parse(localStorage.getItem(key));
-      })
-      .map(function(user) {
-        return { id: user.uid };
-      })[0] || null;
+      .filter(key => key.match(/firebase:authUser/))
+      .map(key => JSON.parse(localStorage.getItem(key)))
+      .map(user => ({ id: user.uid }))[0] || null;
 
-  var profile = null;
-  profile = JSON.parse(localStorage.getItem("profile"));
+  const profile = JSON.parse(localStorage.getItem("profile"));
 
   return {
     currentUser: currentUser,
@@ -24,8 +17,9 @@ var getFlags = function() {
   };
 };
 
-var rootNode = document.getElementById("app");
+const rootNode = document.getElementById("app");
 rootNode.innerHTML = "";
-var app = Elm.Main.embed(rootNode, getFlags());
 
-connectFirebase(app);
+const app = Elm.Main.embed(rootNode, getFlags());
+
+connectFirebase(app.ports);

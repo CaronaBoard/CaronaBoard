@@ -1,68 +1,64 @@
-var success = require("./helpers").success;
-var error = require("./helpers").error;
+const success = require("./helpers").success;
+const error = require("./helpers").error;
 
-module.exports = function(firebase, app) {
-  var getProfile = require("./profile").getProfile(firebase, app);
+module.exports = (firebase, ports) => {
+  const { database, auth } = firebase;
+  const getProfile = require("./profile").getProfile(firebase, ports);
 
-  app.ports.groupsList.subscribe(function() {
-    firebase
-      .database()
+  ports.groupsList.subscribe(() =>
+    database()
       .ref("groups")
       .once("value")
-      .then(function(groups) {
-        app.ports.groupsListResponse.send(success(groups.val()));
-      })
-      .catch(function(err) {
-        app.ports.groupsListResponse.send(error(err.message));
-      });
-  });
+      .then(groups => ports.groupsListResponse.send(success(groups.val())))
+      .catch(err => ports.groupsListResponse.send(error(err.message)))
+  );
 
-  app.ports.joinRequestsList.subscribe(function(request) {
-    firebase
-      .database()
+  ports.joinRequestsList.subscribe(request =>
+    database()
       .ref("joinGroupRequests/" + request.groupId)
       .once("value")
-      .then(function(joinGroupRequests) {
-        app.ports.joinRequestsListResponse.send({
+      .then(joinGroupRequests =>
+        ports.joinRequestsListResponse.send({
           groupId: request.groupId,
           response: success(joinGroupRequests.val())
-        });
-      })
-      .catch(function(err) {
-        app.ports.joinRequestsListResponse.send(error(err.message));
-      });
-  });
+        })
+      )
+      .catch(err =>
+        ports.joinRequestsListResponse.send({
+          groupId: request.groupId,
+          response: error(err.message)
+        })
+      )
+  );
 
-  app.ports.createJoinGroupRequest.subscribe(function(joinGroupRequest) {
+  ports.createJoinGroupRequest.subscribe(joinGroupRequest =>
     getProfile()
-      .then(function(profile) {
-        return firebase
-          .database()
+      .then(profile =>
+        database()
           .ref(
             "joinGroupRequests/" +
               joinGroupRequest.groupId +
               "/" +
-              firebase.auth().currentUser.uid
+              auth().currentUser.uid
           )
-          .set({ profile: profile.val() });
-      })
-      .then(function() {
-        app.ports.createJoinGroupRequestResponse.send({
+          .set({ profile: profile.val() })
+      )
+      .then(() =>
+        ports.createJoinGroupRequestResponse.send({
           groupId: joinGroupRequest.groupId,
           response: success(true)
-        });
-      })
-      .catch(function(err) {
-        app.ports.createJoinGroupRequestResponse.send({
+        })
+      )
+      .catch(err =>
+        ports.createJoinGroupRequestResponse.send({
           groupId: joinGroupRequest.groupId,
           response: error(err.message)
-        });
-      });
-  });
+        })
+      )
+  );
 
-  var removeJoinRequest = function(joinRequestResponse) {
-    firebase
-      .database()
+  const removeJoinRequest = joinRequestResponse =>
+    database()
       .ref(
         "joinGroupRequests/" +
           joinRequestResponse.groupId +
@@ -70,28 +66,26 @@ module.exports = function(firebase, app) {
           joinRequestResponse.userId
       )
       .remove()
-      .then(function() {
-        app.ports.respondJoinRequestResponse.send({
+      .then(() =>
+        ports.respondJoinRequestResponse.send({
           groupId: joinRequestResponse.groupId,
           userId: joinRequestResponse.userId,
 
           response: success(true)
-        });
-      })
-      .catch(function(err) {
-        app.ports.respondJoinRequestResponse.send({
+        })
+      )
+      .catch(err =>
+        ports.respondJoinRequestResponse.send({
           groupId: joinRequestResponse.groupId,
           userId: joinRequestResponse.userId,
 
           response: error(err.message)
-        });
-      });
-  };
+        })
+      );
 
-  app.ports.respondJoinRequest.subscribe(function(joinRequestResponse) {
+  ports.respondJoinRequest.subscribe(joinRequestResponse => {
     if (joinRequestResponse.accepted) {
-      firebase
-        .database()
+      database()
         .ref(
           "groups/" +
             joinRequestResponse.groupId +
@@ -99,16 +93,14 @@ module.exports = function(firebase, app) {
             joinRequestResponse.userId
         )
         .set({ admin: false })
-        .then(function() {
-          removeJoinRequest(joinRequestResponse);
-        })
-        .catch(function(err) {
-          app.ports.respondJoinRequestResponse.send({
+        .then(() => removeJoinRequest(joinRequestResponse))
+        .catch(err =>
+          ports.respondJoinRequestResponse.send({
             groupId: joinRequestResponse.groupId,
             userId: joinRequestResponse.userId,
             response: error(err.message)
-          });
-        });
+          })
+        );
     } else {
       removeJoinRequest(joinRequestResponse);
     }

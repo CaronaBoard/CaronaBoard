@@ -1,14 +1,8 @@
-var tuple = function(a, b) {
-  return [a, b];
-};
+const tuple = (a, b) => [a, b];
 
-var error = function(a) {
-  return tuple(a, null);
-};
+const error = a => tuple(a, null);
 
-var success = function(b) {
-  return tuple(null, b);
-};
+const success = b => tuple(null, b);
 
 module.exports = {
   tuple: tuple,

@@ -2,6 +2,7 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const StatsVisualizerPlugin = require("webpack-visualizer-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 const config = {
   entry: "./src/index.js",
@@ -34,7 +35,7 @@ const config = {
   },
   plugins: [
     new webpack.EnvironmentPlugin({
-      DEBUG: false,
+      DEBUG: !!process.env.DEBUG,
       FIREBASE_API_KEY: "AIzaSyDfwHLwWKTqduazsf4kjbstJEA2E1sCeoI",
       FIREBASE_AUTH_DOMAIN: "caronaboard-61f75.firebaseapp.com",
       FIREBASE_DATABASE_URL: "https://caronaboard-61f75.firebaseio.com",
@@ -62,9 +63,19 @@ const config = {
               `"${process.env.FIREBASE_MESSAGING_SENDER_ID}"`
             )
       }
-    ]),
-    new StatsVisualizerPlugin()
-  ]
+    ])
+  ].concat(
+    process.env.DEBUG
+      ? []
+      : [
+          new UglifyJsPlugin({
+            uglifyOptions: {
+              ecma: 6
+            }
+          }),
+          new StatsVisualizerPlugin()
+        ]
+  )
 };
 
 module.exports = config;
