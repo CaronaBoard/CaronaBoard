@@ -30,7 +30,7 @@ init { currentUser, profile } location =
             , ridesRequests = RidesRequests.init
             }
     in
-    initialRouting location initialModel
+    update (MsgForUrlRouter <| UrlRouter.Model.UrlChange location) initialModel
 
 
 update : Msg -> Model -> Return Msg Model
@@ -44,10 +44,3 @@ update msg model =
         <*> mapCmd MsgForProfile (Profile.update msg model.profile)
         <*> mapCmd MsgForGroups (Groups.update msg model.groups)
         <*> mapCmd MsgForRidesRequests (RidesRequests.update msg model.ridesRequests)
-
-
-initialRouting : Location -> Model -> Return Msg Model
-initialRouting location model =
-    UrlRouter.update (MsgForUrlRouter <| UrlRouter.Model.UrlChange location) model
-        |> Return.map (\urlRouter -> { model | urlRouter = urlRouter })
-        |> mapCmd MsgForUrlRouter
