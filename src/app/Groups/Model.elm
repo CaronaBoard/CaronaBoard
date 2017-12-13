@@ -9,6 +9,7 @@ type alias Model =
     { groups : Response (List Group)
     , new :
         { fields : NewGroup
+        , response : Response Bool
         }
     }
 
@@ -51,6 +52,7 @@ type Msg
     | RespondJoinRequest GroupId UserId Bool
     | RespondJoinRequestResponse GroupId UserId (Response Bool)
     | UpdateName String
+    | CreateGroup
 
 
 isMemberOfGroup : Login.Model.Model -> Group -> Bool

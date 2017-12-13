@@ -17,6 +17,7 @@ init =
         { fields =
             { name = ""
             }
+        , response = Empty
         }
     }
 
@@ -48,6 +49,16 @@ update msg model =
 
 updateGroups : Groups.Msg -> Model -> Return Groups.Msg Model
 updateGroups msg model =
+    let
+        new =
+            model.new
+
+        fields =
+            model.new.fields
+
+        updateFields fields =
+            { model | new = { new | fields = fields } }
+    in
     case msg of
         UpdateGroups response ->
             return { model | groups = response } Cmd.none
@@ -88,17 +99,10 @@ updateGroups msg model =
                 Cmd.none
 
         UpdateName name ->
-            let
-                new =
-                    model.new
-
-                fields =
-                    model.new.fields
-
-                updateFields fields =
-                    { model | new = { new | fields = fields } }
-            in
             return (updateFields { fields | name = name }) Cmd.none
+
+        CreateGroup ->
+            return { model | new = { new | response = Loading } } Cmd.none
 
 
 fetchGroups : Model -> Return Groups.Msg Model

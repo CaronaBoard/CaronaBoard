@@ -135,6 +135,11 @@ tests =
                     >> expectView
                     >> find [ id "name" ]
                     >> has [ attribute "value" "the uber killars" ]
+            , test "shows loading on submit" <|
+                submitNewGroup
+                    >> expectView
+                    >> find [ id "submitNewGroup" ]
+                    >> has [ text "Carregando..." ]
             ]
         ]
 
@@ -173,6 +178,12 @@ fillNewGroup : a -> TestContext Model Root.Msg
 fillNewGroup =
     signedInContext GroupsCreatePage
         >> simulate (find [ id "name" ]) (input fixtures.group2.name)
+
+
+submitNewGroup : a -> TestContext Model Root.Msg
+submitNewGroup =
+    fillNewGroup
+        >> simulate (find [ tag "form" ]) submit
 
 
 joinRequestsContext : a -> TestContext Model Root.Msg
