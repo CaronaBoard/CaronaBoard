@@ -37,6 +37,15 @@ header model =
                                         ]
                                     ]
 
+                            GroupsListPage ->
+                                li []
+                                    [ linkTo GroupsCreatePage
+                                        [ layoutClass AddRideLink, id "createGroup" ]
+                                        [ icon "group"
+                                        , text "+"
+                                        ]
+                                    ]
+
                             _ ->
                                 div [] []
                         , li []
