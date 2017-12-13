@@ -80,7 +80,7 @@ expectCurrentPage page =
         )
 
 
-fixtures : { rides : List Rides.Model, ride1 : Rides.Model, ride2 : Rides.Model, user : User, profile : Profile, newRide : NewRide, group1 : Groups.Group, group2 : Groups.Group, groups : List Groups.Group }
+fixtures : { rides : List Rides.Model, ride1 : Rides.Model, ride2 : Rides.Model, user : User, profile : Profile, newRide : NewRide, group1 : Groups.Group, group2 : Groups.Group, groups : List Groups.Group, newGroup : Groups.NewGroup }
 fixtures =
     let
         user =
@@ -104,6 +104,9 @@ fixtures =
         group2 =
             { id = "idGroup2", name = "the uber killars", members = [], joinRequest = Empty, joinRequests = Empty }
 
+        newGroup =
+            { name = "my cool group" }
+
         groups =
             [ group1, group2 ]
     in
@@ -116,4 +119,5 @@ fixtures =
     , group1 = group1
     , group2 = group2
     , groups = groups
+    , newGroup = newGroup
     }

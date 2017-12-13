@@ -1,10 +1,11 @@
 module UrlRouter.Update exposing (changePageTo, init, update, urlRouterUpdate)
 
 import Common.Response exposing (Response(..))
+import Groups.Model exposing (Msg(..))
 import Login.Model as Login exposing (Msg(..))
 import Model as Root exposing (Msg(..))
 import Navigation exposing (Location)
-import Notifications.Model as Notifications exposing (isEnabled, Msg(..))
+import Notifications.Model as Notifications exposing (Msg(..), isEnabled)
 import Profile.Model as Profile exposing (Msg(..))
 import Return exposing (Return, return)
 import Rides.Model exposing (Msg(..))
@@ -55,6 +56,9 @@ update msg { notifications, profile, login, urlRouter } =
             urlRouterUpdate profile login (Go GroupsListPage) urlRouter
 
         MsgForNotifications (NotificationsResponse (Success _)) ->
+            urlRouterUpdate profile login (Go GroupsListPage) urlRouter
+
+        MsgForGroups (CreateGroupResponse (Success _)) ->
             urlRouterUpdate profile login (Go GroupsListPage) urlRouter
 
         _ ->

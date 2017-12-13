@@ -12,7 +12,14 @@ import UrlRouter.Routes exposing (Page(..), pathParser)
 
 init : Model
 init =
-    { groups = Empty }
+    { groups = Empty
+    , new =
+        { fields =
+            { name = ""
+            }
+        , response = Empty
+        }
+    }
 
 
 update : Root.Msg -> Model -> Return Groups.Msg Model
@@ -42,6 +49,16 @@ update msg model =
 
 updateGroups : Groups.Msg -> Model -> Return Groups.Msg Model
 updateGroups msg model =
+    let
+        new =
+            model.new
+
+        fields =
+            model.new.fields
+
+        updateFields fields =
+            { model | new = { new | fields = fields } }
+    in
     case msg of
         UpdateGroups response ->
             return { model | groups = response } Cmd.none
@@ -80,6 +97,20 @@ updateGroups msg model =
                     model
                 )
                 Cmd.none
+
+        UpdateName name ->
+            return (updateFields { fields | name = name }) Cmd.none
+
+        CreateGroup ->
+            return { model | new = { new | response = Loading } } (createGroup fields)
+
+        CreateGroupResponse response ->
+            case response of
+                Success _ ->
+                    return init Cmd.none
+
+                _ ->
+                    return { model | new = { new | response = response } } Cmd.none
 
 
 fetchGroups : Model -> Return Groups.Msg Model
