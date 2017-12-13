@@ -102,7 +102,7 @@ updateGroups msg model =
             return (updateFields { fields | name = name }) Cmd.none
 
         CreateGroup ->
-            return { model | new = { new | response = Loading } } Cmd.none
+            return { model | new = { new | response = Loading } } (createGroup fields)
 
 
 fetchGroups : Model -> Return Groups.Msg Model

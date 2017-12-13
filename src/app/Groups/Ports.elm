@@ -1,6 +1,7 @@
 port module Groups.Ports
     exposing
-        ( createJoinGroupRequest
+        ( createGroup
+        , createJoinGroupRequest
         , createJoinGroupRequestResponse
         , groupsList
         , groupsListResponse
@@ -13,7 +14,7 @@ port module Groups.Ports
 
 import Common.Decoder exposing (normalizeId, normalizeId2)
 import Common.Response exposing (FirebaseResponse, Response(..), decodeFromFirebase)
-import Groups.Model exposing (Group, JoinRequest, Member, Model, Msg(..))
+import Groups.Model exposing (..)
 import Json.Decode as Json exposing (..)
 import Json.Decode.Pipeline exposing (..)
 import Profile.Ports exposing (decodeProfile)
@@ -96,3 +97,6 @@ port joinRequestsList : { groupId : String } -> Cmd msg
 
 
 port joinRequestsListResponse : ({ groupId : String, response : FirebaseResponse Json.Value } -> msg) -> Sub msg
+
+
+port createGroup : NewGroup -> Cmd msg

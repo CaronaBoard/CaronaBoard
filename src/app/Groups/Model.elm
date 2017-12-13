@@ -1,4 +1,4 @@
-module Groups.Model exposing (Group, JoinRequest, Member, Model, Msg(..), isMemberOfGroup, pendingJoinRequests)
+module Groups.Model exposing (Group, JoinRequest, Member, Model, Msg(..), NewGroup, isMemberOfGroup, pendingJoinRequests)
 
 import Common.Response exposing (Response(..))
 import Login.Model exposing (signedInUser)

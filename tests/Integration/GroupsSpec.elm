@@ -134,12 +134,15 @@ tests =
                 fillNewGroup
                     >> expectView
                     >> find [ id "name" ]
-                    >> has [ attribute "value" "the uber killars" ]
+                    >> has [ attribute "value" fixtures.newGroup.name ]
             , test "shows loading on submit" <|
                 submitNewGroup
                     >> expectView
                     >> find [ id "submitNewGroup" ]
                     >> has [ text "Carregando..." ]
+            , test "sends request via createRide port" <|
+                submitNewGroup
+                    >> expectCmd (Cmd.map MsgForGroups <| Groups.Ports.createGroup fixtures.newGroup)
             ]
         ]
 
@@ -177,7 +180,7 @@ groupsContext =
 fillNewGroup : a -> TestContext Model Root.Msg
 fillNewGroup =
     signedInContext GroupsCreatePage
-        >> simulate (find [ id "name" ]) (input fixtures.group2.name)
+        >> simulate (find [ id "name" ]) (input fixtures.newGroup.name)
 
 
 submitNewGroup : a -> TestContext Model Root.Msg
