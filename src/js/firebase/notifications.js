@@ -1,5 +1,4 @@
-const success = require("./helpers").success;
-const error = require("./helpers").error;
+import { error, success } from "./helpers";
 
 const successEnabledNotifications = ({ auth, database }, ports) => token => {
   const currentUser = auth().currentUser;
@@ -16,7 +15,7 @@ const successEnabledNotifications = ({ auth, database }, ports) => token => {
   }
 };
 
-const checkNotificationToken = (firebase, ports) =>
+export const checkNotificationToken = (firebase, ports) =>
   firebase
     .messaging()
     .getToken()
@@ -25,7 +24,7 @@ const checkNotificationToken = (firebase, ports) =>
       // ignore
     });
 
-module.exports = (firebase, ports) => {
+export default (firebase, ports) => {
   const messaging = firebase.messaging();
 
   ports.enableNotifications.subscribe(() =>
@@ -41,5 +40,3 @@ module.exports = (firebase, ports) => {
     window.location = payload.notification.click_action;
   });
 };
-
-module.exports.checkNotificationToken = checkNotificationToken;

@@ -1,9 +1,8 @@
-const success = require("./helpers").success;
-const error = require("./helpers").error;
+import { error, success } from "./helpers";
+import { getProfile } from "./profile";
 
-module.exports = (firebase, ports) => {
+export default (firebase, ports) => {
   const { auth, database } = firebase;
-  const getProfile = require("./profile").getProfile(firebase, ports);
 
   ports.fetchRideRequest.subscribe(ids =>
     database()
@@ -40,7 +39,7 @@ module.exports = (firebase, ports) => {
   );
 
   ports.createRideRequest.subscribe(rideRequest =>
-    getProfile()
+    getProfile(firebase, ports)
       .then(profile =>
         database()
           .ref(

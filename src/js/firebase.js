@@ -1,4 +1,10 @@
-const firebase = require("firebase");
+import firebase from "firebase";
+import login from "./firebase/login";
+import rides from "./firebase/rides";
+import notifications from "./firebase/notifications";
+import profile from "./firebase/profile";
+import groups from "./firebase/groups";
+import ridesRequests from "./firebase/ridesRequests";
 
 const config = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -10,13 +16,11 @@ const config = {
 
 firebase.initializeApp(config);
 
-const database = firebase.database();
-
-module.exports = ports => {
-  require("./firebase/login")(firebase, ports);
-  require("./firebase/rides")(firebase, ports);
-  require("./firebase/notifications")(firebase, ports);
-  require("./firebase/profile")(firebase, ports);
-  require("./firebase/groups")(firebase, ports);
-  require("./firebase/ridesRequests")(firebase, ports);
+export default ports => {
+  login(firebase, ports);
+  rides(firebase, ports);
+  notifications(firebase, ports);
+  profile(firebase, ports);
+  groups(firebase, ports);
+  ridesRequests(firebase, ports);
 };

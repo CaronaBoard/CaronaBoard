@@ -1,9 +1,7 @@
-const firebase = require("firebase");
-const success = require("./helpers").success;
-const error = require("./helpers").error;
-const saveProfileLocally = require("./profile").saveProfileLocally;
+import { error, success } from "./helpers";
+import { saveProfileLocally } from "./profile";
 
-module.exports = (firebase, ports) => {
+export default (firebase, ports) => {
   const { auth } = firebase;
 
   ports.checkRegistration.subscribe(email =>

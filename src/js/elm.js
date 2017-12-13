@@ -1,6 +1,6 @@
-const Stylesheet = require("../app/Stylesheets.elm");
-const Elm = require("../app/Main.elm");
-const connectFirebase = require("./firebase");
+import Stylesheet from "../app/Stylesheets.elm";
+import Elm from "../app/Main.elm";
+import connectFirebase from "./firebase";
 
 const getFlags = () => {
   const currentUser =

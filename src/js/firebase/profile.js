@@ -1,16 +1,13 @@
-const firebase = require("firebase");
-const checkNotificationToken = require("./notifications")
-  .checkNotificationToken;
-const success = require("./helpers").success;
-const error = require("./helpers").error;
+import { checkNotificationToken } from "./notifications";
+import { error, success } from "./helpers";
 
-const getProfile = ({ database, auth }, ports) => () =>
+export const getProfile = ({ database, auth }, ports) =>
   database()
     .ref("profiles/" + auth().currentUser.uid)
     .once("value");
 
-const saveProfileLocally = (firebase, ports) => user => {
-  getProfile(firebase, ports)().then(profile => {
+export const saveProfileLocally = (firebase, ports) => user => {
+  getProfile(firebase, ports).then(profile => {
     localStorage.setItem("profile", JSON.stringify(profile.val()));
 
     ports.signInResponse.send(
@@ -24,7 +21,7 @@ const saveProfileLocally = (firebase, ports) => user => {
   checkNotificationToken(firebase, ports);
 };
 
-module.exports = (firebase, ports) => {
+export default (firebase, ports) => {
   const { auth, database } = firebase;
 
   ports.saveProfile.subscribe(profile => {
@@ -55,6 +52,3 @@ module.exports = (firebase, ports) => {
       });
   });
 };
-
-module.exports.getProfile = getProfile;
-module.exports.saveProfileLocally = saveProfileLocally;

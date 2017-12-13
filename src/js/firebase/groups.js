@@ -1,9 +1,8 @@
-const success = require("./helpers").success;
-const error = require("./helpers").error;
+import { error, success } from "./helpers";
+import { getProfile } from "./profile";
 
-module.exports = (firebase, ports) => {
+export default (firebase, ports) => {
   const { database, auth } = firebase;
-  const getProfile = require("./profile").getProfile(firebase, ports);
 
   ports.groupsList.subscribe(() =>
     database()
@@ -32,7 +31,7 @@ module.exports = (firebase, ports) => {
   );
 
   ports.createJoinGroupRequest.subscribe(joinGroupRequest =>
-    getProfile()
+    getProfile(firebase, ports)
       .then(profile =>
         database()
           .ref(
