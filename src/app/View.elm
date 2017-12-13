@@ -59,6 +59,9 @@ view model =
         GroupsListPage ->
             layout model (Groups.View.List.list model.login model.groups)
 
+        GroupsCreatePage ->
+            layout model (div [] [])
+
         GroupDetailsPage groupId ->
             layout model (Groups.View.Details.details groupId model)
 

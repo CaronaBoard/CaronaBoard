@@ -1,5 +1,6 @@
 module Groups.View.List exposing (list)
 
+import Common.Link exposing (..)
 import Common.Response exposing (Response(..))
 import Groups.Model exposing (Group, Model, isMemberOfGroup)
 import Groups.Styles exposing (Classes(..), className)
@@ -15,25 +16,28 @@ import UrlRouter.Routes exposing (Page(..))
 
 list : Login.Model.Model -> Model -> Html Root.Msg
 list login model =
-    case model.groups of
-        Empty ->
-            text ""
+    div []
+        [ linkTo GroupsCreatePage [ id "createGroup" ] [ text "Novo grupo" ]
+        , case model.groups of
+            Empty ->
+                text ""
 
-        Loading ->
-            text "Carregando..."
+            Loading ->
+                text "Carregando..."
 
-        Success groups ->
-            div []
-                [ div [ layoutClass Container ]
-                    [ h1 [ layoutClass PageTitle ] [ text "Grupos de Carona" ]
+            Success groups ->
+                div []
+                    [ div [ layoutClass Container ]
+                        [ h1 [ layoutClass PageTitle ] [ text "Grupos de Carona" ]
+                        ]
+                    , div [ className ListContainer ]
+                        [ ul [ className List ] (List.map (groupItem login) groups)
+                        ]
                     ]
-                , div [ className ListContainer ]
-                    [ ul [ className List ] (List.map (groupItem login) groups)
-                    ]
-                ]
 
-        Error err ->
-            text err
+            Error err ->
+                text err
+        ]
 
 
 groupItem : Login.Model.Model -> Group -> Html Root.Msg

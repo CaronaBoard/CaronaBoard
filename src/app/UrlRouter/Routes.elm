@@ -16,6 +16,7 @@ type Page
     | ProfilePage
     | EnableNotificationsPage
     | GroupsListPage
+    | GroupsCreatePage
     | GroupDetailsPage String
     | RidesListPage String
     | RidesCreatePage String
@@ -34,6 +35,7 @@ pageParser =
         , map ProfilePage (static "profile")
         , map EnableNotificationsPage (static "enable-notifications")
         , map GroupsListPage (static "groups")
+        , map GroupsCreatePage (static "groups" </> static "new")
         , map GroupDetailsPage (static "groups" </> string)
         , map RidesListPage (static "groups" </> string </> static "rides")
         , map RidesCreatePage (static "groups" </> string </> static "rides" </> static "give")
@@ -71,6 +73,9 @@ toPath page =
 
         GroupsListPage ->
             "#/groups"
+
+        GroupsCreatePage ->
+            "#/groups/new"
 
         GroupDetailsPage groupId ->
             "#/groups/" ++ groupId
@@ -140,6 +145,9 @@ requiresAuthentication page =
             True
 
         GroupsListPage ->
+            True
+
+        GroupsCreatePage ->
             True
 
         GroupDetailsPage _ ->

@@ -2,7 +2,7 @@ module Integration.GroupsSpec exposing (loadGroups, tests)
 
 import Expect
 import Groups.Ports exposing (..)
-import Helpers exposing (expectToContainText, fixtures, initialContext, jsonQuotes, signedInContext, someUser, toLocation)
+import Helpers exposing (..)
 import JsonStringify exposing (simpleStringify)
 import Model as Root exposing (Model, Msg(..))
 import Test exposing (..)
@@ -16,41 +16,43 @@ import UrlRouter.Routes exposing (Page(..), toPath)
 tests : Test
 tests =
     describe "Groups"
-        [ test "fetch groups when going to the groups list page" <|
-            groupsContext
-                >> expectCmd (groupsList ())
-        , test "fetch groups when going to the groups detail page" <|
-            signedInContext (GroupDetailsPage "idGroup1")
-                >> expectCmd (groupsList ())
-        , test "fetch groups when going to the rides page" <|
-            signedInContext (RidesListPage "idGroup1")
-                >> expectCmd (groupsList ())
-        , test "shows loading when the groups are loading" <|
-            groupsContext
-                >> expectView
-                >> has [ text "Carregando..." ]
-        , test "renders groups when they load" <|
-            groupsContext
-                >> loadGroups
-                >> expectView
-                >> Expect.all
-                    [ has [ tag "li", text "winona riders" ]
-                    , has [ tag "li", text "the uber killars" ]
-                    ]
-        , test "goes the the group's rides when clicking on it" <|
-            groupsContext
-                >> loadGroups
-                >> simulate (find [ id "idGroup1" ]) click
-                >> expectModel
-                    (\model ->
-                        Expect.equal (RidesListPage "idGroup1") model.urlRouter.page
-                    )
-        , test "goes to a page requesting to join the group if the user is not a member" <|
-            groupsContext
-                >> loadGroups
-                >> simulate (find [ id "idGroup2" ]) click
-                >> expectView
-                >> has [ text "Participar do grupo" ]
+        [ describe "list"
+            [ test "fetch groups when going to the groups list page" <|
+                groupsContext
+                    >> expectCmd (groupsList ())
+            , test "fetch groups when going to the groups detail page" <|
+                signedInContext (GroupDetailsPage "idGroup1")
+                    >> expectCmd (groupsList ())
+            , test "fetch groups when going to the rides page" <|
+                signedInContext (RidesListPage "idGroup1")
+                    >> expectCmd (groupsList ())
+            , test "shows loading when the groups are loading" <|
+                groupsContext
+                    >> expectView
+                    >> has [ text "Carregando..." ]
+            , test "renders groups when they load" <|
+                groupsContext
+                    >> loadGroups
+                    >> expectView
+                    >> Expect.all
+                        [ has [ tag "li", text "winona riders" ]
+                        , has [ tag "li", text "the uber killars" ]
+                        ]
+            , test "goes the the group's rides when clicking on it" <|
+                groupsContext
+                    >> loadGroups
+                    >> simulate (find [ id "idGroup1" ]) click
+                    >> expectModel
+                        (\model ->
+                            Expect.equal (RidesListPage "idGroup1") model.urlRouter.page
+                        )
+            , test "goes to a page requesting to join the group if the user is not a member" <|
+                groupsContext
+                    >> loadGroups
+                    >> simulate (find [ id "idGroup2" ]) click
+                    >> expectView
+                    >> has [ text "Participar do grupo" ]
+            ]
         , describe "details"
             [ test "shows loading when the groups are loading" <|
                 groupsContext
@@ -122,6 +124,12 @@ tests =
                     >> expectView
                     >> findAll [ text fixtures.profile.name ]
                     >> count (Expect.equal 0)
+            ]
+        , describe "new"
+            [ test "goes to create group page" <|
+                groupsContext
+                    >> simulate (find [ id "createGroup" ]) click
+                    >> expectCurrentPage GroupsCreatePage
             ]
         ]
 
