@@ -1,6 +1,7 @@
 port module Groups.Ports
     exposing
         ( createGroup
+        , createGroupResponse
         , createJoinGroupRequest
         , createJoinGroupRequestResponse
         , groupsList
@@ -13,7 +14,7 @@ port module Groups.Ports
         )
 
 import Common.Decoder exposing (normalizeId, normalizeId2)
-import Common.Response exposing (FirebaseResponse, Response(..), decodeFromFirebase)
+import Common.Response exposing (..)
 import Groups.Model exposing (..)
 import Json.Decode as Json exposing (..)
 import Json.Decode.Pipeline exposing (..)
@@ -36,6 +37,7 @@ subscriptions =
             (\response ->
                 JoinRequestsListResponse response.groupId (decodeFromFirebase decodeJoinRequests response.response)
             )
+        , createGroupResponse (fromFirebase >> CreateGroupResponse)
         ]
 
 
@@ -100,3 +102,6 @@ port joinRequestsListResponse : ({ groupId : String, response : FirebaseResponse
 
 
 port createGroup : NewGroup -> Cmd msg
+
+
+port createGroupResponse : (FirebaseResponse Bool -> msg) -> Sub msg

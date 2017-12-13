@@ -53,6 +53,7 @@ type Msg
     | RespondJoinRequestResponse GroupId UserId (Response Bool)
     | UpdateName String
     | CreateGroup
+    | CreateGroupResponse (Response Bool)
 
 
 isMemberOfGroup : Login.Model.Model -> Group -> Bool

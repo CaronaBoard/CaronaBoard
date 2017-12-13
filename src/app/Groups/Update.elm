@@ -104,6 +104,14 @@ updateGroups msg model =
         CreateGroup ->
             return { model | new = { new | response = Loading } } (createGroup fields)
 
+        CreateGroupResponse response ->
+            case response of
+                Success _ ->
+                    return init Cmd.none
+
+                _ ->
+                    return { model | new = { new | response = response } } Cmd.none
+
 
 fetchGroups : Model -> Return Groups.Msg Model
 fetchGroups model =

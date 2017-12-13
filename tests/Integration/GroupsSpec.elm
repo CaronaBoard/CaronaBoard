@@ -140,9 +140,14 @@ tests =
                     >> expectView
                     >> find [ id "submitNewGroup" ]
                     >> has [ text "Carregando..." ]
-            , test "sends request via createRide port" <|
+            , test "sends request via createGroup port" <|
                 submitNewGroup
                     >> expectCmd (Cmd.map MsgForGroups <| Groups.Ports.createGroup fixtures.newGroup)
+            , test "shows error when createGroup returns an error" <|
+                submitNewGroup
+                    >> send createGroupResponse ( Just "Scientists just proved that undefined is indeed not a function", Nothing )
+                    >> expectView
+                    >> has [ text "not a function" ]
             ]
         ]
 

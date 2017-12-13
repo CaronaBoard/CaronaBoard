@@ -18,6 +18,7 @@ new model =
 
 formFields : Model -> List (Html Msg)
 formFields { new } =
-    [ textInput new.fields.name UpdateName "name" "Nome"
+    [ renderErrors new.response
+    , textInput new.fields.name UpdateName "name" "Nome"
     , loadingOrSubmitButton new.response "submitNewGroup" [ text "Criar" ]
     ]
