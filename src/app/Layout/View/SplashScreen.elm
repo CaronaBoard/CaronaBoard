@@ -2,14 +2,20 @@ module Layout.View.SplashScreen exposing (splashScreen)
 
 import Common.Colors exposing (..)
 import Css exposing (..)
-import Html exposing (Html, div)
-import Html.Attributes exposing (style)
+import Html exposing (Html, div, img)
+import Html.Attributes exposing (src, style)
 import Model exposing (Msg(..))
 
 
 splashScreen : Html Msg
 splashScreen =
-    div [ style splashScreenStyle ] []
+    div [ style splashScreenStyle ]
+        [ img
+            [ Html.Attributes.src "static/images/logo.svg"
+            , style splashIconStyle
+            ]
+            []
+        ]
 
 
 splashScreenStyle : List ( String, String )
@@ -20,9 +26,16 @@ splashScreenStyle =
         , top (px 0)
         , left (px 0)
         , position fixed
-        , backgroundImage (url "static/images/logo.svg")
         , backgroundColor primaryBlue
-        , backgroundRepeat noRepeat
-        , backgroundPosition center
-        , backgroundSize2 (px 192) (px 192)
+        , displayFlex
+        , justifyContent center
+        , alignItems center
+        ]
+
+
+splashIconStyle : List ( String, String )
+splashIconStyle =
+    asPairs
+        [ width (px 192)
+        , height (px 192)
         ]

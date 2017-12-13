@@ -1,10 +1,5 @@
-// After splash screen loaded
-window.addEventListener("load", () => {
-  // Load Elm and connect it with Firebase
-  require("./js/elm.js");
+import "./js/elm";
 
-  // Load serviceWorkers
-  if (!process.env.DEBUG && "serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/service-worker.js");
-  }
-});
+if (!process.env.DEBUG && "serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/service-worker.js");
+}

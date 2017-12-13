@@ -1,4 +1,4 @@
-import Stylesheet from "../app/Stylesheets.elm";
+import "../app/Stylesheets.elm";
 import Elm from "../app/Main.elm";
 import connectFirebase from "./firebase";
 
