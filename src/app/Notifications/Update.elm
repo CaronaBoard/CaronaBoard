@@ -1,6 +1,7 @@
 module Notifications.Update exposing (init, update)
 
 import Common.Response exposing (Response(..))
+import Groups.Model exposing (Msg(..))
 import Model as Root exposing (Msg(..))
 import Notifications.Model exposing (Model, Msg(..))
 import Notifications.Ports exposing (enableNotifications)
@@ -34,6 +35,9 @@ update msg model =
 
         MsgForProfile (ProfileResponse (Success _)) ->
             updateNotifications (ShowNotice "Perfil atualizado com sucesso") model
+
+        MsgForGroups (CreateGroupResponse (Success _)) ->
+            updateNotifications (ShowNotice "Grupo criado com sucesso!") model
 
         _ ->
             return model Cmd.none

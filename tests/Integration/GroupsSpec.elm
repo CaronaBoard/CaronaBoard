@@ -148,6 +148,22 @@ tests =
                     >> send createGroupResponse ( Just "Scientists just proved that undefined is indeed not a function", Nothing )
                     >> expectView
                     >> has [ text "not a function" ]
+            , test "goes to the groups page on success" <|
+                submitNewGroup
+                    >> successResponse
+                    >> expectCurrentPage GroupsListPage
+            , test "shows notification on success" <|
+                submitNewGroup
+                    >> successResponse
+                    >> expectView
+                    >> has [ text "Grupo criado com sucesso!" ]
+            , test "clear fields on success after returning to the form" <|
+                submitNewGroup
+                    >> successResponse
+                    >> navigate (toPath GroupsCreatePage)
+                    >> expectView
+                    >> find [ id "name" ]
+                    >> has [ attribute "value" "" ]
             ]
         ]
 
@@ -217,3 +233,8 @@ groupDetailsContext =
     groupsContext
         >> navigate (toPath <| GroupDetailsPage "idGroup2")
         >> loadGroups
+
+
+successResponse : TestContext Model Root.Msg -> TestContext Model Root.Msg
+successResponse =
+    send createGroupResponse ( Nothing, Just True )
