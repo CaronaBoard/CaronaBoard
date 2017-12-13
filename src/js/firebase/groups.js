@@ -104,4 +104,17 @@ export default (firebase, ports) => {
       removeJoinRequest(joinRequestResponse);
     }
   });
+
+  ports.createGroup.subscribe(newGroup =>
+    database()
+      .ref("groups")
+      .push({
+        name: newGroup.name,
+        members: {
+          [auth().currentUser.uid]: { admin: true }
+        }
+      })
+      .then(() => ports.createGroupResponse.send(success(true)))
+      .catch(err => ports.createGroupResponse.send(error(err.message)))
+  );
 };
