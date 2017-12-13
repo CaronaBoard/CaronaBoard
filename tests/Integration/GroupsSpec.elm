@@ -6,7 +6,7 @@ import Helpers exposing (..)
 import JsonStringify exposing (simpleStringify)
 import Model as Root exposing (Model, Msg(..))
 import Test exposing (..)
-import Test.Html.Event exposing (click, submit)
+import Test.Html.Event exposing (click, input, submit)
 import Test.Html.Query exposing (..)
 import Test.Html.Selector exposing (..)
 import TestContext exposing (..)
@@ -130,6 +130,11 @@ tests =
                 groupsContext
                     >> simulate (find [ id "createGroup" ]) click
                     >> expectCurrentPage GroupsCreatePage
+            , test "fill the fields correctly" <|
+                fillNewGroup
+                    >> expectView
+                    >> find [ id "name" ]
+                    >> has [ attribute "value" "the uber killars" ]
             ]
         ]
 
@@ -162,6 +167,12 @@ loadGroups =
 groupsContext : a -> TestContext Model Root.Msg
 groupsContext =
     signedInContext GroupsListPage
+
+
+fillNewGroup : a -> TestContext Model Root.Msg
+fillNewGroup =
+    signedInContext GroupsCreatePage
+        >> simulate (find [ id "name" ]) (input fixtures.group2.name)
 
 
 joinRequestsContext : a -> TestContext Model Root.Msg

@@ -2,6 +2,7 @@ module View exposing (staticView, view)
 
 import Groups.View.Details
 import Groups.View.List
+import Groups.View.New
 import Html exposing (div, h1, text)
 import Layout.View.Layout exposing (layout)
 import Layout.View.SplashScreen exposing (splashScreen)
@@ -60,7 +61,7 @@ view model =
             layout model (Groups.View.List.list model.login model.groups)
 
         GroupsCreatePage ->
-            layout model (div [] [])
+            layout model (Html.map MsgForGroups <| Groups.View.New.new model.groups)
 
         GroupDetailsPage groupId ->
             layout model (Groups.View.Details.details groupId model)

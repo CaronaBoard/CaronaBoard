@@ -7,6 +7,9 @@ import Profile.Model exposing (Profile)
 
 type alias Model =
     { groups : Response (List Group)
+    , new :
+        { fields : NewGroup
+        }
     }
 
 
@@ -16,6 +19,11 @@ type alias Group =
     , members : List Member
     , joinRequest : Response Bool
     , joinRequests : Response (List JoinRequest)
+    }
+
+
+type alias NewGroup =
+    { name : String
     }
 
 
@@ -42,6 +50,7 @@ type Msg
     | JoinRequestsListResponse GroupId (Response (List JoinRequest))
     | RespondJoinRequest GroupId UserId Bool
     | RespondJoinRequestResponse GroupId UserId (Response Bool)
+    | UpdateName String
 
 
 isMemberOfGroup : Login.Model.Model -> Group -> Bool
