@@ -1,6 +1,5 @@
 module Profile.Update exposing (init, update)
 
-import Common.Response exposing (..)
 import Login.Model exposing (Msg(SignInResponse))
 import Model as Root exposing (Msg(..))
 import Profile.Model exposing (Model, Msg(..), Profile)

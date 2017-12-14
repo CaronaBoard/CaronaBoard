@@ -1,6 +1,5 @@
 module Notifications.Update exposing (init, update)
 
-import Common.Response exposing (..)
 import Groups.Model exposing (Msg(..))
 import Model as Root exposing (Msg(..))
 import Notifications.Model exposing (Model, Msg(..))
