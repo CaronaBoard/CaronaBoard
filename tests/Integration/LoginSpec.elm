@@ -1,6 +1,5 @@
 module Integration.LoginSpec exposing (tests)
 
-import Common.Response exposing (Response(..))
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (expectCurrentPage, fixtures, initialContext, successSignIn, successSignInWithoutProfile)
@@ -8,6 +7,7 @@ import Login.Model exposing (Model, Msg(..), signedInUser)
 import Login.Ports exposing (..)
 import Login.Styles exposing (Classes(..))
 import Model as Root exposing (Msg(MsgForLogin))
+import RemoteData exposing (RemoteData(..))
 import Test exposing (..)
 import Test.Html.Event exposing (click, input, submit)
 import Test.Html.Query exposing (..)
@@ -44,7 +44,7 @@ tests =
                     >> expectCmd (Cmd.map MsgForLogin <| signIn { email = "foo@bar.com", password = "baz" })
             , test "shows error when signing in and renable button" <|
                 submitEmailThenPassword
-                    >> update (MsgForLogin <| SignInResponse (Error "Invalid password"))
+                    >> update (MsgForLogin <| SignInResponse (Failure "Invalid password"))
                     >> expectView
                     >> Expect.all
                         [ has [ text "Invalid password" ]
@@ -84,7 +84,7 @@ tests =
                     >> expectCmd (Cmd.map MsgForLogin <| passwordReset "foo@bar.com")
             , test "shows error when reseting password and renable button" <|
                 submitEmailThenForgotPassword
-                    >> update (MsgForLogin <| PasswordResetResponse (Error "Could not send email"))
+                    >> update (MsgForLogin <| PasswordResetResponse (Failure "Could not send email"))
                     >> expectView
                     >> Expect.all
                         [ has [ text "Could not send email" ]
@@ -102,7 +102,7 @@ tests =
                     >> expectCmd (Cmd.map MsgForLogin <| signUp { email = "foo@bar.com", password = "baz" })
             , test "shows error when signUp port returns an error" <|
                 submitEmailThenRegistration
-                    >> update (MsgForLogin <| SignUpResponse (Error "undefined is not a function"))
+                    >> update (MsgForLogin <| SignUpResponse (Failure "undefined is not a function"))
                     >> expectView
                     >> find []
                     >> has [ text "not a function" ]

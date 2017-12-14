@@ -23,12 +23,13 @@
         "rtfeldman/elm-css": "8.1.0 <= v < 9.0.0",
         "rtfeldman/elm-css-helpers": "2.1.0 <= v < 3.0.0",
         "rtfeldman/elm-css-util": "1.0.2 <= v < 2.0.0",
-        "eeue56/elm-html-test": "4.1.0 <= v < 5.0.0"
+        "eeue56/elm-html-test": "4.1.0 <= v < 5.0.0",
+        "krisajenkins/remotedata": "4.3.3 <= v < 5.0.0"
     },
     "dependency-sources": {
         "user/project": {
-          "url": "https://github.com/rogeriochaves/elm-testable.git",
-          "ref": "rewrite-native"
+            "url": "https://github.com/rogeriochaves/elm-testable.git",
+            "ref": "rewrite-native"
         }
     },
     "elm-version": "0.18.0 <= v < 0.19.0"

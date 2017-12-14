@@ -3,12 +3,13 @@ module Rides.View.List exposing (list, rideInfo, rideRoute)
 import Common.Icon exposing (icon)
 import Common.IdentifiedList exposing (findById)
 import Common.Link exposing (linkTo)
-import Common.Response as Response exposing (Response(..))
+import Common.Response exposing (..)
 import Groups.Model
 import Groups.View.JoinRequests exposing (joinRequestList)
 import Html exposing (..)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Model as Root exposing (Msg(..))
+import RemoteData exposing (..)
 import Rides.Model as Rides
 import Rides.Styles exposing (Classes(..), className)
 import UrlRouter.Routes exposing (Page(..))
@@ -17,7 +18,7 @@ import UrlRouter.Routes exposing (Page(..))
 list : String -> Root.Model -> Html Msg
 list groupId { rides, groups } =
     case groups.groups of
-        Empty ->
+        NotAsked ->
             text ""
 
         Loading ->
@@ -31,7 +32,7 @@ list groupId { rides, groups } =
                 Nothing ->
                     h1 [] [ text "404 não encontrado" ]
 
-        Error err ->
+        Failure err ->
             text err
 
 
@@ -41,7 +42,7 @@ ridesList group rides =
         [ h1 [ layoutClass PageTitle ] [ text group.name ]
         , joinRequestList group
         , case rides.list of
-            Empty ->
+            NotAsked ->
                 text ""
 
             Loading ->
@@ -63,7 +64,7 @@ ridesList group rides =
                             ]
                         ]
 
-            Error err ->
+            Failure err ->
                 text err
         ]
 

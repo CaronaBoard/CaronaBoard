@@ -1,10 +1,11 @@
 module Profile.Update exposing (init, update)
 
-import Common.Response exposing (Response(..))
+import Common.Response exposing (..)
 import Login.Model exposing (Msg(SignInResponse))
 import Model as Root exposing (Msg(..))
 import Profile.Model exposing (Model, Msg(..), Profile)
 import Profile.Ports exposing (saveProfile)
+import RemoteData exposing (..)
 import Return exposing (Return, return)
 
 
@@ -15,7 +16,7 @@ init profile =
         , contact = { kind = "Whatsapp", value = "" }
         }
     , savedProfile = profile
-    , response = Empty
+    , response = NotAsked
     }
 
 

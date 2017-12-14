@@ -1,6 +1,6 @@
 module Integration.RidesSpec exposing (tests)
 
-import Common.Response exposing (Response(..))
+import Common.Response exposing (..)
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (expectCurrentPage, expectToContainText, fixtures, initialContext, signedInContext, someUser, toLocation)
@@ -8,6 +8,7 @@ import Integration.GroupsSpec exposing (loadGroups)
 import JsonStringify exposing (simpleStringify)
 import Model as Root exposing (Model, Msg(..))
 import Notifications.Model exposing (Msg(..))
+import RemoteData exposing (RemoteData(..))
 import Rides.Model exposing (Msg(..))
 import Rides.Ports exposing (..)
 import Rides.Styles exposing (Classes(Card))
@@ -67,7 +68,7 @@ tests =
                     >> expectCmd (Cmd.map MsgForRides <| Rides.Ports.createRide fixtures.newRide)
             , test "shows error when createRide port returns an error" <|
                 submitNewRide
-                    >> update (MsgForRides <| CreateRideReponse (Error "Scientists just proved that undefined is indeed not a function"))
+                    >> update (MsgForRides <| CreateRideReponse (Failure "Scientists just proved that undefined is indeed not a function"))
                     >> expectView
                     >> has [ text "not a function" ]
             , test "goes to enable notifications page on success" <|

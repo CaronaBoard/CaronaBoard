@@ -1,6 +1,7 @@
 module Profile.Model exposing (Contact, Model, Msg(..), Profile, contactDeepLink, contactIdentifier)
 
-import Common.Response exposing (Response(..))
+import Common.Response exposing (..)
+import RemoteData exposing (..)
 
 
 type alias Model =

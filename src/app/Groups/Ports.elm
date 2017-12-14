@@ -19,6 +19,7 @@ import Groups.Model exposing (..)
 import Json.Decode as Json exposing (..)
 import Json.Decode.Pipeline exposing (..)
 import Profile.Ports exposing (decodeProfile)
+import RemoteData exposing (..)
 
 
 subscriptions : Sub Msg
@@ -54,9 +55,9 @@ decodeGroup =
         |> required "name" string
         |> optional "members" decodeMembers []
         -- joinRequest
-        |> hardcoded Empty
+        |> hardcoded NotAsked
         -- joinRequests
-        |> hardcoded Empty
+        |> hardcoded NotAsked
 
 
 decodeMembers : Decoder (List Member)
@@ -73,7 +74,7 @@ decodeJoinRequests =
         |> hardcoded "userId"
         |> required "profile" decodeProfile
         -- response
-        |> hardcoded Empty
+        |> hardcoded NotAsked
         |> normalizeId (\userId joinRequest -> { joinRequest | userId = userId })
 
 

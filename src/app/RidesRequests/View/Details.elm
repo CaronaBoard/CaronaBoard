@@ -1,9 +1,10 @@
 module RidesRequests.View.Details exposing (details)
 
 import Common.Form exposing (renderErrors)
-import Common.Response as Response exposing (Response(..))
+import Common.Response exposing (..)
 import Html exposing (..)
 import Layout.Styles exposing (Classes(..), layoutClass)
+import RemoteData exposing (..)
 import RidesRequests.Model exposing (Collection, Msg(..))
 import RidesRequests.View.New exposing (contactDetails)
 
@@ -25,14 +26,14 @@ details collection =
                             ]
 
                         Nothing ->
-                            [ renderErrors (Error "Pedido de carona não encontrado") ]
+                            [ renderErrors (Failure "Pedido de carona não encontrado") ]
 
-                Error err ->
+                Failure err ->
                     [ renderErrors collection.list ]
 
                 Loading ->
                     [ text "Carregando..." ]
 
-                Empty ->
+                NotAsked ->
                     [ text "Carregando..." ]
         ]

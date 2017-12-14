@@ -1,6 +1,7 @@
 module Notifications.Model exposing (Model, Msg(..), isEnabled)
 
-import Common.Response exposing (Response(..))
+import Common.Response exposing (..)
+import RemoteData exposing (..)
 
 
 type alias Model =

@@ -1,7 +1,7 @@
 port module Rides.Ports exposing (createRide, createRideResponse, decodeRides, ridesList, ridesListResponse, subscriptions)
 
 import Common.Decoder exposing (normalizeId3)
-import Common.Response exposing (FirebaseResponse, Response(..), decodeFromFirebase, fromFirebase)
+import Common.Response exposing (..)
 import Json.Decode as Json exposing (..)
 import Json.Decode.Pipeline exposing (..)
 import Profile.Model exposing (Contact, Profile)

@@ -2,12 +2,13 @@ module Notifications.View.EnableNotifications exposing (enableNotifications)
 
 import Common.Form exposing (loadingOrSubmitButton, renderErrors)
 import Common.Icon exposing (icon)
-import Common.Response exposing (Response(..))
+import Common.Response exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (disabled, id)
 import Html.Events exposing (onSubmit)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Notifications.Model exposing (Model, Msg(..))
+import RemoteData exposing (..)
 
 
 enableNotifications : Model -> Html Msg
@@ -16,8 +17,8 @@ enableNotifications model =
         [ h1 [ layoutClass PageTitle ] [ text "Ativar Notificações" ]
         , form [ layoutClass Card, onSubmit EnableNotifications ]
             [ case model.response of
-                Error _ ->
-                    renderErrors (Error "As notificações não foram ativadas")
+                Failure _ ->
+                    renderErrors (Failure "As notificações não foram ativadas")
 
                 _ ->
                     div [] []

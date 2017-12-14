@@ -1,10 +1,11 @@
 module Integration.RidesRequestsSpec exposing (tests)
 
-import Common.Response exposing (Response(..))
+import Common.Response exposing (..)
 import Expect
 import Helpers exposing (..)
 import JsonStringify exposing (simpleStringify)
 import Model as Root exposing (Model, Msg(..))
+import RemoteData exposing (RemoteData(..))
 import Rides.Model exposing (Msg(..))
 import RidesRequests.Model exposing (Msg(..))
 import RidesRequests.Ports exposing (..)
@@ -30,7 +31,7 @@ tests =
                     >> expectCmd (RidesRequests.Ports.createRideRequest rideRequestExample)
             , test "shows error when ride port returns an error" <|
                 submitRideRequest
-                    >> update (MsgForRidesRequests <| CreateRideRequestResponse "idRide2" (Error "undefined is not a function"))
+                    >> update (MsgForRidesRequests <| CreateRideRequestResponse "idRide2" (Failure "undefined is not a function"))
                     >> expectView
                     >> has [ text "not a function" ]
             , test "shows notification on success" <|

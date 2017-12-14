@@ -1,8 +1,9 @@
 module Groups.Model exposing (Group, JoinRequest, Member, Model, Msg(..), NewGroup, isMemberOfGroup, pendingJoinRequests)
 
-import Common.Response exposing (Response(..))
+import Common.Response exposing (..)
 import Login.Model exposing (signedInUser)
 import Profile.Model exposing (Profile)
+import RemoteData exposing (..)
 
 
 type alias Model =
@@ -74,10 +75,10 @@ pendingJoinRequests group =
             List.filter
                 (\joinRequest ->
                     case joinRequest.response of
-                        Empty ->
+                        NotAsked ->
                             True
 
-                        Error _ ->
+                        Failure _ ->
                             True
 
                         Success _ ->

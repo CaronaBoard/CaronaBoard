@@ -1,12 +1,13 @@
 module Notifications.Update exposing (init, update)
 
-import Common.Response exposing (Response(..))
+import Common.Response exposing (..)
 import Groups.Model exposing (Msg(..))
 import Model as Root exposing (Msg(..))
 import Notifications.Model exposing (Model, Msg(..))
 import Notifications.Ports exposing (enableNotifications)
 import Process
 import Profile.Model exposing (Msg(..))
+import RemoteData exposing (..)
 import Return exposing (Return, return)
 import Rides.Model exposing (Msg(..))
 import RidesRequests.Model exposing (Msg(..))
@@ -16,7 +17,7 @@ import Time
 
 init : Model
 init =
-    { response = Empty
+    { response = NotAsked
     , notice = Nothing
     }
 

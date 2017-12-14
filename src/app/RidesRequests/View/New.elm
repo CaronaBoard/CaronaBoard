@@ -1,12 +1,13 @@
 module RidesRequests.View.New exposing (contactDetails, new)
 
 import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
-import Common.Response as Response exposing (Response(..))
+import Common.Response exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (for, href, id, placeholder, selected, target, value)
 import Html.Events exposing (onInput, onSubmit)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Profile.Model exposing (Profile, contactDeepLink)
+import RemoteData exposing (..)
 import Rides.Model
 import Rides.Styles exposing (Classes(..), className)
 import Rides.View.List exposing (rideInfo, rideRoute)

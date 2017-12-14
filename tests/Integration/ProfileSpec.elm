@@ -1,11 +1,12 @@
 module Integration.ProfileSpec exposing (tests)
 
-import Common.Response exposing (Response(..))
+import Common.Response exposing (..)
 import Expect exposing (equal)
 import Helpers exposing (expectToContainText, fixtures, initialContext, someUser, successSignIn, toLocation)
 import Model as Root exposing (Model, Msg(..))
 import Profile.Model exposing (Msg(..))
 import Profile.Ports
+import RemoteData exposing (RemoteData(..))
 import Rides.Model exposing (Msg(..))
 import Test exposing (..)
 import Test.Html.Event exposing (input, submit)
@@ -33,7 +34,7 @@ tests =
                 >> expectCmd (Cmd.map MsgForProfile <| Profile.Ports.saveProfile fixtures.profile)
         , test "shows error when profile port returns an error" <|
             submitProfile
-                >> update (MsgForProfile <| ProfileResponse (Error "undefined is not a function"))
+                >> update (MsgForProfile <| ProfileResponse (Failure "undefined is not a function"))
                 >> expectView
                 >> has [ text "not a function" ]
         , test "shows notification on success" <|

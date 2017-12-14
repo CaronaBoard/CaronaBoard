@@ -1,7 +1,6 @@
 module Groups.View.JoinRequests exposing (joinRequestList)
 
 import Common.Icon exposing (icon)
-import Common.Response exposing (Response(..))
 import Groups.Model exposing (Msg(..), pendingJoinRequests)
 import Groups.Styles exposing (Classes(..), className)
 import Html exposing (..)

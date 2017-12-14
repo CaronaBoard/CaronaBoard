@@ -1,8 +1,9 @@
 module Rides.Update exposing (init, update)
 
-import Common.Response exposing (Response(..))
+import Common.Response exposing (..)
 import Login.Model exposing (User)
 import Model as Root exposing (Msg(..))
+import RemoteData exposing (..)
 import Return exposing (Return, return)
 import Rides.Model exposing (..)
 import Rides.Ports exposing (createRide, ridesList)
@@ -12,7 +13,7 @@ import UrlRouter.Routes exposing (Page(..), pathParser)
 
 init : Collection
 init =
-    { list = Empty
+    { list = NotAsked
     , new =
         { fields =
             { groupId = ""
@@ -21,7 +22,7 @@ init =
             , days = ""
             , hours = ""
             }
-        , response = Empty
+        , response = NotAsked
         }
     }
 
@@ -33,7 +34,7 @@ update user msg collection =
             updateRides user msg_ collection
 
         MsgForUrlRouter (UrlChange location) ->
-            if collection.list == Empty then
+            if collection.list == NotAsked then
                 case pathParser location of
                     Just (RidesListPage _) ->
                         return { collection | list = Loading } (ridesList ())

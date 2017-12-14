@@ -1,10 +1,11 @@
 module Integration.NotificationsSpec exposing (tests)
 
-import Common.Response exposing (Response(..))
+import Common.Response exposing (..)
 import Helpers exposing (..)
 import Model as Root exposing (Model, Msg(..))
 import Notifications.Model exposing (..)
 import Notifications.Ports
+import RemoteData exposing (RemoteData(..))
 import Test exposing (..)
 import Test.Html.Event exposing (submit)
 import Test.Html.Query exposing (..)
@@ -27,7 +28,7 @@ tests =
                 >> expectCmd (Cmd.map MsgForNotifications <| Notifications.Ports.enableNotifications ())
         , test "shows error when user does not allow notifications" <|
             enableNotifications
-                >> update (MsgForNotifications <| NotificationsResponse (Error "I don't like notifications"))
+                >> update (MsgForNotifications <| NotificationsResponse (Failure "I don't like notifications"))
                 >> expectView
                 >> has [ text "As notificações não foram ativadas" ]
         , describe "notices"

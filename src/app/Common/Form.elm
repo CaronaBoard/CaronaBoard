@@ -1,10 +1,11 @@
 module Common.Form exposing (customLoadingOrSubmitButton, emailInput, loadingOrSubmitButton, passwordInput, renderErrors, textInput)
 
-import Common.Response exposing (Response(..))
+import Common.Response exposing (..)
 import Html exposing (Attribute, Html, button, div, i, input, label, text)
 import Html.Attributes exposing (disabled, for, id, placeholder, type_, value)
 import Html.Events exposing (onInput)
 import Layout.Styles exposing (Classes(..), layoutClass)
+import RemoteData exposing (..)
 
 
 loadingOrSubmitButton : Response a -> String -> List (Html msg) -> Html msg
@@ -31,7 +32,7 @@ customLoadingOrSubmitButton response enabledAttributes disabledAttributes childr
 renderErrors : Response a -> Html msg
 renderErrors response =
     case response of
-        Error message ->
+        Failure message ->
             div [ layoutClass ErrorMessage ] [ text message ]
 
         _ ->

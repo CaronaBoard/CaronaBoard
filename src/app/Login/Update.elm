@@ -1,9 +1,9 @@
 module Login.Update exposing (init, update)
 
-import Common.Response exposing (Response(..))
 import Login.Model exposing (Model, Msg(..), User)
 import Login.Ports exposing (checkRegistration, passwordReset, signIn, signOut, signUp)
 import Model as Root exposing (Msg(MsgForLogin, MsgForUrlRouter))
+import RemoteData exposing (..)
 import Return exposing (Return, return)
 
 
@@ -11,13 +11,13 @@ init : Maybe User -> Model
 init user =
     { email = ""
     , password = ""
-    , registered = Empty
+    , registered = NotAsked
     , signedIn =
         user
             |> Maybe.map Success
-            |> Maybe.withDefault Empty
-    , passwordReset = Empty
-    , signUp = Empty
+            |> Maybe.withDefault NotAsked
+    , passwordReset = NotAsked
+    , signUp = NotAsked
     }
 
 
@@ -56,7 +56,7 @@ loginUpdate msg model =
             return { model | registered = response } Cmd.none
 
         SignInResponse response ->
-            return { model | signedIn = Common.Response.map (\res -> res.user) response } Cmd.none
+            return { model | signedIn = RemoteData.map (\res -> res.user) response } Cmd.none
 
         SignOut ->
             return model (signOut ())

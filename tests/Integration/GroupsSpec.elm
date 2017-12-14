@@ -114,7 +114,7 @@ tests =
             , test "shows join requests again when there is an error" <|
                 joinRequestsContext
                     >> simulate (find [ id "acceptJoinRequest" ]) click
-                    >> send respondJoinRequestResponse { groupId = "idGroup1", userId = "idUser2", response = ( Just "Error", Nothing ) }
+                    >> send respondJoinRequestResponse { groupId = "idGroup1", userId = "idUser2", response = ( Just "Failure", Nothing ) }
                     >> expectView
                     >> has [ text fixtures.profile.name ]
             , test "hides successfull join requests" <|

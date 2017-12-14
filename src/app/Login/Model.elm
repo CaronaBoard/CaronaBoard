@@ -1,7 +1,8 @@
 module Login.Model exposing (Model, Msg(..), User, isSignedIn, signedInUser)
 
-import Common.Response exposing (Response(..))
+import Common.Response exposing (..)
 import Profile.Model exposing (Profile)
+import RemoteData exposing (..)
 
 
 type alias Model =
@@ -31,10 +32,6 @@ type Msg
     | PasswordResetResponse (Response Bool)
     | SignOut
     | SignOutResponse (Response Bool)
-
-
-type alias Error =
-    String
 
 
 signedInUser : Model -> Maybe User

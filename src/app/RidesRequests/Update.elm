@@ -1,7 +1,7 @@
 module RidesRequests.Update exposing (init, update)
 
-import Common.Response as Response exposing (Response(..))
 import Model as Root exposing (Msg(..))
+import RemoteData exposing (..)
 import Return exposing (Return, return)
 import RidesRequests.Model as RidesRequests exposing (Collection, Msg(..))
 import RidesRequests.Ports exposing (createRideRequest, encodeRideRequest, fetchRideRequest)
@@ -11,9 +11,9 @@ import UrlRouter.Routes exposing (Page(..), pathParser)
 
 init : Collection
 init =
-    { list = Empty
+    { list = NotAsked
     , new =
-        { response = Empty
+        { response = NotAsked
         }
     }
 
@@ -47,7 +47,7 @@ updateRidesRequests : RidesRequests.Msg -> Collection -> Return RidesRequests.Ms
 updateRidesRequests msg collection =
     case msg of
         FetchedRideRequest response ->
-            return { collection | list = Response.map (\ride -> [ ride ]) response } Cmd.none
+            return { collection | list = RemoteData.map (\ride -> [ ride ]) response } Cmd.none
 
         CreateRideRequest ride ->
             return { collection | new = { response = Loading } }

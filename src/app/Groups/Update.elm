@@ -1,10 +1,10 @@
 module Groups.Update exposing (init, update)
 
 import Common.IdentifiedList exposing (findById, mapIfId)
-import Common.Response as Response exposing (Response(..))
 import Groups.Model as Groups exposing (Model, Msg(..))
 import Groups.Ports exposing (..)
 import Model as Root exposing (Msg(..))
+import RemoteData exposing (..)
 import Return exposing (Return, command, return)
 import UrlRouter.Model exposing (Msg(..))
 import UrlRouter.Routes exposing (Page(..), pathParser)
@@ -12,12 +12,12 @@ import UrlRouter.Routes exposing (Page(..), pathParser)
 
 init : Model
 init =
-    { groups = Empty
+    { groups = NotAsked
     , new =
         { fields =
             { name = ""
             }
-        , response = Empty
+        , response = NotAsked
         }
     }
 
@@ -115,7 +115,7 @@ updateGroups msg model =
 
 fetchGroups : Model -> Return Groups.Msg Model
 fetchGroups model =
-    if model.groups == Empty then
+    if model.groups == NotAsked then
         return { model | groups = Loading } (groupsList ())
     else
         return model Cmd.none
@@ -125,7 +125,7 @@ updateGroup : String -> (Groups.Group -> Groups.Group) -> Model -> Model
 updateGroup groupId updateFn model =
     { model
         | groups =
-            Response.map (mapIfId groupId updateFn identity) model.groups
+            RemoteData.map (mapIfId groupId updateFn identity) model.groups
     }
 
 
@@ -133,7 +133,7 @@ updateJoinRequest : String -> (Groups.JoinRequest -> Groups.JoinRequest) -> Grou
 updateJoinRequest userId updateFn group =
     { group
         | joinRequests =
-            Response.map
+            RemoteData.map
                 (List.map
                     (\item ->
                         if item.userId == userId then

@@ -1,6 +1,5 @@
 module Helpers exposing (..)
 
-import Common.Response exposing (Response(..))
 import Expect
 import Groups.Model as Groups
 import Login.Model exposing (Msg(..), User)
@@ -9,6 +8,7 @@ import NativeLoadFix
 import Navigation exposing (Location)
 import Ports exposing (subscriptions)
 import Profile.Model exposing (Profile)
+import RemoteData exposing (RemoteData(..))
 import Rides.Model as Rides exposing (NewRide)
 import String.Extra
 import TestContext exposing (..)
@@ -99,10 +99,10 @@ fixtures =
             { groupId = "idGroup1", origin = "bar", destination = "baz, near qux", days = "Mon to Fri", hours = "18:30" }
 
         group1 =
-            { id = "idGroup1", name = "winona riders", members = [ { userId = "idUser1", admin = True } ], joinRequest = Empty, joinRequests = Empty }
+            { id = "idGroup1", name = "winona riders", members = [ { userId = "idUser1", admin = True } ], joinRequest = NotAsked, joinRequests = NotAsked }
 
         group2 =
-            { id = "idGroup2", name = "the uber killars", members = [], joinRequest = Empty, joinRequests = Empty }
+            { id = "idGroup2", name = "the uber killars", members = [], joinRequest = NotAsked, joinRequests = NotAsked }
 
         newGroup =
             { name = "my cool group" }

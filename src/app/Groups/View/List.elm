@@ -1,6 +1,5 @@
 module Groups.View.List exposing (list)
 
-import Common.Response exposing (Response(..))
 import Groups.Model exposing (Group, Model, isMemberOfGroup)
 import Groups.Styles exposing (Classes(..), className)
 import Html exposing (..)
@@ -9,6 +8,7 @@ import Html.Events exposing (onClick)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Login.Model
 import Model as Root exposing (Msg(..))
+import RemoteData exposing (..)
 import UrlRouter.Model exposing (Msg(..))
 import UrlRouter.Routes exposing (Page(..))
 
@@ -16,7 +16,7 @@ import UrlRouter.Routes exposing (Page(..))
 list : Login.Model.Model -> Model -> Html Root.Msg
 list login model =
     case model.groups of
-        Empty ->
+        NotAsked ->
             text ""
 
         Loading ->
@@ -32,7 +32,7 @@ list login model =
                     ]
                 ]
 
-        Error err ->
+        Failure err ->
             text err
 
 

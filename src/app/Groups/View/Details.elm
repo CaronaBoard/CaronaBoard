@@ -2,19 +2,19 @@ module Groups.View.Details exposing (details)
 
 import Common.Form exposing (loadingOrSubmitButton)
 import Common.IdentifiedList exposing (findById)
-import Common.Response as Response exposing (Response(..))
 import Groups.Model exposing (Msg(..))
 import Html exposing (..)
 import Html.Attributes exposing (disabled)
 import Html.Events exposing (..)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Model as Root exposing (Msg(..))
+import RemoteData exposing (..)
 
 
 details : String -> Root.Model -> Html Root.Msg
 details groupId { groups } =
     case groups.groups of
-        Empty ->
+        NotAsked ->
             text ""
 
         Loading ->
@@ -28,7 +28,7 @@ details groupId { groups } =
                 Nothing ->
                     h1 [] [ text "404 não encontrado" ]
 
-        Error err ->
+        Failure err ->
             text err
 
 

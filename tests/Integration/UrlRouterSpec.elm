@@ -1,6 +1,6 @@
 module Integration.UrlRouterSpec exposing (tests)
 
-import Common.Response exposing (Response(..))
+import Common.Response exposing (..)
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (..)
@@ -10,6 +10,7 @@ import Login.Styles
 import Model as Root exposing (Model, Msg(..))
 import Notifications.Model exposing (Msg(..))
 import Profile.Model exposing (Msg(..))
+import RemoteData exposing (RemoteData(..))
 import Test exposing (..)
 import Test.Html.Event exposing (click)
 import Test.Html.Query exposing (..)

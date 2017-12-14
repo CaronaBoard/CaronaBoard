@@ -1,65 +1,34 @@
 module Common.Response
     exposing
         ( FirebaseResponse
-        , Response(..)
+        , Response
         , decodeFromFirebase
         , fromFirebase
-        , fromResult
-        , map
-        , withDefault
         )
 
 import Json.Decode as Json exposing (Decoder, decodeValue)
+import RemoteData exposing (..)
 
 
-type Response a
-    = Empty
-    | Loading
-    | Success a
-    | Error String
+type alias Response a =
+    RemoteData String a
 
 
 type alias FirebaseResponse a =
     ( Maybe String, Maybe a )
 
 
-map : (a -> b) -> Response a -> Response b
-map f response =
-    case response of
-        Success a ->
-            Success (f a)
-
-        Empty ->
-            Empty
-
-        Loading ->
-            Loading
-
-        Error err ->
-            Error err
-
-
-withDefault : a -> Response a -> a
-withDefault default response =
-    case response of
-        Success a ->
-            a
-
-        _ ->
-            default
-
-
 fromFirebase : FirebaseResponse a -> Response a
 fromFirebase response =
     case response of
         ( Just error, _ ) ->
-            Error error
+            Failure error
 
         ( _, Just data ) ->
             Success data
 
         ( Nothing, Nothing ) ->
-            Error "Invalid FirebaseResponse"
+            Failure "Invalid FirebaseResponse"
 
 
 decodeFromFirebase : Decoder a -> FirebaseResponse Json.Value -> Response a
@@ -68,21 +37,11 @@ decodeFromFirebase decoder response =
         Success json ->
             fromResult (decodeValue decoder json)
 
-        Empty ->
-            Empty
+        NotAsked ->
+            NotAsked
 
         Loading ->
             Loading
 
-        Error err ->
-            Error err
-
-
-fromResult : Result x a -> Response a
-fromResult result =
-    case result of
-        Ok data ->
-            Success data
-
-        Err err ->
-            Error (toString err)
+        Failure err ->
+            Failure err
