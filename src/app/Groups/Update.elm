@@ -12,7 +12,7 @@ import UrlRouter.Routes exposing (Page(..), pathParser)
 
 init : Model
 init =
-    { groups = NotAsked
+    { list = NotAsked
     , new =
         { fields =
             { name = ""
@@ -61,7 +61,7 @@ updateGroups msg model =
     in
     case msg of
         UpdateGroups response ->
-            return { model | groups = response } Cmd.none
+            return { model | list = response } Cmd.none
 
         CreateJoinGroupRequest groupId ->
             return
@@ -115,8 +115,8 @@ updateGroups msg model =
 
 fetchGroups : Model -> Return Groups.Msg Model
 fetchGroups model =
-    if model.groups == NotAsked then
-        return { model | groups = Loading } (groupsList ())
+    if model.list == NotAsked then
+        return { model | list = Loading } (groupsList ())
     else
         return model Cmd.none
 
@@ -124,8 +124,8 @@ fetchGroups model =
 updateGroup : String -> (Groups.Group -> Groups.Group) -> Model -> Model
 updateGroup groupId updateFn model =
     { model
-        | groups =
-            RemoteData.map (mapIfId groupId updateFn identity) model.groups
+        | list =
+            RemoteData.map (mapIfId groupId updateFn identity) model.list
     }
 
 

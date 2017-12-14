@@ -1,7 +1,6 @@
 module RidesRequests.View.Details exposing (details)
 
 import Common.Form exposing (renderErrors)
-import Common.Response exposing (..)
 import Html exposing (..)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import RemoteData exposing (..)

@@ -13,7 +13,7 @@ import RemoteData exposing (..)
 
 details : String -> Root.Model -> Html Root.Msg
 details groupId { groups } =
-    case groups.groups of
+    case groups.list of
         NotAsked ->
             text ""
 

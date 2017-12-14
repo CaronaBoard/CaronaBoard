@@ -7,7 +7,7 @@ import RemoteData exposing (..)
 
 
 type alias Model =
-    { groups : Response (List Group)
+    { list : Response (List Group)
     , new :
         { fields : NewGroup
         , response : Response Bool
