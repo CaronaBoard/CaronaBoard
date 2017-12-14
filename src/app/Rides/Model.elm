@@ -41,7 +41,7 @@ type Msg
     | UpdateDays String
     | UpdateHours String
     | CreateRide GroupId
-    | CreateRideReponse (Response Bool)
+    | CreateRideResponse (Response Bool)
 
 
 type alias GroupId =

@@ -12,7 +12,7 @@ subscriptions : Rides.Collection -> Sub Msg
 subscriptions model =
     Sub.batch
         [ ridesListResponse (decodeFromFirebase decodeRides >> UpdateRides)
-        , createRideResponse (fromFirebase >> CreateRideReponse)
+        , createRideResponse (fromFirebase >> CreateRideResponse)
         ]
 
 

@@ -28,7 +28,7 @@ update msg model =
         MsgForNotifications msg_ ->
             updateNotifications msg_ model
 
-        MsgForRides (CreateRideReponse (Success _)) ->
+        MsgForRides (CreateRideResponse (Success _)) ->
             updateNotifications (ShowNotice "Carona criada com sucesso!") model
 
         MsgForRidesRequests (CreateRideRequestResponse _ (Success _)) ->

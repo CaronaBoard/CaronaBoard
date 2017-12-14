@@ -85,7 +85,7 @@ updateRides user msg collection =
                 Nothing ->
                     return collection Cmd.none
 
-        CreateRideReponse response ->
+        CreateRideResponse response ->
             case response of
                 Success _ ->
                     return init Cmd.none

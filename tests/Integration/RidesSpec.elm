@@ -68,7 +68,7 @@ tests =
                     >> expectCmd (Cmd.map MsgForRides <| Rides.Ports.createRide fixtures.newRide)
             , test "shows error when createRide port returns an error" <|
                 submitNewRide
-                    >> update (MsgForRides <| CreateRideReponse (Failure "Scientists just proved that undefined is indeed not a function"))
+                    >> update (MsgForRides <| CreateRideResponse (Failure "Scientists just proved that undefined is indeed not a function"))
                     >> expectView
                     >> has [ text "not a function" ]
             , test "goes to enable notifications page on success" <|
@@ -133,4 +133,4 @@ submitNewRide =
 
 successResponse : TestContext Model Root.Msg -> TestContext Model Root.Msg
 successResponse =
-    update (MsgForRides <| CreateRideReponse (Success True))
+    update (MsgForRides <| CreateRideResponse (Success True))
