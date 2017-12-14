@@ -1,6 +1,19 @@
-module Groups.Model exposing (Group, JoinRequest, Member, Model, Msg(..), NewGroup, isMemberOfGroup, pendingJoinRequests)
+module Groups.Model
+    exposing
+        ( Group
+        , JoinRequest
+        , Member
+        , Model
+        , Msg(..)
+        , NewGroup
+        , isMemberOfGroup
+        , pendingJoinRequests
+        , validation
+        )
 
 import Common.Response exposing (..)
+import Form exposing (Form)
+import Form.Validate as Validate exposing (..)
 import Login.Model exposing (signedInUser)
 import Profile.Model exposing (Profile)
 import RemoteData exposing (..)
@@ -9,7 +22,7 @@ import RemoteData exposing (..)
 type alias Model =
     { list : Response (List Group)
     , new :
-        { fields : NewGroup
+        { fields : Form () NewGroup
         , response : Response Bool
         }
     }
@@ -52,9 +65,14 @@ type Msg
     | JoinRequestsListResponse GroupId (Response (List JoinRequest))
     | RespondJoinRequest GroupId UserId Bool
     | RespondJoinRequestResponse GroupId UserId (Response Bool)
-    | UpdateName String
-    | CreateGroup
+    | FormMsg Form.Msg
     | CreateGroupResponse (Response Bool)
+
+
+validation : Validation () NewGroup
+validation =
+    Validate.succeed NewGroup
+        |> Validate.andMap (field "name" string)
 
 
 isMemberOfGroup : Login.Model.Model -> Group -> Bool

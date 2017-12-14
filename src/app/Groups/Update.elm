@@ -1,7 +1,8 @@
 module Groups.Update exposing (init, update)
 
 import Common.IdentifiedList exposing (findById, mapIfId)
-import Groups.Model as Groups exposing (Model, Msg(..))
+import Form exposing (Form)
+import Groups.Model as Groups exposing (Model, Msg(..), validation)
 import Groups.Ports exposing (..)
 import Model as Root exposing (Msg(..))
 import RemoteData exposing (..)
@@ -14,9 +15,7 @@ init : Model
 init =
     { list = NotAsked
     , new =
-        { fields =
-            { name = ""
-            }
+        { fields = Form.initial [] validation
         , response = NotAsked
         }
     }
@@ -98,11 +97,13 @@ updateGroups msg model =
                 )
                 Cmd.none
 
-        UpdateName name ->
-            return (updateFields { fields | name = name }) Cmd.none
+        FormMsg formMsg ->
+            case ( formMsg, Form.getOutput fields ) of
+                ( Form.Submit, Just newGroup ) ->
+                    return { model | new = { new | response = Loading } } (createGroup newGroup)
 
-        CreateGroup ->
-            return { model | new = { new | response = Loading } } (createGroup fields)
+                _ ->
+                    return { model | new = { new | fields = Form.update validation formMsg fields } } Cmd.none
 
         CreateGroupResponse response ->
             case response of

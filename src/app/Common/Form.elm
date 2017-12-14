@@ -1,6 +1,8 @@
-module Common.Form exposing (customLoadingOrSubmitButton, emailInput, loadingOrSubmitButton, passwordInput, renderErrors, textInput)
+module Common.Form exposing (..)
 
 import Common.Response exposing (..)
+import Form
+import Form.Input as Input
 import Html exposing (Attribute, Html, button, div, i, input, label, text)
 import Html.Attributes exposing (disabled, for, id, placeholder, type_, value)
 import Html.Events exposing (onInput)
@@ -67,3 +69,31 @@ input_ inputType value_ msg id_ label_ =
             []
         , label [ for id_ ] [ text label_ ]
         ]
+
+
+formTextInput : Form.Form e o -> String -> String -> Html Form.Msg
+formTextInput =
+    formInput_ Form.getFieldAsString
+
+
+formInput_ : (String -> a -> Form.FieldState e String) -> a -> String -> String -> Html Form.Msg
+formInput_ getField form_ id_ label_ =
+    let
+        field =
+            getField id_ form_
+    in
+    div [ layoutClass InputField ]
+        [ Input.textInput field [ id id_, placeholder " " ]
+        , errorFor field
+        , label [ for id_ ] [ text label_ ]
+        ]
+
+
+errorFor : { b | liveError : Maybe a } -> Html msg
+errorFor field =
+    case field.liveError of
+        Just error ->
+            text (toString error)
+
+        Nothing ->
+            text ""

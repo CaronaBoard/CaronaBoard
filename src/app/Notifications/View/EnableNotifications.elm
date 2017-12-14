@@ -2,7 +2,6 @@ module Notifications.View.EnableNotifications exposing (enableNotifications)
 
 import Common.Form exposing (loadingOrSubmitButton, renderErrors)
 import Common.Icon exposing (icon)
-import Common.Response exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (disabled, id)
 import Html.Events exposing (onSubmit)

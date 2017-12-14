@@ -1,6 +1,5 @@
 module Rides.Update exposing (init, update)
 
-import Common.Response exposing (..)
 import Login.Model exposing (User)
 import Model as Root exposing (Msg(..))
 import RemoteData exposing (..)
