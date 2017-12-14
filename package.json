@@ -14,7 +14,8 @@
     "deploy": "./deploy.sh",
     "deploy:now": "npm run build && now build",
     "install": "elm package install -y && cd tests && elm install && npm run sync-test-deps",
-    "sync-test-deps": "mkdir -p elm-stuff/generated-code/elm-community/elm-test/elm-stuff && cp -R tests/elm-stuff elm-stuff/generated-code/elm-community/elm-test/"
+    "sync-test-deps": "mkdir -p elm-stuff/generated-code/elm-community/elm-test/elm-stuff && cp -R tests/elm-stuff elm-stuff/generated-code/elm-community/elm-test/",
+    "precommit": "npm test"
   },
   "repository": {
     "type": "git",
@@ -41,6 +42,7 @@
     "elm-test": "0.18.4",
     "elm-webpack-loader": "^4.4.0",
     "html-webpack-plugin": "^2.30.1",
+    "husky": "^0.14.3",
     "node-sass": "^4.5.2",
     "now": "^4.2.2",
     "raw-loader": "^0.5.1",
