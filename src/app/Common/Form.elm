@@ -1,11 +1,10 @@
-module Common.Form exposing (..)
+module Common.Form exposing (customLoadingOrSubmitButton, loadingOrSubmitButton, renderErrors, selectInput, textInput)
 
 import Common.Response exposing (..)
 import Form
 import Form.Input as Input
 import Html exposing (Attribute, Html, button, div, i, input, label, span, text)
 import Html.Attributes exposing (disabled, for, id, placeholder, type_, value)
-import Html.Events exposing (onInput)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import RemoteData exposing (..)
 
@@ -41,43 +40,21 @@ renderErrors response =
             div [] []
 
 
-textInput : String -> (String -> msg) -> String -> String -> Html msg
-textInput =
-    input_ "text"
-
-
-emailInput : String -> (String -> msg) -> String -> String -> Html msg
-emailInput =
-    input_ "email"
-
-
-passwordInput : String -> (String -> msg) -> String -> String -> Html msg
-passwordInput =
-    input_ "password"
-
-
-input_ : String -> String -> (String -> msg) -> String -> String -> Html msg
-input_ inputType value_ msg id_ label_ =
+textInput : Form.Form e o -> String -> String -> Html Form.Msg
+textInput form_ id_ label_ =
+    let
+        field =
+            Form.getFieldAsString id_ form_
+    in
     div [ layoutClass InputField ]
-        [ input
-            [ id id_
-            , type_ inputType
-            , value value_
-            , placeholder " "
-            , onInput msg
-            ]
-            []
+        [ Input.textInput field [ id id_, placeholder " " ]
+        , errorFor field
         , label [ for id_ ] [ text label_ ]
         ]
 
 
-formTextInput : Form.Form e o -> String -> String -> Html Form.Msg
-formTextInput =
-    formInput_
-
-
-formSelectInput : Form.Form e o -> String -> List ( String, String ) -> Html Form.Msg
-formSelectInput form_ id_ options =
+selectInput : Form.Form e o -> String -> List ( String, String ) -> Html Form.Msg
+selectInput form_ id_ options =
     let
         field =
             Form.getFieldAsString id_ form_
@@ -88,19 +65,6 @@ formSelectInput form_ id_ options =
             , span [ layoutClass SelectCaret ] [ text "▼" ]
             ]
         , errorFor field
-        ]
-
-
-formInput_ : Form.Form e o -> String -> String -> Html Form.Msg
-formInput_ form_ id_ label_ =
-    let
-        field =
-            Form.getFieldAsString id_ form_
-    in
-    div [ layoutClass InputField ]
-        [ Input.textInput field [ id id_, placeholder " " ]
-        , errorFor field
-        , label [ for id_ ] [ text label_ ]
         ]
 
 

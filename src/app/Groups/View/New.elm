@@ -21,6 +21,6 @@ formFields : { fields : Form e NewGroup, response : Response a } -> Html Form.Ms
 formFields { response, fields } =
     form [ layoutClass Card, onSubmit Form.Submit ]
         [ renderErrors response
-        , formTextInput fields "name" "Nome"
+        , textInput fields "name" "Nome"
         , loadingOrSubmitButton response "submitNewGroup" [ text "Criar" ]
         ]

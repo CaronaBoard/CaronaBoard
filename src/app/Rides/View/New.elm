@@ -21,9 +21,9 @@ formFields : { fields : Form e NewRide, response : Response a } -> Html Form.Msg
 formFields { response, fields } =
     form [ layoutClass Card, onSubmit Form.Submit ]
         [ renderErrors response
-        , formTextInput fields "origin" "Origem da carona"
-        , formTextInput fields "destination" "Destino da carona (bairro ou referência)"
-        , formTextInput fields "days" "Dias que você pode dar carona"
-        , formTextInput fields "hours" "Horário de saída"
+        , textInput fields "origin" "Origem da carona"
+        , textInput fields "destination" "Destino da carona (bairro ou referência)"
+        , textInput fields "days" "Dias que você pode dar carona"
+        , textInput fields "hours" "Horário de saída"
         , loadingOrSubmitButton response "submitNewRide" [ text "Cadastrar" ]
         ]

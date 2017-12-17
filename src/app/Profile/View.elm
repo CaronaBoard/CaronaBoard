@@ -28,17 +28,17 @@ formFields { response, fields } =
         [ renderErrors response
         , p [] [ text "Você precisa preencher seus dados de contato para poder dar ou pedir carona. Essa é a forma que os outros entrarão em contato com você." ]
         , br [] []
-        , formTextInput fields "name" "Nome"
+        , textInput fields "name" "Nome"
         , div [ className ContactField ]
             [ div [ className ContactKind ]
-                [ formSelectInput fields
+                [ selectInput fields
                     "contactKind"
                     [ ( "Whatsapp", "Whatsapp" )
                     , ( "Telegram", "Telegram" )
                     ]
                 ]
             , div [ className ContactValue ]
-                [ formTextInput fields
+                [ textInput fields
                     "contactValue"
                     (Form.getFieldAsString "contactKind" fields
                         |> .value
