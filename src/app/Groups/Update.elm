@@ -1,7 +1,7 @@
 module Groups.Update exposing (init, update)
 
 import Common.IdentifiedList exposing (findById, mapIfId)
-import Form exposing (Form)
+import Form
 import Groups.Model as Groups exposing (Model, Msg(..), validation)
 import Groups.Ports exposing (..)
 import Model as Root exposing (Msg(..))

@@ -1,13 +1,15 @@
-module Rides.Model exposing (Collection, Model, Msg(..), NewRide)
+module Rides.Model exposing (Collection, Model, Msg(..), NewRide, validation)
 
 import Common.Response exposing (Response)
+import Form exposing (Form)
+import Form.Validate as Validate exposing (..)
 import Profile.Model exposing (Profile)
 
 
 type alias Collection =
     { list : Response (List Model)
     , new :
-        { fields : NewRide
+        { fields : Form () NewRide
         , response : Response Bool
         }
     }
@@ -15,7 +17,7 @@ type alias Collection =
 
 type alias Model =
     { id : String
-    , groupId : String
+    , groupId : GroupId
     , userId : String
     , origin : String
     , destination : String
@@ -36,13 +38,19 @@ type alias NewRide =
 
 type Msg
     = UpdateRides (Response (List Model))
-    | UpdateOrigin String
-    | UpdateDestination String
-    | UpdateDays String
-    | UpdateHours String
-    | CreateRide GroupId
+    | FormMsg GroupId Form.Msg
     | CreateRideResponse (Response Bool)
 
 
 type alias GroupId =
     String
+
+
+validation : String -> Validation () NewRide
+validation groupId =
+    Validate.succeed NewRide
+        |> Validate.andMap (succeed groupId)
+        |> Validate.andMap (field "origin" string)
+        |> Validate.andMap (field "destination" string)
+        |> Validate.andMap (field "days" string)
+        |> Validate.andMap (field "hours" string)

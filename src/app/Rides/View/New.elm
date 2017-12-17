@@ -1,27 +1,29 @@
 module Rides.View.New exposing (new)
 
-import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
+import Common.Form exposing (..)
+import Common.Response exposing (..)
+import Form exposing (Form)
 import Html exposing (..)
 import Html.Events exposing (onInput, onSubmit)
 import Layout.Styles exposing (Classes(..), layoutClass)
-import Rides.Model exposing (Collection, Msg(..))
+import Rides.Model exposing (..)
 
 
 new : String -> Collection -> Html Msg
 new groupId model =
     div [ layoutClass Container ]
         [ h1 [ layoutClass PageTitle ] [ text "Dar Carona" ]
-        , form [ layoutClass Card, onSubmit (CreateRide groupId) ]
-            (formFields model)
+        , Html.map (FormMsg groupId) (formFields model.new)
         ]
 
 
-formFields : Collection -> List (Html Msg)
-formFields { new } =
-    [ renderErrors new.response
-    , textInput new.fields.origin UpdateOrigin "origin" "Origem da carona"
-    , textInput new.fields.destination UpdateDestination "destination" "Destino da carona (bairro ou referência)"
-    , textInput new.fields.days UpdateDays "days" "Dias que você pode dar carona"
-    , textInput new.fields.hours UpdateHours "hours" "Horário de saída"
-    , loadingOrSubmitButton new.response "submitNewRide" [ text "Cadastrar" ]
-    ]
+formFields : { fields : Form e NewRide, response : Response a } -> Html Form.Msg
+formFields { response, fields } =
+    form [ layoutClass Card, onSubmit Form.Submit ]
+        [ renderErrors response
+        , formTextInput fields "origin" "Origem da carona"
+        , formTextInput fields "destination" "Destino da carona (bairro ou referência)"
+        , formTextInput fields "days" "Dias que você pode dar carona"
+        , formTextInput fields "hours" "Horário de saída"
+        , loadingOrSubmitButton response "submitNewRide" [ text "Cadastrar" ]
+        ]

@@ -57,7 +57,7 @@ tests =
                 fillNewRide
                     >> expectView
                     >> find [ id "origin" ]
-                    >> has [ attribute "value" "bar" ]
+                    >> has [ attribute "defaultValue" "bar" ]
             , test "shows loading on submit" <|
                 submitNewRide
                     >> expectView
@@ -91,7 +91,7 @@ tests =
                     >> navigate (toPath <| RidesCreatePage "idGroup1")
                     >> expectView
                     >> find [ id "origin" ]
-                    >> has [ attribute "value" "" ]
+                    >> has [ attribute "defaultValue" "" ]
             ]
         ]
 
