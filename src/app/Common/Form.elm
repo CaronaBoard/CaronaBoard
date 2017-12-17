@@ -1,7 +1,8 @@
 module Common.Form exposing (customLoadingOrSubmitButton, loadingOrSubmitButton, renderErrors, selectInput, textInput)
 
 import Common.Response exposing (..)
-import Form
+import Form exposing (..)
+import Form.Error exposing (..)
 import Form.Input as Input
 import Html exposing (Attribute, Html, button, div, i, input, label, span, text)
 import Html.Attributes exposing (disabled, for, id, placeholder, type_, value)
@@ -40,11 +41,11 @@ renderErrors response =
             renderError Nothing
 
 
-renderError : Maybe a -> Html msg
+renderError : Maybe String -> Html msg
 renderError error =
     case error of
         Just error ->
-            div [ layoutClass ErrorMessage ] [ text (toString error) ]
+            div [ layoutClass ErrorMessage ] [ text error ]
 
         Nothing ->
             text ""
@@ -78,6 +79,22 @@ selectInput form_ id_ options =
         ]
 
 
-errorFor : { b | liveError : Maybe a } -> Html msg
+errorFor : FieldState e a -> Html msg
 errorFor field =
-    renderError field.liveError
+    renderError (Maybe.map errorToString field.liveError)
+
+
+errorToString : ErrorValue e -> String
+errorToString error =
+    case error of
+        Empty ->
+            "este campo é obrigatório"
+
+        InvalidString ->
+            "este campo é obrigatório"
+
+        CustomError e ->
+            toString e
+
+        _ ->
+            "campo inválido"
