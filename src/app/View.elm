@@ -4,6 +4,7 @@ import Groups.View.Details
 import Groups.View.List
 import Groups.View.New
 import Html exposing (div, h1, text)
+import Html.Styled exposing (toUnstyled)
 import Layout.View.Layout exposing (layout)
 import Layout.View.SplashScreen exposing (splashScreen)
 import Login.View.Layout exposing (loginLayout)
@@ -37,7 +38,7 @@ view model =
             loginLayout (Html.map MsgForLogin <| registrationStep model.login)
 
         RidesListPage groupId ->
-            layout model (Rides.View.List.list groupId model)
+            layout model (toUnstyled <| Rides.View.List.list groupId model)
 
         NotFoundPage ->
             h1 [] [ text "404 não encontrado" ]
@@ -58,13 +59,13 @@ view model =
             layout model (Html.map MsgForProfile <| profile model.profile)
 
         GroupsListPage ->
-            layout model (Groups.View.List.list model.login model.groups)
+            layout model (toUnstyled <| Groups.View.List.list model.login model.groups)
 
         GroupsCreatePage ->
-            layout model (Html.map MsgForGroups <| Groups.View.New.new model.groups)
+            layout model (Html.map MsgForGroups <| toUnstyled <| Groups.View.New.new model.groups)
 
         GroupDetailsPage groupId ->
-            layout model (Groups.View.Details.details groupId model)
+            layout model (toUnstyled <| Groups.View.Details.details groupId model)
 
         RideRequestDetailsPage _ _ _ _ ->
             layout model (details model.ridesRequests)

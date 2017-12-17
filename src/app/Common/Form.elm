@@ -1,4 +1,4 @@
-module Common.Form exposing (customLoadingOrSubmitButton, loadingOrSubmitButton, renderErrors, selectInput, textInput)
+module Common.Form exposing (customLoadingOrSubmitButton, loadingOrSubmitButton, renderErrors, selectInput, styledLoadingOrSubmitButton, textInput)
 
 import Common.Response exposing (..)
 import Form exposing (..)
@@ -6,7 +6,9 @@ import Form.Error exposing (..)
 import Form.Input as Input
 import Html exposing (Attribute, Html, button, div, i, input, label, span, text)
 import Html.Attributes exposing (disabled, for, id, placeholder, type_, value)
-import Layout.Styles exposing (Classes(..), layoutClass)
+import Html.Styled
+import Html.Styled.Attributes
+import Layout.Styles exposing (Classes(..), layoutClass, styledLayoutClass)
 import RemoteData exposing (..)
 
 
@@ -15,6 +17,14 @@ loadingOrSubmitButton response id_ children =
     customLoadingOrSubmitButton response
         [ layoutClass SubmitButton, id id_ ]
         [ layoutClass DisabledButton, id id_ ]
+        children
+
+
+styledLoadingOrSubmitButton : Response a -> String -> List (Html.Styled.Html msg) -> Html.Styled.Html msg
+styledLoadingOrSubmitButton response id_ children =
+    styledCustomLoadingOrSubmitButton response
+        [ styledLayoutClass SubmitButton, Html.Styled.Attributes.id id_ ]
+        [ styledLayoutClass DisabledButton, Html.Styled.Attributes.id id_ ]
         children
 
 
@@ -28,6 +38,19 @@ customLoadingOrSubmitButton response enabledAttributes disabledAttributes childr
         _ ->
             button enabledAttributes
                 [ div [ layoutClass ButtonContainer ] children
+                ]
+
+
+styledCustomLoadingOrSubmitButton : Response a -> List (Html.Styled.Attribute msg) -> List (Html.Styled.Attribute msg) -> List (Html.Styled.Html msg) -> Html.Styled.Html msg
+styledCustomLoadingOrSubmitButton response enabledAttributes disabledAttributes children =
+    case response of
+        Loading ->
+            Html.Styled.button ([ Html.Styled.Attributes.disabled True ] ++ disabledAttributes)
+                [ Html.Styled.div [ styledLayoutClass ButtonContainer ] [ Html.Styled.text "Carregando...", Html.Styled.i [] [] ] ]
+
+        _ ->
+            Html.Styled.button enabledAttributes
+                [ Html.Styled.div [ styledLayoutClass ButtonContainer ] children
                 ]
 
 

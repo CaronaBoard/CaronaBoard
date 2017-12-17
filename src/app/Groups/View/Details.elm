@@ -1,12 +1,12 @@
 module Groups.View.Details exposing (details)
 
-import Common.Form exposing (loadingOrSubmitButton)
+import Common.Form exposing (..)
 import Common.IdentifiedList exposing (findById)
 import Groups.Model exposing (Msg(..))
-import Html exposing (..)
-import Html.Attributes exposing (disabled)
-import Html.Events exposing (..)
-import Layout.Styles exposing (Classes(..), layoutClass)
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (disabled)
+import Html.Styled.Events exposing (..)
+import Layout.Styles exposing (Classes(..), styledLayoutClass)
 import Model as Root exposing (Msg(..))
 import RemoteData exposing (..)
 
@@ -34,17 +34,17 @@ details groupId { groups } =
 
 renderGroup : Groups.Model.Group -> Html Root.Msg
 renderGroup group =
-    div [ layoutClass Container ]
-        [ h1 [ layoutClass PageTitle ] [ text group.name ]
-        , form [ layoutClass Card, onSubmit (MsgForGroups <| CreateJoinGroupRequest group.id) ]
+    div [ styledLayoutClass Container ]
+        [ h1 [ styledLayoutClass PageTitle ] [ text group.name ]
+        , form [ styledLayoutClass Card, onSubmit (MsgForGroups <| CreateJoinGroupRequest group.id) ]
             [ p [] [ text "Este grupo é um grupo fechado, clique abaixo para pedir autorização dos administradores para entrar no grupo." ]
             , br [] []
             , case group.joinRequest of
                 Success _ ->
-                    button [ disabled True, layoutClass DisabledButton ]
-                        [ div [ layoutClass ButtonContainer ] [ text "Pedido enviado!" ] ]
+                    button [ disabled True, styledLayoutClass DisabledButton ]
+                        [ div [ styledLayoutClass ButtonContainer ] [ text "Pedido enviado!" ] ]
 
                 _ ->
-                    loadingOrSubmitButton group.joinRequest "joinGroup" [ text "Participar do grupo" ]
+                    styledLoadingOrSubmitButton group.joinRequest "joinGroup" [ text "Participar do grupo" ]
             ]
         ]

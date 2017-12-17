@@ -1,6 +1,5 @@
 module Integration.RidesSpec exposing (tests)
 
-import Common.Response exposing (..)
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (expectCurrentPage, expectToContainText, fixtures, initialContext, signedInContext, someUser, toLocation)
@@ -27,7 +26,7 @@ tests =
             [ test "renders no routes when there are no rides loaded yet" <|
                 ridesListContext
                     >> TestContext.expectView
-                    >> findAll [ class Card ]
+                    >> findAll [ id "rideItem" ]
                     >> count (Expect.equal 0)
             , test "request rides list when going to the page" <|
                 ridesListContext
@@ -41,7 +40,7 @@ tests =
                     >> loadGroups
                     >> loadRides
                     >> expectView
-                    >> findAll [ class Card ]
+                    >> findAll [ id "rideItem" ]
                     >> count (Expect.equal 2)
             , test "renders only the rides for the selected group" <|
                 ridesListContext
@@ -49,7 +48,7 @@ tests =
                     >> loadRides
                     >> navigate (toPath <| RidesListPage "idGroup2")
                     >> expectView
-                    >> findAll [ class Card ]
+                    >> findAll [ id "rideItem" ]
                     >> count (Expect.equal 0)
             ]
         , describe "new" <|

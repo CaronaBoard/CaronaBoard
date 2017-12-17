@@ -4,6 +4,7 @@ import Common.Form exposing (loadingOrSubmitButton, renderErrors)
 import Html exposing (..)
 import Html.Attributes exposing (for, href, id, placeholder, selected, target, value)
 import Html.Events exposing (onInput, onSubmit)
+import Html.Styled exposing (toUnstyled)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Profile.Model exposing (Profile, contactDeepLink)
 import RemoteData exposing (..)
@@ -41,8 +42,8 @@ formFields ride collection =
     [ renderErrors collection.new.response
     , div [ layoutClass CardTitle ] [ text "Confirme os detalhes da carona antes de confirmar" ]
     , br [] []
-    , rideRoute ride
-    , rideInfo ride
+    , toUnstyled <| rideRoute ride
+    , toUnstyled <| rideInfo ride
     , br [] []
     , loadingOrSubmitButton collection.new.response "submitRideRequest" [ text "Pedir carona" ]
     ]
