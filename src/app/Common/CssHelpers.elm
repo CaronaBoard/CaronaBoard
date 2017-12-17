@@ -1,7 +1,9 @@
-module Common.CssHelpers exposing (Namespace, namespacedClass)
+module Common.CssHelpers exposing (..)
 
 import Html exposing (Attribute)
 import Html.CssHelpers as CssHelpers
+import Html.Styled
+import Html.Styled.Attributes
 
 
 type alias Namespace class msg =
@@ -17,3 +19,14 @@ namespacedClass namespace =
             CssHelpers.withNamespace namespace
     in
     \name -> class [ name ]
+
+
+styledNamespacedClass : String -> (class -> Html.Styled.Attribute msg)
+styledNamespacedClass namespace =
+    let
+        { class, name } =
+            CssHelpers.withNamespace namespace
+    in
+    \name ->
+        class [ name ]
+            |> Html.Styled.Attributes.fromUnstyled

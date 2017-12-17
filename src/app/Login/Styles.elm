@@ -111,7 +111,7 @@ step =
 slideInAnimation : Snippet
 slideInAnimation =
     -- TODO: This below is a very hacky way of adding import Css.Foreign, waiting for elm-css to add support for it
-    selector "@import Css.Foreign slide-in {"
+    selector "@keyframes slide-in {"
         [ descendants
             [ selector "0%"
                 [ opacity (int 0)

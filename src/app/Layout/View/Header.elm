@@ -1,12 +1,12 @@
 module Layout.View.Header exposing (header)
 
 import Common.Icon exposing (icon)
-import Common.Link exposing (linkTo)
-import Html exposing (Html, a, b, button, div, h1, h2, i, img, li, nav, text, ul)
-import Html.Attributes exposing (alt, href, id, rel, src, style)
-import Html.Events exposing (onClick)
+import Common.Link exposing (..)
+import Html.Styled exposing (Html, a, b, button, div, fromUnstyled, h1, h2, i, img, li, nav, styled, text, ul)
+import Html.Styled.Attributes exposing (alt, href, id, rel, src, style)
+import Html.Styled.Events exposing (onClick)
 import Layout.Model as Layout exposing (Msg(CloseDropdown, OpenDropdown))
-import Layout.Styles exposing (Classes(..), layoutClass)
+import Layout.Styles exposing (Classes(..), styledLayoutClass)
 import Login.Model exposing (Msg(SignOut))
 import Model as Root exposing (Msg(..))
 import UrlRouter.Model exposing (Msg(..))
@@ -15,33 +15,33 @@ import UrlRouter.Routes exposing (Page(..))
 
 header : Root.Model -> Html Root.Msg
 header model =
-    Html.header [ layoutClass Header ] <|
+    styled Html.Styled.header Layout.Styles.header [] <|
         menu model.layout
-            ++ [ nav [ layoutClass Navbar ]
+            ++ [ nav [ styledLayoutClass Navbar ]
                     [ case model.urlRouter.page of
                         GroupsListPage ->
                             div [] []
 
                         _ ->
-                            div [ layoutClass NavBack, onClick (MsgForUrlRouter Back) ]
-                                [ icon "keyboard_backspace"
+                            div [ styledLayoutClass NavBack, onClick (MsgForUrlRouter Back) ]
+                                [ fromUnstyled <| icon "keyboard_backspace"
                                 ]
                     , ul []
                         [ case model.urlRouter.page of
                             RidesListPage groupId ->
                                 li []
-                                    [ linkTo (RidesCreatePage groupId)
-                                        [ layoutClass AddRideLink ]
-                                        [ icon "directions_car"
+                                    [ styledLinkTo (RidesCreatePage groupId)
+                                        [ styledLayoutClass AddRideLink ]
+                                        [ fromUnstyled <| icon "directions_car"
                                         , text "+"
                                         ]
                                     ]
 
                             GroupsListPage ->
                                 li []
-                                    [ linkTo GroupsCreatePage
-                                        [ layoutClass AddRideLink, id "createGroup" ]
-                                        [ icon "group"
+                                    [ styledLinkTo GroupsCreatePage
+                                        [ styledLayoutClass AddRideLink, id "createGroup" ]
+                                        [ fromUnstyled <| icon "group"
                                         , text "+"
                                         ]
                                     ]
@@ -49,13 +49,13 @@ header model =
                             _ ->
                                 div [] []
                         , li []
-                            [ a [ layoutClass MenuButton, id "openMenu", onClick (MsgForLayout OpenDropdown) ]
-                                [ icon "more_vert"
+                            [ a [ styledLayoutClass MenuButton, id "openMenu", onClick (MsgForLayout OpenDropdown) ]
+                                [ fromUnstyled <| icon "more_vert"
                                 ]
                             ]
                         ]
-                    , linkTo GroupsListPage
-                        [ layoutClass BrandLogo ]
+                    , styledLinkTo GroupsListPage
+                        [ styledLayoutClass BrandLogo ]
                         [ b [] [ text "Carona" ]
                         , text "Board"
                         ]
@@ -66,16 +66,16 @@ header model =
 menu : Layout.Model -> List (Html Root.Msg)
 menu model =
     if model.dropdownOpen then
-        [ div [ layoutClass Menu, onClick (MsgForLayout CloseDropdown) ]
-            [ ul [ layoutClass AnimatedDropdown ]
+        [ div [ styledLayoutClass Menu, onClick (MsgForLayout CloseDropdown) ]
+            [ ul [ styledLayoutClass AnimatedDropdown ]
                 [ li []
-                    [ a [ layoutClass DropdownLink, href "http://goo.gl/forms/GYVDfZuhWg" ] [ text "Dar Feedback" ]
+                    [ a [ styledLayoutClass DropdownLink, href "http://goo.gl/forms/GYVDfZuhWg" ] [ text "Dar Feedback" ]
                     ]
                 , li []
-                    [ linkTo ProfilePage [ layoutClass DropdownLink ] [ text "Editar Perfil" ]
+                    [ styledLinkTo ProfilePage [ styledLayoutClass DropdownLink ] [ text "Editar Perfil" ]
                     ]
                 , li []
-                    [ a [ layoutClass DropdownLink, onClick (MsgForLogin SignOut), layoutClass SignOutButton ] [ text "Sair" ]
+                    [ a [ styledLayoutClass DropdownLink, onClick (MsgForLogin SignOut), styledLayoutClass SignOutButton ] [ text "Sair" ]
                     ]
                 ]
             ]

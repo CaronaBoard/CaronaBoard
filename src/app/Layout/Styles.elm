@@ -7,6 +7,7 @@ import Css.Foreign exposing (..)
 import DEPRECATED.Css.File exposing (..)
 import DEPRECATED.Css.Namespace
 import Html exposing (Attribute)
+import Html.Styled
 
 
 namespace : String
@@ -17,6 +18,11 @@ namespace =
 layoutClass : Classes -> Attribute msg
 layoutClass =
     namespacedClass namespace
+
+
+styledLayoutClass : class -> Html.Styled.Attribute msg
+styledLayoutClass =
+    styledNamespacedClass namespace
 
 
 type Classes
@@ -98,6 +104,12 @@ generalStyles =
         , width (pct 100)
         , fontSize (Css.rem 1.1)
         ]
+    ]
+
+
+header : List Style
+header =
+    [ height (px 54)
     ]
 
 
@@ -270,7 +282,7 @@ layoutStyles =
             ++ [ float right ]
 
     -- TODO: This below is a very hacky way of adding import Css.Foreign, waiting for elm-css to add support for it
-    , selector "@import Css.Foreign slideDown {"
+    , selector "@keyframes slideDown {"
         [ descendants
             [ selector "from"
                 [ maxHeight (px 0)
