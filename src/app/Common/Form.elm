@@ -34,10 +34,20 @@ renderErrors : Response a -> Html msg
 renderErrors response =
     case response of
         Failure message ->
-            div [ layoutClass ErrorMessage ] [ text message ]
+            renderError <| Just message
 
         _ ->
-            div [] []
+            renderError Nothing
+
+
+renderError : Maybe a -> Html msg
+renderError error =
+    case error of
+        Just error ->
+            div [ layoutClass ErrorMessage ] [ text (toString error) ]
+
+        Nothing ->
+            text ""
 
 
 textInput : Form.Form e o -> String -> String -> Html Form.Msg
@@ -70,9 +80,4 @@ selectInput form_ id_ options =
 
 errorFor : { b | liveError : Maybe a } -> Html msg
 errorFor field =
-    case field.liveError of
-        Just error ->
-            text (toString error)
-
-        Nothing ->
-            text ""
+    renderError field.liveError
