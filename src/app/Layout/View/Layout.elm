@@ -1,17 +1,27 @@
 module Layout.View.Layout exposing (layout)
 
-import Html exposing (Html, div, text)
-import Html.Styled
-import Layout.Styles exposing (Classes(..), layoutClass)
+import Html
+import Html.Styled exposing (Html, div, fromUnstyled, text, toUnstyled)
+import Html.Styled.Attributes exposing (id)
 import Layout.View.Header exposing (header)
 import Model exposing (Model, Msg)
 import Notifications.View.Notice exposing (notice)
 
 
-layout : Model -> Html Msg -> Html Msg
+layout : Model -> Html.Html Msg -> Html.Html Msg
 layout model html =
-    div [ layoutClass Page ]
-        [ Html.Styled.toUnstyled (header model)
+    div [ id "page" ]
+        [ header model
+        , fromUnstyled html
+        , notice model
+        ]
+        |> toUnstyled
+
+
+styledLayout : Model -> Html.Styled.Html Msg -> Html Msg
+styledLayout model html =
+    div []
+        [ header model
         , html
         , notice model
         ]

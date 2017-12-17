@@ -1,6 +1,5 @@
 module Integration.UrlRouterSpec exposing (tests)
 
-import Common.Response exposing (..)
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (..)
@@ -117,7 +116,7 @@ expectToBeOnLoginPage =
     expectView
         >> Expect.all
             [ has [ loginClass Login.Styles.Page ]
-            , hasNot [ layoutClass Layout.Styles.Page ]
+            , hasNot [ id "page" ]
             ]
 
 

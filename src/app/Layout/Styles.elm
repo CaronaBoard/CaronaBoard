@@ -27,7 +27,6 @@ styledLayoutClass =
 
 type Classes
     = Container
-    | Page
     | Menu
     | AnimatedDropdown
     | DropdownLink
@@ -117,8 +116,6 @@ layoutStyles : List Snippet
 layoutStyles =
     [ class Container
         container
-    , class Page
-        []
     , class Header
         [ height (px 54)
         ]

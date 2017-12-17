@@ -1,41 +1,17 @@
-module Notifications.Styles exposing (Classes(..), className, namespace, styles)
+module Notifications.Styles exposing (..)
 
 import Common.Colors exposing (..)
-import Common.CssHelpers exposing (..)
 import Css exposing (..)
-import Css.Foreign exposing (..)
-import DEPRECATED.Css.File exposing (..)
-import DEPRECATED.Css.Namespace
-import Html exposing (Attribute)
 
 
-namespace : String
-namespace =
-    "notifications"
+noticeVisible : List Style
+noticeVisible =
+    notice ++ [ bottom (px 0) ]
 
 
-className : Classes -> Attribute msg
-className =
-    namespacedClass namespace
-
-
-type Classes
-    = NoticeVisible
-    | NoticeHidden
-
-
-styles : Stylesheet
-styles =
-    (stylesheet << DEPRECATED.Css.Namespace.namespace namespace)
-        [ class NoticeVisible <|
-            notice
-                ++ [ bottom (px 0)
-                   ]
-        , class NoticeHidden <|
-            notice
-                ++ [ bottom (px -50)
-                   ]
-        ]
+noticeHidden : List Style
+noticeHidden =
+    notice ++ [ bottom (px -50) ]
 
 
 notice : List Style

@@ -4,7 +4,6 @@ import DEPRECATED.Css.File exposing (CssCompilerProgram, CssFileStructure)
 import Groups.Styles
 import Layout.Styles
 import Login.Styles
-import Notifications.Styles
 import Profile.Styles
 import Rides.Styles
 
@@ -20,7 +19,6 @@ fileStructure =
                 [ Layout.Styles.styles
                 , Login.Styles.styles
                 , Rides.Styles.styles
-                , Notifications.Styles.styles
                 , Profile.Styles.styles
                 , Groups.Styles.styles
                 ]

@@ -1,15 +1,15 @@
 module Notifications.View.Notice exposing (notice)
 
-import Html exposing (Html, div, text)
+import Html.Styled exposing (Html, div, styled, text)
 import Model exposing (Model, Msg)
-import Notifications.Styles exposing (Classes(..), className)
+import Notifications.Styles exposing (..)
 
 
 notice : Model -> Html Msg
 notice model =
     case model.notifications.notice of
         Just notification ->
-            div [ className NoticeVisible ] [ text notification ]
+            styled div noticeVisible [] [ text notification ]
 
         Nothing ->
-            div [ className NoticeHidden ] []
+            styled div noticeHidden [] []
