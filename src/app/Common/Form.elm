@@ -3,7 +3,7 @@ module Common.Form exposing (..)
 import Common.Response exposing (..)
 import Form
 import Form.Input as Input
-import Html exposing (Attribute, Html, button, div, i, input, label, text)
+import Html exposing (Attribute, Html, button, div, i, input, label, span, text)
 import Html.Attributes exposing (disabled, for, id, placeholder, type_, value)
 import Html.Events exposing (onInput)
 import Layout.Styles exposing (Classes(..), layoutClass)
@@ -73,14 +73,29 @@ input_ inputType value_ msg id_ label_ =
 
 formTextInput : Form.Form e o -> String -> String -> Html Form.Msg
 formTextInput =
-    formInput_ Form.getFieldAsString
+    formInput_
 
 
-formInput_ : (String -> a -> Form.FieldState e String) -> a -> String -> String -> Html Form.Msg
-formInput_ getField form_ id_ label_ =
+formSelectInput : Form.Form e o -> String -> List ( String, String ) -> Html Form.Msg
+formSelectInput form_ id_ options =
     let
         field =
-            getField id_ form_
+            Form.getFieldAsString id_ form_
+    in
+    div [ layoutClass InputField ]
+        [ div [ layoutClass SelectWrapper ]
+            [ Input.selectInput options field [ id id_, layoutClass SelectField ]
+            , span [ layoutClass SelectCaret ] [ text "▼" ]
+            ]
+        , errorFor field
+        ]
+
+
+formInput_ : Form.Form e o -> String -> String -> Html Form.Msg
+formInput_ form_ id_ label_ =
+    let
+        field =
+            Form.getFieldAsString id_ form_
     in
     div [ layoutClass InputField ]
         [ Input.textInput field [ id id_, placeholder " " ]

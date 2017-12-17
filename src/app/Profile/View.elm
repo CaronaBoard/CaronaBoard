@@ -1,11 +1,11 @@
 module Profile.View exposing (profile)
 
-import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
+import Common.Form exposing (..)
+import Form exposing (Form)
 import Html exposing (..)
-import Html.Attributes exposing (for, href, id, placeholder, selected, target, value)
 import Html.Events exposing (onInput, onSubmit)
 import Layout.Styles exposing (Classes(..), layoutClass)
-import Profile.Model exposing (Model, Msg(..), contactIdentifier)
+import Profile.Model exposing (Model, Msg(..), Profile, contactIdentifier)
 import Profile.Styles exposing (Classes(..), className)
 
 
@@ -18,36 +18,34 @@ profile model =
               else
                 text "Editar Perfil"
             ]
-        , form [ layoutClass Card, onSubmit Submit ]
-            (formFields model)
+        , Html.map FormMsg (formFields model)
         ]
 
 
-formFields : Model -> List (Html Msg)
-formFields model =
-    [ renderErrors model.response
-    , p [] [ text "Você precisa preencher seus dados de contato para poder dar ou pedir carona. Essa é a forma que os outros entrarão em contato com você." ]
-    , br [] []
-    , textInput model.fields.name UpdateName "name" "Seu nome"
-    , div [ className ContactField ]
-        [ div [ className ContactKind ]
-            [ div [ layoutClass InputField ]
-                [ div [ layoutClass SelectWrapper ]
-                    [ select [ className Select, onInput UpdateContactKind, id "contactKind" ]
-                        [ contactKindOption model "Whatsapp"
-                        , contactKindOption model "Telegram"
-                        ]
-                    , span [ layoutClass SelectCaret ] [ text "▼" ]
+formFields : Model -> Html Form.Msg
+formFields { response, fields } =
+    form [ layoutClass Card, onSubmit Form.Submit ]
+        [ renderErrors response
+        , p [] [ text "Você precisa preencher seus dados de contato para poder dar ou pedir carona. Essa é a forma que os outros entrarão em contato com você." ]
+        , br [] []
+        , formTextInput fields "name" "Nome"
+        , div [ className ContactField ]
+            [ div [ className ContactKind ]
+                [ formSelectInput fields
+                    "contactKind"
+                    [ ( "Whatsapp", "Whatsapp" )
+                    , ( "Telegram", "Telegram" )
                     ]
                 ]
+            , div [ className ContactValue ]
+                [ formTextInput fields
+                    "contactValue"
+                    (Form.getFieldAsString "contactKind" fields
+                        |> .value
+                        |> Maybe.withDefault ""
+                        |> contactIdentifier
+                    )
+                ]
             ]
-        , div [ className ContactValue ]
-            [ textInput model.fields.contact.value UpdateContactValue "contactValue" (contactIdentifier model.fields.contact.kind) ]
+        , loadingOrSubmitButton response "submitProfile" [ text "Salvar" ]
         ]
-    , loadingOrSubmitButton model.response "submitProfile" [ text "Salvar" ]
-    ]
-
-
-contactKindOption : Model -> String -> Html msg
-contactKindOption model value_ =
-    option [ value value_, selected (model.fields.contact.value == value_) ] [ text value_ ]

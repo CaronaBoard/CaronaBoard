@@ -3,13 +3,14 @@ module Integration.ProfileSpec exposing (tests)
 import Common.Response exposing (..)
 import Expect exposing (equal)
 import Helpers exposing (expectToContainText, fixtures, initialContext, someUser, successSignIn, toLocation)
+import Json.Encode as Encode exposing (Value)
 import Model as Root exposing (Model, Msg(..))
 import Profile.Model exposing (Msg(..))
 import Profile.Ports
 import RemoteData exposing (RemoteData(..))
 import Rides.Model exposing (Msg(..))
 import Test exposing (..)
-import Test.Html.Event exposing (input, submit)
+import Test.Html.Event exposing (custom, input, submit)
 import Test.Html.Query exposing (..)
 import Test.Html.Selector exposing (..)
 import TestContext exposing (..)
@@ -23,7 +24,7 @@ tests =
             fillProfile
                 >> expectView
                 >> find [ id "name" ]
-                >> has [ attribute "value" fixtures.profile.name ]
+                >> has [ attribute "defaultValue" fixtures.profile.name ]
         , test "shows loading on submit" <|
             submitProfile
                 >> expectView
@@ -56,9 +57,9 @@ tests =
                 >> expectView
                 >> Expect.all
                     [ find [ id "name" ]
-                        >> has [ attribute "value" fixtures.profile.name ]
+                        >> has [ attribute "defaultValue" fixtures.profile.name ]
                     , find [ id "contactValue" ]
-                        >> has [ attribute "value" fixtures.profile.contact.value ]
+                        >> has [ attribute "defaultValue" fixtures.profile.contact.value ]
                     ]
         ]
 
@@ -71,9 +72,18 @@ profileContext =
 
 fillProfile : a -> TestContext Model Root.Msg
 fillProfile =
+    let
+        changeEvent : Value
+        changeEvent =
+            Encode.object
+                [ ( "target"
+                  , Encode.object [ ( "value", Encode.string fixtures.profile.contact.kind ) ]
+                  )
+                ]
+    in
     profileContext
         >> simulate (find [ id "name" ]) (input fixtures.profile.name)
-        >> simulate (find [ id "contactKind" ]) (input fixtures.profile.contact.kind)
+        >> simulate (find [ id "contactKind" ]) (custom "change" changeEvent)
         >> simulate (find [ id "contactValue" ]) (input fixtures.profile.contact.value)
 
 
