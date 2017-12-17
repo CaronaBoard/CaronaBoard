@@ -2,6 +2,7 @@ module Layout.View.SplashScreen exposing (splashScreen)
 
 import Common.Colors exposing (..)
 import Css exposing (..)
+import DEPRECATED.Css exposing (asPairs)
 import Html exposing (Html, div, img)
 import Html.Attributes exposing (src, style)
 import Model exposing (Msg(..))

@@ -2,7 +2,9 @@ module Profile.Styles exposing (Classes(..), className, namespace, styles)
 
 import Common.CssHelpers exposing (..)
 import Css exposing (..)
-import Css.Namespace
+import Css.Foreign exposing (..)
+import DEPRECATED.Css.File exposing (..)
+import DEPRECATED.Css.Namespace
 import Html exposing (Attribute)
 
 
@@ -24,7 +26,7 @@ type Classes
 
 styles : Stylesheet
 styles =
-    (stylesheet << Css.Namespace.namespace namespace)
+    (stylesheet << DEPRECATED.Css.Namespace.namespace namespace)
         [ class ContactField
             [ displayFlex
             , justifyContent spaceBetween

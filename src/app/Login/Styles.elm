@@ -3,8 +3,9 @@ module Login.Styles exposing (Classes(..), className, namespace, styles)
 import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
 import Css exposing (..)
-import Css.Elements exposing (h1, input, label)
-import Css.Namespace
+import Css.Foreign exposing (..)
+import DEPRECATED.Css.File exposing (..)
+import DEPRECATED.Css.Namespace
 import Html exposing (Attribute)
 import Layout.Styles exposing (button, linkButton)
 
@@ -34,7 +35,7 @@ type Classes
 
 styles : Stylesheet
 styles =
-    (stylesheet << Css.Namespace.namespace namespace)
+    (stylesheet << DEPRECATED.Css.Namespace.namespace namespace)
         [ class Page
             [ height (pct 100)
             , width (pct 100)
@@ -82,7 +83,7 @@ styles =
         ]
 
 
-step : List Mixin
+step : List Style
 step =
     [ padding (px 40)
     , descendants
@@ -96,7 +97,7 @@ step =
             [ lightTextColor
             ]
         , class SubmitButton <|
-            button
+            Layout.Styles.button
                 ++ [ color primaryBlue
                    , backgroundColor white
                    , hover
@@ -109,8 +110,8 @@ step =
 
 slideInAnimation : Snippet
 slideInAnimation =
-    -- TODO: This below is a very hacky way of adding keyframes, waiting for elm-css to add support for it
-    selector "@keyframes slide-in {"
+    -- TODO: This below is a very hacky way of adding import Css.Foreign, waiting for elm-css to add support for it
+    selector "@import Css.Foreign slide-in {"
         [ descendants
             [ selector "0%"
                 [ opacity (int 0)
@@ -131,12 +132,12 @@ slideInAnimation =
 
 desktopStyles : Snippet
 desktopStyles =
-    mediaQuery "(min-width: 1200px)"
+    mediaQuery [ "(min-width: 1200px)" ]
         [ class Page centralizeContents
         , class Background
             [ maxHeight (px 680)
             , maxWidth (px 945)
-            , boxShadow4 (em 0) (em 0.3) (em 1.2) (rgba 0 0 0 0.5)
+            , boxShadow4 (Css.em 0) (Css.em 0.3) (Css.em 1.2) (rgba 0 0 0 0.5)
             ]
         , class Container
             [ flexWrap wrap
@@ -162,7 +163,7 @@ desktopStyles =
         ]
 
 
-stepDesktop : List Mixin
+stepDesktop : List Style
 stepDesktop =
     [ width (pct 50)
     , height (pct 100)
@@ -188,14 +189,14 @@ stepDesktop =
     ]
 
 
-buttonDesktop : List Mixin
+buttonDesktop : List Style
 buttonDesktop =
     [ width (pct 100)
     , darkTextColor
     ]
 
 
-centralizeContents : List Mixin
+centralizeContents : List Style
 centralizeContents =
     [ displayFlex
     , alignItems center

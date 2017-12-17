@@ -3,7 +3,9 @@ module Rides.Styles exposing (Classes(..), className, namespace, styles)
 import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
 import Css exposing (..)
-import Css.Namespace
+import Css.Foreign exposing (..)
+import DEPRECATED.Css.File exposing (..)
+import DEPRECATED.Css.Namespace
 import Html exposing (Attribute)
 import Layout.Styles exposing (card)
 
@@ -31,7 +33,7 @@ type Classes
 
 styles : Stylesheet
 styles =
-    (stylesheet << Css.Namespace.namespace namespace)
+    (stylesheet << DEPRECATED.Css.Namespace.namespace namespace)
         [ class Card <|
             card
                 ++ [ descendants cardStyles

@@ -3,7 +3,9 @@ module Notifications.Styles exposing (Classes(..), className, namespace, styles)
 import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
 import Css exposing (..)
-import Css.Namespace
+import Css.Foreign exposing (..)
+import DEPRECATED.Css.File exposing (..)
+import DEPRECATED.Css.Namespace
 import Html exposing (Attribute)
 
 
@@ -24,7 +26,7 @@ type Classes
 
 styles : Stylesheet
 styles =
-    (stylesheet << Css.Namespace.namespace namespace)
+    (stylesheet << DEPRECATED.Css.Namespace.namespace namespace)
         [ class NoticeVisible <|
             notice
                 ++ [ bottom (px 0)
@@ -36,7 +38,7 @@ styles =
         ]
 
 
-notice : List Mixin
+notice : List Style
 notice =
     [ width (pct 100)
     , height (px 50)

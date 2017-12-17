@@ -3,8 +3,9 @@ module Layout.Styles exposing (..)
 import Common.Colors exposing (..)
 import Common.CssHelpers exposing (..)
 import Css exposing (..)
-import Css.Elements exposing (..)
-import Css.Namespace
+import Css.Foreign exposing (..)
+import DEPRECATED.Css.File exposing (..)
+import DEPRECATED.Css.Namespace
 import Html exposing (Attribute)
 
 
@@ -51,7 +52,7 @@ type Classes
 
 styles : Stylesheet
 styles =
-    (stylesheet << Css.Namespace.namespace namespace)
+    (stylesheet << DEPRECATED.Css.Namespace.namespace namespace)
         (generalStyles ++ layoutStyles)
 
 
@@ -268,8 +269,8 @@ layoutStyles =
         materialIcon
             ++ [ float right ]
 
-    -- TODO: This below is a very hacky way of adding keyframes, waiting for elm-css to add support for it
-    , selector "@keyframes slideDown {"
+    -- TODO: This below is a very hacky way of adding import Css.Foreign, waiting for elm-css to add support for it
+    , selector "@import Css.Foreign slideDown {"
         [ descendants
             [ selector "from"
                 [ maxHeight (px 0)
@@ -286,7 +287,7 @@ layoutStyles =
     ]
 
 
-button : List Mixin
+button : List Style
 button =
     [ width (pct 100)
     , backgroundColor primaryBlue
@@ -303,7 +304,7 @@ button =
     ]
 
 
-linkButton : List Mixin
+linkButton : List Style
 linkButton =
     button
         ++ [ backgroundColor transparent
@@ -313,7 +314,7 @@ linkButton =
            ]
 
 
-container : List Mixin
+container : List Style
 container =
     [ padding2 (px 0) (px 20)
     , maxWidth (px 1024)
@@ -321,7 +322,7 @@ container =
     ]
 
 
-card : List Mixin
+card : List Style
 card =
     [ backgroundColor white
     , padding (px 20)
@@ -331,19 +332,19 @@ card =
     ]
 
 
-cardShadow : Mixin
+cardShadow : Style
 cardShadow =
     boxShadow4 (px 1) (px 1) (px 3) (rgba 0 0 0 0.3)
 
 
-materialIcon : List Mixin
+materialIcon : List Style
 materialIcon =
     [ fontFamilies [ "Material Icons" ]
     , fontStyle normal
     ]
 
 
-menuButton : List Mixin
+menuButton : List Style
 menuButton =
     [ lightTextColor
     , padding2 (px 0) (px 15)
