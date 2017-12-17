@@ -1,11 +1,12 @@
 module Login.View.Registration exposing (registrationStep)
 
-import Common.Form exposing (customLoadingOrSubmitButton, emailInput, passwordInput, renderErrors, textInput)
+import Common.Form exposing (customLoadingOrSubmitButton, renderErrors)
 import Html exposing (..)
 import Html.Events exposing (onInput, onSubmit)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Login.Model exposing (Model, Msg(..))
 import Login.Styles exposing (Classes(..), className)
+import Login.View.Fields exposing (emailInput, passwordInput)
 
 
 registrationStep : Model -> Html Msg

@@ -1,6 +1,6 @@
 module Rides.Update exposing (init, update)
 
-import Common.Response exposing (..)
+import Form
 import Login.Model exposing (User)
 import Model as Root exposing (Msg(..))
 import RemoteData exposing (..)
@@ -15,13 +15,7 @@ init : Collection
 init =
     { list = NotAsked
     , new =
-        { fields =
-            { groupId = ""
-            , origin = ""
-            , destination = ""
-            , days = ""
-            , hours = ""
-            }
+        { fields = Form.initial [] (validation "")
         , response = NotAsked
         }
     }
@@ -64,28 +58,16 @@ updateRides user msg collection =
         UpdateRides response ->
             return { collection | list = response } Cmd.none
 
-        UpdateOrigin origin ->
-            return (updateFields { fields | origin = origin }) Cmd.none
-
-        UpdateDestination destination ->
-            return (updateFields { fields | destination = destination }) Cmd.none
-
-        UpdateDays days ->
-            return (updateFields { fields | days = days }) Cmd.none
-
-        UpdateHours hours ->
-            return (updateFields { fields | hours = hours }) Cmd.none
-
-        CreateRide groupId ->
-            case user of
-                Just user_ ->
+        FormMsg groupId formMsg ->
+            case ( formMsg, Form.getOutput fields ) of
+                ( Form.Submit, Just newRide ) ->
                     return { collection | new = { new | response = Loading } }
-                        (createRide { fields | groupId = groupId })
+                        (createRide newRide)
 
-                Nothing ->
-                    return collection Cmd.none
+                _ ->
+                    return { collection | new = { new | fields = Form.update (validation groupId) formMsg fields } } Cmd.none
 
-        CreateRideReponse response ->
+        CreateRideResponse response ->
             case response of
                 Success _ ->
                     return init Cmd.none

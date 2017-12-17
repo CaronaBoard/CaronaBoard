@@ -1,7 +1,8 @@
 module Groups.Update exposing (init, update)
 
 import Common.IdentifiedList exposing (findById, mapIfId)
-import Groups.Model as Groups exposing (Model, Msg(..))
+import Form
+import Groups.Model as Groups exposing (Model, Msg(..), validation)
 import Groups.Ports exposing (..)
 import Model as Root exposing (Msg(..))
 import RemoteData exposing (..)
@@ -12,11 +13,9 @@ import UrlRouter.Routes exposing (Page(..), pathParser)
 
 init : Model
 init =
-    { groups = NotAsked
+    { list = NotAsked
     , new =
-        { fields =
-            { name = ""
-            }
+        { fields = Form.initial [] validation
         , response = NotAsked
         }
     }
@@ -61,7 +60,7 @@ updateGroups msg model =
     in
     case msg of
         UpdateGroups response ->
-            return { model | groups = response } Cmd.none
+            return { model | list = response } Cmd.none
 
         CreateJoinGroupRequest groupId ->
             return
@@ -98,11 +97,13 @@ updateGroups msg model =
                 )
                 Cmd.none
 
-        UpdateName name ->
-            return (updateFields { fields | name = name }) Cmd.none
+        FormMsg formMsg ->
+            case ( formMsg, Form.getOutput fields ) of
+                ( Form.Submit, Just newGroup ) ->
+                    return { model | new = { new | response = Loading } } (createGroup newGroup)
 
-        CreateGroup ->
-            return { model | new = { new | response = Loading } } (createGroup fields)
+                _ ->
+                    return { model | new = { new | fields = Form.update validation formMsg fields } } Cmd.none
 
         CreateGroupResponse response ->
             case response of
@@ -115,8 +116,8 @@ updateGroups msg model =
 
 fetchGroups : Model -> Return Groups.Msg Model
 fetchGroups model =
-    if model.groups == NotAsked then
-        return { model | groups = Loading } (groupsList ())
+    if model.list == NotAsked then
+        return { model | list = Loading } (groupsList ())
     else
         return model Cmd.none
 
@@ -124,8 +125,8 @@ fetchGroups model =
 updateGroup : String -> (Groups.Group -> Groups.Group) -> Model -> Model
 updateGroup groupId updateFn model =
     { model
-        | groups =
-            RemoteData.map (mapIfId groupId updateFn identity) model.groups
+        | list =
+            RemoteData.map (mapIfId groupId updateFn identity) model.list
     }
 
 

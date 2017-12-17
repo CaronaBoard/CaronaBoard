@@ -1,9 +1,10 @@
 module Profile.Update exposing (init, update)
 
-import Common.Response exposing (..)
+import Form
+import Form.Field as Field
 import Login.Model exposing (Msg(SignInResponse))
 import Model as Root exposing (Msg(..))
-import Profile.Model exposing (Model, Msg(..), Profile)
+import Profile.Model exposing (Model, Msg(..), Profile, validation)
 import Profile.Ports exposing (saveProfile)
 import RemoteData exposing (..)
 import Return exposing (Return, return)
@@ -11,10 +12,7 @@ import Return exposing (Return, return)
 
 init : Maybe Profile -> Model
 init profile =
-    { fields =
-        { name = ""
-        , contact = { kind = "Whatsapp", value = "" }
-        }
+    { fields = Form.initial [ ( "contactKind", Field.string "Whatsapp" ) ] validation
     , savedProfile = profile
     , response = NotAsked
     }
@@ -29,7 +27,16 @@ update msg model =
         MsgForLogin (SignInResponse (Success response)) ->
             case response.profile of
                 Just profile ->
-                    return { model | fields = profile, savedProfile = Just profile } Cmd.none
+                    let
+                        fillForm =
+                            Form.initial
+                                [ ( "name", Field.string profile.name )
+                                , ( "contactKind", Field.string profile.contact.kind )
+                                , ( "contactValue", Field.string profile.contact.value )
+                                ]
+                                validation
+                    in
+                    return { model | fields = fillForm, savedProfile = Just profile } Cmd.none
 
                 Nothing ->
                     return (init Nothing) Cmd.none
@@ -40,28 +47,15 @@ update msg model =
 
 updateProfile : Profile.Model.Msg -> Model -> Return Profile.Model.Msg Model
 updateProfile msg model =
-    let
-        fields =
-            model.fields
-
-        contact =
-            model.fields.contact
-
-        updateFields fields =
-            { model | fields = fields }
-    in
     case msg of
-        UpdateName name ->
-            return (updateFields { fields | name = name }) Cmd.none
+        FormMsg formMsg ->
+            case ( formMsg, Form.getOutput model.fields ) of
+                ( Form.Submit, Just profile ) ->
+                    return { model | response = Loading }
+                        (saveProfile profile)
 
-        UpdateContactKind kind ->
-            return (updateFields { fields | contact = { contact | kind = kind } }) Cmd.none
-
-        UpdateContactValue value ->
-            return (updateFields { fields | contact = { contact | value = value } }) Cmd.none
-
-        Submit ->
-            return { model | response = Loading } (saveProfile fields)
+                _ ->
+                    return { model | fields = Form.update validation formMsg model.fields } Cmd.none
 
         ProfileResponse response ->
             case response of

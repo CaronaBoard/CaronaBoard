@@ -1,6 +1,5 @@
 module Notifications.Update exposing (init, update)
 
-import Common.Response exposing (..)
 import Groups.Model exposing (Msg(..))
 import Model as Root exposing (Msg(..))
 import Notifications.Model exposing (Model, Msg(..))
@@ -28,7 +27,7 @@ update msg model =
         MsgForNotifications msg_ ->
             updateNotifications msg_ model
 
-        MsgForRides (CreateRideReponse (Success _)) ->
+        MsgForRides (CreateRideResponse (Success _)) ->
             updateNotifications (ShowNotice "Carona criada com sucesso!") model
 
         MsgForRidesRequests (CreateRideRequestResponse _ (Success _)) ->

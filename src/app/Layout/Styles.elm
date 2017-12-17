@@ -41,6 +41,7 @@ type Classes
     | Card
     | CardTitle
     | InputField
+    | SelectField
     | SelectWrapper
     | SelectCaret
     | MaterialIcon
@@ -240,6 +241,15 @@ layoutStyles =
                 , top (px 10)
                 ]
             ]
+        ]
+    , class SelectField
+        [ backgroundColor transparent
+        , borderStyle none
+        , borderBottom3 (px 1) solid (hex "#FFF")
+        , marginTop (px 1)
+        , display block
+        , property "-webkit-appearance" "none"
+        , property "-moz-appearance" "none"
         ]
     , class SelectWrapper
         [ displayFlex

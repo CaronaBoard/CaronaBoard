@@ -3,7 +3,6 @@ module Rides.View.List exposing (list, rideInfo, rideRoute)
 import Common.Icon exposing (icon)
 import Common.IdentifiedList exposing (findById)
 import Common.Link exposing (linkTo)
-import Common.Response exposing (..)
 import Groups.Model
 import Groups.View.JoinRequests exposing (joinRequestList)
 import Html exposing (..)
@@ -17,7 +16,7 @@ import UrlRouter.Routes exposing (Page(..))
 
 list : String -> Root.Model -> Html Msg
 list groupId { rides, groups } =
-    case groups.groups of
+    case groups.list of
         NotAsked ->
             text ""
 

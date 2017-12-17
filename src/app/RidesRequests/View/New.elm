@@ -1,7 +1,6 @@
 module RidesRequests.View.New exposing (contactDetails, new)
 
-import Common.Form exposing (loadingOrSubmitButton, renderErrors, textInput)
-import Common.Response exposing (..)
+import Common.Form exposing (loadingOrSubmitButton, renderErrors)
 import Html exposing (..)
 import Html.Attributes exposing (for, href, id, placeholder, selected, target, value)
 import Html.Events exposing (onInput, onSubmit)

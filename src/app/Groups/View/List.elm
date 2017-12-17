@@ -15,7 +15,7 @@ import UrlRouter.Routes exposing (Page(..))
 
 list : Login.Model.Model -> Model -> Html Root.Msg
 list login model =
-    case model.groups of
+    case model.list of
         NotAsked ->
             text ""
 

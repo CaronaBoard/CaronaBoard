@@ -1,6 +1,6 @@
 module Login.View.PasswordStep exposing (passwordStep)
 
-import Common.Form exposing (customLoadingOrSubmitButton, passwordInput, renderErrors)
+import Common.Form exposing (customLoadingOrSubmitButton, renderErrors)
 import Common.Icon exposing (icon)
 import Html exposing (..)
 import Html.Attributes exposing (autofocus, for, id, placeholder, type_, value)
@@ -9,6 +9,7 @@ import Json.Decode as Json
 import Layout.Styles exposing (Classes(..), layoutClass)
 import Login.Model exposing (Model, Msg(..))
 import Login.Styles exposing (Classes(..), className)
+import Login.View.Fields exposing (passwordInput)
 import Login.View.Layout exposing (formStep)
 
 

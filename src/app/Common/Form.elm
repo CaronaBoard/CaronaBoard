@@ -1,9 +1,11 @@
-module Common.Form exposing (customLoadingOrSubmitButton, emailInput, loadingOrSubmitButton, passwordInput, renderErrors, textInput)
+module Common.Form exposing (customLoadingOrSubmitButton, loadingOrSubmitButton, renderErrors, selectInput, textInput)
 
 import Common.Response exposing (..)
-import Html exposing (Attribute, Html, button, div, i, input, label, text)
+import Form exposing (..)
+import Form.Error exposing (..)
+import Form.Input as Input
+import Html exposing (Attribute, Html, button, div, i, input, label, span, text)
 import Html.Attributes exposing (disabled, for, id, placeholder, type_, value)
-import Html.Events exposing (onInput)
 import Layout.Styles exposing (Classes(..), layoutClass)
 import RemoteData exposing (..)
 
@@ -33,37 +35,66 @@ renderErrors : Response a -> Html msg
 renderErrors response =
     case response of
         Failure message ->
-            div [ layoutClass ErrorMessage ] [ text message ]
+            renderError <| Just message
 
         _ ->
-            div [] []
+            renderError Nothing
 
 
-textInput : String -> (String -> msg) -> String -> String -> Html msg
-textInput =
-    input_ "text"
+renderError : Maybe String -> Html msg
+renderError error =
+    case error of
+        Just error ->
+            div [ layoutClass ErrorMessage ] [ text error ]
+
+        Nothing ->
+            text ""
 
 
-emailInput : String -> (String -> msg) -> String -> String -> Html msg
-emailInput =
-    input_ "email"
-
-
-passwordInput : String -> (String -> msg) -> String -> String -> Html msg
-passwordInput =
-    input_ "password"
-
-
-input_ : String -> String -> (String -> msg) -> String -> String -> Html msg
-input_ inputType value_ msg id_ label_ =
+textInput : Form.Form e o -> String -> String -> Html Form.Msg
+textInput form_ id_ label_ =
+    let
+        field =
+            Form.getFieldAsString id_ form_
+    in
     div [ layoutClass InputField ]
-        [ input
-            [ id id_
-            , type_ inputType
-            , value value_
-            , placeholder " "
-            , onInput msg
-            ]
-            []
+        [ Input.textInput field [ id id_, placeholder " " ]
+        , errorFor field
         , label [ for id_ ] [ text label_ ]
         ]
+
+
+selectInput : Form.Form e o -> String -> List ( String, String ) -> Html Form.Msg
+selectInput form_ id_ options =
+    let
+        field =
+            Form.getFieldAsString id_ form_
+    in
+    div [ layoutClass InputField ]
+        [ div [ layoutClass SelectWrapper ]
+            [ Input.selectInput options field [ id id_, layoutClass SelectField ]
+            , span [ layoutClass SelectCaret ] [ text "▼" ]
+            ]
+        , errorFor field
+        ]
+
+
+errorFor : FieldState e a -> Html msg
+errorFor field =
+    renderError (Maybe.map errorToString field.liveError)
+
+
+errorToString : ErrorValue e -> String
+errorToString error =
+    case error of
+        Empty ->
+            "este campo é obrigatório"
+
+        InvalidString ->
+            "este campo é obrigatório"
+
+        CustomError e ->
+            toString e
+
+        _ ->
+            "campo inválido"

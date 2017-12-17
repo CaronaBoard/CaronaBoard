@@ -1,13 +1,12 @@
 module UrlRouter.Update exposing (changePageTo, init, update, urlRouterUpdate)
 
-import Common.Response exposing (..)
-import RemoteData exposing (..)
 import Groups.Model exposing (Msg(..))
 import Login.Model as Login exposing (Msg(..))
 import Model as Root exposing (Msg(..))
 import Navigation exposing (Location)
 import Notifications.Model as Notifications exposing (Msg(..), isEnabled)
 import Profile.Model as Profile exposing (Msg(..))
+import RemoteData exposing (..)
 import Return exposing (Return, return)
 import Rides.Model exposing (Msg(..))
 import UrlRouter.Model exposing (Model, Msg(..))
@@ -47,7 +46,7 @@ update msg { notifications, profile, login, urlRouter } =
         MsgForLogin (PasswordResetResponse (Success _)) ->
             urlRouterUpdate profile login (Go PasswordResetPage) urlRouter
 
-        MsgForRides (CreateRideReponse (Success _)) ->
+        MsgForRides (CreateRideResponse (Success _)) ->
             if isEnabled notifications then
                 urlRouterUpdate profile login (Go GroupsListPage) urlRouter
             else

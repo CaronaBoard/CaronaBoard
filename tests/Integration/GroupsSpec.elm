@@ -134,7 +134,7 @@ tests =
                 fillNewGroup
                     >> expectView
                     >> find [ id "name" ]
-                    >> has [ attribute "value" fixtures.newGroup.name ]
+                    >> has [ attribute "defaultValue" fixtures.newGroup.name ]
             , test "shows loading on submit" <|
                 submitNewGroup
                     >> expectView
@@ -163,7 +163,7 @@ tests =
                     >> navigate (toPath GroupsCreatePage)
                     >> expectView
                     >> find [ id "name" ]
-                    >> has [ attribute "value" "" ]
+                    >> has [ attribute "defaultValue" "" ]
             ]
         ]
 

@@ -20,7 +20,6 @@ type Classes
     = ContactField
     | ContactKind
     | ContactValue
-    | Select
 
 
 styles : Stylesheet
@@ -35,13 +34,5 @@ styles =
             ]
         , class ContactValue
             [ width (pct 60)
-            ]
-        , class Select
-            [ backgroundColor transparent
-            , borderStyle none
-            , borderBottom3 (px 1) solid (hex "#FFF")
-            , marginTop (px 1)
-            , display block
-            , property "-webkit-appearance" "none"
             ]
         ]

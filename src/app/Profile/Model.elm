@@ -1,11 +1,12 @@
-module Profile.Model exposing (Contact, Model, Msg(..), Profile, contactDeepLink, contactIdentifier)
+module Profile.Model exposing (Contact, Model, Msg(..), Profile, contactDeepLink, contactIdentifier, validation)
 
 import Common.Response exposing (..)
-import RemoteData exposing (..)
+import Form exposing (Form)
+import Form.Validate as Validate exposing (..)
 
 
 type alias Model =
-    { fields : Profile
+    { fields : Form () Profile
     , savedProfile : Maybe Profile
     , response : Response Profile
     }
@@ -24,10 +25,7 @@ type alias Contact =
 
 
 type Msg
-    = UpdateName String
-    | UpdateContactKind String
-    | UpdateContactValue String
-    | Submit
+    = FormMsg Form.Msg
     | ProfileResponse (Response Profile)
 
 
@@ -50,3 +48,14 @@ contactIdentifier contactKind =
         "Nick"
     else
         "Número"
+
+
+validation : Validation () Profile
+validation =
+    Validate.succeed Profile
+        |> Validate.andMap (field "name" string)
+        |> Validate.andMap
+            (Validate.succeed Contact
+                |> Validate.andMap (field "contactKind" string)
+                |> Validate.andMap (field "contactValue" string)
+            )
