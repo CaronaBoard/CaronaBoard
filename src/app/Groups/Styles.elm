@@ -1,31 +1,9 @@
 module Groups.Styles exposing (..)
 
 import Common.Colors exposing (..)
-import Common.CssHelpers exposing (..)
 import Css exposing (..)
 import Css.Foreign exposing (..)
-import DEPRECATED.Css.File exposing (..)
-import DEPRECATED.Css.Namespace
-import Html exposing (Attribute)
 import Layout.Styles exposing (card, container)
-
-
-namespace : String
-namespace =
-    "groups"
-
-
-className : Classes -> Attribute msg
-className =
-    namespacedClass namespace
-
-
-type Classes
-    = ListContainer
-    | List
-    | JoinRequests
-    | JoinRequest
-    | RespondButton
 
 
 listContainer : List Style
@@ -87,14 +65,3 @@ respondButton =
     , borderStyle none
     , marginRight (px 5)
     ]
-
-
-styles : Stylesheet
-styles =
-    (stylesheet << DEPRECATED.Css.Namespace.namespace namespace)
-        [ class ListContainer listContainer
-        , class List list
-        , class JoinRequests joinRequests
-        , class JoinRequest joinRequest
-        , class RespondButton respondButton
-        ]

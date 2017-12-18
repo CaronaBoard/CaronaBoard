@@ -1,39 +1,8 @@
 module Rides.Styles exposing (..)
 
 import Common.Colors exposing (..)
-import Common.CssHelpers exposing (..)
 import Css exposing (..)
 import Css.Foreign exposing (..)
-import DEPRECATED.Css.File exposing (..)
-import DEPRECATED.Css.Namespace
-import Html exposing (Attribute)
-import Layout.Styles
-
-
-namespace : String
-namespace =
-    "rides"
-
-
-className : Classes -> Attribute msg
-className =
-    namespacedClass namespace
-
-
-type Classes
-    = Card
-    | OtherDetails
-    | ActionButton
-    | Path
-    | PathIcon
-    | PathIconDot
-    | RideInfo
-    | Contact
-
-
-card : List Style
-card =
-    Layout.Styles.card ++ [ descendants cardStyles ]
 
 
 contact : List Style
@@ -97,27 +66,3 @@ pathIconDot =
 rideInfo : List Style
 rideInfo =
     [ margin (px 0) ]
-
-
-styles : Stylesheet
-styles =
-    (stylesheet << DEPRECATED.Css.Namespace.namespace namespace)
-        [ class Card card
-        , class Contact contact
-        ]
-
-
-cardStyles : List Snippet
-cardStyles =
-    [ selector ".layoutMaterialIcon"
-        [ fontSize (px 16)
-        , marginRight (px 5)
-        , verticalAlign middle
-        ]
-    , class OtherDetails otherDetails
-    , class ActionButton actionButton
-    , class Path path
-    , class PathIcon pathIcon
-    , class PathIconDot pathIconDot
-    , class RideInfo rideInfo
-    ]

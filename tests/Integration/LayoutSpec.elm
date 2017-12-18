@@ -1,9 +1,7 @@
 module Integration.LayoutSpec exposing (tests)
 
-import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (expectToContainText, expectToNotContainText, initialContext, signedInContext, someUser)
-import Layout.Styles exposing (Classes(..))
 import Model as Root exposing (Model, Msg(MsgForLayout))
 import Test exposing (..)
 import Test.Html.Event exposing (click)
@@ -56,8 +54,3 @@ tests =
 layoutContext : a -> TestContext Model Root.Msg
 layoutContext =
     signedInContext GroupsListPage
-
-
-class : Classes -> Selector
-class =
-    Test.Html.Selector.class << identifierToString Layout.Styles.namespace

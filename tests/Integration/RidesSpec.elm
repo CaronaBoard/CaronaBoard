@@ -1,6 +1,5 @@
 module Integration.RidesSpec exposing (tests)
 
-import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (expectCurrentPage, expectToContainText, fixtures, initialContext, signedInContext, someUser, toLocation)
 import Integration.GroupsSpec exposing (loadGroups)
@@ -10,7 +9,6 @@ import Notifications.Model exposing (Msg(..))
 import RemoteData exposing (RemoteData(..))
 import Rides.Model exposing (Msg(..))
 import Rides.Ports exposing (..)
-import Rides.Styles exposing (Classes(Card))
 import Test exposing (..)
 import Test.Html.Event exposing (input, submit)
 import Test.Html.Query exposing (..)
@@ -108,11 +106,6 @@ ridesListContext =
 ridesCreateContext : a -> TestContext Model Root.Msg
 ridesCreateContext =
     signedInContext (RidesCreatePage "idGroup1")
-
-
-class : Classes -> Test.Html.Selector.Selector
-class =
-    Test.Html.Selector.class << identifierToString Rides.Styles.namespace
 
 
 fillNewRide : a -> TestContext Model Root.Msg

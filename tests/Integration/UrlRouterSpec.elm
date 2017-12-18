@@ -1,10 +1,8 @@
 module Integration.UrlRouterSpec exposing (tests)
 
-import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (..)
 import Login.Ports exposing (signOut)
-import Login.Styles
 import Model as Root exposing (Model, Msg(..))
 import Notifications.Model exposing (Msg(..))
 import Profile.Model exposing (Msg(..))
@@ -89,11 +87,6 @@ tests =
 loginContext : a -> TestContext Root.Model Root.Msg
 loginContext =
     initialContext Nothing Nothing LoginPage
-
-
-loginClass : Login.Styles.Classes -> Selector
-loginClass =
-    Test.Html.Selector.class << identifierToString Login.Styles.namespace
 
 
 loginThenLogout : a -> TestContext Model Root.Msg

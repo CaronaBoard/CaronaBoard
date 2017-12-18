@@ -18,7 +18,7 @@ new ride collection =
     case collection.new.response of
         Success _ ->
             styled div
-                Rides.Styles.card
+                card
                 []
                 [ styled div cardTitle [] [ text "O pedido de carona foi enviado com sucesso!" ]
                 , p [] [ text "Para combinar melhor a carona, use o contato abaixo:" ]
@@ -27,7 +27,7 @@ new ride collection =
 
         _ ->
             styled form
-                Rides.Styles.card
+                card
                 [ onSubmit (CreateRideRequest ride) ]
                 (formFields ride collection)
 

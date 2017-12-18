@@ -1,11 +1,9 @@
 module Integration.LoginSpec exposing (tests)
 
-import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (expectCurrentPage, fixtures, initialContext, successSignIn, successSignInWithoutProfile)
 import Login.Model exposing (Model, Msg(..), signedInUser)
 import Login.Ports exposing (..)
-import Login.Styles exposing (Classes(..))
 import Model as Root exposing (Msg(MsgForLogin))
 import RemoteData exposing (RemoteData(..))
 import Test exposing (..)
@@ -110,11 +108,6 @@ tests =
                     >> expectCurrentPage ProfilePage
             ]
         ]
-
-
-class : Login.Styles.Classes -> Selector
-class =
-    Test.Html.Selector.class << identifierToString Login.Styles.namespace
 
 
 loginContext : a -> TestContext Root.Model Root.Msg

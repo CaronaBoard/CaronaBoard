@@ -1,6 +1,5 @@
 module Integration.ProfileSpec exposing (tests)
 
-import Common.Response exposing (..)
 import Expect exposing (equal)
 import Helpers exposing (expectToContainText, fixtures, initialContext, someUser, successSignIn, toLocation)
 import Json.Encode as Encode exposing (Value)

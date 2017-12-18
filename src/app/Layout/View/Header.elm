@@ -13,6 +13,11 @@ import UrlRouter.Model exposing (Msg(..))
 import UrlRouter.Routes exposing (Page(..))
 
 
+navIcon : String -> Html a
+navIcon name =
+    styled div navbarMaterialIcon [] [ icon name ]
+
+
 header : Root.Model -> Html Root.Msg
 header model =
     styled Html.Styled.header Layout.Styles.header [] <|
@@ -28,7 +33,7 @@ header model =
                             styled div
                                 navBack
                                 [ id "navBack", onClick (MsgForUrlRouter Back) ]
-                                [ icon "keyboard_backspace"
+                                [ navIcon "keyboard_backspace"
                                 ]
                     , ul []
                         [ case model.urlRouter.page of
@@ -37,7 +42,7 @@ header model =
                                     [ styledLinkTo (RidesCreatePage groupId)
                                         addRideLink
                                         []
-                                        [ icon "directions_car"
+                                        [ navIcon "directions_car"
                                         , text "+"
                                         ]
                                     ]
@@ -47,7 +52,7 @@ header model =
                                     [ styledLinkTo GroupsCreatePage
                                         addRideLink
                                         [ id "createGroup" ]
-                                        [ icon "group"
+                                        [ navIcon "group"
                                         , text "+"
                                         ]
                                     ]
@@ -58,7 +63,7 @@ header model =
                             [ styled a
                                 menuButton
                                 [ id "openMenu", onClick (MsgForLayout OpenDropdown) ]
-                                [ icon "more_vert"
+                                [ navIcon "more_vert"
                                 ]
                             ]
                         ]

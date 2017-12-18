@@ -1,37 +1,10 @@
 module Login.Styles exposing (..)
 
 import Common.Colors exposing (..)
-import Common.CssHelpers exposing (..)
 import Css exposing (..)
 import Css.Foreign exposing (..)
 import Css.Media as Media exposing (only, screen, withMedia)
-import DEPRECATED.Css.File exposing (..)
-import DEPRECATED.Css.Namespace
-import Html exposing (Attribute)
 import Layout.Styles exposing (button, linkButton)
-
-
-namespace : String
-namespace =
-    "login"
-
-
-className : Classes -> Attribute msg
-className =
-    namespacedClass namespace
-
-
-type Classes
-    = Page
-    | Background
-    | Container
-    | Icon
-    | SubmitButton
-    | ResetPasswordButton
-    | StepTitle
-    | StepForm
-    | PasswordStep
-    | FilledEmail
 
 
 desktopSize : List Style -> Style
@@ -146,22 +119,6 @@ submitButton =
            ]
 
 
-styles : Stylesheet
-styles =
-    (stylesheet << DEPRECATED.Css.Namespace.namespace namespace)
-        [ class Page page
-        , class Background background
-        , class Container container
-        , class Icon icon
-        , class StepTitle stepTitle
-        , class StepForm stepForm
-        , class PasswordStep passwordStep
-        , slideInAnimation
-        , class FilledEmail filledEmail
-        , class ResetPasswordButton linkButton
-        ]
-
-
 step : List Style
 step =
     [ padding (px 40)
@@ -180,28 +137,6 @@ stepInput =
         [ borderBottom3 (px 1) solid primaryBlack
         ]
     ]
-
-
-slideInAnimation : Snippet
-slideInAnimation =
-    -- TODO: This below is a very hacky way of adding import Css.Foreign, waiting for elm-css to add support for it
-    selector "@keyframes slide-in {"
-        [ descendants
-            [ selector "0%"
-                [ opacity (int 0)
-                , property "} /*" ""
-                ]
-            , selector "*/ 10%"
-                [ opacity (int 1)
-                , transform (translateX (pct 150))
-                , property "} /*" ""
-                ]
-            , selector "*/ to"
-                [ transform (translateX (pct 0))
-                , property "} /*" "*/"
-                ]
-            ]
-        ]
 
 
 resetPasswordButton : List Style

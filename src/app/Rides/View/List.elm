@@ -74,7 +74,7 @@ ridesList group rides =
 rideItem : String -> Rides.Model -> Html Msg
 rideItem groupId ride =
     styled div
-        Rides.Styles.card
+        card
         [ id "rideItem" ]
         [ styled span cardTitle [] [ text ride.destination ]
         , rideRoute ride

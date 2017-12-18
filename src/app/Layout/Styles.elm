@@ -12,40 +12,9 @@ namespace =
     "layout"
 
 
-type Classes
-    = Container
-    | Menu
-    | AnimatedDropdown
-    | DropdownLink
-    | Header
-    | Navbar
-    | BrandLogo
-    | NavBack
-    | SubmitButton
-    | DisabledButton
-    | LinkButton
-    | DisabledLinkButton
-    | ButtonContainer
-    | MenuButton
-    | SignOutButton
-    | AddRideLink
-    | PageTitle
-    | ErrorMessage
-    | Card
-    | CardTitle
-    | InputField
-    | SelectField
-    | SelectWrapper
-    | SelectCaret
-    | MaterialIcon
-    | MaterialIconLeft
-    | MaterialIconRight
-
-
 styles : Stylesheet
 styles =
-    (stylesheet << DEPRECATED.Css.Namespace.namespace namespace)
-        (generalStyles ++ layoutStyles)
+    (stylesheet << DEPRECATED.Css.Namespace.namespace namespace) generalStyles
 
 
 generalStyles : List Snippet
@@ -90,6 +59,40 @@ generalStyles =
         , width (pct 100)
         , fontSize (Css.rem 1.1)
         ]
+
+    -- TODO: This below is a very hacky way of adding import Css.Foreign, waiting for elm-css to add support for it
+    , selector "@keyframes slideDown {"
+        [ descendants
+            [ selector "from"
+                [ maxHeight (px 0)
+                , opacity (int 0)
+                , property "} /*" ""
+                ]
+            , selector "*/ to"
+                [ maxHeight (px 150)
+                , opacity (int 1)
+                , property "} /*" "*/"
+                ]
+            ]
+        ]
+    , -- TODO: This below is a very hacky way of adding import Css.Foreign, waiting for elm-css to add support for it
+      selector "@keyframes slide-in {"
+        [ descendants
+            [ selector "0%"
+                [ opacity (int 0)
+                , property "} /*" ""
+                ]
+            , selector "*/ 10%"
+                [ opacity (int 1)
+                , transform (translateX (pct 150))
+                , property "} /*" ""
+                ]
+            , selector "*/ to"
+                [ transform (translateX (pct 0))
+                , property "} /*" "*/"
+                ]
+            ]
+        ]
     ]
 
 
@@ -116,12 +119,12 @@ navbar =
             , displayFlex
             ]
         ]
-    , descendants
-        [ class MaterialIcon
-            [ fontSize (px 24)
-            ]
-        ]
     ]
+
+
+navbarMaterialIcon : List Style
+navbarMaterialIcon =
+    [ fontSize (px 24) ]
 
 
 brandLogo : List Style
@@ -306,52 +309,6 @@ materialIconRight : List Style
 materialIconRight =
     materialIcon
         ++ [ float right ]
-
-
-layoutStyles : List Snippet
-layoutStyles =
-    [ class Container container
-    , class Header header
-    , class Navbar navbar
-    , class MenuButton menuButton
-    , class BrandLogo brandLogo
-    , class NavBack navBack
-    , class PageTitle pageTitle
-    , class SubmitButton submitButton
-    , class DisabledButton disabledButton
-    , class LinkButton linkButton
-    , class DisabledLinkButton disabledLinkButton
-    , class ButtonContainer buttonContainer
-    , class Menu menu
-    , class AnimatedDropdown animatedDropdown
-    , class DropdownLink dropdownLink
-    , class AddRideLink addRideLink
-    , class ErrorMessage errorMessage
-    , class Card card
-    , class CardTitle cardTitle
-    , class InputField inputField
-    , class SelectWrapper selectWrapper
-    , class SelectCaret selectCaret
-    , class MaterialIcon materialIcon
-    , class MaterialIconLeft materialIconLeft
-    , class MaterialIconRight materialIconRight
-
-    -- TODO: This below is a very hacky way of adding import Css.Foreign, waiting for elm-css to add support for it
-    , selector "@keyframes slideDown {"
-        [ descendants
-            [ selector "from"
-                [ maxHeight (px 0)
-                , opacity (int 0)
-                , property "} /*" ""
-                ]
-            , selector "*/ to"
-                [ maxHeight (px 150)
-                , opacity (int 1)
-                , property "} /*" "*/"
-                ]
-            ]
-        ]
-    ]
 
 
 button : List Style
