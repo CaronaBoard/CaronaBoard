@@ -27,10 +27,8 @@ list login model =
                 [ containerElem []
                     [ pageTitle [] [ text "Grupos de Carona" ]
                     ]
-                , styled div
-                    listContainer
-                    []
-                    [ styled ul Groups.Styles.list [] (List.map (groupItem login) groups)
+                , listContainer []
+                    [ Groups.Styles.list [] (List.map (groupItem login) groups)
                     ]
                 ]
 

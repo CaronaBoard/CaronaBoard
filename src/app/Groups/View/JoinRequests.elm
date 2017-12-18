@@ -14,9 +14,7 @@ joinRequestList group =
     div []
         (if List.length (pendingJoinRequests group) > 0 then
             [ text "Pedidos de aprovação pendentes:"
-            , styled ul
-                joinRequests
-                []
+            , joinRequests []
                 (List.map (joinRequestItem group) (pendingJoinRequests group))
             ]
          else
@@ -26,19 +24,15 @@ joinRequestList group =
 
 joinRequestItem : Groups.Model.Group -> Groups.Model.JoinRequest -> Html Root.Msg
 joinRequestItem group request =
-    styled li
-        joinRequest
-        []
+    joinRequest []
         [ text request.profile.name
         , div []
-            [ styled button
-                respondButton
+            [ respondButton
                 [ id "acceptJoinRequest"
                 , onClick (MsgForGroups <| RespondJoinRequest group.id request.userId True)
                 ]
                 [ icon "check" ]
-            , styled button
-                respondButton
+            , respondButton
                 [ id "rejectJoinRequest"
                 , onClick (MsgForGroups <| RespondJoinRequest group.id request.userId False)
                 ]
