@@ -56,7 +56,7 @@ view model =
             layout model (Rides.View.Details.details groupId rideId model)
 
         ProfilePage ->
-            layout model (Html.map MsgForProfile <| profile model.profile)
+            layout model (Html.map MsgForProfile <| toUnstyled <| profile model.profile)
 
         GroupsListPage ->
             layout model (toUnstyled <| Groups.View.List.list model.login model.groups)
