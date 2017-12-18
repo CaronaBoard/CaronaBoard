@@ -68,7 +68,7 @@ view model =
             layout model (toUnstyled <| Groups.View.Details.details groupId model)
 
         RideRequestDetailsPage _ _ _ _ ->
-            layout model (details model.ridesRequests)
+            layout model (toUnstyled <| details model.ridesRequests)
 
 
 staticView : Html.Html Root.Msg

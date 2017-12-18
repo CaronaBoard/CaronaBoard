@@ -14,7 +14,7 @@ details groupId rideId model =
         [ h1 [ styledLayoutClass PageTitle ] [ text "Pedir Carona" ]
         , case findById rideId (RemoteData.withDefault [] model.rides.list) of
             Just ride ->
-                Html.Styled.map Root.MsgForRidesRequests <| fromUnstyled <| RidesRequests.View.New.new ride model.ridesRequests
+                Html.Styled.map Root.MsgForRidesRequests <| RidesRequests.View.New.new ride model.ridesRequests
 
             Nothing ->
                 text "Carona não encontrada"
