@@ -1,12 +1,13 @@
 module Login.View.Login exposing (login)
 
-import Common.Form exposing (customLoadingOrSubmitButton, renderErrors)
+import Common.Form exposing (renderErrors, styledCustomLoadingOrSubmitButton)
 import Common.Icon exposing (icon)
-import Html exposing (Html, b, div, form, h1, i, input, label, p, text)
-import Html.Events exposing (onInput, onSubmit)
-import Layout.Styles exposing (Classes(..), layoutClass)
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (css, id)
+import Html.Styled.Events exposing (onInput, onSubmit)
+import Layout.Styles exposing (Classes(..), styledLayoutClass)
 import Login.Model exposing (Model, Msg(..))
-import Login.Styles exposing (Classes(..), className)
+import Login.Styles
 import Login.View.Fields exposing (emailInput)
 import Login.View.Layout exposing (formStep)
 
@@ -15,10 +16,10 @@ login : Model -> Html Msg
 login model =
     formStep <|
         form [ onSubmit SubmitEmail ]
-            [ renderErrors model.signedIn
+            [ fromUnstyled <| renderErrors model.signedIn
             , emailInput model.email UpdateEmail "email" "Email"
-            , customLoadingOrSubmitButton model.registered
-                [ className Login.Styles.SubmitButton ]
-                [ layoutClass DisabledButton ]
-                [ text "Próximo", icon "arrow_forward" ]
+            , styledCustomLoadingOrSubmitButton model.registered
+                [ css Login.Styles.submitButton ]
+                [ styledLayoutClass DisabledButton ]
+                [ text "Próximo", fromUnstyled <| icon "arrow_forward" ]
             ]

@@ -29,13 +29,13 @@ view model =
             splashScreen
 
         LoginPage ->
-            loginLayout (Html.map MsgForLogin <| login model.login)
+            toUnstyled <| loginLayout (Html.Styled.map MsgForLogin <| login model.login)
 
         PasswordStepPage ->
-            loginLayout (Html.map MsgForLogin <| passwordStep model.login)
+            toUnstyled <| loginLayout (Html.Styled.map MsgForLogin <| passwordStep model.login)
 
         RegistrationPage ->
-            loginLayout (Html.map MsgForLogin <| registrationStep model.login)
+            toUnstyled <| loginLayout (Html.Styled.map MsgForLogin <| registrationStep model.login)
 
         RidesListPage groupId ->
             layout model (toUnstyled <| Rides.View.List.list groupId model)
@@ -44,7 +44,7 @@ view model =
             h1 [] [ text "404 não encontrado" ]
 
         PasswordResetPage ->
-            loginLayout passwordReset
+            toUnstyled <| loginLayout passwordReset
 
         RidesCreatePage groupId ->
             layout model (Html.map MsgForRides <| Rides.View.New.new groupId model.rides)

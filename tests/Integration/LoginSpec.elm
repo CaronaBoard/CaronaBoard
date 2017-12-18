@@ -31,7 +31,6 @@ tests =
                 submitEmail
                     >> update (MsgForLogin <| CheckRegistrationResponse (Success False))
                     >> expectView
-                    >> find []
                     >> has [ text "Cadastro" ]
             ]
         , describe "password check"
@@ -48,7 +47,7 @@ tests =
                     >> expectView
                     >> Expect.all
                         [ has [ text "Invalid password" ]
-                        , find [ class SubmitButton ]
+                        , find [ id "submitPassword" ]
                             >> has [ text "Entrar" ]
                         ]
             , test "returns the signed in user from the model" <|
@@ -104,7 +103,6 @@ tests =
                 submitEmailThenRegistration
                     >> update (MsgForLogin <| SignUpResponse (Failure "undefined is not a function"))
                     >> expectView
-                    >> find []
                     >> has [ text "not a function" ]
             , test "goes to profile page after registration" <|
                 submitEmailThenRegistration

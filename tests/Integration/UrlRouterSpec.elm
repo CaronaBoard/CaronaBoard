@@ -115,7 +115,7 @@ expectToBeOnLoginPage : TestContext model msg -> Expect.Expectation
 expectToBeOnLoginPage =
     expectView
         >> Expect.all
-            [ has [ loginClass Login.Styles.Page ]
+            [ has [ id "loginPage" ]
             , hasNot [ id "page" ]
             ]
 
