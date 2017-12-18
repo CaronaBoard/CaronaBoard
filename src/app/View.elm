@@ -47,13 +47,13 @@ view model =
             toUnstyled <| loginLayout passwordReset
 
         RidesCreatePage groupId ->
-            layout model (Html.map MsgForRides <| Rides.View.New.new groupId model.rides)
+            layout model (Html.map MsgForRides <| toUnstyled <| Rides.View.New.new groupId model.rides)
 
         EnableNotificationsPage ->
             layout model (Html.map MsgForNotifications <| enableNotifications model.notifications)
 
         RideDetailsPage groupId rideId ->
-            layout model (Rides.View.Details.details groupId rideId model)
+            layout model (toUnstyled <| Rides.View.Details.details groupId rideId model)
 
         ProfilePage ->
             layout model (Html.map MsgForProfile <| toUnstyled <| profile model.profile)
