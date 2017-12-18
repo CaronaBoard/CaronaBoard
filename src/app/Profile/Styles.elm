@@ -1,38 +1,23 @@
-module Profile.Styles exposing (Classes(..), className, namespace, styles)
+module Profile.Styles exposing (..)
 
-import Common.CssHelpers exposing (..)
+import Common.CssHelpers exposing (StyledElement)
 import Css exposing (..)
-import Css.Namespace
-import Html exposing (Attribute)
+import Html.Styled exposing (..)
 
 
-namespace : String
-namespace =
-    "profile"
-
-
-className : Classes -> Attribute msg
-className =
-    namespacedClass namespace
-
-
-type Classes
-    = ContactField
-    | ContactKind
-    | ContactValue
-
-
-styles : Stylesheet
-styles =
-    (stylesheet << Css.Namespace.namespace namespace)
-        [ class ContactField
-            [ displayFlex
-            , justifyContent spaceBetween
-            ]
-        , class ContactKind
-            [ width (pct 40)
-            ]
-        , class ContactValue
-            [ width (pct 60)
-            ]
+contactField : StyledElement msg
+contactField =
+    styled div
+        [ displayFlex
+        , justifyContent spaceBetween
         ]
+
+
+contactKind : StyledElement msg
+contactKind =
+    styled div [ width (pct 40) ]
+
+
+contactValue : StyledElement msg
+contactValue =
+    styled div [ width (pct 60) ]

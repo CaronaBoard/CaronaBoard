@@ -1,6 +1,5 @@
 module Integration.RidesRequestsSpec exposing (tests)
 
-import Common.Response exposing (..)
 import Expect
 import Helpers exposing (..)
 import JsonStringify exposing (simpleStringify)

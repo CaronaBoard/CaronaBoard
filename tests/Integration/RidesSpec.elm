@@ -1,7 +1,5 @@
 module Integration.RidesSpec exposing (tests)
 
-import Common.Response exposing (..)
-import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (expectCurrentPage, expectToContainText, fixtures, initialContext, signedInContext, someUser, toLocation)
 import Integration.GroupsSpec exposing (loadGroups)
@@ -11,7 +9,6 @@ import Notifications.Model exposing (Msg(..))
 import RemoteData exposing (RemoteData(..))
 import Rides.Model exposing (Msg(..))
 import Rides.Ports exposing (..)
-import Rides.Styles exposing (Classes(Card))
 import Test exposing (..)
 import Test.Html.Event exposing (input, submit)
 import Test.Html.Query exposing (..)
@@ -27,7 +24,7 @@ tests =
             [ test "renders no routes when there are no rides loaded yet" <|
                 ridesListContext
                     >> TestContext.expectView
-                    >> findAll [ class Card ]
+                    >> findAll [ id "rideItem" ]
                     >> count (Expect.equal 0)
             , test "request rides list when going to the page" <|
                 ridesListContext
@@ -41,7 +38,7 @@ tests =
                     >> loadGroups
                     >> loadRides
                     >> expectView
-                    >> findAll [ class Card ]
+                    >> findAll [ id "rideItem" ]
                     >> count (Expect.equal 2)
             , test "renders only the rides for the selected group" <|
                 ridesListContext
@@ -49,7 +46,7 @@ tests =
                     >> loadRides
                     >> navigate (toPath <| RidesListPage "idGroup2")
                     >> expectView
-                    >> findAll [ class Card ]
+                    >> findAll [ id "rideItem" ]
                     >> count (Expect.equal 0)
             ]
         , describe "new" <|
@@ -109,11 +106,6 @@ ridesListContext =
 ridesCreateContext : a -> TestContext Model Root.Msg
 ridesCreateContext =
     signedInContext (RidesCreatePage "idGroup1")
-
-
-class : Classes -> Test.Html.Selector.Selector
-class =
-    Test.Html.Selector.class << identifierToString Rides.Styles.namespace
 
 
 fillNewRide : a -> TestContext Model Root.Msg

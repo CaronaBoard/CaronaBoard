@@ -1,19 +1,19 @@
 module Common.Colors exposing (..)
 
-import Css exposing (Color, Mixin, color, hex, rgb)
+import Css exposing (Color, Style, color, hex, rgb)
 
 
-darkTextColor : Mixin
+darkTextColor : Style
 darkTextColor =
     color primaryBlack
 
 
-lightTextColor : Mixin
+lightTextColor : Style
 lightTextColor =
     color white
 
 
-linkColor : Mixin
+linkColor : Style
 linkColor =
     color (hex "#039be5")
 

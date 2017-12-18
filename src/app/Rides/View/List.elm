@@ -2,15 +2,16 @@ module Rides.View.List exposing (list, rideInfo, rideRoute)
 
 import Common.Icon exposing (icon)
 import Common.IdentifiedList exposing (findById)
-import Common.Link exposing (linkTo)
+import Common.Link exposing (..)
 import Groups.Model
 import Groups.View.JoinRequests exposing (joinRequestList)
-import Html exposing (..)
-import Layout.Styles exposing (Classes(..), layoutClass)
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (css, id)
+import Layout.Styles exposing (..)
 import Model as Root exposing (Msg(..))
 import RemoteData exposing (..)
 import Rides.Model as Rides
-import Rides.Styles exposing (Classes(..), className)
+import Rides.Styles exposing (..)
 import UrlRouter.Routes exposing (Page(..))
 
 
@@ -37,8 +38,8 @@ list groupId { rides, groups } =
 
 ridesList : Groups.Model.Group -> Rides.Collection -> Html Msg
 ridesList group rides =
-    div [ layoutClass Container ]
-        [ h1 [ layoutClass PageTitle ] [ text group.name ]
+    containerElem []
+        [ pageTitle [] [ text group.name ]
         , joinRequestList group
         , case rides.list of
             NotAsked ->
@@ -70,26 +71,28 @@ ridesList group rides =
 
 rideItem : String -> Rides.Model -> Html Msg
 rideItem groupId ride =
-    div [ className Rides.Styles.Card ]
-        [ span [ layoutClass CardTitle ] [ text ride.destination ]
+    styled div
+        card
+        [ id "rideItem" ]
+        [ styled span cardTitle [] [ text ride.destination ]
         , rideRoute ride
-        , div [ className OtherDetails ]
+        , otherDetails []
             [ rideInfo ride
-            , linkTo (RideDetailsPage groupId ride.id) [ className ActionButton ] [ text "Quero carona" ]
+            , styledLinkTo (RideDetailsPage groupId ride.id) actionButton [] [ text "Quero carona" ]
             ]
         ]
 
 
 rideRoute : Rides.Model -> Html msg
 rideRoute ride =
-    div [ className Path ]
+    path []
         [ div []
-            [ div [ className PathIcon ] [ icon "more_vert" ]
-            , span [ className PathIconDot ] [ icon "radio_button_unchecked" ]
+            [ pathIcon [] [ icon "more_vert" ]
+            , pathIconDot [] [ icon "radio_button_unchecked" ]
             , text <| "Origem: " ++ ride.origin
             ]
         , div []
-            [ span [ className PathIconDot ] [ icon "radio_button_unchecked" ]
+            [ pathIconDot [] [ icon "radio_button_unchecked" ]
             , text <| "Destino: " ++ ride.destination
             ]
         ]
@@ -97,17 +100,17 @@ rideRoute ride =
 
 rideInfo : Rides.Model -> Html msg
 rideInfo ride =
-    ul [ className RideInfo ]
+    Rides.Styles.rideInfo []
         [ li []
-            [ icon "today"
+            [ rideInfoIcon [] [ icon "today" ]
             , text ride.days
             ]
         , li []
-            [ icon "schedule"
+            [ rideInfoIcon [] [ icon "schedule" ]
             , text ride.hours
             ]
         , li []
-            [ icon "directions_car"
+            [ rideInfoIcon [] [ icon "directions_car" ]
             , text ride.profile.name
             ]
         ]

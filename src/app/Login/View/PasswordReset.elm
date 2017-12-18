@@ -1,6 +1,6 @@
 module Login.View.PasswordReset exposing (passwordReset)
 
-import Html exposing (Html, text)
+import Html.Styled exposing (Html, text)
 
 
 passwordReset : Html a

@@ -1,33 +1,43 @@
-module Common.Form exposing (customLoadingOrSubmitButton, loadingOrSubmitButton, renderErrors, selectInput, textInput)
+module Common.Form exposing (..)
 
 import Common.Response exposing (..)
+import Css
 import Form exposing (..)
 import Form.Error exposing (..)
 import Form.Input as Input
-import Html exposing (Attribute, Html, button, div, i, input, label, span, text)
-import Html.Attributes exposing (disabled, for, id, placeholder, type_, value)
-import Layout.Styles exposing (Classes(..), layoutClass)
+import Html.Attributes
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (..)
+import Layout.Styles exposing (..)
 import RemoteData exposing (..)
 
 
-loadingOrSubmitButton : Response a -> String -> List (Html msg) -> Html msg
-loadingOrSubmitButton response id_ children =
-    customLoadingOrSubmitButton response
-        [ layoutClass SubmitButton, id id_ ]
-        [ layoutClass DisabledButton, id id_ ]
+loadingOrSubmitButton : RemoteData e a -> String -> List (Html msg) -> Html msg
+loadingOrSubmitButton response id children =
+    customLoadingOrSubmitButton
+        { response = response
+        , id = id
+        , enabledStyle = submitButton
+        , disabledStyle = disabledButton
+        }
+        []
         children
 
 
-customLoadingOrSubmitButton : Response a -> List (Attribute msg) -> List (Attribute msg) -> List (Html msg) -> Html msg
-customLoadingOrSubmitButton response enabledAttributes disabledAttributes children =
+customLoadingOrSubmitButton : { disabledStyle : List Css.Style, enabledStyle : List Css.Style, id : String, response : RemoteData e a } -> List (Attribute msg) -> List (Html msg) -> Html msg
+customLoadingOrSubmitButton { response, id, enabledStyle, disabledStyle } attributes children =
     case response of
         Loading ->
-            button ([ disabled True ] ++ disabledAttributes)
-                [ div [ layoutClass ButtonContainer ] [ text "Carregando...", i [] [] ] ]
+            styled Html.Styled.button
+                disabledStyle
+                [ disabled True, Html.Styled.Attributes.id id ]
+                [ styled Html.Styled.div buttonContainer [] [ Html.Styled.text "Carregando...", Html.Styled.i [] [] ] ]
 
         _ ->
-            button enabledAttributes
-                [ div [ layoutClass ButtonContainer ] children
+            styled Html.Styled.button
+                enabledStyle
+                ([ Html.Styled.Attributes.id id ] ++ attributes)
+                [ styled Html.Styled.div buttonContainer [] children
                 ]
 
 
@@ -45,7 +55,7 @@ renderError : Maybe String -> Html msg
 renderError error =
     case error of
         Just error ->
-            div [ layoutClass ErrorMessage ] [ text error ]
+            styled div errorMessage [] [ text error ]
 
         Nothing ->
             text ""
@@ -57,8 +67,14 @@ textInput form_ id_ label_ =
         field =
             Form.getFieldAsString id_ form_
     in
-    div [ layoutClass InputField ]
-        [ Input.textInput field [ id id_, placeholder " " ]
+    styled div
+        inputField
+        []
+        [ Html.Styled.fromUnstyled <|
+            Input.textInput field
+                [ Html.Attributes.id id_
+                , Html.Attributes.placeholder " "
+                ]
         , errorFor field
         , label [ for id_ ] [ text label_ ]
         ]
@@ -70,10 +86,17 @@ selectInput form_ id_ options =
         field =
             Form.getFieldAsString id_ form_
     in
-    div [ layoutClass InputField ]
-        [ div [ layoutClass SelectWrapper ]
-            [ Input.selectInput options field [ id id_, layoutClass SelectField ]
-            , span [ layoutClass SelectCaret ] [ text "▼" ]
+    styled div
+        inputField
+        []
+        [ styled div
+            selectWrapper
+            []
+            [ Html.Styled.fromUnstyled <|
+                Input.selectInput options
+                    field
+                    [ Html.Attributes.id id_ ]
+            , styled span selectCaret [] [ text "▼" ]
             ]
         , errorFor field
         ]

@@ -1,6 +1,5 @@
 module Integration.NotificationsSpec exposing (tests)
 
-import Common.Response exposing (..)
 import Helpers exposing (..)
 import Model as Root exposing (Model, Msg(..))
 import Notifications.Model exposing (..)

@@ -1,11 +1,11 @@
 module Groups.View.List exposing (list)
 
 import Groups.Model exposing (Group, Model, isMemberOfGroup)
-import Groups.Styles exposing (Classes(..), className)
-import Html exposing (..)
-import Html.Attributes exposing (id)
-import Html.Events exposing (onClick)
-import Layout.Styles exposing (Classes(..), layoutClass)
+import Groups.Styles exposing (..)
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (id)
+import Html.Styled.Events exposing (onClick)
+import Layout.Styles exposing (..)
 import Login.Model
 import Model as Root exposing (Msg(..))
 import RemoteData exposing (..)
@@ -24,11 +24,11 @@ list login model =
 
         Success groups ->
             div []
-                [ div [ layoutClass Container ]
-                    [ h1 [ layoutClass PageTitle ] [ text "Grupos de Carona" ]
+                [ containerElem []
+                    [ pageTitle [] [ text "Grupos de Carona" ]
                     ]
-                , div [ className ListContainer ]
-                    [ ul [ className List ] (List.map (groupItem login) groups)
+                , listContainer []
+                    [ Groups.Styles.list [] (List.map (groupItem login) groups)
                     ]
                 ]
 

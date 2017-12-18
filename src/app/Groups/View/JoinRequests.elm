@@ -2,10 +2,10 @@ module Groups.View.JoinRequests exposing (joinRequestList)
 
 import Common.Icon exposing (icon)
 import Groups.Model exposing (Msg(..), pendingJoinRequests)
-import Groups.Styles exposing (Classes(..), className)
-import Html exposing (..)
-import Html.Attributes exposing (id)
-import Html.Events exposing (onClick)
+import Groups.Styles exposing (..)
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (id)
+import Html.Styled.Events exposing (onClick)
 import Model as Root exposing (Msg(..))
 
 
@@ -14,7 +14,7 @@ joinRequestList group =
     div []
         (if List.length (pendingJoinRequests group) > 0 then
             [ text "Pedidos de aprovação pendentes:"
-            , ul [ className JoinRequests ]
+            , joinRequests []
                 (List.map (joinRequestItem group) (pendingJoinRequests group))
             ]
          else
@@ -23,20 +23,18 @@ joinRequestList group =
 
 
 joinRequestItem : Groups.Model.Group -> Groups.Model.JoinRequest -> Html Root.Msg
-joinRequestItem group joinRequest =
-    li [ className JoinRequest ]
-        [ text joinRequest.profile.name
+joinRequestItem group request =
+    joinRequest []
+        [ text request.profile.name
         , div []
-            [ button
+            [ respondButton
                 [ id "acceptJoinRequest"
-                , className RespondButton
-                , onClick (MsgForGroups <| RespondJoinRequest group.id joinRequest.userId True)
+                , onClick (MsgForGroups <| RespondJoinRequest group.id request.userId True)
                 ]
                 [ icon "check" ]
-            , button
+            , respondButton
                 [ id "rejectJoinRequest"
-                , className RespondButton
-                , onClick (MsgForGroups <| RespondJoinRequest group.id joinRequest.userId False)
+                , onClick (MsgForGroups <| RespondJoinRequest group.id request.userId False)
                 ]
                 [ icon "close" ]
             ]

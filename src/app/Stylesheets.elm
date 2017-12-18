@@ -1,12 +1,7 @@
 port module Stylesheets exposing (..)
 
-import Css.File exposing (CssCompilerProgram, CssFileStructure)
-import Groups.Styles
+import DEPRECATED.Css.File exposing (CssCompilerProgram, CssFileStructure)
 import Layout.Styles
-import Login.Styles
-import Notifications.Styles
-import Profile.Styles
-import Rides.Styles
 
 
 port files : CssFileStructure -> Cmd msg
@@ -14,15 +9,10 @@ port files : CssFileStructure -> Cmd msg
 
 fileStructure : CssFileStructure
 fileStructure =
-    Css.File.toFileStructure
+    DEPRECATED.Css.File.toFileStructure
         [ ( "main.css"
-          , Css.File.compile
+          , DEPRECATED.Css.File.compile
                 [ Layout.Styles.styles
-                , Login.Styles.styles
-                , Rides.Styles.styles
-                , Notifications.Styles.styles
-                , Profile.Styles.styles
-                , Groups.Styles.styles
                 ]
           )
         ]
@@ -30,4 +20,4 @@ fileStructure =
 
 main : CssCompilerProgram
 main =
-    Css.File.compiler files fileStructure
+    DEPRECATED.Css.File.compiler files fileStructure
