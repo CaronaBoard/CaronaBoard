@@ -45,6 +45,6 @@ renderGroup group =
                         [ div [ styledLayoutClass ButtonContainer ] [ text "Pedido enviado!" ] ]
 
                 _ ->
-                    styledLoadingOrSubmitButton group.joinRequest "joinGroup" [ text "Participar do grupo" ]
+                    loadingOrSubmitButton group.joinRequest "joinGroup" [ text "Participar do grupo" ]
             ]
         ]

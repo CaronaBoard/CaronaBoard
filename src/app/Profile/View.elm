@@ -25,35 +25,33 @@ profile model =
 formFields : Model -> Html Form.Msg
 formFields { response, fields } =
     form [ styledLayoutClass Card, onSubmit Form.Submit ]
-        [ fromUnstyled <| renderErrors response
+        [ renderErrors response
         , p [] [ text "Você precisa preencher seus dados de contato para poder dar ou pedir carona. Essa é a forma que os outros entrarão em contato com você." ]
         , br [] []
-        , fromUnstyled <| textInput fields "name" "Nome"
+        , textInput fields "name" "Nome"
         , styled div
             contactField
             []
             [ styled div
                 contactKind
                 []
-                [ fromUnstyled <|
-                    selectInput fields
-                        "contactKind"
-                        [ ( "Whatsapp", "Whatsapp" )
-                        , ( "Telegram", "Telegram" )
-                        ]
+                [ selectInput fields
+                    "contactKind"
+                    [ ( "Whatsapp", "Whatsapp" )
+                    , ( "Telegram", "Telegram" )
+                    ]
                 ]
             , styled div
                 contactValue
                 []
-                [ fromUnstyled <|
-                    textInput fields
-                        "contactValue"
-                        (Form.getFieldAsString "contactKind" fields
-                            |> .value
-                            |> Maybe.withDefault ""
-                            |> contactIdentifier
-                        )
+                [ textInput fields
+                    "contactValue"
+                    (Form.getFieldAsString "contactKind" fields
+                        |> .value
+                        |> Maybe.withDefault ""
+                        |> contactIdentifier
+                    )
                 ]
             ]
-        , styledLoadingOrSubmitButton response "submitProfile" [ text "Salvar" ]
+        , loadingOrSubmitButton response "submitProfile" [ text "Salvar" ]
         ]

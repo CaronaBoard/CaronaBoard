@@ -25,10 +25,10 @@ details collection =
                             ]
 
                         Nothing ->
-                            [ fromUnstyled <| renderErrors (Failure "Pedido de carona não encontrado") ]
+                            [ renderErrors (Failure "Pedido de carona não encontrado") ]
 
                 Failure err ->
-                    [ fromUnstyled <| renderErrors collection.list ]
+                    [ renderErrors collection.list ]
 
                 Loading ->
                     [ text "Carregando..." ]

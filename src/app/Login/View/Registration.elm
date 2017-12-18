@@ -1,6 +1,6 @@
 module Login.View.Registration exposing (registrationStep)
 
-import Common.Form exposing (renderErrors, styledCustomLoadingOrSubmitButton)
+import Common.Form exposing (renderErrors, customLoadingOrSubmitButton)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css)
 import Html.Styled.Events exposing (onInput, onSubmit)
@@ -38,10 +38,10 @@ registrationStep model =
 registration : Model -> Html Msg
 registration model =
     form [ onSubmit SubmitRegistration ]
-        [ fromUnstyled <| renderErrors model.signUp
+        [ renderErrors model.signUp
         , emailInput model.email UpdateEmail "email" "Email"
         , passwordInput model.password UpdatePassword "password" "Nova Senha"
-        , styledCustomLoadingOrSubmitButton model.signUp
+        , customLoadingOrSubmitButton model.signUp
             [ css Login.Styles.submitButton ]
             [ styledLayoutClass DisabledButton ]
             [ text "Cadastrar" ]

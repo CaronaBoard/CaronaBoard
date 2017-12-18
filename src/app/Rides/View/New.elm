@@ -20,10 +20,10 @@ new groupId model =
 formFields : { fields : Form e NewRide, response : Response a } -> Html Form.Msg
 formFields { response, fields } =
     form [ styledLayoutClass Card, onSubmit Form.Submit ]
-        [ fromUnstyled <| renderErrors response
-        , fromUnstyled <| textInput fields "origin" "Origem da carona"
-        , fromUnstyled <| textInput fields "destination" "Destino da carona (bairro ou referência)"
-        , fromUnstyled <| textInput fields "days" "Dias que você pode dar carona"
-        , fromUnstyled <| textInput fields "hours" "Horário de saída"
-        , styledLoadingOrSubmitButton response "submitNewRide" [ text "Cadastrar" ]
+        [ renderErrors response
+        , textInput fields "origin" "Origem da carona"
+        , textInput fields "destination" "Destino da carona (bairro ou referência)"
+        , textInput fields "days" "Dias que você pode dar carona"
+        , textInput fields "hours" "Horário de saída"
+        , loadingOrSubmitButton response "submitNewRide" [ text "Cadastrar" ]
         ]

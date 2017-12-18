@@ -20,7 +20,7 @@ new model =
 formFields : { fields : Form e NewGroup, response : Response a } -> Html Form.Msg
 formFields { response, fields } =
     form [ styledLayoutClass Card, onSubmit Form.Submit ]
-        [ fromUnstyled <| renderErrors response
-        , fromUnstyled <| textInput fields "name" "Nome"
-        , styledLoadingOrSubmitButton response "submitNewGroup" [ text "Criar" ]
+        [ renderErrors response
+        , textInput fields "name" "Nome"
+        , loadingOrSubmitButton response "submitNewGroup" [ text "Criar" ]
         ]

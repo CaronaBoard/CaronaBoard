@@ -1,6 +1,6 @@
 module RidesRequests.View.New exposing (contactDetails, new)
 
-import Common.Form exposing (renderErrors, styledLoadingOrSubmitButton)
+import Common.Form exposing (renderErrors, loadingOrSubmitButton)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (for, href, id, placeholder, selected, target, value)
 import Html.Styled.Events exposing (onInput, onSubmit)
@@ -44,11 +44,11 @@ contactDetails profile =
 
 formFields : Rides.Model.Model -> Collection -> List (Html Msg)
 formFields ride collection =
-    [ fromUnstyled <| renderErrors collection.new.response
+    [ renderErrors collection.new.response
     , div [ styledLayoutClass CardTitle ] [ text "Confirme os detalhes da carona antes de confirmar" ]
     , br [] []
     , rideRoute ride
     , Rides.View.List.rideInfo ride
     , br [] []
-    , styledLoadingOrSubmitButton collection.new.response "submitRideRequest" [ text "Pedir carona" ]
+    , loadingOrSubmitButton collection.new.response "submitRideRequest" [ text "Pedir carona" ]
     ]

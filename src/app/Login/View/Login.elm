@@ -1,6 +1,6 @@
 module Login.View.Login exposing (login)
 
-import Common.Form exposing (renderErrors, styledCustomLoadingOrSubmitButton)
+import Common.Form exposing (renderErrors, customLoadingOrSubmitButton)
 import Common.Icon exposing (icon)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css, id)
@@ -16,9 +16,9 @@ login : Model -> Html Msg
 login model =
     formStep <|
         form [ onSubmit SubmitEmail ]
-            [ fromUnstyled <| renderErrors model.signedIn
+            [ renderErrors model.signedIn
             , emailInput model.email UpdateEmail "email" "Email"
-            , styledCustomLoadingOrSubmitButton model.registered
+            , customLoadingOrSubmitButton model.registered
                 [ css Login.Styles.submitButton ]
                 [ styledLayoutClass DisabledButton ]
                 [ text "Próximo", fromUnstyled <| icon "arrow_forward" ]
