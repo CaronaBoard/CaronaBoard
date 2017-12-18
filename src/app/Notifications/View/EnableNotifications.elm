@@ -1,23 +1,23 @@
 module Notifications.View.EnableNotifications exposing (enableNotifications)
 
-import Common.Form exposing (loadingOrSubmitButton, renderErrors)
+import Common.Form exposing (renderErrors, styledLoadingOrSubmitButton)
 import Common.Icon exposing (icon)
-import Html exposing (..)
-import Html.Attributes exposing (disabled, id)
-import Html.Events exposing (onSubmit)
-import Layout.Styles exposing (Classes(..), layoutClass)
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (disabled, id)
+import Html.Styled.Events exposing (onSubmit)
+import Layout.Styles exposing (Classes(..), styledLayoutClass)
 import Notifications.Model exposing (Model, Msg(..))
 import RemoteData exposing (..)
 
 
 enableNotifications : Model -> Html Msg
 enableNotifications model =
-    div [ layoutClass Container ]
-        [ h1 [ layoutClass PageTitle ] [ text "Ativar Notificações" ]
-        , form [ layoutClass Card, onSubmit EnableNotifications ]
+    div [ styledLayoutClass Container ]
+        [ h1 [ styledLayoutClass PageTitle ] [ text "Ativar Notificações" ]
+        , form [ styledLayoutClass Card, onSubmit EnableNotifications ]
             [ case model.response of
                 Failure _ ->
-                    renderErrors (Failure "As notificações não foram ativadas")
+                    fromUnstyled <| renderErrors (Failure "As notificações não foram ativadas")
 
                 _ ->
                     div [] []
@@ -25,10 +25,10 @@ enableNotifications model =
             , br [] []
             , case model.response of
                 Success _ ->
-                    button [ disabled True, layoutClass DisabledButton ]
-                        [ div [ layoutClass ButtonContainer ] [ icon "done", text "Notificações ativadas" ] ]
+                    button [ disabled True, styledLayoutClass DisabledButton ]
+                        [ div [ styledLayoutClass ButtonContainer ] [ fromUnstyled <| icon "done", text "Notificações ativadas" ] ]
 
                 _ ->
-                    loadingOrSubmitButton model.response "enableNotifications" [ text "Próximo", icon "arrow_forward" ]
+                    styledLoadingOrSubmitButton model.response "enableNotifications" [ text "Próximo", fromUnstyled <| icon "arrow_forward" ]
             ]
         ]

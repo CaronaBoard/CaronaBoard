@@ -1,5 +1,6 @@
 port module Main exposing (..)
 
+import Html.Styled exposing (toUnstyled)
 import Model exposing (Flags, Model, Msg(MsgForUrlRouter))
 import Navigation
 import Ports exposing (subscriptions)
@@ -12,7 +13,7 @@ main : Program Flags Model Model.Msg
 main =
     Navigation.programWithFlags (MsgForUrlRouter << UrlChange)
         { init = init
-        , view = view
+        , view = view >> toUnstyled
         , update = update
         , subscriptions = subscriptions
         }

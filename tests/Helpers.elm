@@ -2,6 +2,7 @@ module Helpers exposing (..)
 
 import Expect
 import Groups.Model as Groups
+import Html.Styled exposing (toUnstyled)
 import Login.Model exposing (Msg(..), User)
 import Model exposing (Msg(..))
 import NativeLoadFix
@@ -22,7 +23,7 @@ initialContext : Maybe User -> Maybe Profile -> Page -> a -> TestContext Model.M
 initialContext currentUser profile page _ =
     Navigation.program (MsgForUrlRouter << UrlChange)
         { init = Update.init { currentUser = currentUser, profile = profile }
-        , view = View.view
+        , view = View.view >> toUnstyled
         , update = Update.update
         , subscriptions = subscriptions
         }
