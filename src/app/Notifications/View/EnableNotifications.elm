@@ -15,7 +15,7 @@ enableNotifications model =
     styled div
         container
         []
-        [ styled h1 pageTitle [] [ text "Ativar Notificações" ]
+        [ pageTitle [] [ text "Ativar Notificações" ]
         , styled form
             card
             [ onSubmit EnableNotifications ]

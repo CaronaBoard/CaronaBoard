@@ -13,7 +13,7 @@ details groupId rideId model =
     styled div
         container
         []
-        [ styled h1 pageTitle [] [ text "Pedir Carona" ]
+        [ pageTitle [] [ text "Pedir Carona" ]
         , case findById rideId (RemoteData.withDefault [] model.rides.list) of
             Just ride ->
                 Html.Styled.map Root.MsgForRidesRequests <| RidesRequests.View.New.new ride model.ridesRequests

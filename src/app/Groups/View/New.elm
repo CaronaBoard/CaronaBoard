@@ -14,7 +14,7 @@ new model =
     styled div
         container
         []
-        [ styled h1 pageTitle [] [ text "Criar grupo" ]
+        [ pageTitle [] [ text "Criar grupo" ]
         , Html.Styled.map FormMsg (formFields model.new)
         ]
 

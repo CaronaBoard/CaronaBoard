@@ -41,7 +41,7 @@ ridesList group rides =
     styled div
         container
         []
-        [ styled h1 pageTitle [] [ text group.name ]
+        [ pageTitle [] [ text group.name ]
         , joinRequestList group
         , case rides.list of
             NotAsked ->

@@ -34,10 +34,9 @@ details groupId { groups } =
 
 renderGroup : Groups.Model.Group -> Html Root.Msg
 renderGroup group =
-    styled div
-        container
+    containerElem
         []
-        [ styled h1 pageTitle [] [ text group.name ]
+        [ pageTitle [] [ text group.name ]
         , styled form
             card
             [ onSubmit (MsgForGroups <| CreateJoinGroupRequest group.id) ]

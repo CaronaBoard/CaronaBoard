@@ -13,7 +13,7 @@ details collection =
     styled div
         container
         []
-        [ styled h1 pageTitle [] [ text "Pedido de Carona" ]
+        [ pageTitle [] [ text "Pedido de Carona" ]
         , styled div card [] <|
             case collection.list of
                 Success ridesRequests ->

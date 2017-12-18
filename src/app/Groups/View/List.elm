@@ -24,10 +24,8 @@ list login model =
 
         Success groups ->
             div []
-                [ styled div
-                    container
-                    []
-                    [ styled h1 pageTitle [] [ text "Grupos de Carona" ]
+                [ containerElem []
+                    [ pageTitle [] [ text "Grupos de Carona" ]
                     ]
                 , styled div
                     listContainer

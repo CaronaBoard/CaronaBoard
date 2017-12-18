@@ -1,20 +1,23 @@
 module Profile.Styles exposing (..)
 
+import Common.CssHelpers exposing (StyledElement)
 import Css exposing (..)
+import Html.Styled exposing (..)
 
 
-contactField : List Style
+contactField : StyledElement msg
 contactField =
-    [ displayFlex
-    , justifyContent spaceBetween
-    ]
+    styled div
+        [ displayFlex
+        , justifyContent spaceBetween
+        ]
 
 
-contactKind : List Style
+contactKind : StyledElement msg
 contactKind =
-    [ width (pct 40) ]
+    styled div [ width (pct 40) ]
 
 
-contactValue : List Style
+contactValue : StyledElement msg
 contactValue =
-    [ width (pct 60) ]
+    styled div [ width (pct 60) ]

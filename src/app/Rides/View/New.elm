@@ -14,7 +14,7 @@ new groupId model =
     styled div
         container
         []
-        [ styled h1 pageTitle [] [ text "Dar Carona" ]
+        [ pageTitle [] [ text "Dar Carona" ]
         , Html.Styled.map (FormMsg groupId) (formFields model.new)
         ]
 

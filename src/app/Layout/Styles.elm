@@ -1,10 +1,12 @@
 module Layout.Styles exposing (..)
 
 import Common.Colors exposing (..)
+import Common.CssHelpers exposing (StyledElement)
 import Css exposing (..)
-import Css.Foreign exposing (..)
+import Css.Foreign as Foreign
 import DEPRECATED.Css.File exposing (..)
 import DEPRECATED.Css.Namespace
+import Html.Styled exposing (..)
 
 
 namespace : String
@@ -17,34 +19,34 @@ styles =
     (stylesheet << DEPRECATED.Css.Namespace.namespace namespace) generalStyles
 
 
-generalStyles : List Snippet
+generalStyles : List Foreign.Snippet
 generalStyles =
-    [ html
+    [ Foreign.html
         [ -- source: https://www.smashingmagazine.com/2015/11/using-system-ui-fonts-practical-guide/
           fontFamilies [ "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "sans-serif" ]
         , fontSize (px 14)
         , property "line-height" "1.5"
         , fontWeight normal
         ]
-    , body
+    , Foreign.body
         [ backgroundColor grey
         , margin (px 0)
         ]
-    , selector "*"
+    , Foreign.selector "*"
         [ boxSizing borderBox
         ]
-    , ul
+    , Foreign.ul
         [ paddingLeft (px 0)
         , listStyleType none
         ]
-    , a
+    , Foreign.a
         [ textDecoration none
         , linkColor
         ]
-    , h1
+    , Foreign.h1
         [ fontWeight normal
         ]
-    , input
+    , Foreign.input
         [ borderStyle none
         , borderBottom3 (px 1) solid darkerGrey
         , marginBottom (px 20)
@@ -54,21 +56,21 @@ generalStyles =
         , color inherit
         , outline none
         ]
-    , select
+    , Foreign.select
         [ height (px 42)
         , width (pct 100)
         , fontSize (Css.rem 1.1)
         ]
 
     -- TODO: This below is a very hacky way of adding import Css.Foreign, waiting for elm-css to add support for it
-    , selector "@keyframes slideDown {"
-        [ descendants
-            [ selector "from"
+    , Foreign.selector "@keyframes slideDown {"
+        [ Foreign.descendants
+            [ Foreign.selector "from"
                 [ maxHeight (px 0)
                 , opacity (int 0)
                 , property "} /*" ""
                 ]
-            , selector "*/ to"
+            , Foreign.selector "*/ to"
                 [ maxHeight (px 150)
                 , opacity (int 1)
                 , property "} /*" "*/"
@@ -76,18 +78,18 @@ generalStyles =
             ]
         ]
     , -- TODO: This below is a very hacky way of adding import Css.Foreign, waiting for elm-css to add support for it
-      selector "@keyframes slide-in {"
-        [ descendants
-            [ selector "0%"
+      Foreign.selector "@keyframes slide-in {"
+        [ Foreign.descendants
+            [ Foreign.selector "0%"
                 [ opacity (int 0)
                 , property "} /*" ""
                 ]
-            , selector "*/ 10%"
+            , Foreign.selector "*/ 10%"
                 [ opacity (int 1)
                 , transform (translateX (pct 150))
                 , property "} /*" ""
                 ]
-            , selector "*/ to"
+            , Foreign.selector "*/ to"
                 [ transform (translateX (pct 0))
                 , property "} /*" "*/"
                 ]
@@ -113,8 +115,8 @@ navbar =
     , height (px 56)
     , lineHeight (px 56)
     , cardShadow
-    , children
-        [ ul
+    , Foreign.children
+        [ Foreign.ul
             [ margin (px 0)
             , displayFlex
             ]
@@ -141,19 +143,20 @@ brandLogo =
 navBack : List Style
 navBack =
     menuButton
-        ++ [ children
-                [ selector ".layoutMaterialIcon"
+        ++ [ Foreign.children
+                [ Foreign.selector ".layoutMaterialIcon"
                     [ fontSize (px 30)
                     ]
                 ]
            ]
 
 
-pageTitle : List Style
+pageTitle : StyledElement msg
 pageTitle =
-    [ darkTextColor
-    , fontSize (px 34)
-    ]
+    styled h1
+        [ darkTextColor
+        , fontSize (px 34)
+        ]
 
 
 submitButton : List Style
@@ -255,18 +258,18 @@ inputField : List Style
 inputField =
     [ position relative
     , marginTop (px 15)
-    , descendants
-        [ selector "label"
+    , Foreign.descendants
+        [ Foreign.selector "label"
             [ top (px -10)
             , left (px 0)
             , fontSize (pct 80)
             , position absolute
             , property "transition" ".2s ease-out"
             ]
-        , selector "input"
+        , Foreign.selector "input"
             [ fontSize (Css.rem 1.1)
             ]
-        , selector "input:placeholder-shown:not(:focus) + label"
+        , Foreign.selector "input:placeholder-shown:not(:focus) + label"
             [ fontSize (Css.rem 1.1)
             , top (px 10)
             ]
@@ -279,8 +282,8 @@ selectWrapper =
     [ displayFlex
     , alignItems center
     , marginRight (px 15)
-    , descendants
-        [ select
+    , Foreign.descendants
+        [ Foreign.select
             [ backgroundColor transparent
             , borderStyle none
             , borderBottom3 (px 1) solid (hex "#FFF")
@@ -344,6 +347,15 @@ container =
     , maxWidth (px 1024)
     , margin2 (px 0) auto
     ]
+
+
+containerElem : StyledElement msg
+containerElem =
+    styled div
+        [ padding2 (px 0) (px 20)
+        , maxWidth (px 1024)
+        , margin2 (px 0) auto
+        ]
 
 
 card : List Style
