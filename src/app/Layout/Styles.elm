@@ -1,22 +1,15 @@
 module Layout.Styles exposing (..)
 
 import Common.Colors exposing (..)
-import Common.CssHelpers exposing (..)
 import Css exposing (..)
 import Css.Foreign exposing (..)
 import DEPRECATED.Css.File exposing (..)
 import DEPRECATED.Css.Namespace
-import Html exposing (Attribute)
 
 
 namespace : String
 namespace =
     "layout"
-
-
-unlayoutClass : Classes -> Attribute msg
-unlayoutClass =
-    namespacedClass namespace
 
 
 type Classes
@@ -278,23 +271,22 @@ inputField =
     ]
 
 
-selectField : List Style
-selectField =
-    [ backgroundColor transparent
-    , borderStyle none
-    , borderBottom3 (px 1) solid (hex "#FFF")
-    , marginTop (px 1)
-    , display block
-    , property "-webkit-appearance" "none"
-    , property "-moz-appearance" "none"
-    ]
-
-
 selectWrapper : List Style
 selectWrapper =
     [ displayFlex
     , alignItems center
     , marginRight (px 15)
+    , descendants
+        [ select
+            [ backgroundColor transparent
+            , borderStyle none
+            , borderBottom3 (px 1) solid (hex "#FFF")
+            , marginTop (px 1)
+            , display block
+            , property "-webkit-appearance" "none"
+            , property "-moz-appearance" "none"
+            ]
+        ]
     ]
 
 
@@ -338,7 +330,6 @@ layoutStyles =
     , class Card card
     , class CardTitle cardTitle
     , class InputField inputField
-    , class SelectField selectField
     , class SelectWrapper selectWrapper
     , class SelectCaret selectCaret
     , class MaterialIcon materialIcon

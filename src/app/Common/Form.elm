@@ -30,7 +30,7 @@ customLoadingOrSubmitButton { response, id, enabledStyle, disabledStyle } attrib
         Loading ->
             styled Html.Styled.button
                 enabledStyle
-                [ Html.Styled.Attributes.disabled True, Html.Styled.Attributes.id id ]
+                [ disabled True, Html.Styled.Attributes.id id ]
                 [ styled Html.Styled.div buttonContainer [] [ Html.Styled.text "Carregando...", Html.Styled.i [] [] ] ]
 
         _ ->
@@ -95,9 +95,7 @@ selectInput form_ id_ options =
             [ Html.Styled.fromUnstyled <|
                 Input.selectInput options
                     field
-                    [ Html.Attributes.id id_
-                    , unlayoutClass SelectField
-                    ]
+                    [ Html.Attributes.id id_ ]
             , styled span selectCaret [] [ text "▼" ]
             ]
         , errorFor field
