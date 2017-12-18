@@ -1,25 +1,25 @@
 module Common.Icon exposing (icon, iconLeft, iconRight)
 
-import Html.Styled exposing (Html, i, text)
-import Layout.Styles exposing (Classes(..), layoutClass)
+import Css exposing (..)
+import Html.Styled exposing (..)
+import Layout.Styles exposing (..)
 
 
 iconRight : String -> Html a
 iconRight =
-    icon_ MaterialIconRight
+    icon_ materialIconRight
 
 
 iconLeft : String -> Html a
 iconLeft =
-    icon_ MaterialIconLeft
+    icon_ materialIconLeft
 
 
 icon : String -> Html a
 icon =
-    icon_ MaterialIcon
+    icon_ materialIcon
 
 
-icon_ : Layout.Styles.Classes -> String -> Html a
-icon_ class_ name =
-    i [ layoutClass class_ ]
-        [ text name ]
+icon_ : List Style -> String -> Html msg
+icon_ style name =
+    styled i style [] [ text name ]

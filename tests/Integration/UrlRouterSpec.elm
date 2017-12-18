@@ -3,7 +3,6 @@ module Integration.UrlRouterSpec exposing (tests)
 import Css.Helpers exposing (identifierToString)
 import Expect exposing (equal)
 import Helpers exposing (..)
-import Layout.Styles exposing (Classes(SignOutButton))
 import Login.Ports exposing (signOut)
 import Login.Styles
 import Model as Root exposing (Model, Msg(..))
@@ -92,11 +91,6 @@ loginContext =
     initialContext Nothing Nothing LoginPage
 
 
-layoutClass : Layout.Styles.Classes -> Selector
-layoutClass =
-    Test.Html.Selector.class << identifierToString Layout.Styles.namespace
-
-
 loginClass : Login.Styles.Classes -> Selector
 loginClass =
     Test.Html.Selector.class << identifierToString Login.Styles.namespace
@@ -108,7 +102,7 @@ loginThenLogout =
         >> successSignIn
         >> update (MsgForUrlRouter <| UrlChange (toLocation GroupsListPage))
         >> simulate (find [ id "openMenu" ]) click
-        >> simulate (find [ layoutClass SignOutButton ]) click
+        >> simulate (find [ id "signOutButton" ]) click
 
 
 expectToBeOnLoginPage : TestContext model msg -> Expect.Expectation

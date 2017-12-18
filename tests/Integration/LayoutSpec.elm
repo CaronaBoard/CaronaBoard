@@ -19,32 +19,32 @@ tests =
         [ test "starts with the dropdown in the header closed" <|
             layoutContext
                 >> expectView
-                >> findAll [ class Menu ]
+                >> findAll [ id "menu" ]
                 >> count (Expect.equal 0)
         , test "opens the dropdown on click" <|
             layoutContext
                 >> simulate (find [ id "openMenu" ]) click
                 >> expectView
-                >> findAll [ class Menu ]
+                >> findAll [ id "menu" ]
                 >> count (Expect.equal 1)
         , test "closes the dropdown when clicking outside" <|
             layoutContext
                 >> simulate (find [ id "openMenu" ]) click
-                >> simulate (find [ class Menu ]) click
+                >> simulate (find [ id "menu" ]) click
                 >> expectView
-                >> findAll [ class Menu ]
+                >> findAll [ id "menu" ]
                 >> count (Expect.equal 0)
         , test "does not have a back button on groups page" <|
             layoutContext
                 >> navigate (toPath GroupsListPage)
                 >> expectView
-                >> findAll [ class NavBack ]
+                >> findAll [ id "navBack" ]
                 >> count (Expect.equal 0)
         , test "has a back button when on others pages" <|
             layoutContext
                 >> navigate (toPath GroupsListPage)
                 >> navigate (toPath ProfilePage)
-                >> simulate (find [ class NavBack ]) click
+                >> simulate (find [ id "navBack" ]) click
                 >> expectModel
                     (\model ->
                         model.urlRouter.page

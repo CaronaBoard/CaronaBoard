@@ -7,7 +7,6 @@ import Css.Foreign exposing (..)
 import DEPRECATED.Css.File exposing (..)
 import DEPRECATED.Css.Namespace
 import Html exposing (Attribute)
-import Html.Styled
 
 
 namespace : String
@@ -18,11 +17,6 @@ namespace =
 unlayoutClass : Classes -> Attribute msg
 unlayoutClass =
     namespacedClass namespace
-
-
-layoutClass : class -> Html.Styled.Attribute msg
-layoutClass =
-    styledNamespacedClass namespace
 
 
 type Classes
@@ -112,171 +106,244 @@ header =
     ]
 
 
+navbar : List Style
+navbar =
+    [ backgroundColor primaryBlue
+    , position fixed
+    , displayFlex
+    , justifyContent spaceBetween
+    , width (pct 100)
+    , lightTextColor
+    , height (px 56)
+    , lineHeight (px 56)
+    , cardShadow
+    , children
+        [ ul
+            [ margin (px 0)
+            , displayFlex
+            ]
+        ]
+    , descendants
+        [ class MaterialIcon
+            [ fontSize (px 24)
+            ]
+        ]
+    ]
+
+
+brandLogo : List Style
+brandLogo =
+    [ fontSize (Css.rem 1.4)
+    , lightTextColor
+    , position absolute
+    , textAlign center
+    , width (pct 100)
+    , cursor pointer
+    ]
+
+
+navBack : List Style
+navBack =
+    menuButton
+        ++ [ children
+                [ selector ".layoutMaterialIcon"
+                    [ fontSize (px 30)
+                    ]
+                ]
+           ]
+
+
+pageTitle : List Style
+pageTitle =
+    [ darkTextColor
+    , fontSize (px 34)
+    ]
+
+
+submitButton : List Style
+submitButton =
+    button
+
+
+disabledButton : List Style
+disabledButton =
+    button
+        ++ [ backgroundColor grey
+           , color darkerGrey
+           , hover
+                [ backgroundColor grey
+                ]
+           ]
+
+
+disabledLinkButton : List Style
+disabledLinkButton =
+    linkButton
+        ++ [ color darkerGrey
+           ]
+
+
+buttonContainer : List Style
+buttonContainer =
+    [ displayFlex
+    , justifyContent center
+    ]
+
+
+menu : List Style
+menu =
+    [ position fixed
+    , width (pct 100)
+    , height (pct 100)
+    , zIndex (int 998)
+    ]
+
+
+animatedDropdown : List Style
+animatedDropdown =
+    card
+        ++ [ padding (px 0)
+           , margin (px 10)
+           , display block
+           , top (px 0)
+           , right (px 0)
+           , width auto
+           , opacity (int 1)
+           , overflow hidden
+           , property "animation" "slideDown 0.3s"
+           , backgroundColor white
+           , position absolute
+           , zIndex (int 999)
+           ]
+
+
+dropdownLink : List Style
+dropdownLink =
+    [ padding2 (px 10) (px 15)
+    , fontSize (px 16)
+    , display block
+    , hover
+        [ backgroundColor grey
+        ]
+    ]
+
+
+addRideLink : List Style
+addRideLink =
+    menuButton
+        ++ [ displayFlex
+           , alignItems center
+           ]
+
+
+errorMessage : List Style
+errorMessage =
+    [ lightTextColor
+    , backgroundColor primaryRed
+    , padding2 (px 5) (px 15)
+    , borderRadius (px 17)
+    , fontSize (px 14)
+    , display inlineBlock
+    , marginBottom (px 20)
+    ]
+
+
+cardTitle : List Style
+cardTitle =
+    [ fontSize (px 16)
+    , fontWeight bold
+    ]
+
+
+inputField : List Style
+inputField =
+    [ position relative
+    , marginTop (px 15)
+    , descendants
+        [ selector "label"
+            [ top (px -10)
+            , left (px 0)
+            , fontSize (pct 80)
+            , position absolute
+            , property "transition" ".2s ease-out"
+            ]
+        , selector "input"
+            [ fontSize (Css.rem 1.1)
+            ]
+        , selector "input:placeholder-shown:not(:focus) + label"
+            [ fontSize (Css.rem 1.1)
+            , top (px 10)
+            ]
+        ]
+    ]
+
+
+selectField : List Style
+selectField =
+    [ backgroundColor transparent
+    , borderStyle none
+    , borderBottom3 (px 1) solid (hex "#FFF")
+    , marginTop (px 1)
+    , display block
+    , property "-webkit-appearance" "none"
+    , property "-moz-appearance" "none"
+    ]
+
+
+selectWrapper : List Style
+selectWrapper =
+    [ displayFlex
+    , alignItems center
+    , marginRight (px 15)
+    ]
+
+
+selectCaret : List Style
+selectCaret =
+    [ fontSize (px 10)
+    ]
+
+
+materialIconLeft : List Style
+materialIconLeft =
+    materialIcon
+        ++ [ float left ]
+
+
+materialIconRight : List Style
+materialIconRight =
+    materialIcon
+        ++ [ float right ]
+
+
 layoutStyles : List Snippet
 layoutStyles =
-    [ class Container
-        container
-    , class Header
-        [ height (px 54)
-        ]
-    , class Navbar
-        [ backgroundColor primaryBlue
-        , position fixed
-        , displayFlex
-        , justifyContent spaceBetween
-        , width (pct 100)
-        , lightTextColor
-        , height (px 56)
-        , lineHeight (px 56)
-        , cardShadow
-        , children
-            [ ul
-                [ margin (px 0)
-                , displayFlex
-                ]
-            ]
-        , descendants
-            [ class MaterialIcon
-                [ fontSize (px 24)
-                ]
-            ]
-        ]
-    , class MenuButton
-        menuButton
-    , class BrandLogo
-        [ fontSize (Css.rem 1.4)
-        , lightTextColor
-        , position absolute
-        , textAlign center
-        , width (pct 100)
-        , cursor pointer
-        ]
-    , class NavBack <|
-        menuButton
-            ++ [ children
-                    [ selector ".layoutMaterialIcon"
-                        [ fontSize (px 30)
-                        ]
-                    ]
-               ]
-    , class PageTitle
-        [ darkTextColor
-        , fontSize (px 34)
-        ]
-    , class SubmitButton
-        button
-    , class DisabledButton <|
-        button
-            ++ [ backgroundColor grey
-               , color darkerGrey
-               , hover
-                    [ backgroundColor grey
-                    ]
-               ]
-    , class LinkButton <|
-        linkButton
-    , class DisabledLinkButton <|
-        linkButton
-            ++ [ color darkerGrey
-               ]
-    , class ButtonContainer
-        [ displayFlex
-        , justifyContent center
-        ]
-    , class Menu
-        [ position fixed
-        , width (pct 100)
-        , height (pct 100)
-        , zIndex (int 998)
-        ]
-    , class AnimatedDropdown <|
-        card
-            ++ [ padding (px 0)
-               , margin (px 10)
-               , display block
-               , top (px 0)
-               , right (px 0)
-               , width auto
-               , opacity (int 1)
-               , overflow hidden
-               , property "animation" "slideDown 0.3s"
-               , backgroundColor white
-               , position absolute
-               , zIndex (int 999)
-               ]
-    , class DropdownLink
-        [ padding2 (px 10) (px 15)
-        , fontSize (px 16)
-        , display block
-        , hover
-            [ backgroundColor grey
-            ]
-        ]
-    , class AddRideLink <|
-        menuButton
-            ++ [ displayFlex
-               , alignItems center
-               ]
-    , class ErrorMessage
-        [ lightTextColor
-        , backgroundColor primaryRed
-        , padding2 (px 5) (px 15)
-        , borderRadius (px 17)
-        , fontSize (px 14)
-        , display inlineBlock
-        , marginBottom (px 20)
-        ]
-    , class Card
-        card
-    , class CardTitle
-        [ fontSize (px 16)
-        , fontWeight bold
-        ]
-    , class InputField
-        [ position relative
-        , marginTop (px 15)
-        , descendants
-            [ selector "label"
-                [ top (px -10)
-                , left (px 0)
-                , fontSize (pct 80)
-                , position absolute
-                , property "transition" ".2s ease-out"
-                ]
-            , selector "input"
-                [ fontSize (Css.rem 1.1)
-                ]
-            , selector "input:placeholder-shown:not(:focus) + label"
-                [ fontSize (Css.rem 1.1)
-                , top (px 10)
-                ]
-            ]
-        ]
-    , class SelectField
-        [ backgroundColor transparent
-        , borderStyle none
-        , borderBottom3 (px 1) solid (hex "#FFF")
-        , marginTop (px 1)
-        , display block
-        , property "-webkit-appearance" "none"
-        , property "-moz-appearance" "none"
-        ]
-    , class SelectWrapper
-        [ displayFlex
-        , alignItems center
-        , marginRight (px 15)
-        ]
-    , class SelectCaret
-        [ fontSize (px 10)
-        ]
-    , class MaterialIcon
-        materialIcon
-    , class MaterialIconLeft <|
-        materialIcon
-            ++ [ float left ]
-    , class MaterialIconRight <|
-        materialIcon
-            ++ [ float right ]
+    [ class Container container
+    , class Header header
+    , class Navbar navbar
+    , class MenuButton menuButton
+    , class BrandLogo brandLogo
+    , class NavBack navBack
+    , class PageTitle pageTitle
+    , class SubmitButton submitButton
+    , class DisabledButton disabledButton
+    , class LinkButton linkButton
+    , class DisabledLinkButton disabledLinkButton
+    , class ButtonContainer buttonContainer
+    , class Menu menu
+    , class AnimatedDropdown animatedDropdown
+    , class DropdownLink dropdownLink
+    , class AddRideLink addRideLink
+    , class ErrorMessage errorMessage
+    , class Card card
+    , class CardTitle cardTitle
+    , class InputField inputField
+    , class SelectField selectField
+    , class SelectWrapper selectWrapper
+    , class SelectCaret selectCaret
+    , class MaterialIcon materialIcon
+    , class MaterialIconLeft materialIconLeft
+    , class MaterialIconRight materialIconRight
 
     -- TODO: This below is a very hacky way of adding import Css.Foreign, waiting for elm-css to add support for it
     , selector "@keyframes slideDown {"

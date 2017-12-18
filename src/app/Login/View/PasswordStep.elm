@@ -3,10 +3,9 @@ module Login.View.PasswordStep exposing (passwordStep)
 import Common.Form exposing (customLoadingOrSubmitButton, renderErrors)
 import Common.Icon exposing (icon)
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (autofocus, css, for, id, placeholder, type_, value)
 import Html.Styled.Events exposing (onInput, onSubmit, onWithOptions)
 import Json.Decode as Json
-import Layout.Styles exposing (Classes(..), layoutClass)
+import Layout.Styles exposing (..)
 import Login.Model exposing (Model, Msg(..))
 import Login.Styles exposing (..)
 import Login.View.Fields exposing (passwordInput)
@@ -23,13 +22,21 @@ passwordStep model =
             , renderErrors model.passwordReset
             , styled div filledEmail [] [ text model.email ]
             , passwordInput model.password UpdatePassword "password" "Senha"
-            , customLoadingOrSubmitButton model.signedIn
-                [ css submitButton, id "submitPassword" ]
-                [ layoutClass DisabledButton ]
+            , customLoadingOrSubmitButton
+                { response = model.signedIn
+                , id = "submitPassword"
+                , enabledStyle = Layout.Styles.submitButton
+                , disabledStyle = disabledButton
+                }
+                []
                 [ text "Entrar", Common.Icon.icon "done" ]
-            , customLoadingOrSubmitButton model.passwordReset
-                [ css resetPasswordButton, id "resetPassword", onWithOptions "click" { stopPropagation = True, preventDefault = True } (Json.succeed PasswordReset) ]
-                [ layoutClass DisabledLinkButton, id "resetPassword" ]
+            , customLoadingOrSubmitButton
+                { response = model.passwordReset
+                , id = "resetPassword"
+                , enabledStyle = resetPasswordButton
+                , disabledStyle = disabledLinkButton
+                }
+                [ onWithOptions "click" { stopPropagation = True, preventDefault = True } (Json.succeed PasswordReset) ]
                 [ text "Esqueci a Senha"
                 ]
             ]

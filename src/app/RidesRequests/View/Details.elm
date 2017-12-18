@@ -2,7 +2,7 @@ module RidesRequests.View.Details exposing (details)
 
 import Common.Form exposing (renderErrors)
 import Html.Styled exposing (..)
-import Layout.Styles exposing (Classes(..), layoutClass)
+import Layout.Styles exposing (..)
 import RemoteData exposing (..)
 import RidesRequests.Model exposing (Collection, Msg(..))
 import RidesRequests.View.New exposing (contactDetails)
@@ -10,14 +10,18 @@ import RidesRequests.View.New exposing (contactDetails)
 
 details : Collection -> Html msg
 details collection =
-    div [ layoutClass Container ]
-        [ h1 [ layoutClass PageTitle ] [ text "Pedido de Carona" ]
-        , div [ layoutClass Card ] <|
+    styled div
+        container
+        []
+        [ styled h1 pageTitle [] [ text "Pedido de Carona" ]
+        , styled div card [] <|
             case collection.list of
                 Success ridesRequests ->
                     case List.head ridesRequests of
                         Just rideRequest ->
-                            [ div [ layoutClass CardTitle ]
+                            [ styled div
+                                cardTitle
+                                []
                                 [ text <| "Você recebeu um pedido de carona de " ++ rideRequest.profile.name
                                 ]
                             , p [] [ text "Para combinar melhor a carona, use o contato abaixo:" ]

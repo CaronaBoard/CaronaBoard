@@ -1,6 +1,7 @@
 module Common.Form exposing (..)
 
 import Common.Response exposing (..)
+import Css
 import Form exposing (..)
 import Form.Error exposing (..)
 import Form.Input as Input
@@ -11,24 +12,32 @@ import Layout.Styles exposing (..)
 import RemoteData exposing (..)
 
 
-loadingOrSubmitButton : Response a -> String -> List (Html.Styled.Html msg) -> Html.Styled.Html msg
-loadingOrSubmitButton response id_ children =
-    customLoadingOrSubmitButton response
-        [ layoutClass SubmitButton, Html.Styled.Attributes.id id_ ]
-        [ layoutClass DisabledButton, Html.Styled.Attributes.id id_ ]
+loadingOrSubmitButton : RemoteData e a -> String -> List (Html msg) -> Html msg
+loadingOrSubmitButton response id children =
+    customLoadingOrSubmitButton
+        { response = response
+        , id = id
+        , enabledStyle = submitButton
+        , disabledStyle = disabledButton
+        }
+        []
         children
 
 
-customLoadingOrSubmitButton : Response a -> List (Html.Styled.Attribute msg) -> List (Html.Styled.Attribute msg) -> List (Html.Styled.Html msg) -> Html.Styled.Html msg
-customLoadingOrSubmitButton response enabledAttributes disabledAttributes children =
+customLoadingOrSubmitButton : { disabledStyle : List Css.Style, enabledStyle : List Css.Style, id : String, response : RemoteData e a } -> List (Attribute msg) -> List (Html msg) -> Html msg
+customLoadingOrSubmitButton { response, id, enabledStyle, disabledStyle } attributes children =
     case response of
         Loading ->
-            Html.Styled.button ([ Html.Styled.Attributes.disabled True ] ++ disabledAttributes)
-                [ Html.Styled.div [ layoutClass ButtonContainer ] [ Html.Styled.text "Carregando...", Html.Styled.i [] [] ] ]
+            styled Html.Styled.button
+                enabledStyle
+                [ Html.Styled.Attributes.disabled True, Html.Styled.Attributes.id id ]
+                [ styled Html.Styled.div buttonContainer [] [ Html.Styled.text "Carregando...", Html.Styled.i [] [] ] ]
 
         _ ->
-            Html.Styled.button enabledAttributes
-                [ Html.Styled.div [ layoutClass ButtonContainer ] children
+            styled Html.Styled.button
+                disabledStyle
+                ([ Html.Styled.Attributes.id id ] ++ attributes)
+                [ styled Html.Styled.div buttonContainer [] children
                 ]
 
 
@@ -46,7 +55,7 @@ renderError : Maybe String -> Html msg
 renderError error =
     case error of
         Just error ->
-            div [ layoutClass ErrorMessage ] [ text error ]
+            styled div errorMessage [] [ text error ]
 
         Nothing ->
             text ""
@@ -58,7 +67,9 @@ textInput form_ id_ label_ =
         field =
             Form.getFieldAsString id_ form_
     in
-    div [ layoutClass InputField ]
+    styled div
+        inputField
+        []
         [ Html.Styled.fromUnstyled <|
             Input.textInput field
                 [ Html.Attributes.id id_
@@ -75,15 +86,19 @@ selectInput form_ id_ options =
         field =
             Form.getFieldAsString id_ form_
     in
-    div [ layoutClass InputField ]
-        [ div [ layoutClass SelectWrapper ]
+    styled div
+        inputField
+        []
+        [ styled div
+            selectWrapper
+            []
             [ Html.Styled.fromUnstyled <|
                 Input.selectInput options
                     field
                     [ Html.Attributes.id id_
                     , unlayoutClass SelectField
                     ]
-            , span [ layoutClass SelectCaret ] [ text "▼" ]
+            , styled span selectCaret [] [ text "▼" ]
             ]
         , errorFor field
         ]

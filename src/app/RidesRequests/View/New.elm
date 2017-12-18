@@ -1,10 +1,10 @@
 module RidesRequests.View.New exposing (contactDetails, new)
 
-import Common.Form exposing (renderErrors, loadingOrSubmitButton)
+import Common.Form exposing (loadingOrSubmitButton, renderErrors)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (for, href, id, placeholder, selected, target, value)
 import Html.Styled.Events exposing (onInput, onSubmit)
-import Layout.Styles exposing (Classes(..), layoutClass)
+import Layout.Styles exposing (..)
 import Profile.Model exposing (Profile, contactDeepLink)
 import RemoteData exposing (..)
 import Rides.Model
@@ -20,7 +20,7 @@ new ride collection =
             styled div
                 Rides.Styles.card
                 []
-                [ div [ layoutClass CardTitle ] [ text "O pedido de carona foi enviado com sucesso!" ]
+                [ styled div cardTitle [] [ text "O pedido de carona foi enviado com sucesso!" ]
                 , p [] [ text "Para combinar melhor a carona, use o contato abaixo:" ]
                 , contactDetails ride.profile
                 ]
@@ -45,7 +45,7 @@ contactDetails profile =
 formFields : Rides.Model.Model -> Collection -> List (Html Msg)
 formFields ride collection =
     [ renderErrors collection.new.response
-    , div [ layoutClass CardTitle ] [ text "Confirme os detalhes da carona antes de confirmar" ]
+    , styled div cardTitle [] [ text "Confirme os detalhes da carona antes de confirmar" ]
     , br [] []
     , rideRoute ride
     , Rides.View.List.rideInfo ride

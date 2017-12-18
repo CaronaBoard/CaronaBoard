@@ -38,8 +38,10 @@ list groupId { rides, groups } =
 
 ridesList : Groups.Model.Group -> Rides.Collection -> Html Msg
 ridesList group rides =
-    div [ layoutClass Container ]
-        [ h1 [ layoutClass PageTitle ] [ text group.name ]
+    styled div
+        container
+        []
+        [ styled h1 pageTitle [] [ text group.name ]
         , joinRequestList group
         , case rides.list of
             NotAsked ->
@@ -74,7 +76,7 @@ rideItem groupId ride =
     styled div
         Rides.Styles.card
         [ id "rideItem" ]
-        [ span [ layoutClass CardTitle ] [ text ride.destination ]
+        [ styled span cardTitle [] [ text ride.destination ]
         , rideRoute ride
         , styled div
             otherDetails
