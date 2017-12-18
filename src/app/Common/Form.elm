@@ -7,15 +7,15 @@ import Form.Input as Input
 import Html.Attributes
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (..)
-import Layout.Styles exposing (Classes(..), layoutClass, styledLayoutClass)
+import Layout.Styles exposing (..)
 import RemoteData exposing (..)
 
 
 loadingOrSubmitButton : Response a -> String -> List (Html.Styled.Html msg) -> Html.Styled.Html msg
 loadingOrSubmitButton response id_ children =
     customLoadingOrSubmitButton response
-        [ styledLayoutClass SubmitButton, Html.Styled.Attributes.id id_ ]
-        [ styledLayoutClass DisabledButton, Html.Styled.Attributes.id id_ ]
+        [ layoutClass SubmitButton, Html.Styled.Attributes.id id_ ]
+        [ layoutClass DisabledButton, Html.Styled.Attributes.id id_ ]
         children
 
 
@@ -24,11 +24,11 @@ customLoadingOrSubmitButton response enabledAttributes disabledAttributes childr
     case response of
         Loading ->
             Html.Styled.button ([ Html.Styled.Attributes.disabled True ] ++ disabledAttributes)
-                [ Html.Styled.div [ styledLayoutClass ButtonContainer ] [ Html.Styled.text "Carregando...", Html.Styled.i [] [] ] ]
+                [ Html.Styled.div [ layoutClass ButtonContainer ] [ Html.Styled.text "Carregando...", Html.Styled.i [] [] ] ]
 
         _ ->
             Html.Styled.button enabledAttributes
-                [ Html.Styled.div [ styledLayoutClass ButtonContainer ] children
+                [ Html.Styled.div [ layoutClass ButtonContainer ] children
                 ]
 
 
@@ -46,7 +46,7 @@ renderError : Maybe String -> Html msg
 renderError error =
     case error of
         Just error ->
-            div [ styledLayoutClass ErrorMessage ] [ text error ]
+            div [ layoutClass ErrorMessage ] [ text error ]
 
         Nothing ->
             text ""
@@ -58,7 +58,7 @@ textInput form_ id_ label_ =
         field =
             Form.getFieldAsString id_ form_
     in
-    div [ styledLayoutClass InputField ]
+    div [ layoutClass InputField ]
         [ Html.Styled.fromUnstyled <|
             Input.textInput field
                 [ Html.Attributes.id id_
@@ -75,15 +75,15 @@ selectInput form_ id_ options =
         field =
             Form.getFieldAsString id_ form_
     in
-    div [ styledLayoutClass InputField ]
-        [ div [ styledLayoutClass SelectWrapper ]
+    div [ layoutClass InputField ]
+        [ div [ layoutClass SelectWrapper ]
             [ Html.Styled.fromUnstyled <|
                 Input.selectInput options
                     field
                     [ Html.Attributes.id id_
-                    , layoutClass SelectField
+                    , unlayoutClass SelectField
                     ]
-            , span [ styledLayoutClass SelectCaret ] [ text "▼" ]
+            , span [ layoutClass SelectCaret ] [ text "▼" ]
             ]
         , errorFor field
         ]

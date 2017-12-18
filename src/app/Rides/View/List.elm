@@ -38,8 +38,8 @@ list groupId { rides, groups } =
 
 ridesList : Groups.Model.Group -> Rides.Collection -> Html Msg
 ridesList group rides =
-    div [ styledLayoutClass Container ]
-        [ h1 [ styledLayoutClass PageTitle ] [ text group.name ]
+    div [ layoutClass Container ]
+        [ h1 [ layoutClass PageTitle ] [ text group.name ]
         , joinRequestList group
         , case rides.list of
             NotAsked ->
@@ -60,7 +60,7 @@ ridesList group rides =
                         [ div [] (List.map (rideItem group.id) ridesForGroup)
                         , p []
                             [ text "Tem um carro? Adicione sua carona "
-                            , styledLinkTo (RidesCreatePage group.id) [] [ text "aqui" ]
+                            , linkTo (RidesCreatePage group.id) [] [ text "aqui" ]
                             ]
                         ]
 
@@ -74,13 +74,13 @@ rideItem groupId ride =
     styled div
         Rides.Styles.card
         [ id "rideItem" ]
-        [ span [ styledLayoutClass CardTitle ] [ text ride.destination ]
+        [ span [ layoutClass CardTitle ] [ text ride.destination ]
         , rideRoute ride
         , styled div
             otherDetails
             []
             [ rideInfo ride
-            , styledLinkTo (RideDetailsPage groupId ride.id) [ css actionButton ] [ text "Quero carona" ]
+            , linkTo (RideDetailsPage groupId ride.id) [ css actionButton ] [ text "Quero carona" ]
             ]
         ]
 
@@ -91,12 +91,12 @@ rideRoute ride =
         path
         []
         [ div []
-            [ styled div pathIcon [] [ fromUnstyled <| icon "more_vert" ]
-            , styled span pathIconDot [] [ fromUnstyled <| icon "radio_button_unchecked" ]
+            [ styled div pathIcon [] [ icon "more_vert" ]
+            , styled span pathIconDot [] [ icon "radio_button_unchecked" ]
             , text <| "Origem: " ++ ride.origin
             ]
         , div []
-            [ styled span pathIconDot [] [ fromUnstyled <| icon "radio_button_unchecked" ]
+            [ styled span pathIconDot [] [ icon "radio_button_unchecked" ]
             , text <| "Destino: " ++ ride.destination
             ]
         ]
@@ -108,15 +108,15 @@ rideInfo ride =
         Rides.Styles.rideInfo
         []
         [ li []
-            [ fromUnstyled <| icon "today"
+            [ icon "today"
             , text ride.days
             ]
         , li []
-            [ fromUnstyled <| icon "schedule"
+            [ icon "schedule"
             , text ride.hours
             ]
         , li []
-            [ fromUnstyled <| icon "directions_car"
+            [ icon "directions_car"
             , text ride.profile.name
             ]
         ]

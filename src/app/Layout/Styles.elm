@@ -15,13 +15,13 @@ namespace =
     "layout"
 
 
-layoutClass : Classes -> Attribute msg
-layoutClass =
+unlayoutClass : Classes -> Attribute msg
+unlayoutClass =
     namespacedClass namespace
 
 
-styledLayoutClass : class -> Html.Styled.Attribute msg
-styledLayoutClass =
+layoutClass : class -> Html.Styled.Attribute msg
+layoutClass =
     styledNamespacedClass namespace
 
 

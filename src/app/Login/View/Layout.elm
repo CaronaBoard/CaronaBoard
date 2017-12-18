@@ -41,7 +41,7 @@ formStep step =
                 [ styled div
                     Login.Styles.icon
                     []
-                    [ styled div bigIcon [] [ Html.Styled.fromUnstyled <| Common.Icon.icon "lock_outline" ]
+                    [ styled div bigIcon [] [ Common.Icon.icon "lock_outline" ]
                     , text "Entre com sua conta"
                     ]
                 , step

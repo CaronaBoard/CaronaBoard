@@ -4,7 +4,7 @@ import Common.Form exposing (renderErrors, customLoadingOrSubmitButton)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css)
 import Html.Styled.Events exposing (onInput, onSubmit)
-import Layout.Styles exposing (Classes(..), styledLayoutClass)
+import Layout.Styles exposing (Classes(..), layoutClass)
 import Login.Model exposing (Model, Msg(..))
 import Login.Styles exposing (..)
 import Login.View.Fields exposing (emailInput, passwordInput)
@@ -43,6 +43,6 @@ registration model =
         , passwordInput model.password UpdatePassword "password" "Nova Senha"
         , customLoadingOrSubmitButton model.signUp
             [ css Login.Styles.submitButton ]
-            [ styledLayoutClass DisabledButton ]
+            [ layoutClass DisabledButton ]
             [ text "Cadastrar" ]
         ]

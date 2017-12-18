@@ -36,12 +36,12 @@ joinRequestItem group request =
                 [ id "acceptJoinRequest"
                 , onClick (MsgForGroups <| RespondJoinRequest group.id request.userId True)
                 ]
-                [ fromUnstyled <| icon "check" ]
+                [ icon "check" ]
             , styled button
                 respondButton
                 [ id "rejectJoinRequest"
                 , onClick (MsgForGroups <| RespondJoinRequest group.id request.userId False)
                 ]
-                [ fromUnstyled <| icon "close" ]
+                [ icon "close" ]
             ]
         ]

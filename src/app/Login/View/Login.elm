@@ -5,7 +5,7 @@ import Common.Icon exposing (icon)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css, id)
 import Html.Styled.Events exposing (onInput, onSubmit)
-import Layout.Styles exposing (Classes(..), styledLayoutClass)
+import Layout.Styles exposing (Classes(..), layoutClass)
 import Login.Model exposing (Model, Msg(..))
 import Login.Styles
 import Login.View.Fields exposing (emailInput)
@@ -20,6 +20,6 @@ login model =
             , emailInput model.email UpdateEmail "email" "Email"
             , customLoadingOrSubmitButton model.registered
                 [ css Login.Styles.submitButton ]
-                [ styledLayoutClass DisabledButton ]
-                [ text "Próximo", fromUnstyled <| icon "arrow_forward" ]
+                [ layoutClass DisabledButton ]
+                [ text "Próximo", icon "arrow_forward" ]
             ]

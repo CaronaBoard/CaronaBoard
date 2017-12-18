@@ -1,9 +1,7 @@
 module Common.Link exposing (..)
 
-import Html exposing (Attribute, Html, a)
-import Html.Events exposing (onClick)
-import Html.Styled
-import Html.Styled.Events
+import Html.Styled exposing (..)
+import Html.Styled.Events exposing (..)
 import Model as RootMsg exposing (Msg(..))
 import UrlRouter.Model exposing (Msg(Go))
 import UrlRouter.Routes exposing (Page, toPath)
@@ -13,15 +11,6 @@ linkTo : Page -> List (Attribute RootMsg.Msg) -> List (Html RootMsg.Msg) -> Html
 linkTo page attributes =
     a
         ([ onClick (MsgForUrlRouter <| Go page)
-         ]
-            ++ attributes
-        )
-
-
-styledLinkTo : Page -> List (Html.Styled.Attribute RootMsg.Msg) -> List (Html.Styled.Html RootMsg.Msg) -> Html.Styled.Html RootMsg.Msg
-styledLinkTo page attributes =
-    Html.Styled.a
-        ([ Html.Styled.Events.onClick (MsgForUrlRouter <| Go page)
          ]
             ++ attributes
         )

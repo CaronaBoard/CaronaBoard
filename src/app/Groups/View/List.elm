@@ -5,7 +5,7 @@ import Groups.Styles exposing (..)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (id)
 import Html.Styled.Events exposing (onClick)
-import Layout.Styles exposing (Classes(..), styledLayoutClass)
+import Layout.Styles exposing (Classes(..), layoutClass)
 import Login.Model
 import Model as Root exposing (Msg(..))
 import RemoteData exposing (..)
@@ -24,8 +24,8 @@ list login model =
 
         Success groups ->
             div []
-                [ div [ styledLayoutClass Container ]
-                    [ h1 [ styledLayoutClass PageTitle ] [ text "Grupos de Carona" ]
+                [ div [ layoutClass Container ]
+                    [ h1 [ layoutClass PageTitle ] [ text "Grupos de Carona" ]
                     ]
                 , styled div
                     listContainer

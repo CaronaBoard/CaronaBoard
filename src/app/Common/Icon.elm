@@ -1,6 +1,6 @@
 module Common.Icon exposing (icon, iconLeft, iconRight)
 
-import Html exposing (Html, i, text)
+import Html.Styled exposing (Html, i, text)
 import Layout.Styles exposing (Classes(..), layoutClass)
 
 
