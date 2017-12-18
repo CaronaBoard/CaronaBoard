@@ -38,9 +38,7 @@ list groupId { rides, groups } =
 
 ridesList : Groups.Model.Group -> Rides.Collection -> Html Msg
 ridesList group rides =
-    styled div
-        container
-        []
+    containerElem []
         [ pageTitle [] [ text group.name ]
         , joinRequestList group
         , case rides.list of
@@ -78,27 +76,23 @@ rideItem groupId ride =
         [ id "rideItem" ]
         [ styled span cardTitle [] [ text ride.destination ]
         , rideRoute ride
-        , styled div
-            otherDetails
-            []
+        , otherDetails []
             [ rideInfo ride
-            , linkTo (RideDetailsPage groupId ride.id) [ css actionButton ] [ text "Quero carona" ]
+            , styledLinkTo (RideDetailsPage groupId ride.id) actionButton [] [ text "Quero carona" ]
             ]
         ]
 
 
 rideRoute : Rides.Model -> Html msg
 rideRoute ride =
-    styled div
-        path
-        []
+    path []
         [ div []
-            [ styled div pathIcon [] [ icon "more_vert" ]
-            , styled span pathIconDot [] [ icon "radio_button_unchecked" ]
+            [ pathIcon [] [ icon "more_vert" ]
+            , pathIconDot [] [ icon "radio_button_unchecked" ]
             , text <| "Origem: " ++ ride.origin
             ]
         , div []
-            [ styled span pathIconDot [] [ icon "radio_button_unchecked" ]
+            [ pathIconDot [] [ icon "radio_button_unchecked" ]
             , text <| "Destino: " ++ ride.destination
             ]
         ]
@@ -106,19 +100,17 @@ rideRoute ride =
 
 rideInfo : Rides.Model -> Html msg
 rideInfo ride =
-    styled ul
-        Rides.Styles.rideInfo
-        []
+    Rides.Styles.rideInfo []
         [ li []
-            [ icon "today"
+            [ rideInfoIcon [] [ icon "today" ]
             , text ride.days
             ]
         , li []
-            [ icon "schedule"
+            [ rideInfoIcon [] [ icon "schedule" ]
             , text ride.hours
             ]
         , li []
-            [ icon "directions_car"
+            [ rideInfoIcon [] [ icon "directions_car" ]
             , text ride.profile.name
             ]
         ]

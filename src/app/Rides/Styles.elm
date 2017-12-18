@@ -1,23 +1,25 @@
 module Rides.Styles exposing (..)
 
 import Common.Colors exposing (..)
+import Common.CssHelpers exposing (..)
 import Css exposing (..)
-import Css.Foreign exposing (..)
+import Html.Styled exposing (..)
 
 
-contact : List Style
+contact : StyledElement msg
 contact =
-    [ fontSize (px 24) ]
+    styled div [ fontSize (px 24) ]
 
 
-otherDetails : List Style
+otherDetails : StyledElement msg
 otherDetails =
-    [ displayFlex
-    , justifyContent spaceBetween
-    , alignItems flexEnd
-    , borderTop3 (px 1) solid grey
-    , paddingTop (px 15)
-    ]
+    styled div
+        [ displayFlex
+        , justifyContent spaceBetween
+        , alignItems flexEnd
+        , borderTop3 (px 1) solid grey
+        , paddingTop (px 15)
+        ]
 
 
 actionButton : List Style
@@ -33,36 +35,39 @@ actionButton =
     ]
 
 
-path : List Style
+path : StyledElement msg
 path =
-    [ marginBottom (px 10) ]
+    styled div [ marginBottom (px 10) ]
 
 
-pathIcon : List Style
+pathIcon : StyledElement msg
 pathIcon =
-    [ descendants
-        [ selector ".layoutMaterialIcon"
-            [ position absolute
-            , fontSize (px 16)
-            , marginTop (px 10)
-            , marginLeft (px 2)
-            ]
+    styled div
+        [ position absolute
+        , fontSize (px 16)
+        , marginTop (px 10)
+        , marginLeft (px 2)
         ]
-    ]
 
 
-pathIconDot : List Style
+pathIconDot : StyledElement msg
 pathIconDot =
-    [ descendants
-        [ selector ".layoutMaterialIcon"
-            [ fontSize (px 10)
-            , marginLeft (px 5)
-            , marginRight (px 5)
-            ]
+    styled span
+        [ fontSize (px 10)
+        , marginLeft (px 5)
+        , marginRight (px 5)
         ]
-    ]
 
 
-rideInfo : List Style
+rideInfo : StyledElement msg
 rideInfo =
-    [ margin (px 0) ]
+    styled ul [ margin (px 0) ]
+
+
+rideInfoIcon : StyledElement msg
+rideInfoIcon =
+    styled span
+        [ fontSize (px 16)
+        , marginRight (px 5)
+        , verticalAlign middle
+        ]

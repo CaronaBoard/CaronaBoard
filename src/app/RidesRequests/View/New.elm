@@ -34,9 +34,7 @@ new ride collection =
 
 contactDetails : Profile -> Html msg
 contactDetails profile =
-    styled div
-        contact
-        []
+    contact []
         [ text <| profile.contact.kind ++ " "
         , a [ href <| contactDeepLink profile.contact, target "_blank" ] [ text profile.contact.value ]
         ]

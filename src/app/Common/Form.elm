@@ -29,13 +29,13 @@ customLoadingOrSubmitButton { response, id, enabledStyle, disabledStyle } attrib
     case response of
         Loading ->
             styled Html.Styled.button
-                enabledStyle
+                disabledStyle
                 [ disabled True, Html.Styled.Attributes.id id ]
                 [ styled Html.Styled.div buttonContainer [] [ Html.Styled.text "Carregando...", Html.Styled.i [] [] ] ]
 
         _ ->
             styled Html.Styled.button
-                disabledStyle
+                enabledStyle
                 ([ Html.Styled.Attributes.id id ] ++ attributes)
                 [ styled Html.Styled.div buttonContainer [] children
                 ]
