@@ -58,4 +58,4 @@ But if you want to deploy your changes to a temporary url and see how they look 
 
 ### Kanban Wall
 
-https://waffle.io/luismizutani/CaronaBoard
+https://github.com/CaronaBoard/caronaboard/projects
